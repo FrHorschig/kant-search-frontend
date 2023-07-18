@@ -5,6 +5,11 @@ import { StartpageComponent } from './startpage/startpage.component';
 const routes: Routes = [
   { path: '', redirectTo: '/startpage', pathMatch: 'full' },
   { path: 'startpage', component: StartpageComponent },
+  {
+    path: 'upload',
+    loadChildren: () =>
+      import('./upload/upload.module').then((m) => m.UploadModule),
+  },
 ];
 
 @NgModule({

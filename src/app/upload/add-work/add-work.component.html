@@ -1,0 +1,16 @@
+<p-blockUI [blocked]="isLoading">
+  <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+
+<p-messages></p-messages>
+
+<div class="flex justify-content-center">
+  <p-fileUpload
+    #fileUploadBtn
+    chooseLabel="Select text file"
+    mode="basic"
+    [customUpload]="true"
+    [auto]="true"
+    (uploadHandler)="onUpload($event, fileUploadBtn)"
+  ></p-fileUpload>
+</div>
