@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpError, UploadService } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
-import { SmartComponent } from 'src/app/common/base/smart/smart.component';
+import { SmartComponent } from 'src/app/common/base/smart.component';
 
 @Component({
   selector: 'app-add-work',
