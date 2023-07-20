@@ -4,7 +4,7 @@ import { NormalModeComponent } from './normal-mode/normal-mode.component';
 
 const routes: Routes = [
   {
-    path: '/normal',
+    path: 'normal',
     component: NormalModeComponent,
   },
 ];

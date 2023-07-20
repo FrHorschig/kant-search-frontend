@@ -1,4 +1,8 @@
 {
-  "ADMIN_NAV": "Admin",
+  "NAVBAR": {
+    "READ": "Read",
+    "SEARCH": "Search",
+    "ADMIN": "Admin"
+  },
   "SELECT_FILE_BTN": "Select file"
 }

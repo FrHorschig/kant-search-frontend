@@ -1,3 +1,8 @@
-<div class="flex justify-content-center">
-  <p-button [routerLink]="['/admin']">{{ "ADMIN_NAV" | translate }}</p-button>
-</div>
+<p-tabMenu [model]="items">
+  <ng-template pTemplate="item" let-item>
+    <i [ngClass]="item.icon"></i>
+    <div class="mt-2 ml-1">
+      {{ item.label | translate }}
+    </div>
+  </ng-template>
+</p-tabMenu>
