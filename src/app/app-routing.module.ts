@@ -10,6 +10,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
+  {
+    path: 'read',
+    loadChildren: () => import('./read/read.module').then((m) => m.ReadModule),
+  },
+  {
+    path: 'search',
+    loadChildren: () =>
+      import('./search/search.module').then((m) => m.SearchModule),
+  },
 ];
 
 @NgModule({
