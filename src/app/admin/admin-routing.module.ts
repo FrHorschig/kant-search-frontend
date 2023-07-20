@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddWorkComponent } from './add-work/add-work.component';
+import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   {
-    path: 'add-work',
-    component: AddWorkComponent,
+    path: '',
+    component: UploadComponent,
   },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UploadRoutingModule {}
+export class AdminRoutingModule {}

@@ -5,19 +5,19 @@ import { BlockUIModule } from 'primeng/blockui';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { UploadRoutingModule } from './upload-routing.module';
-import { AddWorkComponent } from './add-work/add-work.component';
+import { AdminRoutingModule } from './admin-routing.module';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
-  declarations: [AddWorkComponent],
+  declarations: [UploadComponent],
   imports: [
     CommonModule,
     TranslateModule.forChild(),
-    UploadRoutingModule,
+    AdminRoutingModule,
     BlockUIModule,
     FileUploadModule,
     MessagesModule,
     ProgressSpinnerModule,
   ],
 })
-export class UploadModule {}
+export class AdminModule {}

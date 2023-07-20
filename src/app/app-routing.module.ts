@@ -6,9 +6,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/startpage', pathMatch: 'full' },
   { path: 'startpage', component: StartpageComponent },
   {
-    path: 'upload',
+    path: 'admin',
     loadChildren: () =>
-      import('./upload/upload.module').then((m) => m.UploadModule),
+      import('./admin/admin.module').then((m) => m.AdminModule),
   },
 ];
 

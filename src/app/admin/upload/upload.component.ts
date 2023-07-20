@@ -4,11 +4,11 @@ import { MessageService } from 'primeng/api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 
 @Component({
-  selector: 'app-add-work',
-  templateUrl: './add-work.component.html',
+  selector: 'app-upload',
+  templateUrl: './upload.component.html',
   providers: [MessageService],
 })
-export class AddWorkComponent extends SmartComponent {
+export class UploadComponent extends SmartComponent {
   isLoading = false;
 
   constructor(
