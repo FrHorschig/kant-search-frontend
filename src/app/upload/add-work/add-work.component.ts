@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpError, UploadService } from 'kant-search-api';
+import { HttpError, UploadService, Work } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 
@@ -32,9 +32,15 @@ export class AddWorkComponent extends SmartComponent {
   }
 
   sendText(text: string) {
+    const work: Work = {
+      title: 'Example',
+      abbreviation: 'EX',
+      text: text,
+      volume: 1,
+    };
     this.messageService.clear();
     this.uploadService
-      .postWork(text)
+      .postWork(work)
       .pipe(this.takeUntilDestroy())
       .subscribe({
         next: () => {
