@@ -40,7 +40,7 @@ export class UploadComponent extends SmartComponent {
       title: this.title,
       abbreviation: this.abbrev,
       text: text,
-      volume: this.volume || 0,
+      volume: +(this.volume || 0),
     };
     this.postText(work);
     this.resetFields();
