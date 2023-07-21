@@ -4,13 +4,40 @@
 
 <p-messages></p-messages>
 
-<div class="flex justify-content-center">
-  <p-fileUpload
-    #fileUploadBtn
-    chooseLabel="{{ 'SELECT_FILE_BTN' | translate }}"
-    mode="basic"
-    [customUpload]="true"
-    [auto]="true"
-    (uploadHandler)="onUpload($event, fileUploadBtn)"
-  ></p-fileUpload>
+<div class="flex flex-column">
+  <div class="flex justify-content-center">
+    <div class="p-inputgroup mb-2 max-w-max">
+      <span class="p-inputgroup-addon">{{ "UPLOAD.TITLE" | translate }}</span>
+      <input pInputText required [(ngModel)]="title" />
+    </div>
+  </div>
+
+  <div class="flex justify-content-center">
+    <div class="p-inputgroup mb-2 max-w-max">
+      <span class="p-inputgroup-addon">{{ "UPLOAD.ABBREV" | translate }}</span>
+      <input pInputText required [(ngModel)]="abbrev" />
+    </div>
+  </div>
+
+  <div class="flex justify-content-center">
+    <div class="p-inputgroup mb-2 max-w-max">
+      <span class="p-inputgroup-addon">{{ "UPLOAD.VOLUME" | translate }}</span>
+      <input pInputText required [(ngModel)]="volume" />
+    </div>
+  </div>
+
+  <div class="flex justify-content-center">
+    <p-fileUpload
+      #fileUploadBtn
+      chooseLabel="{{ 'UPLOAD.SELECT_FILE' | translate }}"
+      uploadLabel="{{ 'UPLOAD.START_UPLOAD' | translate }}"
+      mode="basic"
+      [customUpload]="true"
+      (uploadHandler)="onUpload($event, fileUploadBtn)"
+      [disabled]="!title || !abbrev || !volume"
+      pTooltip="{{
+        !title || !abbrev || !volume ? ('UPLOAD.TOOLTIP' | translate) : ''
+      }}"
+    ></p-fileUpload>
+  </div>
 </div>

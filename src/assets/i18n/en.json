@@ -4,5 +4,12 @@
     "SEARCH": "Search",
     "ADMIN": "Admin"
   },
-  "SELECT_FILE_BTN": "Select file"
+  "UPLOAD": {
+    "TITLE": "Title",
+    "ABBREV": "Abbreviation",
+    "VOLUME": "Volume",
+    "TOOLTIP": "Fill out all fields to upload the text",
+    "SELECT_FILE": "Select text file",
+    "START_UPLOAD": "Start upload"
+  }
 }

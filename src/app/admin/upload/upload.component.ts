@@ -11,6 +11,10 @@ import { SmartComponent } from 'src/app/common/base/smart.component';
 export class UploadComponent extends SmartComponent {
   isLoading = false;
 
+  title = '';
+  abbrev = '';
+  volume: number | undefined;
+
   constructor(
     private readonly messageService: MessageService,
     private readonly uploadService: UploadService
@@ -24,20 +28,25 @@ export class UploadComponent extends SmartComponent {
     let reader = new FileReader();
     reader.onload = (e: any) => {
       if (reader.result) {
-        this.sendText(reader.result.toString());
+        this.processText(reader.result.toString());
       }
     };
     reader.readAsText(file);
     fileUploadBtn.clear();
   }
 
-  sendText(text: string) {
+  processText(text: string) {
     const work: Work = {
-      title: 'Example',
-      abbreviation: 'EX',
+      title: this.title,
+      abbreviation: this.abbrev,
       text: text,
-      volume: 1,
+      volume: this.volume || 0,
     };
+    this.postText(work);
+    this.resetFields();
+  }
+
+  postText(work: Work) {
     this.messageService.clear();
     this.uploadService
       .postWork(work)
@@ -59,5 +68,11 @@ export class UploadComponent extends SmartComponent {
           });
         },
       });
+  }
+
+  resetFields() {
+    this.title = '';
+    this.abbrev = '';
+    this.volume = undefined;
   }
 }
