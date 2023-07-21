@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  HttpError,
   Paragraph,
   ParagraphsService,
   WorkMetadata,
@@ -7,6 +8,7 @@ import {
 } from 'kant-search-api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 import { PageRangeModel } from '../model/page-range.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-read',
@@ -17,6 +19,7 @@ export class ReadComponent extends SmartComponent implements OnInit {
   paragraphs: Paragraph[] | undefined;
 
   constructor(
+    private readonly messageService: MessageService,
     private readonly worksService: WorksService,
     private readonly paragraphsService: ParagraphsService
   ) {
@@ -24,24 +27,46 @@ export class ReadComponent extends SmartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.messageService.clear();
     this.worksService
       .getWorkMetadata()
       .pipe(this.takeUntilDestroy())
-      .subscribe((works) => {
-        this.works = works;
+      .subscribe({
+        next: (works) => {
+          this.works = works;
+        },
+        error: (err: HttpError) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: `The works could not be fetched: ${err.message}`,
+          });
+        },
       });
   }
 
   loadWork(work: WorkMetadata) {
-    const range = new PageRangeModel(work.id, 1, 3);
+    const range = new PageRangeModel(work.id, 24, 25);
     this.loadParagraphs(range);
   }
 
   loadParagraphs(range: PageRangeModel) {
+    this.messageService.clear();
     const strRange = `${range.start}-${range.end}`;
     this.paragraphsService
       .getParagraphs(range.workId, strRange)
       .pipe(this.takeUntilDestroy())
-      .subscribe((paragraphs) => (this.paragraphs = paragraphs));
+      .subscribe({
+        next: (paragraphs) => {
+          this.paragraphs = paragraphs;
+        },
+        error: (err: HttpError) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: `The text could not be fetched: ${err.message}`,
+          });
+        },
+      });
   }
 }
