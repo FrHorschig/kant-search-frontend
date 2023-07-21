@@ -6,11 +6,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ApiModule } from 'kant-search-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartpageComponent } from './startpage/startpage.component';
+import { MessageService } from 'primeng/api';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -32,9 +34,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       },
     }),
     ButtonModule,
+    MessagesModule,
     TabMenuModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

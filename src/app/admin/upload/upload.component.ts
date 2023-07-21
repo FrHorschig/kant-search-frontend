@@ -6,7 +6,6 @@ import { SmartComponent } from 'src/app/common/base/smart.component';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  providers: [MessageService],
 })
 export class UploadComponent extends SmartComponent {
   isLoading = false;
