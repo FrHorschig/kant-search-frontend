@@ -11,7 +11,7 @@ export class StartpageComponent {
     {
       label: 'NAVBAR.READ',
       icon: 'pi pi-eye',
-      command: () => this.router.navigate(['/read/normal']),
+      command: () => this.router.navigate(['/read']),
     },
     {
       label: 'NAVBAR.SEARCH',

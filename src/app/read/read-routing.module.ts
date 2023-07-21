@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NormalModeComponent } from './normal-mode/normal-mode.component';
+import { ReadComponent } from './read/read.component';
 
 const routes: Routes = [
   {
-    path: 'normal',
-    component: NormalModeComponent,
+    path: '',
+    component: ReadComponent,
   },
 ];
 
