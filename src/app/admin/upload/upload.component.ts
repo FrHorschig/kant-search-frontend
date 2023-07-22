@@ -13,6 +13,7 @@ export class UploadComponent extends SmartComponent {
   title = '';
   abbrev = '';
   volume: number | undefined;
+  year: number | undefined;
 
   constructor(
     private readonly messageService: MessageService,
@@ -40,6 +41,7 @@ export class UploadComponent extends SmartComponent {
       abbreviation: this.abbrev,
       text: text,
       volume: +(this.volume || 0),
+      year: +(this.year || 0),
     };
     this.postText(work);
     this.resetFields();
@@ -73,5 +75,6 @@ export class UploadComponent extends SmartComponent {
     this.title = '';
     this.abbrev = '';
     this.volume = undefined;
+    this.year = undefined;
   }
 }

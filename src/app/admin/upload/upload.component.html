@@ -25,6 +25,13 @@
   </div>
 
   <div class="flex justify-content-center">
+    <div class="p-inputgroup mb-2 max-w-max">
+      <span class="p-inputgroup-addon">{{ "UPLOAD.YEAR" | translate }}</span>
+      <input pInputText required [(ngModel)]="year" />
+    </div>
+  </div>
+
+  <div class="flex justify-content-center">
     <p-fileUpload
       #fileUploadBtn
       chooseLabel="{{ 'UPLOAD.SELECT_FILE' | translate }}"
@@ -32,7 +39,7 @@
       mode="basic"
       [customUpload]="true"
       (uploadHandler)="onUpload($event, fileUploadBtn)"
-      [disabled]="!title || !abbrev || !volume"
+      [disabled]="!title || !abbrev || !volume || !year"
       pTooltip="{{
         !title || !abbrev || !volume ? ('UPLOAD.TOOLTIP' | translate) : ''
       }}"
