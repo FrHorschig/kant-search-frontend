@@ -46,7 +46,7 @@ export class ReadComponent extends SmartComponent implements OnInit {
   }
 
   loadWork(work: WorkMetadata) {
-    const range = new PageRangeModel(work.id, 24, 25);
+    const range = new PageRangeModel(work.id, 385, 463);
     this.loadParagraphs(range);
   }
 
