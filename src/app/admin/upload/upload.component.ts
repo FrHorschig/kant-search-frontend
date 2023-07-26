@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpError, Work, WorksService } from 'kant-search-api';
+import { HttpError, UploadService, Work } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 
@@ -17,7 +17,7 @@ export class UploadComponent extends SmartComponent {
 
   constructor(
     private readonly messageService: MessageService,
-    private readonly worksService: WorksService
+    private readonly uploadService: UploadService
   ) {
     super();
   }
@@ -49,8 +49,8 @@ export class UploadComponent extends SmartComponent {
 
   postText(work: Work) {
     this.messageService.clear();
-    this.worksService
-      .postWork(work)
+    this.uploadService
+      .uploadWork(work)
       .pipe(this.takeUntilDestroy())
       .subscribe({
         next: () => {
