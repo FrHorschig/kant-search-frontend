@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   HttpError,
   Paragraph,
-  ParagraphsService,
+  ReadService,
   WorkMetadata,
-  WorksService,
 } from 'kant-search-api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 import { PageRangeModel } from '../model/page-range.model';
@@ -20,15 +19,14 @@ export class ReadComponent extends SmartComponent implements OnInit {
 
   constructor(
     private readonly messageService: MessageService,
-    private readonly worksService: WorksService,
-    private readonly paragraphsService: ParagraphsService
+    private readonly readService: ReadService
   ) {
     super();
   }
 
   ngOnInit() {
     this.messageService.clear();
-    this.worksService
+    this.readService
       .getWorkMetadata()
       .pipe(this.takeUntilDestroy())
       .subscribe({
@@ -53,7 +51,7 @@ export class ReadComponent extends SmartComponent implements OnInit {
   loadParagraphs(range: PageRangeModel) {
     this.messageService.clear();
     const strRange = `${range.start}-${range.end}`;
-    this.paragraphsService
+    this.readService
       .getParagraphs(range.workId, strRange)
       .pipe(this.takeUntilDestroy())
       .subscribe({
