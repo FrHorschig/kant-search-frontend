@@ -1,1 +1,33 @@
-<p>search works!</p>
+<div class="grid">
+  <div class="col-6">
+    <input
+      pInputText
+      type="text"
+      class="mb-2 w-full"
+      placeholder="{{ 'SEARCH.INPUT_PLACEHOLDER' | translate }}"
+    />
+
+    <div class="mb-2">
+      <app-works-menu
+        class="w-full"
+        [works]="works"
+        (onSelectionChange)="onWorkSelectionChange($event)"
+      ></app-works-menu>
+    </div>
+
+    <div class="flex justify-content-center w-full">
+      <p-button
+        label="{{ 'SEARCH.BUTTON_LABEL' | translate }}"
+        (onClick)="onSearch()"
+        [disabled]="!searchTerms || !selectedWorks"
+        pTooltip="{{
+          !searchTerms || !selectedWorks
+            ? ('SEARCH.BUTTON_TOOLTIP' | translate)
+            : ''
+        }}"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="col-6"><--! TODO: add search results --></div>
+</div>

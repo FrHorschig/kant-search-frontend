@@ -1,0 +1,8 @@
+<p-tree
+  [value]="nodes"
+  [filter]="true"
+  selectionMode="checkbox"
+  [(selection)]="selectedWorks"
+  (onNodeSelect)="onNodeSelect($event)"
+  (onNodeSelect)="onNodeUnselect($event)"
+></p-tree>

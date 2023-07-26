@@ -12,5 +12,10 @@
     "TOOLTIP": "Fill out all fields to upload the text",
     "SELECT_FILE": "Select text file",
     "START_UPLOAD": "Start upload"
+  },
+  "SEARCH": {
+    "INPUT_PLACEHOLDER": "Search terms",
+    "BUTTON_LABEL": "Search",
+    "BUTTON_TOOLTIP": "You must enter at least one search term and one work to search"
   }
 }
