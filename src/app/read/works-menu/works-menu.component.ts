@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WorkMetadata } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
 
 @Component({
-  selector: 'app-work-menu',
-  templateUrl: './work-menu.component.html',
+  selector: 'app-works-menu',
+  templateUrl: './works-menu.component.html',
 })
-export class WorkMenuComponent {
+export class WorksMenuComponent {
   @Input() selectedWork: WorkMetadata | undefined;
   @Output() onSelection = new EventEmitter<WorkMetadata>();
 

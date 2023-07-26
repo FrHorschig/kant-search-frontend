@@ -6,10 +6,10 @@ import { TreeModule } from 'primeng/tree';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { ReadComponent } from './read/read.component';
 import { NormalModeComponent } from './normal-mode/normal-mode.component';
-import { WorkMenuComponent } from './work-menu/work-menu.component';
+import { WorksMenuComponent } from './works-menu/works-menu.component';
 
 @NgModule({
-  declarations: [ReadComponent, NormalModeComponent, WorkMenuComponent],
+  declarations: [ReadComponent, NormalModeComponent, WorksMenuComponent],
   imports: [
     CommonModule,
     ReadRoutingModule,
