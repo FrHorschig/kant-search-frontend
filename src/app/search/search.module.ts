@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,6 +15,7 @@ import { WorksMenuComponent } from './works-menu/works-menu.component';
   declarations: [SearchComponent, WorksMenuComponent],
   imports: [
     CommonModule,
+    FormsModule,
     SearchRoutingModule,
     TranslateModule,
     ButtonModule,

@@ -9,7 +9,6 @@ import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder
   providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Input() selectedWork: WorkMetadata | undefined;
   @Output() onSelection = new EventEmitter<WorkMetadata>();
 
   nodes: TreeNode[] = [];

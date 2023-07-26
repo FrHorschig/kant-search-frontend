@@ -9,7 +9,7 @@ import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder
   providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Input() selectedWorks: WorkMetadata[] | undefined;
+  @Input() selectedWorks: TreeNode[] = [];
   @Output() onSelectionChange = new EventEmitter<WorkMetadata[]>();
 
   nodes: TreeNode[] = [];
@@ -23,11 +23,21 @@ export class WorksMenuComponent {
 
   constructor(private readonly treeBuilder: WorkTreeBuilderService) {}
 
-  onNodeSelect(event: any) {
-    // this.onSelection.emit(event.node.data);
+  onNodeSelect() {
+    this.onSelectionChange.emit(this.getWorks());
   }
 
-  onNodeUnselect(event: any) {
-    // this.onSelection.emit(event.node.data);
+  onNodeUnselect() {
+    this.onSelectionChange.emit(this.getWorks());
+  }
+
+  private getWorks(): WorkMetadata[] {
+    const works: WorkMetadata[] = [];
+    this.selectedWorks.forEach((node) => {
+      if (node.data) {
+        works.push(node.data);
+      }
+    });
+    return works;
   }
 }

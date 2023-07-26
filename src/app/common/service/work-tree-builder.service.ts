@@ -37,7 +37,7 @@ export class WorkTreeBuilderService {
       nodes.push({
         key: `${key}`,
         label: `Band ${key}`,
-        selectable: false,
+        selectable: true,
         children: children,
       });
     }
