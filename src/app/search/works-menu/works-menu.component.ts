@@ -9,10 +9,10 @@ import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder
   providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Input() selectedWorks: TreeNode[] = [];
   @Output() onSelectionChange = new EventEmitter<WorkMetadata[]>();
 
   nodes: TreeNode[] = [];
+  selection: TreeNode[] = [];
 
   @Input() set works(works: WorkMetadata[] | undefined) {
     if (!works) {
@@ -33,7 +33,7 @@ export class WorksMenuComponent {
 
   private getWorks(): WorkMetadata[] {
     const works: WorkMetadata[] = [];
-    this.selectedWorks.forEach((node) => {
+    this.selection.forEach((node) => {
       if (node.data) {
         works.push(node.data);
       }
