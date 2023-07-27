@@ -15,12 +15,12 @@ export class HighlightSearchTermsPipe implements PipeTransform {
       let [alphaNum, punctuation] = this.splitWord(word);
       const stemmedAlphaNum = this.stemmer.stem(alphaNum);
       for (const term of stemmedTerms) {
-        if (stemmedAlphaNum === term) {
+        if (stemmedAlphaNum.toLowerCase() === term.toLowerCase()) {
           alphaNum = `${this.opening}${alphaNum}${this.closing}${punctuation}`;
           break;
         }
       }
-      return alphaNum + punctuation;
+      return alphaNum;
     });
     return words.join(' ');
   }

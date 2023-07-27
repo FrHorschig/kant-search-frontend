@@ -18,7 +18,7 @@ export class SearchComponent extends SmartComponent implements OnInit {
 
   searchTerms: string = '';
   selectedWorks: WorkMetadata[] | undefined;
-  searchResults: ParagraphResults[] | undefined;
+  searchResults: ParagraphResults | undefined;
 
   constructor(
     private readonly messageService: MessageService,

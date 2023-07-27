@@ -6,6 +6,6 @@ import { HighlightSearchTermsPipe } from './pipes/highlight-search-terms/highlig
 @NgModule({
   declarations: [PagenumberNormalModePipe, HighlightSearchTermsPipe],
   imports: [NgCommonModule],
-  exports: [PagenumberNormalModePipe],
+  exports: [PagenumberNormalModePipe, HighlightSearchTermsPipe],
 })
 export class CommonModule {}

@@ -1,5 +1,5 @@
 <div class="grid">
-  <div class="col-6">
+  <div class="col-5">
     <input
       pInputText
       type="text"
@@ -30,5 +30,7 @@
     </div>
   </div>
 
-  <div class="col-6"><--! TODO: add search results --></div>
+  <div class="col-7">
+    <app-results [results]="searchResults"></app-results>
+  </div>
 </div>
