@@ -36,6 +36,7 @@ export class WorkTreeBuilderService {
         key: `${key}`,
         label: `Band ${key}`,
         selectable: true,
+        expanded: true,
         children: children,
       });
     }
@@ -52,6 +53,7 @@ export class WorkTreeBuilderService {
         key: `${work.volume}-${work.id}`,
         label: label,
         selectable: true,
+        expanded: true,
         data: work,
       });
     }
