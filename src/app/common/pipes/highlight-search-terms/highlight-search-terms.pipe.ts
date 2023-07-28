@@ -16,11 +16,11 @@ export class HighlightSearchTermsPipe implements PipeTransform {
       const stemmedAlphaNum = this.stemmer.stem(alphaNum);
       for (const term of stemmedTerms) {
         if (stemmedAlphaNum.toLowerCase() === term.toLowerCase()) {
-          alphaNum = `${this.opening}${alphaNum}${this.closing}${punctuation}`;
+          alphaNum = `${this.opening}${alphaNum}${this.closing}`;
           break;
         }
       }
-      return alphaNum;
+      return `${alphaNum}${punctuation}`;
     });
     return words.join(' ');
   }
@@ -34,7 +34,7 @@ export class HighlightSearchTermsPipe implements PipeTransform {
   }
 
   private splitWord(word: string): [string, string] {
-    const match = word.match(/^(.*?)([.,;!?]?)$/);
+    const match = word.match(/^(.*?)([.,:;!?]?)$/);
     return match ? [match[1], match[2]] : [word, ''];
   }
 }
