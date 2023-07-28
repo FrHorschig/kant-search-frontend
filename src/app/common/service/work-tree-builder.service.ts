@@ -45,9 +45,12 @@ export class WorkTreeBuilderService {
   private createWorkNodes(works: Work[]): TreeNode[] {
     const nodes: TreeNode[] = [];
     for (const work of works) {
+      const label = `${work.abbreviation}: ${work.title} ${
+        work.year ? '(' + work.year + ')' : ''
+      }`;
       nodes.push({
         key: `${work.volume}-${work.id}`,
-        label: `${work.title} (${work.abbreviation})`,
+        label: label,
         selectable: true,
         data: work,
       });
