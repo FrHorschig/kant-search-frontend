@@ -3,6 +3,10 @@
     <ng-container *ngFor="let match of result.matches">
       <div class="mb-2">
         <p-card>
+          <ng-template pTemplate="subtitle">
+            Band {{ result.volume }}: {{ result.workTitle }}
+          </ng-template>
+
           <p
             [innerHTML]="
               match.snippet
