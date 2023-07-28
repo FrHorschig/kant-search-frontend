@@ -18,7 +18,13 @@ export class WorksMenuComponent {
     if (!works) {
       return;
     }
-    this.nodes = this.treeBuilder.buildTree(works);
+    this.nodes = [];
+    this.nodes.push({
+      label: `All`, // TODO: i18n
+      selectable: true,
+      expanded: true,
+      children: this.treeBuilder.buildTree(works),
+    });
   }
 
   constructor(private readonly treeBuilder: WorkTreeBuilderService) {}
