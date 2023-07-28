@@ -46,8 +46,10 @@
       mode="basic"
       [customUpload]="true"
       (uploadHandler)="onUpload($event, fileUploadBtn)"
-      [disabled]="!title || !abbrev || !volume || !year"
-      pTooltip="{{ !title || !volume ? ('UPLOAD.TOOLTIP' | translate) : '' }}"
+      [disabled]="!title || !volume || !ordinal"
+      pTooltip="{{
+        !title || !volume || !ordinal ? ('UPLOAD.TOOLTIP' | translate) : ''
+      }}"
     ></p-fileUpload>
   </div>
 </div>
