@@ -31,6 +31,9 @@
   </div>
 
   <div class="col-7">
-    <app-results [results]="searchResults"></app-results>
+    <app-results
+      [results]="searchResults"
+      [searchTerms]="searchTerms.split(' ')"
+    ></app-results>
   </div>
 </div>

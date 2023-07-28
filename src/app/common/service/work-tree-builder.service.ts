@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WorkMetadata } from 'kant-search-api';
+import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 
 @Injectable({
@@ -8,15 +8,13 @@ import { TreeNode } from 'primeng/api';
 export class WorkTreeBuilderService {
   constructor() {}
 
-  buildTree(works: WorkMetadata[]): TreeNode[] {
+  buildTree(works: Work[]): TreeNode[] {
     const workByVolume = this.createWorkByVolume(works);
     return this.createNodes(workByVolume);
   }
 
-  private createWorkByVolume(
-    works: WorkMetadata[]
-  ): Map<number, WorkMetadata[]> {
-    const workByVolume = new Map<number, WorkMetadata[]>();
+  private createWorkByVolume(works: Work[]): Map<number, Work[]> {
+    const workByVolume = new Map<number, Work[]>();
     for (const work of works) {
       const arr = workByVolume.get(work.volume) || [];
       arr.push(work);
@@ -25,7 +23,7 @@ export class WorkTreeBuilderService {
     return workByVolume;
   }
 
-  private createNodes(worksByVolume: Map<number, WorkMetadata[]>): TreeNode[] {
+  private createNodes(worksByVolume: Map<number, Work[]>): TreeNode[] {
     const nodes: TreeNode[] = [];
     const sortedKeys = Array.from(worksByVolume.keys()).sort((a, b) => a - b);
     for (const key of sortedKeys) {
@@ -44,7 +42,7 @@ export class WorkTreeBuilderService {
     return nodes;
   }
 
-  private createWorkNodes(works: WorkMetadata[]): TreeNode[] {
+  private createWorkNodes(works: Work[]): TreeNode[] {
     const nodes: TreeNode[] = [];
     for (const work of works) {
       nodes.push({

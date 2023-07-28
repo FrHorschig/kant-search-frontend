@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { WorkMetadata } from 'kant-search-api';
+import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder.service';
 
@@ -9,12 +9,12 @@ import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder
   providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Output() onSelectionChange = new EventEmitter<WorkMetadata[]>();
+  @Output() onSelectionChange = new EventEmitter<Work[]>();
 
   nodes: TreeNode[] = [];
   selection: TreeNode[] = [];
 
-  @Input() set works(works: WorkMetadata[] | undefined) {
+  @Input() set works(works: Work[] | undefined) {
     if (!works) {
       return;
     }
@@ -37,8 +37,8 @@ export class WorksMenuComponent {
     this.onSelectionChange.emit(this.getWorks());
   }
 
-  private getWorks(): WorkMetadata[] {
-    const works: WorkMetadata[] = [];
+  private getWorks(): Work[] {
+    const works: Work[] = [];
     this.selection.forEach((node) => {
       if (node.data) {
         works.push(node.data);

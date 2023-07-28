@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpError,
-  Paragraph,
-  ReadService,
-  WorkMetadata,
-} from 'kant-search-api';
+import { HttpError, Paragraph, ReadService, Work } from 'kant-search-api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 import { PageRangeModel } from '../model/page-range.model';
 import { MessageService } from 'primeng/api';
@@ -14,7 +9,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './read.component.html',
 })
 export class ReadComponent extends SmartComponent implements OnInit {
-  works: WorkMetadata[] | undefined;
+  works: Work[] | undefined;
   paragraphs: Paragraph[] | undefined;
 
   constructor(
@@ -27,7 +22,7 @@ export class ReadComponent extends SmartComponent implements OnInit {
   ngOnInit() {
     this.messageService.clear();
     this.readService
-      .getWorkMetadata()
+      .getWorks()
       .pipe(this.takeUntilDestroy())
       .subscribe({
         next: (works) => {
@@ -43,7 +38,7 @@ export class ReadComponent extends SmartComponent implements OnInit {
       });
   }
 
-  loadWork(work: WorkMetadata) {
+  loadWork(work: Work) {
     const range = new PageRangeModel(work.id, 0, 9999);
     this.loadParagraphs(range);
   }

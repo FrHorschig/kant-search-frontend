@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {
   HttpError,
-  ParagraphResults,
   ReadService,
   SearchCriteria,
+  SearchResult,
   SearchService,
-  WorkMetadata,
+  Work,
 } from 'kant-search-api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 import { MessageService } from 'primeng/api';
@@ -14,11 +14,11 @@ import { MessageService } from 'primeng/api';
   templateUrl: './search.component.html',
 })
 export class SearchComponent extends SmartComponent implements OnInit {
-  works: WorkMetadata[] | undefined;
+  works: Work[] | undefined;
 
   searchTerms: string = '';
-  selectedWorks: WorkMetadata[] | undefined;
-  searchResults: ParagraphResults | undefined;
+  selectedWorks: Work[] = [];
+  searchResults: SearchResult[] | undefined;
 
   constructor(
     private readonly messageService: MessageService,
@@ -31,7 +31,7 @@ export class SearchComponent extends SmartComponent implements OnInit {
   ngOnInit() {
     this.messageService.clear();
     this.readService
-      .getWorkMetadata()
+      .getWorks()
       .pipe(this.takeUntilDestroy())
       .subscribe({
         next: (works) => {
@@ -47,7 +47,7 @@ export class SearchComponent extends SmartComponent implements OnInit {
       });
   }
 
-  onWorkSelectionChange(works: WorkMetadata[]) {
+  onWorkSelectionChange(works: Work[]) {
     this.selectedWorks = works;
   }
 
@@ -56,7 +56,7 @@ export class SearchComponent extends SmartComponent implements OnInit {
       return;
     }
     const criteria: SearchCriteria = {
-      searchWords: this.searchTerms.split(' '),
+      searchTerms: this.searchTerms.split(' '),
       workIds: this.selectedWorks?.map((work) => work.id),
     };
     this.searchService

@@ -1,15 +1,17 @@
 <ng-container *ngIf="results">
-  <ng-container *ngFor="let paragraph of results.paragraphs">
-    <div class="mb-2">
-      <p-card>
-        <p
-          [innerHTML]="
-            paragraph.text
-              | highlightSearchTerms : results.searchWords
-              | pagenumberNormalMode
-          "
-        ></p>
-      </p-card>
-    </div>
+  <ng-container *ngFor="let result of results">
+    <ng-container *ngFor="let match of result.matches">
+      <div class="mb-2">
+        <p-card>
+          <p
+            [innerHTML]="
+              match.snippet
+                | highlightSearchTerms : searchTerms
+                | pagenumberNormalMode
+            "
+          ></p>
+        </p-card>
+      </div>
+    </ng-container>
   </ng-container>
 </ng-container>
