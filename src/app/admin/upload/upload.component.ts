@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpError, UploadService, Work } from 'kant-search-api';
+import { HttpError, UploadService, Work, WorkUpload } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { SmartComponent } from 'src/app/common/base/smart.component';
 
@@ -13,6 +13,7 @@ export class UploadComponent extends SmartComponent {
   title = '';
   abbrev = '';
   volume: number | undefined;
+  ordinal: number | undefined;
   year: number | undefined;
 
   constructor(
@@ -36,18 +37,19 @@ export class UploadComponent extends SmartComponent {
   }
 
   processText(text: string) {
-    const work: Work = {
+    const work: WorkUpload = {
       title: this.title,
       abbreviation: this.abbrev,
       text: text,
       volume: +(this.volume || 0),
+      ordinal: +(this.ordinal || 0),
       year: +(this.year || 0),
     };
     this.postText(work);
     this.resetFields();
   }
 
-  postText(work: Work) {
+  postText(work: WorkUpload) {
     this.messageService.clear();
     this.uploadService
       .uploadWork(work)
@@ -75,6 +77,7 @@ export class UploadComponent extends SmartComponent {
     this.title = '';
     this.abbrev = '';
     this.volume = undefined;
+    this.ordinal = undefined;
     this.year = undefined;
   }
 }

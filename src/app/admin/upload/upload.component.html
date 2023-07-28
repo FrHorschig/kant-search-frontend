@@ -26,6 +26,13 @@
 
   <div class="flex justify-content-center">
     <div class="p-inputgroup mb-2 max-w-max">
+      <span class="p-inputgroup-addon">{{ "UPLOAD.ORDINAL" | translate }}</span>
+      <input pInputText required [(ngModel)]="ordinal" />
+    </div>
+  </div>
+
+  <div class="flex justify-content-center">
+    <div class="p-inputgroup mb-2 max-w-max">
       <span class="p-inputgroup-addon">{{ "UPLOAD.YEAR" | translate }}</span>
       <input pInputText required [(ngModel)]="year" />
     </div>
@@ -40,9 +47,7 @@
       [customUpload]="true"
       (uploadHandler)="onUpload($event, fileUploadBtn)"
       [disabled]="!title || !abbrev || !volume || !year"
-      pTooltip="{{
-        !title || !abbrev || !volume ? ('UPLOAD.TOOLTIP' | translate) : ''
-      }}"
+      pTooltip="{{ !title || !volume ? ('UPLOAD.TOOLTIP' | translate) : '' }}"
     ></p-fileUpload>
   </div>
 </div>
