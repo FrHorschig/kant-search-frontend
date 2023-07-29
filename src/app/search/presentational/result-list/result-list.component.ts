@@ -6,6 +6,7 @@ import { SearchResult } from 'kant-search-api';
   templateUrl: './result-list.component.html',
 })
 export class ResultListComponent {
+  @Input() isLoading = true;
   @Input() results: SearchResult[] | undefined;
   @Input() resultsCount = 0;
   @Input() searchTerms: string[] = [];

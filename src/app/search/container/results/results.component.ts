@@ -14,6 +14,7 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
   templateUrl: './results.component.html',
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
+  isLoading = true;
   results: SearchResult[] | undefined;
   resultsCount = 0;
   searchTerms: string[] = [];
@@ -44,12 +45,14 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
         .pipe(this.takeUntilDestroy())
         .subscribe({
           next: (results) => {
+            this.isLoading = false;
             this.results = results;
             this.resultsCount = results
               .map((results) => results.matches.length)
               .reduce((a, b) => a + b, 0);
           },
           error: (err: HttpError) => {
+            this.isLoading = false;
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
