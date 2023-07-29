@@ -4,12 +4,18 @@ import { ReadRoutingModule } from './read-routing.module';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
 import { CommonModule as AppCommonModule } from '../common/common.module';
-import { ReadComponent } from './read/read.component';
-import { NormalModeComponent } from './normal-mode/normal-mode.component';
-import { WorksMenuComponent } from './works-menu/works-menu.component';
+import { NormalModeComponent } from './presentational/normal-mode/normal-mode.component';
+import { WorksMenuComponent } from './presentational/works-menu/works-menu.component';
+import { TocComponent } from './container/toc/toc.component';
+import { TextComponent } from './container/text/text.component';
 
 @NgModule({
-  declarations: [ReadComponent, NormalModeComponent, WorksMenuComponent],
+  declarations: [
+    NormalModeComponent,
+    WorksMenuComponent,
+    TocComponent,
+    TextComponent,
+  ],
   imports: [
     CommonModule,
     ReadRoutingModule,

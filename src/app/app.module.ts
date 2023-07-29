@@ -13,13 +13,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartpageComponent } from './startpage/startpage.component';
 import { MessageService } from 'primeng/api';
+import { NavbarComponent } from './navbar/navbar.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 }
 
 @NgModule({
-  declarations: [AppComponent, StartpageComponent],
+  declarations: [AppComponent, StartpageComponent, NavbarComponent],
   imports: [
     ApiModule,
     HttpClientModule,

@@ -6,11 +6,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/startpage', pathMatch: 'full' },
   { path: 'startpage', component: StartpageComponent },
   {
-    path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.module').then((m) => m.AdminModule),
-  },
-  {
     path: 'read',
     loadChildren: () => import('./read/read.module').then((m) => m.ReadModule),
   },
@@ -18,6 +13,11 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () =>
       import('./search/search.module').then((m) => m.SearchModule),
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
   },
 ];
 
