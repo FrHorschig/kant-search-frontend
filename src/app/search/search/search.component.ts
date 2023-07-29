@@ -7,13 +7,13 @@ import {
   SearchService,
   Work,
 } from 'kant-search-api';
-import { SmartComponent } from 'src/app/common/base/smart.component';
+import { ContainerComponent } from 'src/app/common/base/container.component';
 import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
 })
-export class SearchComponent extends SmartComponent implements OnInit {
+export class SearchComponent extends ContainerComponent implements OnInit {
   works: Work[] | undefined;
 
   searchTerms: string = '';

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpError, UploadService, Work, WorkUpload } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
-import { SmartComponent } from 'src/app/common/base/smart.component';
+import { ContainerComponent } from 'src/app/common/base/container.component';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
 })
-export class UploadComponent extends SmartComponent {
+export class UploadComponent extends ContainerComponent {
   isLoading = false;
 
   title = '';

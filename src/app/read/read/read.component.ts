@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpError, Paragraph, ReadService, Work } from 'kant-search-api';
-import { SmartComponent } from 'src/app/common/base/smart.component';
+import { ContainerComponent } from 'src/app/common/base/container.component';
 import { PageRangeModel } from '../model/page-range.model';
 import { MessageService } from 'primeng/api';
 
@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
   selector: 'app-read',
   templateUrl: './read.component.html',
 })
-export class ReadComponent extends SmartComponent implements OnInit {
+export class ReadComponent extends ContainerComponent implements OnInit {
   works: Work[] | undefined;
   paragraphs: Paragraph[] | undefined;
 
