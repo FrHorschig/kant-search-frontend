@@ -19,6 +19,7 @@ export class SearchComponent extends SmartComponent implements OnInit {
   searchTerms: string = '';
   selectedWorks: Work[] = [];
   searchResults: SearchResult[] | undefined;
+  resultsCount = 0;
 
   constructor(
     private readonly messageService: MessageService,
@@ -64,6 +65,9 @@ export class SearchComponent extends SmartComponent implements OnInit {
       .pipe(this.takeUntilDestroy())
       .subscribe((results) => {
         this.searchResults = results;
+        this.resultsCount = results
+          .map((result) => result.matches.length)
+          .reduce((a, b) => a + b, 0);
       });
   }
 }

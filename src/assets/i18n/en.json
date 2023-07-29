@@ -17,6 +17,7 @@
   "SEARCH": {
     "INPUT_PLACEHOLDER": "Search terms",
     "BUTTON_LABEL": "Search",
-    "BUTTON_TOOLTIP": "You must enter at least one search term and one work to search"
+    "BUTTON_TOOLTIP": "You must enter at least one search term and one work to search",
+    "RESULTS_COUNT": "Number of search results"
   }
 }
