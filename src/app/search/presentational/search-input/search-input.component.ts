@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
+import { TreeSelectionMode } from 'src/app/common/model/tree-selection-mode';
 
 @Component({
   selector: 'app-search-input',
@@ -12,8 +13,6 @@ export class SearchInputComponent {
   @Output() onInput = new EventEmitter<string>();
   @Output() onSelect = new EventEmitter<Work[]>();
   @Output() onSearch = new EventEmitter<void>();
-
-  searchTerms = '';
 
   onInputChange(event: any) {
     this.onInput.emit(event?.target?.value || '');

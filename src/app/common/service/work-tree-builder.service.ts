@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
+import { TreeSelectionMode } from '../model/tree-selection-mode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkTreeBuilderService {
-  buildTree(works: Work[]): TreeNode[] {
+  buildTree(works: Work[], allSelectable: boolean): TreeNode[] {
     const workByVolume = this.createWorkByVolume(works);
-    return this.createNodes(workByVolume);
+    return this.createNodes(workByVolume, allSelectable);
   }
 
   private createWorkByVolume(works: Work[]): Map<number, Work[]> {
@@ -21,7 +22,10 @@ export class WorkTreeBuilderService {
     return workByVolume;
   }
 
-  private createNodes(worksByVolume: Map<number, Work[]>): TreeNode[] {
+  private createNodes(
+    worksByVolume: Map<number, Work[]>,
+    allSelectable: boolean
+  ): TreeNode[] {
     const nodes1: TreeNode[] = [];
     const nodes2: TreeNode[] = [];
     const nodes3: TreeNode[] = [];
@@ -36,7 +40,7 @@ export class WorkTreeBuilderService {
         key: `${key}`,
         label: `Band ${key}`,
         styleClass: 'font-bold',
-        selectable: true,
+        selectable: allSelectable,
         expanded: true,
         children: children,
       };
@@ -48,7 +52,7 @@ export class WorkTreeBuilderService {
         nodes3.push(node);
       }
     }
-    return this.createSectionNodes(nodes1, nodes2, nodes3);
+    return this.createSectionNodes(nodes1, nodes2, nodes3, allSelectable);
   }
 
   private createWorkNodes(works: Work[]): TreeNode[] {
@@ -72,14 +76,15 @@ export class WorkTreeBuilderService {
   private createSectionNodes(
     nodes1: TreeNode[],
     nodes2: TreeNode[],
-    nodes3: TreeNode[]
+    nodes3: TreeNode[],
+    allSelectable: boolean
   ): TreeNode[] {
     const nodes: TreeNode[] = [];
     nodes.push({
       key: 's1',
       label: 'WORKS.SECTIONS.WORKS',
       styleClass: 'font-bold',
-      selectable: true,
+      selectable: allSelectable,
       expanded: true,
       children: nodes1,
     });
@@ -87,7 +92,7 @@ export class WorkTreeBuilderService {
       key: 's2',
       label: 'WORKS.SECTIONS.LETTERS',
       styleClass: 'font-bold',
-      selectable: true,
+      selectable: allSelectable,
       expanded: true,
       children: nodes2,
     });
@@ -95,7 +100,7 @@ export class WorkTreeBuilderService {
       key: 's2',
       label: 'WORKS.SECTIONS.MANUSCRIPTS',
       styleClass: 'font-bold',
-      selectable: true,
+      selectable: allSelectable,
       expanded: true,
       children: nodes3,
     });

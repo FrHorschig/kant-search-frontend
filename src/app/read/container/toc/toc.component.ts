@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpError, ReadService, Work } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
+import { TreeSelectionMode } from 'src/app/common/model/tree-selection-mode';
 
 @Component({
   selector: 'app-toc',
@@ -38,7 +39,7 @@ export class TocComponent extends ContainerComponent implements OnInit {
       });
   }
 
-  showText(work: Work) {
-    this.router.navigate(['/read/text', work.id]);
+  showText(works: Work[]) {
+    this.router.navigate(['/read/text', works[0].id]);
   }
 }

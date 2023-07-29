@@ -9,26 +9,46 @@ import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder
   providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Output() onSelectionChange = new EventEmitter<Work[]>();
-
-  nodes: TreeNode[] = [];
-  selection: TreeNode[] = [];
-
+  @Input() set selectionMode(selectionMode: string) {
+    this.mode = selectionMode;
+    this.buildNodes();
+  }
   @Input() set works(works: Work[] | undefined) {
     if (!works) {
       return;
     }
-    this.nodes = this.treeBuilder.buildTree(works);
+    this._works = works;
+    this.buildNodes();
   }
+
+  @Output() onSelectionChange = new EventEmitter<Work[]>();
+
+  _works: Work[] = [];
+  mode = '';
+  nodes: TreeNode[] = [];
+  selection: TreeNode[] = [];
 
   constructor(private readonly treeBuilder: WorkTreeBuilderService) {}
 
-  onNodeSelect() {
-    this.onSelectionChange.emit(this.getWorks());
+  onNodeSelect(event: any) {
+    if (this.selection.length > 1) {
+      this.onSelectionChange.emit(this.getWorks());
+    } else {
+      this.onSelectionChange.emit([event.node.data]);
+    }
   }
 
   onNodeUnselect() {
     this.onSelectionChange.emit(this.getWorks());
+  }
+
+  private buildNodes() {
+    if (this._works.length > 0 && this.mode) {
+      this.nodes = this.treeBuilder.buildTree(
+        this._works,
+        this.mode === 'checkbox'
+      );
+    }
   }
 
   private getWorks(): Work[] {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpError, ReadService, SearchCriteria, Work } from 'kant-search-api';
+import { HttpError, ReadService, Work } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 

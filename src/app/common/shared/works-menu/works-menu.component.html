@@ -3,8 +3,10 @@
     <p-tree
       [value]="nodes"
       [filter]="true"
-      selectionMode="single"
+      [selectionMode]="mode"
+      [(selection)]="selection"
       (onNodeSelect)="onNodeSelect($event)"
+      (onNodeUnselect)="onNodeUnselect()"
     >
       <ng-template pTemplate="default" let-node>
         {{ node.label | translate }}
