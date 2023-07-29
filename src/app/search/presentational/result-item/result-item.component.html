@@ -5,11 +5,8 @@
 
       <div>
         {{
-          match.pages.length > 1
-            ? ("SEARCH.RESULTS.PAGES" | translate)
-            : ("SEARCH.RESULTS.PAGE" | translate)
+          "SEARCH.RESULTS.PAGES" | translate : { pages: match.pages.join(", ") }
         }}
-        {{ match.pages.join(", ") }}
       </div>
     </div>
   </ng-template>
