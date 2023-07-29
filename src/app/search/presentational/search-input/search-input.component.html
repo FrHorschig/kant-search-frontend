@@ -8,14 +8,14 @@
       (input)="onInputChange($event)"
     />
 
-    <div class="w-full mb-2">
+    <div class="mb-2">
       <app-works-menu
         [works]="works"
         (onSelectionChange)="onSelectionChange($event)"
       ></app-works-menu>
     </div>
 
-    <div class="flex justify-content-center w-full">
+    <div class="flex justify-content-center">
       <p-button
         label="{{ 'SEARCH.BUTTON_LABEL' | translate }}"
         (onClick)="onSearchClick()"

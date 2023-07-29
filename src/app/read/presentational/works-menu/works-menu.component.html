@@ -1,10 +1,14 @@
-<p-tree
-  [value]="nodes"
-  [filter]="true"
-  selectionMode="single"
-  (onNodeSelect)="onNodeSelect($event)"
->
-  <ng-template pTemplate="default" let-node>
-    {{ node.label | translate }}
-  </ng-template>
-</p-tree>
+<div class="flex justify-content-center">
+  <div class="max-w-600">
+    <p-tree
+      [value]="nodes"
+      [filter]="true"
+      selectionMode="single"
+      (onNodeSelect)="onNodeSelect($event)"
+    >
+      <ng-template pTemplate="default" let-node>
+        {{ node.label | translate }}
+      </ng-template>
+    </p-tree>
+  </div>
+</div>

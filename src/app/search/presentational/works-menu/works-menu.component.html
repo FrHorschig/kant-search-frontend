@@ -1,15 +1,12 @@
-<div class="w-full">
-  <p-tree
-    class="w-full"
-    [value]="nodes"
-    [filter]="true"
-    selectionMode="checkbox"
-    [(selection)]="selection"
-    (onNodeSelect)="onNodeSelect()"
-    (onNodeUnselect)="onNodeUnselect()"
-  >
-    <ng-template pTemplate="default" let-node>
-      {{ node.label | translate }}
-    </ng-template>
-  </p-tree>
-</div>
+<p-tree
+  [value]="nodes"
+  [filter]="true"
+  selectionMode="checkbox"
+  [(selection)]="selection"
+  (onNodeSelect)="onNodeSelect()"
+  (onNodeUnselect)="onNodeUnselect()"
+>
+  <ng-template pTemplate="default" let-node>
+    {{ node.label | translate }}
+  </ng-template>
+</p-tree>
