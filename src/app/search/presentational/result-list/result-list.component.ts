@@ -1,11 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchResult } from 'kant-search-api';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
+  selector: 'app-result-list',
+  templateUrl: './result-list.component.html',
 })
-export class ResultsComponent {
+export class ResultListComponent {
   @Input() results: SearchResult[] | undefined;
   @Input() resultsCount = 0;
   @Input() searchTerms: string[] = [];

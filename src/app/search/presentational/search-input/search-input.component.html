@@ -1,0 +1,30 @@
+<div class="flex justify-content-center">
+  <div class="max-w-600">
+    <input
+      pInputText
+      type="text"
+      class="mb-2 w-full"
+      placeholder="{{ 'SEARCH.INPUT_PLACEHOLDER' | translate }}"
+      (input)="onInputChange($event)"
+    />
+
+    <div class="mb-2">
+      <app-works-menu
+        class="w-full"
+        [works]="works"
+        (onSelectionChange)="onSelectionChange($event)"
+      ></app-works-menu>
+    </div>
+
+    <div class="flex justify-content-center w-full">
+      <p-button
+        label="{{ 'SEARCH.BUTTON_LABEL' | translate }}"
+        (onClick)="onSearchClick()"
+        [disabled]="!isSearchPermitted"
+        pTooltip="{{
+          !isSearchPermitted ? ('SEARCH.BUTTON_TOOLTIP' | translate) : ''
+        }}"
+      ></p-button>
+    </div>
+  </div>
+</div>

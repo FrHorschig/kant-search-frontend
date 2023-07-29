@@ -1,0 +1,22 @@
+<p-card>
+  <ng-template pTemplate="subtitle">
+    <div class="flex justify-content-between">
+      <div>Band {{ result.volume }}: {{ result.workTitle }}</div>
+
+      <div>
+        {{
+          match.pages.length > 1
+            ? ("SEARCH.RESULTS.PAGES" | translate)
+            : ("SEARCH.RESULTS.PAGE" | translate)
+        }}
+        {{ match.pages.join(", ") }}
+      </div>
+    </div>
+  </ng-template>
+
+  <p
+    [innerHTML]="
+      match.snippet | highlightSearchTerms : searchTerms | pagenumberNormalMode
+    "
+  ></p>
+</p-card>

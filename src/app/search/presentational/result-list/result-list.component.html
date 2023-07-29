@@ -1,0 +1,29 @@
+<div class="flex justify-content-center">
+  <div class="max-w-600">
+    <ng-container *ngIf="results">
+      <div class="ks-h flex justify-content-center">
+        {{ "SEARCH.RESULTS.COUNT" | translate }}: {{ resultsCount }}
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="results">
+      <ng-container *ngFor="let result of results">
+        <div class="mt-6">
+          <p-divider align="center">
+            <b>Band {{ result.volume }}: {{ result.workTitle }}</b>
+          </p-divider>
+        </div>
+
+        <ng-container *ngFor="let match of result.matches">
+          <div class="mb-2">
+            <app-result-item
+              [result]="result"
+              [match]="match"
+              [searchTerms]="searchTerms"
+            ></app-result-item>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
