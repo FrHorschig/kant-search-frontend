@@ -11,9 +11,5 @@
     </div>
   </ng-template>
 
-  <p
-    [innerHTML]="
-      match.snippet | highlightSearchTerms : searchTerms | pagenumberNormalMode
-    "
-  ></p>
+  <p [innerHTML]="match.snippet | pagenumberNormalMode"></p>
 </p-card>
