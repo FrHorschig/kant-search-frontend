@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
@@ -15,6 +16,7 @@ import { ResultsComponent } from './container/results/results.component';
 import { ResultListComponent } from './presentational/result-list/result-list.component';
 import { SearchInputComponent } from './presentational/search-input/search-input.component';
 import { ResultItemComponent } from './presentational/result-item/result-item.component';
+import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ResultItemComponent } from './presentational/result-item/result-item.co
     SearchInputComponent,
     ResultListComponent,
     ResultItemComponent,
+    ParagraphDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { ResultItemComponent } from './presentational/result-item/result-item.co
     AppCommonModule,
     ButtonModule,
     CardModule,
+    DialogModule,
     DividerModule,
     InputTextModule,
     MessagesModule,

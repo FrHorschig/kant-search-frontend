@@ -1,15 +1,18 @@
-<p-card>
-  <ng-template pTemplate="subtitle">
-    <div class="flex justify-content-between">
-      <div>Band {{ result.volume }}: {{ result.workTitle }}</div>
+<div class="cursor-pointer" (click)="onCardClick()">
+  <p-card>
+    <ng-template pTemplate="subtitle">
+      <div class="flex justify-content-between">
+        <div>Band {{ result.volume }}: {{ result.workTitle }}</div>
 
-      <div>
-        {{
-          "SEARCH.RESULTS.PAGES" | translate : { pages: match.pages.join(", ") }
-        }}
+        <div>
+          {{
+            "SEARCH.RESULTS.PAGES"
+              | translate : { pages: match.pages.join(", ") }
+          }}
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
 
-  <p [innerHTML]="match.snippet | pagenumberNormalMode"></p>
-</p-card>
+    <p [innerHTML]="match.snippet | pagenumberNormalMode"></p>
+  </p-card>
+</div>

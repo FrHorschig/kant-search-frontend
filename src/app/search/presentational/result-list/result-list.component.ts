@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { SearchResult } from 'kant-search-api';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Match, SearchResult } from 'kant-search-api';
 
 @Component({
   selector: 'app-result-list',
@@ -10,4 +10,10 @@ export class ResultListComponent {
   @Input() results: SearchResult[] | undefined;
   @Input() resultsCount = 0;
   @Input() searchTerms: string[] = [];
+
+  @Output() onClick = new EventEmitter<Match>();
+
+  onMatchClick(match: Match) {
+    this.onClick.emit(match);
+  }
 }

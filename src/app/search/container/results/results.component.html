@@ -3,4 +3,10 @@
   [results]="results"
   [resultsCount]="resultsCount"
   [searchTerms]="searchTerms"
+  (onClick)="onClick($event)"
 ></app-result-list>
+
+<app-paragraph-dialog
+  [(isVisible)]="isParagraphShowing"
+  [text]="paragraphText"
+></app-paragraph-dialog>

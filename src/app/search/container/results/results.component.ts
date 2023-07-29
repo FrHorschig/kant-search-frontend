@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   HttpError,
+  Match,
+  ReadService,
   SearchCriteria,
   SearchResult,
   SearchService,
@@ -19,8 +21,12 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   resultsCount = 0;
   searchTerms: string[] = [];
 
+  isParagraphShowing = false;
+  paragraphText = '';
+
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly readService: ReadService,
     private readonly searchService: SearchService,
     private readonly messageService: MessageService
   ) {
@@ -61,5 +67,30 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
           },
         });
     });
+  }
+
+  onClick(match: Match) {
+    this.messageService.clear();
+    this.readService.getParagraph(match.workId, match.elementId).subscribe({
+      next: (paragraph) => {
+        this.isParagraphShowing = true;
+        this.paragraphText = this.highlightMatches(
+          paragraph.text,
+          match.snippet
+        );
+      },
+      error: (err: HttpError) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: `The paragraph of the search match count not be fetched: ${err.message}`,
+        });
+      },
+    });
+  }
+
+  private highlightMatches(text: string, snippet: string): string {
+    // TODO: Implement me
+    return text;
   }
 }
