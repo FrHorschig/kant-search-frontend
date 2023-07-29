@@ -97,7 +97,7 @@ export class WorkTreeBuilderService {
       children: nodes2,
     });
     nodes.push({
-      key: 's2',
+      key: 's3',
       label: 'WORKS.SECTIONS.MANUSCRIPTS',
       styleClass: 'font-bold',
       selectable: allSelectable,
