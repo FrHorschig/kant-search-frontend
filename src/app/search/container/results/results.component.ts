@@ -90,7 +90,17 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   }
 
   private highlightMatches(text: string, snippet: string): string {
-    // TODO: Implement me
+    const regex = /<b>(.*?)<\/b>/g;
+    let match;
+    let words: string[] = [];
+    while ((match = regex.exec(snippet)) !== null) {
+      words.push(match[1]);
+    }
+
+    for (let word of words) {
+      let wordRegex = new RegExp(`\\b${word}\\b`, 'g');
+      text = text.replace(wordRegex, `<b>${word}</b>`);
+    }
     return text;
   }
 }
