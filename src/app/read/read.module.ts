@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReadRoutingModule } from './read-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
+import { ReadRoutingModule } from './read-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { NormalModeComponent } from './presentational/normal-mode/normal-mode.component';
 import { WorksMenuComponent } from './presentational/works-menu/works-menu.component';
@@ -18,6 +19,7 @@ import { TextComponent } from './container/text/text.component';
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     ReadRoutingModule,
     AppCommonModule,
     MessagesModule,

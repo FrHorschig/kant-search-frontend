@@ -23,5 +23,12 @@
       "COUNT": "Number of search results",
       "PAGES": "[{{ pages }}]"
     }
+  },
+  "WORKS": {
+    "SECTIONS": {
+      "WORKS": "Section 1: Works",
+      "LETTERS": "Section 2: Letters",
+      "MANUSCRIPTS": "Section 3: Manuscripts"
+    }
   }
 }

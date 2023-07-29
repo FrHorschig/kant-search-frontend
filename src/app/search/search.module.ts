@@ -30,9 +30,9 @@ import { ResultItemComponent } from './presentational/result-item/result-item.co
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     SearchRoutingModule,
     AppCommonModule,
-    TranslateModule,
     ButtonModule,
     CardModule,
     DividerModule,

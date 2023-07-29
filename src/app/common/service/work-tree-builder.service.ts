@@ -6,8 +6,6 @@ import { TreeNode } from 'primeng/api';
   providedIn: 'root',
 })
 export class WorkTreeBuilderService {
-  constructor() {}
-
   buildTree(works: Work[]): TreeNode[] {
     const workByVolume = this.createWorkByVolume(works);
     return this.createNodes(workByVolume);
@@ -24,7 +22,9 @@ export class WorkTreeBuilderService {
   }
 
   private createNodes(worksByVolume: Map<number, Work[]>): TreeNode[] {
-    const nodes: TreeNode[] = [];
+    const nodes1: TreeNode[] = [];
+    const nodes2: TreeNode[] = [];
+    const nodes3: TreeNode[] = [];
     const sortedKeys = Array.from(worksByVolume.keys()).sort((a, b) => a - b);
     for (const key of sortedKeys) {
       let children: TreeNode[] = [];
@@ -32,15 +32,23 @@ export class WorkTreeBuilderService {
       if (works) {
         children = this.createWorkNodes(works);
       }
-      nodes.push({
+      const node = {
         key: `${key}`,
         label: `Band ${key}`,
+        styleClass: 'font-bold',
         selectable: true,
         expanded: true,
         children: children,
-      });
+      };
+      if (key < 10) {
+        nodes1.push(node);
+      } else if (key < 14) {
+        nodes2.push(node);
+      } else {
+        nodes3.push(node);
+      }
     }
-    return nodes;
+    return this.createSectionNodes(nodes1, nodes2, nodes3);
   }
 
   private createWorkNodes(works: Work[]): TreeNode[] {
@@ -52,11 +60,45 @@ export class WorkTreeBuilderService {
       nodes.push({
         key: `${work.volume}-${work.id}`,
         label: label,
+        styleClass: 'font-normal',
         selectable: true,
         expanded: true,
         data: work,
       });
     }
+    return nodes;
+  }
+
+  private createSectionNodes(
+    nodes1: TreeNode[],
+    nodes2: TreeNode[],
+    nodes3: TreeNode[]
+  ): TreeNode[] {
+    const nodes: TreeNode[] = [];
+    nodes.push({
+      key: 's1',
+      label: 'WORKS.SECTIONS.WORKS',
+      styleClass: 'font-bold',
+      selectable: true,
+      expanded: true,
+      children: nodes1,
+    });
+    nodes.push({
+      key: 's2',
+      label: 'WORKS.SECTIONS.LETTERS',
+      styleClass: 'font-bold',
+      selectable: true,
+      expanded: true,
+      children: nodes2,
+    });
+    nodes.push({
+      key: 's2',
+      label: 'WORKS.SECTIONS.MANUSCRIPTS',
+      styleClass: 'font-bold',
+      selectable: true,
+      expanded: true,
+      children: nodes3,
+    });
     return nodes;
   }
 }

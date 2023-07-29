@@ -3,4 +3,8 @@
   [filter]="true"
   selectionMode="single"
   (onNodeSelect)="onNodeSelect($event)"
-></p-tree>
+>
+  <ng-template pTemplate="default" let-node>
+    {{ node.label | translate }}
+  </ng-template>
+</p-tree>
