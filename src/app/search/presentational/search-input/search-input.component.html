@@ -6,6 +6,7 @@
       class="w-full mb-2"
       placeholder="{{ 'SEARCH.INPUT_PLACEHOLDER' | translate }}"
       (input)="onInputChange($event)"
+      (keydown.enter)="onSearchClick()"
     />
 
     <div class="mb-2">

@@ -54,12 +54,14 @@ export class SearchComponent extends ContainerComponent implements OnInit {
   }
 
   onSearch() {
-    this.router.navigate(['/search/results'], {
-      queryParams: {
-        searchTerms: this.searchTerms.split(' ').join(','),
-        workIds: this.selectedWorks?.map((work) => work.id).join(','),
-      },
-    });
+    if (this.selectedWorks.length > 0 && this.searchTerms) {
+      this.router.navigate(['/search/results'], {
+        queryParams: {
+          searchTerms: this.searchTerms.split(' ').join(','),
+          workIds: this.selectedWorks?.map((work) => work.id).join(','),
+        },
+      });
+    }
   }
 
   private updateIsSearchPermitted() {
