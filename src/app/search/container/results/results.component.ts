@@ -23,6 +23,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   isParagraphShowing = false;
   paragraphText = '';
+  pages: number[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -78,6 +79,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
           paragraph.text,
           match.snippet
         );
+        this.pages = paragraph.pages;
       },
       error: (err: HttpError) => {
         this.messageService.add({
@@ -92,9 +94,9 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   private highlightMatches(text: string, snippet: string): string {
     const regex = /<b>(.*?)<\/b>/g;
     let match;
-    let words: string[] = [];
+    let words: Set<string> = new Set();
     while ((match = regex.exec(snippet)) !== null) {
-      words.push(match[1]);
+      words.add(match[1]);
     }
 
     for (let word of words) {

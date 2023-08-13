@@ -1,3 +1,10 @@
-<p-dialog [(visible)]="isVisible" [modal]="true" (onHide)="onHide()">
+<p-dialog
+  [(visible)]="isVisible"
+  [modal]="true"
+  (onHide)="onHide()"
+  header="{{
+    'SEARCH.RESULTS.PAGES' | translate : { pages: pages.join(', ') }
+  }}"
+>
   <div class="max-w-600" [innerHTML]="text | pagenumberNormalMode"></div>
 </p-dialog>

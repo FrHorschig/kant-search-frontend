@@ -14,6 +14,7 @@ import {
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
   @Input() text = '';
+  @Input() pages: number[] = [];
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
