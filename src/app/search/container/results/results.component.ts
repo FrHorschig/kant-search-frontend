@@ -10,10 +10,12 @@ import {
 } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
+import { ResultsStore } from './results.store';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
+  providers: [ResultsStore],
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   isLoading = true;
@@ -29,7 +31,8 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly readService: ReadService,
     private readonly searchService: SearchService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly resultsStore: ResultsStore
   ) {
     super();
   }

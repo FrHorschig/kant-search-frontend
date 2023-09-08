@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { StartpageComponent } from './startpage/startpage.component';
 import { MessageService } from 'primeng/api';
 import { NavbarComponent } from './navbar/navbar.component';
+import { StoreModule } from '@ngrx/store';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ButtonModule,
     MessagesModule,
     TabMenuModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
