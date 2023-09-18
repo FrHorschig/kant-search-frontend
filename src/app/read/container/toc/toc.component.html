@@ -1,5 +1,4 @@
 <app-works-menu
-  selectionMode="single"
-  [works]="works$ | async"
+  [isSelectable]="true"
   (onSelectionChange)="showText($event)"
 ></app-works-menu>

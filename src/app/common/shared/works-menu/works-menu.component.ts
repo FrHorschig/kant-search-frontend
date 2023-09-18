@@ -1,57 +1,38 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { WorkTreeBuilderService } from 'src/app/common/service/work-tree-builder.service';
+import { WorksMenuStore } from './works-menu.store';
 
 @Component({
   selector: 'app-works-menu',
   templateUrl: './works-menu.component.html',
-  providers: [WorkTreeBuilderService],
 })
 export class WorksMenuComponent {
-  @Input() set selectionMode(selectionMode: string) {
-    this.mode = selectionMode;
-    this.buildNodes();
+  @Input() set isSelectable(isSelectable: boolean) {
+    this.mode = isSelectable ? 'checkbox' : 'single';
+    this.store.buildNodes(isSelectable);
   }
-  @Input() set works(works: Work[] | undefined) {
-    if (!works) {
-      return;
-    }
-    this._works = works;
-    this.buildNodes();
-  }
-
   @Output() onSelectionChange = new EventEmitter<Work[]>();
 
-  _works: Work[] = [];
   mode = '';
-  nodes: TreeNode[] = [];
+  nodes = this.store.nodes$;
   selection: TreeNode[] = [];
 
-  constructor(private readonly treeBuilder: WorkTreeBuilderService) {}
+  constructor(private readonly store: WorksMenuStore) {}
 
   onNodeSelect(event: any) {
     if (this.selection.length > 1) {
-      this.onSelectionChange.emit(this.getWorks());
+      this.onSelectionChange.emit(this.getSelectedWorks());
     } else {
       this.onSelectionChange.emit([event.node.data]);
     }
   }
 
   onNodeUnselect() {
-    this.onSelectionChange.emit(this.getWorks());
+    this.onSelectionChange.emit(this.getSelectedWorks());
   }
 
-  private buildNodes() {
-    if (this._works.length > 0 && this.mode) {
-      this.nodes = this.treeBuilder.buildTree(
-        this._works,
-        this.mode === 'checkbox'
-      );
-    }
-  }
-
-  private getWorks(): Work[] {
+  private getSelectedWorks(): Work[] {
     const works: Work[] = [];
     this.selection.forEach((node) => {
       if (node.data) {
