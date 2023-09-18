@@ -5,6 +5,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import { loadWorks, loadWorksSuccess } from './works.actions';
 import { ReadService } from 'kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class WorksEffects {
@@ -19,8 +20,8 @@ export class WorksEffects {
           map(([volumes, works]) => {
             return loadWorksSuccess({ volumes, works });
           }),
-          catchError(() => {
-            this.errorService.logError('Error while loading global data');
+          catchError((err: HttpErrorResponse) => {
+            this.errorService.logError(err.message);
             return EMPTY;
           })
         )

@@ -16,7 +16,7 @@ export class WorksLoadedService {
   private subscription: Subscription;
   isLoaded = false;
 
-  constructor(private store: Store) {
+  constructor(private readonly store: Store) {
     this.subscription = this.store
       .select(selectIsLoaded)
       .subscribe((isLoaded) => {

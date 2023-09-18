@@ -13,17 +13,17 @@ interface WorkById {
 
 export interface State {
   volumes: Volume[];
-  volumeById: VolumeById;
+  volumeById: Map<number, Volume>;
   works: Work[];
-  workById: WorkById;
+  workById: Map<number, Work>;
   isLoaded: boolean;
 }
 
 export const initialState: State = {
   volumes: [],
-  volumeById: {},
+  volumeById: new Map<number, Volume>(),
   works: [],
-  workById: {},
+  workById: new Map<number, Work>(),
   isLoaded: false,
 };
 
@@ -35,20 +35,20 @@ export const worksFeature = createFeature({
       return {
         ...state,
         volumes: [],
-        volumeById: {},
+        volumeById: new Map<number, Volume>(),
         works: [],
-        workById: {},
+        workById: new Map<number, Work>(),
         isLoaded: false,
       };
     }),
     on(loadWorksSuccess, (state, { volumes, works }) => {
-      const volumesMap: VolumeById = {};
+      const volumesMap = new Map<number, Volume>();
       volumes.forEach((volume) => {
-        volumesMap[volume.id] = volume;
+        volumesMap.set(volume.id, volume);
       });
-      const worksMap: WorkById = {};
+      const worksMap = new Map<number, Work>();
       works.forEach((work) => {
-        worksMap[work.id] = work;
+        worksMap.set(work.id, work);
       });
       return {
         ...state,
@@ -71,6 +71,6 @@ export const {
 } = worksFeature;
 
 export const selectVolume = (id: number) =>
-  createSelector(selectVolumeById, (volumeById) => volumeById[id]);
+  createSelector(selectVolumeById, (volumeById) => volumeById.get(id));
 export const selectWork = (id: number) =>
-  createSelector(selectWorkById, (workById) => workById[id]);
+  createSelector(selectWorkById, (workById) => workById.get(id));
