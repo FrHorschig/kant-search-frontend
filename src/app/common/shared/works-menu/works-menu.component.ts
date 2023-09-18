@@ -15,7 +15,7 @@ export class WorksMenuComponent {
   @Output() onSelectionChange = new EventEmitter<Work[]>();
 
   mode = '';
-  nodes = this.store.nodes$;
+  nodes$ = this.store.nodes$;
   selection: TreeNode[] = [];
 
   constructor(private readonly store: WorksMenuStore) {}

@@ -1,7 +1,7 @@
 <div class="flex justify-content-center">
   <div class="max-w-600">
     <p-tree
-      [value]="(nodes | async) || []"
+      [value]="(nodes$ | async) || []"
       [filter]="true"
       [selectionMode]="mode"
       [(selection)]="selection"

@@ -6,5 +6,5 @@ import { Paragraph } from 'kant-search-api';
   templateUrl: './normal-mode.component.html',
 })
 export class NormalModeComponent {
-  @Input() paragraphs: Paragraph[] | null = null;
+  @Input() paragraphs: Paragraph[] = [];
 }

@@ -1,7 +1,9 @@
 <div class="flex justify-content-center">
   <div class="max-w-600">
     <ng-container *ngIf="isLoaded$ | async">
-      <app-normal-mode [paragraphs]="paragraphs$ | async"></app-normal-mode>
+      <app-normal-mode
+        [paragraphs]="(paragraphs$ | async) || []"
+      ></app-normal-mode>
     </ng-container>
   </div>
 </div>
