@@ -1,9 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { Volume, Work } from 'kant-search-api';
 
-export const loadGlobalData = createAction('[GlobalData] Load Data');
-
-export const globalDataLoaded = createAction(
-  '[GlobalData] Data Loaded',
+export const loadWorks = createAction('[Works] Load Works');
+export const loadWorksSuccess = createAction(
+  '[Works] Works loaded successfully',
   props<{ volumes: Volume[]; works: Work[] }>()
 );

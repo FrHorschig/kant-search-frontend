@@ -1,6 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import * as GlobalDataActions from './global-data.actions';
 import { Volume, Work } from 'kant-search-api';
+import { loadWorks, loadWorksSuccess } from './works.actions';
 
 export const globalDataFeatureKey = 'globalData';
 
@@ -12,27 +12,36 @@ interface WorkById {
 }
 
 export interface State {
+  volumes: Volume[];
   volumeById: VolumeById;
+  works: Work[];
   workById: WorkById;
+  isLoaded: boolean;
 }
 
 export const initialState: State = {
+  volumes: [],
   volumeById: {},
+  works: [],
   workById: {},
+  isLoaded: false,
 };
 
-export const globalDataFeature = createFeature({
+export const worksFeature = createFeature({
   name: 'globalData',
   reducer: createReducer(
     initialState,
-    on(GlobalDataActions.loadGlobalData, (state) => {
+    on(loadWorks, (state) => {
       return {
         ...state,
+        volumes: [],
         volumeById: {},
+        works: [],
         workById: {},
+        isLoaded: false,
       };
     }),
-    on(GlobalDataActions.globalDataLoaded, (state, { volumes, works }) => {
+    on(loadWorksSuccess, (state, { volumes, works }) => {
       const volumesMap: VolumeById = {};
       volumes.forEach((volume) => {
         volumesMap[volume.id] = volume;
@@ -43,14 +52,23 @@ export const globalDataFeature = createFeature({
       });
       return {
         ...state,
+        volumes,
         volumeById: volumesMap,
+        works,
         workById: worksMap,
+        isLoaded: true,
       };
     })
   ),
 });
 
-export const { reducer, selectVolumeById, selectWorkById } = globalDataFeature;
+export const {
+  selectVolumes,
+  selectVolumeById,
+  selectWorks,
+  selectWorkById,
+  selectIsLoaded,
+} = worksFeature;
 
 export const selectVolume = (id: number) =>
   createSelector(selectVolumeById, (volumeById) => volumeById[id]);

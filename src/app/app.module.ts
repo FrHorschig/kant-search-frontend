@@ -16,11 +16,8 @@ import { MessageService } from 'primeng/api';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  globalDataFeatureKey,
-  globalDataReducer,
-} from './startpage/globalData/global-data.reducer';
-import { GlobalDataEffects } from './startpage/globalData/global-data.effects';
+import { worksFeature } from './store/works/works.reducers';
+import { WorksEffects } from './store/works/works.effects';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -44,8 +41,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ButtonModule,
     MessagesModule,
     TabMenuModule,
-    StoreModule.forRoot({ [globalDataFeatureKey]: globalDataReducer }),
-    EffectsModule.forRoot([GlobalDataEffects]),
+    StoreModule.forRoot({ worksData: worksFeature.reducer }),
+    EffectsModule.forRoot([WorksEffects]),
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

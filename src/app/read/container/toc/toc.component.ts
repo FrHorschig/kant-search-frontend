@@ -1,42 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpError, ReadService, Work } from 'kant-search-api';
+import { Store } from '@ngrx/store';
+import { Work } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
-import { TreeSelectionMode } from 'src/app/common/model/tree-selection-mode';
+import { selectWorks } from 'src/app/common/global-store/works.reducer';
 
 @Component({
   selector: 'app-toc',
   templateUrl: './toc.component.html',
 })
-export class TocComponent extends ContainerComponent implements OnInit {
-  works: Work[] | undefined;
+export class TocComponent extends ContainerComponent {
+  works$ = this.store.select(selectWorks);
 
-  constructor(
-    private readonly router: Router,
-    private readonly messageService: MessageService,
-    private readonly readService: ReadService
-  ) {
+  constructor(private readonly router: Router, private readonly store: Store) {
     super();
-  }
-
-  ngOnInit() {
-    this.messageService.clear();
-    this.readService
-      .getWorks()
-      .pipe(this.takeUntilDestroy())
-      .subscribe({
-        next: (works) => {
-          this.works = works;
-        },
-        error: (err: HttpError) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: `The works could not be fetched: ${err.message}`,
-          });
-        },
-      });
   }
 
   showText(works: Work[]) {
