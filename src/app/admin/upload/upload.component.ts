@@ -38,12 +38,8 @@ export class UploadComponent extends ContainerComponent {
 
   processText(text: string) {
     const work: WorkUpload = {
-      title: this.title,
-      abbreviation: this.abbrev,
+      workId: 0, // TODO frhorsch: refactor this module
       text: text,
-      volume: +(this.volume || 0),
-      ordinal: +(this.ordinal || 0),
-      year: +(this.year || 0),
     };
     this.postText(work);
     this.resetFields();
