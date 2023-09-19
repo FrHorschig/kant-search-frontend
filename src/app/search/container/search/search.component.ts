@@ -1,71 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpError, ReadService, Work } from 'kant-search-api';
-import { MessageService } from 'primeng/api';
+import { Store } from '@ngrx/store';
 import { ContainerComponent } from 'src/app/common/base/container.component';
+import { WorksReducer } from 'src/app/store/works';
+import { SearchStore } from './search.store';
+import { Work } from 'kant-search-api';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
+  providers: [SearchStore],
 })
-export class SearchComponent extends ContainerComponent implements OnInit {
-  works: Work[] | undefined;
+export class SearchComponent extends ContainerComponent {
+  works$ = this.store.select(WorksReducer.selectWorks);
+  isSearchPermitted$ = this.searchStore.isSearchPermitted$;
 
   searchTerms = '';
   selectedWorks: Work[] = [];
-
   isSearchPermitted = false;
 
   constructor(
-    private readonly router: Router,
-    private readonly readService: ReadService,
-    private readonly messageService: MessageService
+    private readonly store: Store,
+    private readonly searchStore: SearchStore
   ) {
     super();
   }
 
-  ngOnInit() {
-    this.messageService.clear();
-    this.readService
-      .getWorks()
-      .pipe(this.takeUntilDestroy())
-      .subscribe({
-        next: (works) => {
-          this.works = works;
-        },
-        error: (err: HttpError) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: `The works could not be fetched: ${err.message}`,
-          });
-        },
-      });
-  }
-
   onInput(searchTerms: string) {
-    this.searchTerms = searchTerms;
-    this.updateIsSearchPermitted();
+    this.searchStore.putSearchTerms(searchTerms);
   }
 
   onSelect(works: Work[]) {
-    this.selectedWorks = works;
-    this.updateIsSearchPermitted();
+    this.searchStore.putWorks(works);
   }
 
   onSearch() {
-    if (this.selectedWorks.length > 0 && this.searchTerms) {
-      this.router.navigate(['/search/results'], {
-        queryParams: {
-          searchTerms: this.searchTerms.split(' ').join(','),
-          workIds: this.selectedWorks?.map((work) => work.id).join(','),
-        },
-      });
-    }
-  }
-
-  private updateIsSearchPermitted() {
-    this.isSearchPermitted =
-      !!this.searchTerms && this.selectedWorks && this.selectedWorks.length > 0;
+    this.searchStore.startSearch();
   }
 }

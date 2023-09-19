@@ -1,6 +1,6 @@
 <app-search-input
-  [works]="works"
-  [isSearchPermitted]="isSearchPermitted"
+  [works]="(works$ | async) || []"
+  [isSearchPermitted]="(isSearchPermitted$ | async) || false"
   (onInput)="onInput($event)"
   (onSelect)="onSelect($event)"
   (onSearch)="onSearch()"
