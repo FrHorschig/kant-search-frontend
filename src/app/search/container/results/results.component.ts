@@ -1,44 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  HttpError,
-  Match,
-  ReadService,
-  SearchCriteria,
-  SearchResult,
-  SearchService,
-} from 'kant-search-api';
-import { MessageService } from 'primeng/api';
+import { Match, SearchCriteria, SearchScope } from 'kant-search-api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
-import { ResultsStore } from './results.store';
+import { SearchStore } from './search.store';
+import { Store } from '@ngrx/store';
+import { WorksReducer } from 'src/app/store/works';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  providers: [ResultsStore],
+  providers: [SearchStore],
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
-  isLoading = true;
-  results: SearchResult[] | undefined;
-  resultsCount = 0;
-  searchTerms: string[] = [];
+  workById$ = this.store.select(WorksReducer.selectWorkById);
+  result$ = this.searchStore.result$;
+  resultCount$ = this.searchStore.resultCount$;
+  isLoaded$ = this.searchStore.isLoaded$;
 
-  isParagraphShowing = false;
-  paragraphText = '';
+  searchTerms: string[] = [];
+  showParagraph = false;
+  text = '';
   pages: number[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly readService: ReadService,
-    private readonly searchService: SearchService,
-    private readonly messageService: MessageService,
-    private readonly resultsStore: ResultsStore
+    private readonly store: Store,
+    private readonly searchStore: SearchStore
   ) {
     super();
   }
 
   ngOnInit() {
-    this.messageService.clear();
     this.route.queryParamMap.subscribe((params) => {
       if (!params) {
         return;
@@ -46,66 +38,21 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
       this.searchTerms = params.get('searchTerms')?.split(',') || [];
       const workIds = params.get('workIds')?.split(',').map(Number) || [];
-      const searchCriteria: SearchCriteria = {
+      const scope =
+        params.get('scope') === 'sentence'
+          ? SearchScope.Sentence
+          : SearchScope.Paragraph;
+      const criteria: SearchCriteria = {
         searchTerms: this.searchTerms,
         workIds: workIds,
+        scope: scope,
       };
-      this.searchService
-        .search(searchCriteria)
-        .pipe(this.takeUntilDestroy())
-        .subscribe({
-          next: (results) => {
-            this.isLoading = false;
-            this.results = results;
-            this.resultsCount = results
-              .map((results) => results.matches.length)
-              .reduce((a, b) => a + b, 0);
-          },
-          error: (err: HttpError) => {
-            this.isLoading = false;
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: `The search results could not be fetched: ${err.message}`,
-            });
-          },
-        });
+      this.searchStore.searchParagraphs(criteria);
     });
   }
 
   onClick(match: Match) {
-    this.messageService.clear();
-    this.readService.getParagraph(match.workId, match.elementId).subscribe({
-      next: (paragraph) => {
-        this.isParagraphShowing = true;
-        this.paragraphText = this.highlightMatches(
-          paragraph.text,
-          match.snippet
-        );
-        this.pages = paragraph.pages;
-      },
-      error: (err: HttpError) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `The paragraph of the search match count not be fetched: ${err.message}`,
-        });
-      },
-    });
-  }
-
-  private highlightMatches(text: string, snippet: string): string {
-    const regex = /<b>(.*?)<\/b>/g;
-    let match;
-    let words: Set<string> = new Set();
-    while ((match = regex.exec(snippet)) !== null) {
-      words.add(match[1]);
-    }
-
-    for (let word of words) {
-      let wordRegex = new RegExp(`\\b${word}\\b`, 'g');
-      text = text.replace(wordRegex, `<b>${word}</b>`);
-    }
-    return text;
+    this.text = match.text;
+    this.pages = match.pages;
   }
 }

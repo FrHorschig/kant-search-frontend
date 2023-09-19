@@ -1,13 +1,15 @@
-<app-result-list
-  [isLoading]="isLoading"
-  [results]="results"
-  [resultsCount]="resultsCount"
-  [searchTerms]="searchTerms"
-  (onClick)="onClick($event)"
-></app-result-list>
+<ng-container *ngIf="isLoaded$ | async">
+  <app-result-list
+    [workById]="workById$ | async"
+    [result]="(result$ | async) || []"
+    [resultCount]="(resultCount$ | async) || 0"
+    [searchTerms]="searchTerms"
+    (onClick)="onClick($event)"
+  ></app-result-list>
+</ng-container>
 
 <app-paragraph-dialog
-  [(isVisible)]="isParagraphShowing"
-  [text]="paragraphText"
+  [(isVisible)]="showParagraph"
+  [text]="text"
   [pages]="pages"
 ></app-paragraph-dialog>

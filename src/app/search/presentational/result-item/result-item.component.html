@@ -2,17 +2,14 @@
   <p-card>
     <ng-template pTemplate="subtitle">
       <div class="flex justify-content-between">
-        <div>Band {{ result.volume }}: {{ result.workTitle }}</div>
+        <div>Band {{ volume }}: {{ workTitle }}</div>
 
         <div>
-          {{
-            "SEARCH.RESULTS.PAGES"
-              | translate : { pages: match.pages.join(", ") }
-          }}
+          {{ "SEARCH.RESULTS.PAGES" | translate : { pages: pages.join(", ") } }}
         </div>
       </div>
     </ng-template>
 
-    <p [innerHTML]="match.snippet | pagenumberNormalMode"></p>
+    <p [innerHTML]="snippet | pagenumberNormalMode"></p>
   </p-card>
 </div>
