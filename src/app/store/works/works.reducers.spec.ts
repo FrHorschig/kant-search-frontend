@@ -1,4 +1,3 @@
-import { Volume, Work } from 'kant-search-api';
 import { loadWorks, loadWorksSuccess } from './works.actions';
 import { State, initialState, worksFeature } from './works.reducers';
 import { Testdata } from 'src/app/common/test/testdata';
@@ -13,9 +12,9 @@ describe('WorksReducers', () => {
   it('should reset the state', () => {
     const prevState: State = {
       volumes: Testdata.volumes,
-      volumeById: new Map<number, Volume>([[1, Testdata.volume]]),
+      volumeById: Testdata.volumeById,
       works: Testdata.works,
-      workById: new Map<number, Work>([[1, Testdata.work]]),
+      workById: Testdata.workById,
       isLoaded: true,
     };
     const action = loadWorks();
@@ -31,9 +30,9 @@ describe('WorksReducers', () => {
     const state = worksFeature.reducer(initialState, action);
     expect(state).toEqual({
       volumes: Testdata.volumes,
-      volumeById: new Map<number, Volume>([[1, Testdata.volume]]),
+      volumeById: Testdata.volumeById,
       works: Testdata.works,
-      workById: new Map<number, Work>([[1, Testdata.work]]),
+      workById: Testdata.workById,
       isLoaded: true,
     });
   });

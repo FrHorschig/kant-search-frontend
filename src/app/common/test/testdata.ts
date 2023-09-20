@@ -10,4 +10,6 @@ export class Testdata {
   };
   static volumes: Volume[] = [this.volume];
   static works: Work[] = [this.work];
+  static volumeById = new Map<number, Volume>([[1, this.volume]]);
+  static workById = new Map<number, Work>([[1, this.work]]);
 }
