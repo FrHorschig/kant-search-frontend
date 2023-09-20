@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ContainerComponent } from 'src/app/common/base/container.component';
-import { WorksReducer } from 'src/app/store/works';
+import { WorksReducers } from 'src/app/store/works';
 import { SearchStore } from './search.store';
 import { Work } from 'kant-search-api';
 
@@ -12,7 +12,7 @@ import { Work } from 'kant-search-api';
   providers: [SearchStore],
 })
 export class SearchComponent extends ContainerComponent {
-  works$ = this.store.select(WorksReducer.selectWorks);
+  works$ = this.store.select(WorksReducers.selectWorks);
   isSearchPermitted$ = this.searchStore.isSearchPermitted$;
 
   searchTerms = '';

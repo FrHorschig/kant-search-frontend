@@ -4,7 +4,7 @@ import { Match, SearchCriteria, SearchScope } from 'kant-search-api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { SearchStore } from './search.store';
 import { Store } from '@ngrx/store';
-import { WorksReducer } from 'src/app/store/works';
+import { WorksReducers } from 'src/app/store/works';
 
 @Component({
   selector: 'app-results',
@@ -12,7 +12,7 @@ import { WorksReducer } from 'src/app/store/works';
   providers: [SearchStore],
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
-  workById$ = this.store.select(WorksReducer.selectWorkById);
+  workById$ = this.store.select(WorksReducers.selectWorkById);
   result$ = this.searchStore.result$;
   resultCount$ = this.searchStore.resultCount$;
   isLoaded$ = this.searchStore.isLoaded$;

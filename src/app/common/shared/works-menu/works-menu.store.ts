@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { combineLatest, filter, map, switchMap } from 'rxjs';
-import { WorksReducer } from 'src/app/store/works';
+import { WorksReducers } from 'src/app/store/works';
 
 interface WorksMenuState {
   nodes: TreeNode[];
@@ -12,12 +12,12 @@ interface WorksMenuState {
 
 @Injectable()
 export class WorksMenuStore extends ComponentStore<WorksMenuState> {
-  private worksData$ = this.store.select(WorksReducer.selectIsLoaded).pipe(
+  private worksData$ = this.store.select(WorksReducers.selectIsLoaded).pipe(
     filter((isLoaded) => isLoaded),
     switchMap(() =>
       combineLatest([
-        this.store.select(WorksReducer.selectWorks),
-        this.store.select(WorksReducer.selectVolumeById),
+        this.store.select(WorksReducers.selectWorks),
+        this.store.select(WorksReducers.selectVolumeById),
       ])
     )
   );

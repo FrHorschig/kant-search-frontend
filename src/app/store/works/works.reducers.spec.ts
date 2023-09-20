@@ -5,7 +5,7 @@ import { State, initialState, worksFeature } from './works.reducers';
 const mockVolume: Volume = { id: 1, title: 'Volume 1', section: 1 };
 const mockWork: Work = { id: 1, title: 'Work 1', ordinal: 0, volumeId: 1 };
 
-describe('WorksReducer', () => {
+describe('WorksReducers', () => {
   it('should return the default state', () => {
     const action = {} as any;
     const state = worksFeature.reducer(undefined, action);

@@ -4,13 +4,6 @@ import { loadWorks, loadWorksSuccess } from './works.actions';
 
 export const globalDataFeatureKey = 'globalData';
 
-interface VolumeById {
-  [id: number]: Volume;
-}
-interface WorkById {
-  [id: number]: Work;
-}
-
 export interface State {
   volumes: Volume[];
   volumeById: Map<number, Volume>;
@@ -28,7 +21,7 @@ export const initialState: State = {
 };
 
 export const worksFeature = createFeature({
-  name: 'globalData',
+  name: 'works',
   reducer: createReducer(
     initialState,
     on(loadWorks, (state) => {
@@ -70,7 +63,8 @@ export const {
   selectIsLoaded,
 } = worksFeature;
 
-export const selectVolume = (id: number) =>
-  createSelector(selectVolumeById, (volumeById) => volumeById.get(id));
-export const selectWork = (id: number) =>
-  createSelector(selectWorkById, (workById) => workById.get(id));
+// TODO frhorsch: if not needed, remove
+// export const selectVolume = (id: number) =>
+// createSelector(selectVolumeById, (volumeById) => volumeById.get(id));
+// export const selectWork = (id: number) =>
+// createSelector(selectWorkById, (workById) => workById.get(id));
