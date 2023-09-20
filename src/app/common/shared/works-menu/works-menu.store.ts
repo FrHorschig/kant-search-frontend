@@ -12,16 +12,6 @@ interface WorksMenuState {
 
 @Injectable()
 export class WorksMenuStore extends ComponentStore<WorksMenuState> {
-  private worksData$ = this.store.select(WorksReducers.selectIsLoaded).pipe(
-    filter((isLoaded) => isLoaded),
-    switchMap(() =>
-      combineLatest([
-        this.store.select(WorksReducers.selectWorks),
-        this.store.select(WorksReducers.selectVolumeById),
-      ])
-    )
-  );
-
   constructor(private readonly store: Store) {
     super({ nodes: [] });
   }
@@ -29,18 +19,28 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   readonly buildNodes = this.effect<boolean>((isSelectable$) =>
     isSelectable$.pipe(
       switchMap((isSelectable) =>
-        this.worksData$.pipe(
-          map(([works, volumeById]) =>
-            this.createNodes(works, volumeById, isSelectable)
+        this.store
+          .select(WorksReducers.selectIsLoaded)
+          .pipe(
+            filter((isLoaded) => isLoaded),
+            switchMap(() =>
+              combineLatest([
+                this.store.select(WorksReducers.selectWorks),
+                this.store.select(WorksReducers.selectVolumeById),
+              ])
+            )
           )
-        )
+          .pipe(
+            map(([works, volumeById]) =>
+              this.createNodes(works, volumeById, isSelectable)
+            )
+          )
       )
     )
   );
 
   readonly nodes$ = this.select((state) => state.nodes);
 
-  // TODO frhorsch: add i18n
   private createNodes(
     works: Work[],
     volumeById: Map<number, Volume>,
@@ -57,41 +57,70 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
         continue;
       }
       if (volume.section !== currentSection) {
-        sectionNodes.push({
-          key: `${currentSection}`,
-          label: `Section ${currentSection}`,
-          styleClass: 'font-bold',
-          expanded: true,
-          selectable: isSelectable,
-          children: volumeNodes,
-        });
+        sectionNodes.push(
+          this.createSectionNode(currentSection, isSelectable, volumeNodes)
+        );
         volumeNodes = [];
         currentSection = volume.section;
       }
-
       if (work.id !== currentVolume) {
-        volumeNodes.push({
-          key: `${currentSection}-${volume.id}`,
-          label: `${volume.title}`,
-          styleClass: 'font-bold',
-          expanded: true,
-          selectable: isSelectable,
-          children: workNodes,
-        });
+        volumeNodes.push(
+          this.createVolumeNode(currentSection, volume, isSelectable, workNodes)
+        );
         workNodes = [];
         currentVolume = work.id;
       }
-
-      workNodes.push({
-        key: `${currentSection}-${volume.id}-${work.id}`,
-        label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${
-          work.title
-        }${work.year ? ' (' + work.year + ')' : ''}`,
-        styleClass: 'font-normal',
-        selectable: isSelectable,
-        data: work,
-      });
+      workNodes.push(
+        this.createWorkNode(currentSection, volume, work, isSelectable)
+      );
     }
     return sectionNodes;
+  }
+
+  private createSectionNode(
+    section: number,
+    isSelectable: boolean,
+    volumeNodes: TreeNode[]
+  ): TreeNode {
+    return {
+      key: `${section}`,
+      label: `Section ${section}`, // TODO frhorsch: add i18n
+      styleClass: 'font-bold',
+      expanded: true,
+      selectable: isSelectable,
+      children: volumeNodes,
+    };
+  }
+
+  private createVolumeNode(
+    section: number,
+    volume: Volume,
+    isSelectable: boolean,
+    workNodes: TreeNode[]
+  ): TreeNode {
+    return {
+      key: `${section}-${volume.id}`,
+      label: `${volume.title}`,
+      styleClass: 'font-bold',
+      expanded: true,
+      selectable: isSelectable,
+      children: workNodes,
+    };
+  }
+
+  private createWorkNode(
+    section: number,
+    volume: Volume,
+    work: Work,
+    isSelectable: boolean
+  ): TreeNode {
+    return {
+      key: `${section}-${volume.id}-${work.id}`,
+      label: `${work.abbreviation ? work.abbreviation + ': ' : ''}
+        ${work.title}${work.year ? ' (' + work.year + ')' : ''}`,
+      styleClass: 'font-normal',
+      selectable: isSelectable,
+      data: work,
+    };
   }
 }
