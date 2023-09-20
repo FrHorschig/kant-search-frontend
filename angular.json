@@ -84,7 +84,8 @@
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.less"],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "./karma.conf.js"
           }
         }
       }
