@@ -19,15 +19,12 @@ describe('WorksEffects', () => {
   let errorService: jasmine.SpyObj<ErrorService>;
 
   beforeEach(() => {
-    const readServiceSpy = createReadServiceSpy();
-    const errorServiceSpy = createErrorServiceSpy();
-
     TestBed.configureTestingModule({
       providers: [
         WorksEffects,
         provideMockActions(() => actions$),
-        { provide: ReadService, useValue: readServiceSpy },
-        { provide: ErrorService, useValue: errorServiceSpy },
+        { provide: ReadService, useValue: createReadServiceSpy() },
+        { provide: ErrorService, useValue: createErrorServiceSpy() },
       ],
     });
 
