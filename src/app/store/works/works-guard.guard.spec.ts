@@ -4,39 +4,41 @@ import { WorksLoadedService } from './works-guard.guard';
 import { WorksReducers } from '.';
 
 describe('WorksLoadedService', () => {
-  let service: WorksLoadedService;
+  let sut: WorksLoadedService;
   let store: MockStore;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [WorksLoadedService, provideMockStore()],
     });
-    service = TestBed.inject(WorksLoadedService);
+    sut = TestBed.inject(WorksLoadedService);
     store = TestBed.inject(MockStore);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(sut).toBeTruthy();
   });
 
   it('should update isLoaded when store emits value', () => {
-    const mockIsLoaded = true;
-    store.overrideSelector(WorksReducers.selectIsLoaded, mockIsLoaded);
-
+    // GIVEN
+    store.overrideSelector(WorksReducers.selectIsLoaded, true);
     store.refreshState();
-
-    expect(service.isLoaded).toBe(mockIsLoaded);
+    // WHEN
+    const result = sut.isLoaded;
+    // THEN
+    expect(result).toBe(true);
   });
 
   it('should unsubscribe from the store on destroy', () => {
-    spyOn(service['subscription'], 'unsubscribe');
-
-    service.ngOnDestroy();
-
-    expect(service['subscription'].unsubscribe).toHaveBeenCalled();
+    // GIVEN
+    spyOn(sut['subscription'], 'unsubscribe');
+    // WHEN
+    sut.ngOnDestroy();
+    // THEN
+    expect(sut['subscription'].unsubscribe).toHaveBeenCalled();
   });
 
   afterEach(() => {
-    service.ngOnDestroy(); // Clean up any subscriptions
+    sut.ngOnDestroy(); // Clean up any subscriptions
   });
 });

@@ -1,9 +1,7 @@
 import { Volume, Work } from 'kant-search-api';
 import { loadWorks, loadWorksSuccess } from './works.actions';
 import { State, initialState, worksFeature } from './works.reducers';
-
-const mockVolume: Volume = { id: 1, title: 'Volume 1', section: 1 };
-const mockWork: Work = { id: 1, title: 'Work 1', ordinal: 0, volumeId: 1 };
+import { Testdata } from 'src/app/common/test/testdata';
 
 describe('WorksReducers', () => {
   it('should return the default state', () => {
@@ -14,10 +12,10 @@ describe('WorksReducers', () => {
 
   it('should reset the state', () => {
     const prevState: State = {
-      volumes: [mockVolume],
-      volumeById: new Map<number, Volume>([[1, mockVolume]]),
-      works: [mockWork],
-      workById: new Map<number, Work>([[1, mockWork]]),
+      volumes: Testdata.volumes,
+      volumeById: new Map<number, Volume>([[1, Testdata.volume]]),
+      works: Testdata.works,
+      workById: new Map<number, Work>([[1, Testdata.work]]),
       isLoaded: true,
     };
     const action = loadWorks();
@@ -27,15 +25,15 @@ describe('WorksReducers', () => {
 
   it('should populate data and set isLoaded to true', () => {
     const action = loadWorksSuccess({
-      volumes: [mockVolume],
-      works: [mockWork],
+      volumes: Testdata.volumes,
+      works: Testdata.works,
     });
     const state = worksFeature.reducer(initialState, action);
     expect(state).toEqual({
-      volumes: [mockVolume],
-      volumeById: new Map<number, Volume>([[1, mockVolume]]),
-      works: [mockWork],
-      workById: new Map<number, Work>([[1, mockWork]]),
+      volumes: Testdata.volumes,
+      volumeById: new Map<number, Volume>([[1, Testdata.volume]]),
+      works: Testdata.works,
+      workById: new Map<number, Work>([[1, Testdata.work]]),
       isLoaded: true,
     });
   });
