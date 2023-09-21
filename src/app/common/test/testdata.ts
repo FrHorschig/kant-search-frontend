@@ -5,7 +5,9 @@ export class Testdata {
   static work: Work = {
     id: 1,
     title: 'Work 1',
+    abbreviation: 'Abbrev 1',
     ordinal: 0,
+    year: '1234',
     volumeId: 1,
   };
   static volumes: Volume[] = [this.volume];

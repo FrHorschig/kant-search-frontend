@@ -3,7 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { combineLatest, filter, map, switchMap } from 'rxjs';
+import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { WorksReducers } from 'src/app/store/works';
 
 interface WorksMenuState {
@@ -19,22 +19,19 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   readonly buildNodes = this.effect<boolean>((isSelectable$) =>
     isSelectable$.pipe(
       switchMap((isSelectable) =>
-        this.store
-          .select(WorksReducers.selectIsLoaded)
-          .pipe(
-            filter((isLoaded) => isLoaded),
-            switchMap(() =>
-              combineLatest([
-                this.store.select(WorksReducers.selectWorks),
-                this.store.select(WorksReducers.selectVolumeById),
-              ])
-            )
-          )
-          .pipe(
-            map(([works, volumeById]) =>
-              this.createNodes(works, volumeById, isSelectable)
-            )
-          )
+        this.store.select(WorksReducers.selectIsLoaded).pipe(
+          filter((isLoaded) => isLoaded),
+          switchMap(() =>
+            combineLatest([
+              this.store.select(WorksReducers.selectWorks),
+              this.store.select(WorksReducers.selectVolumeById),
+            ])
+          ),
+          map(([works, volumeById]) =>
+            this.createNodes(works, volumeById, isSelectable)
+          ),
+          tap((nodes) => this.patchState({ nodes }))
+        )
       )
     )
   );
@@ -46,32 +43,55 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     volumeById: Map<number, Volume>,
     isSelectable: boolean
   ): TreeNode[] {
+    if (works.length === 0) {
+      return [];
+    }
+    var volume = volumeById.get(works[0].volumeId);
     var sectionNodes: TreeNode[] = [];
-    var currentSection = 1;
+    var currentSection = volume?.section || 0;
     var volumeNodes: TreeNode[] = [];
-    var currentVolume = 1;
+    var currentVolume = works[0].volumeId;
     var workNodes: TreeNode[] = [];
+
     for (const work of works) {
-      const volume = volumeById.get(work.volumeId);
       if (!volume) {
+        console.log('Error: no volume found for work ', work);
         continue;
       }
-      if (volume.section !== currentSection) {
+
+      if (currentVolume !== work.volumeId) {
+        volumeNodes.push(
+          this.createVolumeNode(currentSection, volume, isSelectable, workNodes)
+        );
+        workNodes = [];
+        currentVolume = work.volumeId;
+      }
+
+      volume = volumeById.get(work.volumeId);
+      if (!volume) {
+        console.log('Error: no volume found for work ', work);
+        continue;
+      }
+
+      if (currentSection !== volume.section) {
         sectionNodes.push(
           this.createSectionNode(currentSection, isSelectable, volumeNodes)
         );
         volumeNodes = [];
         currentSection = volume.section;
       }
-      if (work.id !== currentVolume) {
-        volumeNodes.push(
-          this.createVolumeNode(currentSection, volume, isSelectable, workNodes)
-        );
-        workNodes = [];
-        currentVolume = work.id;
-      }
-      workNodes.push(
-        this.createWorkNode(currentSection, volume, work, isSelectable)
+
+      workNodes.push(this.createWorkNode(currentSection, work, isSelectable));
+    }
+
+    if (workNodes.length) {
+      volumeNodes.push(
+        this.createVolumeNode(currentSection, volume!, isSelectable, workNodes)
+      );
+    }
+    if (volumeNodes.length) {
+      sectionNodes.push(
+        this.createSectionNode(currentSection, isSelectable, volumeNodes)
       );
     }
     return sectionNodes;
@@ -110,14 +130,14 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
 
   private createWorkNode(
     section: number,
-    volume: Volume,
     work: Work,
     isSelectable: boolean
   ): TreeNode {
     return {
-      key: `${section}-${volume.id}-${work.id}`,
-      label: `${work.abbreviation ? work.abbreviation + ': ' : ''}
-        ${work.title}${work.year ? ' (' + work.year + ')' : ''}`,
+      key: `${section}-${work.volumeId}-${work.id}`,
+      label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${
+        work.title
+      }${work.year ? ' (' + work.year + ')' : ''}`,
       styleClass: 'font-normal',
       selectable: isSelectable,
       data: work,
