@@ -6,14 +6,14 @@ import { MessageService } from 'primeng/api';
 import { EMPTY, switchMap, tap } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 
-interface SearchState {
+interface ResultsState {
   result: SearchResult[];
   resultCount: number;
   isLoaded: boolean;
 }
 
 @Injectable()
-export class SearchStore extends ComponentStore<SearchState> {
+export class ResultsStore extends ComponentStore<ResultsState> {
   constructor(
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,

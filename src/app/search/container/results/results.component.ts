@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Match, SearchCriteria, SearchScope } from 'kant-search-api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
-import { SearchStore } from './search.store';
+import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  providers: [SearchStore],
+  providers: [ResultsStore],
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   workById$ = this.store.select(WorksReducers.selectWorkById);
@@ -25,7 +25,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: Store,
-    private readonly searchStore: SearchStore
+    private readonly searchStore: ResultsStore
   ) {
     super();
   }
