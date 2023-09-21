@@ -6,60 +6,58 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TreeModule } from 'primeng/tree';
 
 describe('WorksMenuComponent', () => {
-  let sut: WorksMenuComponent;
+  let component: WorksMenuComponent;
   let fixture: ComponentFixture<WorksMenuComponent>;
-  let mockStore: jasmine.SpyObj<WorksMenuStore>;
+  let store: jasmine.SpyObj<WorksMenuStore>;
 
   beforeEach(async () => {
-    const mockStoreSpy = {
-      nodes$: jasmine.createSpyObj('Observable', {
-        subscribe: null,
-      }),
+    const mockStore = {
+      nodes$: jasmine.createSpyObj('Observable', { subscribe: null }),
       buildNodes: jasmine.createSpy('buildNodes'),
     };
 
     await TestBed.configureTestingModule({
       declarations: [WorksMenuComponent],
-      providers: [{ provide: WorksMenuStore, useValue: mockStoreSpy }],
+      providers: [{ provide: WorksMenuStore, useValue: mockStore }],
       imports: [TranslateModule.forRoot(), TreeModule],
     }).compileComponents();
 
-    mockStore = TestBed.inject(
-      WorksMenuStore
-    ) as jasmine.SpyObj<WorksMenuStore>;
+    store = TestBed.inject(WorksMenuStore) as jasmine.SpyObj<WorksMenuStore>;
     fixture = TestBed.createComponent(WorksMenuComponent);
-    sut = fixture.componentInstance;
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(sut).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it('should set mode to "checkbox" if isSelectable is true', () => {
     // WHEN
-    sut.isSelectable = true;
+    component.isSelectable = true;
     // THEN
-    expect(sut.mode).toBe('checkbox');
-    expect(mockStore.buildNodes).toHaveBeenCalledWith(true);
+    expect(component.mode).toBe('checkbox');
+    expect(store.buildNodes).toHaveBeenCalledWith(true);
   });
 
   it('should set mode to "single" if isSelectable is false', () => {
     // WHEN
-    sut.isSelectable = false;
+    component.isSelectable = false;
     // WHEN
-    expect(sut.mode).toBe('single');
-    expect(mockStore.buildNodes).toHaveBeenCalledWith(false);
+    expect(component.mode).toBe('single');
+    expect(store.buildNodes).toHaveBeenCalledWith(false);
   });
 
   it('should emit a single work when only one node is selected', () => {
     const mockNode = { data: { id: 1, title: 'Work A' } } as TreeNode;
     // GIVEN
-    spyOn(sut.onSelectionChange, 'emit');
+    spyOn(component.onSelectionChange, 'emit');
     // WHEN
-    sut.onNodeSelect({ node: mockNode });
+    component.onNodeSelect({ node: mockNode });
     // WHEN
-    expect(sut.onSelectionChange.emit).toHaveBeenCalledWith([mockNode.data]);
+    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
+      mockNode.data,
+    ]);
   });
 
   it('should emit multiple works when multiple nodes are selected', () => {
@@ -68,12 +66,12 @@ describe('WorksMenuComponent', () => {
       { data: { id: 2, title: 'Work B' } },
     ] as TreeNode[];
     // GIVEN
-    sut.selection = mockNodes;
-    spyOn(sut.onSelectionChange, 'emit');
+    component.selection = mockNodes;
+    spyOn(component.onSelectionChange, 'emit');
     // WHEN
-    sut.onNodeSelect({ node: mockNodes[0] });
+    component.onNodeSelect({ node: mockNodes[0] });
     // THEN
-    expect(sut.onSelectionChange.emit).toHaveBeenCalledWith([
+    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
       mockNodes[0].data,
       mockNodes[1].data,
     ]);
@@ -82,12 +80,12 @@ describe('WorksMenuComponent', () => {
   it('should emit selected works on node unselect', () => {
     const mockNodes = [{ data: { id: 1, title: 'Work A' } }] as TreeNode[];
     // GIVEN
-    sut.selection = mockNodes;
-    spyOn(sut.onSelectionChange, 'emit');
+    component.selection = mockNodes;
+    spyOn(component.onSelectionChange, 'emit');
     // WHEN
-    sut.onNodeUnselect();
+    component.onNodeUnselect();
     // THEN
-    expect(sut.onSelectionChange.emit).toHaveBeenCalledWith([
+    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
       mockNodes[0].data,
     ]);
   });

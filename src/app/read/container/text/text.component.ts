@@ -8,16 +8,14 @@ import { TextStore } from './text.store';
   templateUrl: './text.component.html',
   providers: [TextStore],
 })
-export class TextComponent extends ContainerComponent implements OnInit {
+export class TextComponent implements OnInit {
   paragraphs$ = this.store.paragraphs$;
   isLoaded$ = this.store.isLoaded$;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: TextStore
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     const workId = this.route.snapshot.params['workId'] as number;
