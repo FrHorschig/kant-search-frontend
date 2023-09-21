@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
-import { TreeSelectionMode } from 'src/app/common/model/tree-selection-mode';
 
 @Component({
   selector: 'app-search-input',

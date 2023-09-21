@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Match, SearchResult, Work } from 'kant-search-api';
-import { WorkElementId } from '../../model/work-element-id';
 
 @Component({
   selector: 'app-result-list',

@@ -71,12 +71,7 @@ describe('WorksMenuStore', () => {
   it('should create nodes correctly', (done) => {
     const works = [
       Testdata.work,
-      {
-        id: 2,
-        title: 'Work 2',
-        ordinal: 0,
-        volumeId: 2,
-      },
+      Testdata.work2,
       {
         id: 3,
         title: 'Work 3',

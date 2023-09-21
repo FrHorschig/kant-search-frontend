@@ -2,15 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TocComponent } from './toc.component';
 import { Router } from '@angular/router';
-import { CommonModule } from 'src/app/common/common.module';
-import { WorksMenuStore } from 'src/app/common/shared/works-menu/works-menu.store';
-import { Store } from '@ngrx/store';
 import { Component, Input } from '@angular/core';
 
-@Component({
-  selector: 'app-works-menu',
-  template: '',
-})
+@Component({ selector: 'app-works-menu', template: '' })
 class MockWorksMenuComponent {
   @Input() isSelectable = true;
 }

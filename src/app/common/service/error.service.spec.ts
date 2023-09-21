@@ -10,7 +10,6 @@ describe('ErrorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ErrorService,
         { provide: MessageService, useValue: createMessageServiceSpy() },
       ],
     });
