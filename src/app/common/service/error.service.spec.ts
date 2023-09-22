@@ -8,16 +8,12 @@ describe('ErrorService', () => {
   let messageService: jasmine.SpyObj<MessageService>;
 
   beforeEach(() => {
+    messageService = createMessageServiceSpy();
     TestBed.configureTestingModule({
-      providers: [
-        { provide: MessageService, useValue: createMessageServiceSpy() },
-      ],
+      providers: [{ provide: MessageService, useValue: messageService }],
     });
 
     sut = TestBed.inject(ErrorService);
-    messageService = TestBed.inject(
-      MessageService
-    ) as jasmine.SpyObj<MessageService>;
   });
 
   it('should be created', () => {
