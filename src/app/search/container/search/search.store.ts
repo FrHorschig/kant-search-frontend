@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { Work } from 'kant-search-api';
-import { exhaustMap } from 'rxjs';
 
 interface SearchState {
   searchTerms: string[];
@@ -11,7 +9,7 @@ interface SearchState {
 
 @Injectable()
 export class SearchStore extends ComponentStore<SearchState> {
-  constructor(private readonly router: Router) {
+  constructor() {
     super({ searchTerms: [], workIds: [] });
   }
 
@@ -24,19 +22,6 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
-
-  readonly startSearch = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      exhaustMap(() =>
-        this.router.navigate(['/search/results'], {
-          queryParams: {
-            searchTerms: this.get((state) => state.searchTerms).join(','),
-            workIds: this.get((state) => state.workIds).join(','),
-          },
-        })
-      )
-    )
-  );
 
   readonly isSearchPermitted$ = this.select(
     (state) => state.searchTerms.length > 0 && state.workIds.length > 0

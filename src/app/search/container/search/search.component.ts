@@ -15,13 +15,10 @@ export class SearchComponent extends ContainerComponent {
   works$ = this.store.select(WorksReducers.selectWorks);
   isSearchPermitted$ = this.searchStore.isSearchPermitted$;
 
-  searchTerms = '';
-  selectedWorks: Work[] = [];
-  isSearchPermitted = false;
-
   constructor(
     private readonly store: Store,
-    private readonly searchStore: SearchStore
+    private readonly searchStore: SearchStore,
+    private readonly router: Router
   ) {
     super();
   }
@@ -35,6 +32,8 @@ export class SearchComponent extends ContainerComponent {
   }
 
   onSearch() {
-    this.searchStore.startSearch();
+    this.isSearchPermitted$
+      .pipe(this.takeUntilDestroy())
+      .subscribe(() => this.router.navigate(['/search/results']));
   }
 }

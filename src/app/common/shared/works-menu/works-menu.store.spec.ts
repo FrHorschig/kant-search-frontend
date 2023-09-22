@@ -15,7 +15,6 @@ const assertSingleSectionNode = (
   expect(nodes[n].key).toEqual(`${n + 1}`);
   const volumeNodes = nodes[n].children;
   if (volumeNodes !== undefined) {
-    console.log(volumeNodes[0]);
     expect(volumeNodes[0].key).toEqual(`${n + 1}-${n + 1}`);
     expect(volumeNodes[0].children).toBeDefined;
     const workNodes = volumeNodes[0].children;
