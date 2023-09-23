@@ -10,17 +10,21 @@ import { of } from 'rxjs';
 const assertSingleSectionNode = (
   nodes: TreeNode[],
   works: Work[],
-  n: number
+  n: number,
+  isSelectable: boolean
 ) => {
   expect(nodes[n].key).toEqual(`${n + 1}`);
+  expect(nodes[n].selectable).toEqual(isSelectable);
   const volumeNodes = nodes[n].children;
   if (volumeNodes !== undefined) {
     expect(volumeNodes[0].key).toEqual(`${n + 1}-${n + 1}`);
     expect(volumeNodes[0].children).toBeDefined;
+    expect(volumeNodes[0].selectable).toEqual(isSelectable);
     const workNodes = volumeNodes[0].children;
     if (workNodes !== undefined) {
       expect(workNodes[0].key).toEqual(`${n + 1}-${n + 1}-${n + 1}`);
       expect(workNodes[0].data).toEqual(works[n]);
+      expect(workNodes[0].selectable).toBeTrue();
     }
   }
 };
@@ -59,7 +63,7 @@ describe('WorksMenuStore', () => {
     expect(result.children).toEqual(workNodes);
   });
 
-  it('should create work nodes correctly', () => {
+  it('should create selectable nodes correctly', () => {
     const result = sut['createWorkNode'](1, Testdata.work, true);
     expect(result.key).toEqual('1-1-1');
     expect(result.label).toEqual('Abbrev 1: Work 1 (1234)');
@@ -102,9 +106,138 @@ describe('WorksMenuStore', () => {
     // THEN
     sut.nodes$.subscribe((nodes) => {
       expect(nodes).toHaveSize(3);
-      assertSingleSectionNode(nodes, works, 0);
-      assertSingleSectionNode(nodes, works, 1);
-      assertSingleSectionNode(nodes, works, 2);
+      assertSingleSectionNode(nodes, works, 0, true);
+      assertSingleSectionNode(nodes, works, 1, true);
+      assertSingleSectionNode(nodes, works, 2, true);
+      done();
+    });
+  });
+
+  it('should create selectable nodes correctly', () => {
+    const result = sut['createWorkNode'](1, Testdata.work, true);
+    expect(result.key).toEqual('1-1-1');
+    expect(result.label).toEqual('Abbrev 1: Work 1 (1234)');
+    expect(result.selectable).toBeTrue();
+    expect(result.data).toEqual(Testdata.work);
+  });
+
+  it('should create nodes correctly', (done) => {
+    const works = [
+      Testdata.work,
+      Testdata.work2,
+      {
+        id: 3,
+        title: 'Work 3',
+        ordinal: 0,
+        volumeId: 3,
+      },
+    ];
+    const volumeById = new Map<number, Volume>([
+      [1, Testdata.volume],
+      [2, { id: 2, title: 'Volume 2', section: 2 }],
+      [3, { id: 3, title: 'Volume 3', section: 3 }],
+    ]);
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+
+    // WHEN
+    sut.buildNodes(false);
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      expect(nodes).toHaveSize(3);
+      assertSingleSectionNode(nodes, works, 0, false);
+      assertSingleSectionNode(nodes, works, 1, false);
+      assertSingleSectionNode(nodes, works, 2, false);
+      done();
+    });
+  });
+
+  it('should create no nodes with empty works', (done) => {
+    const works: Work[] = [];
+    const volumeById = new Map<number, Volume>([]);
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+
+    // WHEN
+    sut.buildNodes(true);
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      expect(nodes).toHaveSize(0);
+      done();
+    });
+  });
+
+  it('should create no nodes when volume is no found', (done) => {
+    const works: Work[] = [Testdata.work];
+    const volumeById = new Map<number, Volume>([]);
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+
+    // WHEN
+    sut.buildNodes(true);
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      expect(nodes).toHaveSize(0);
+      done();
+    });
+  });
+
+  it('should create no nodes when volume is no found', (done) => {
+    const works: Work[] = [Testdata.work, Testdata.work2];
+    const volumeById = Testdata.volumeById;
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+
+    // WHEN
+    sut.buildNodes(true);
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      expect(nodes).toHaveSize(1);
+      assertSingleSectionNode(nodes, [Testdata.work], 0, true);
       done();
     });
   });
