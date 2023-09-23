@@ -139,7 +139,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
         work.title
       }${work.year ? ' (' + work.year + ')' : ''}`,
       styleClass: 'font-normal',
-      selectable: isSelectable,
+      selectable: true,
       data: work,
     };
   }
