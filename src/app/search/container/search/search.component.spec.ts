@@ -21,7 +21,6 @@ describe('SearchComponent', () => {
       isSearchPermitted$: of(false),
     }
   );
-  let mockRouter = { navigate: jasmine.createSpy() };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,10 +29,7 @@ describe('SearchComponent', () => {
         SearchInputComponent,
         MockWorksMenuComponent,
       ],
-      providers: [
-        provideMockStore({}),
-        { provide: Router, useValue: mockRouter },
-      ],
+      providers: [provideMockStore({})],
       imports: [TranslateModule.forRoot(), ButtonModule, TooltipModule],
     }).compileComponents();
     TestBed.overrideProvider(SearchStore, { useValue: mockSearchStore });
@@ -59,12 +55,5 @@ describe('SearchComponent', () => {
     component.onSelect(Testdata.works);
     // THEN
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(Testdata.works);
-  });
-
-  it('should navigate to search results on search', () => {
-    // WHEN
-    component.onSearch();
-    // THEN
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/search/results']);
   });
 });

@@ -17,8 +17,7 @@ export class SearchComponent extends ContainerComponent {
 
   constructor(
     private readonly store: Store,
-    private readonly searchStore: SearchStore,
-    private readonly router: Router
+    private readonly searchStore: SearchStore
   ) {
     super();
   }
@@ -32,8 +31,6 @@ export class SearchComponent extends ContainerComponent {
   }
 
   onSearch() {
-    this.isSearchPermitted$
-      .pipe(this.takeUntilDestroy())
-      .subscribe(() => this.router.navigate(['/search/results']));
+    this.searchStore.navigateSearch();
   }
 }
