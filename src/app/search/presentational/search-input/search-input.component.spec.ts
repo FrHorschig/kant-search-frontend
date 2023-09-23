@@ -4,14 +4,9 @@ import { SearchInputComponent } from './search-input.component';
 import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, Input } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-
-@Component({ selector: 'app-works-menu', template: '' })
-class MockWorksMenuComponent {
-  @Input() isSelectable = true;
-}
+import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;

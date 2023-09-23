@@ -33,7 +33,7 @@ describe('WorksMenuComponent', () => {
 
   it('should set mode to "checkbox" if isSelectable is true', () => {
     // WHEN
-    component.isSelectable = true;
+    component.useCheckbox = true;
     // THEN
     expect(component.mode).toBe('checkbox');
     expect(mockWmStore.buildNodes).toHaveBeenCalledWith(true);
@@ -41,7 +41,7 @@ describe('WorksMenuComponent', () => {
 
   it('should set mode to "single" if isSelectable is false', () => {
     // WHEN
-    component.isSelectable = false;
+    component.useCheckbox = false;
     // WHEN
     expect(component.mode).toBe('single');
     expect(mockWmStore.buildNodes).toHaveBeenCalledWith(false);

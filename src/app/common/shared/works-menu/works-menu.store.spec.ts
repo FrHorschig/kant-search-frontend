@@ -63,58 +63,8 @@ describe('WorksMenuStore', () => {
     expect(result.children).toEqual(workNodes);
   });
 
-  it('should create selectable nodes correctly', () => {
-    const result = sut['createWorkNode'](1, Testdata.work, true);
-    expect(result.key).toEqual('1-1-1');
-    expect(result.label).toEqual('Abbrev 1: Work 1 (1234)');
-    expect(result.selectable).toBeTrue();
-    expect(result.data).toEqual(Testdata.work);
-  });
-
-  it('should create nodes correctly', (done) => {
-    const works = [
-      Testdata.work,
-      Testdata.work2,
-      {
-        id: 3,
-        title: 'Work 3',
-        ordinal: 0,
-        volumeId: 3,
-      },
-    ];
-    const volumeById = new Map<number, Volume>([
-      [1, Testdata.volume],
-      [2, { id: 2, title: 'Volume 2', section: 2 }],
-      [3, { id: 3, title: 'Volume 3', section: 3 }],
-    ]);
-
-    // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
-
-    // WHEN
-    sut.buildNodes(true);
-
-    // THEN
-    sut.nodes$.subscribe((nodes) => {
-      expect(nodes).toHaveSize(3);
-      assertSingleSectionNode(nodes, works, 0, true);
-      assertSingleSectionNode(nodes, works, 1, true);
-      assertSingleSectionNode(nodes, works, 2, true);
-      done();
-    });
-  });
-
-  it('should create selectable nodes correctly', () => {
-    const result = sut['createWorkNode'](1, Testdata.work, true);
+  it('should create work nodes correctly', () => {
+    const result = sut['createWorkNode'](1, Testdata.work);
     expect(result.key).toEqual('1-1-1');
     expect(result.label).toEqual('Abbrev 1: Work 1 (1234)');
     expect(result.selectable).toBeTrue();
@@ -189,7 +139,7 @@ describe('WorksMenuStore', () => {
     });
   });
 
-  it('should create no nodes when volume is no found', (done) => {
+  it('should create no nodes when no volume is found', (done) => {
     const works: Work[] = [Testdata.work];
     const volumeById = new Map<number, Volume>([]);
 
@@ -215,7 +165,7 @@ describe('WorksMenuStore', () => {
     });
   });
 
-  it('should create no nodes when volume is no found', (done) => {
+  it('should create no nodes when one volume is not found', (done) => {
     const works: Work[] = [Testdata.work, Testdata.work2];
     const volumeById = Testdata.volumeById;
 

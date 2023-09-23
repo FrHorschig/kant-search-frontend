@@ -81,7 +81,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
         currentSection = volume.section;
       }
 
-      workNodes.push(this.createWorkNode(currentSection, work, isSelectable));
+      workNodes.push(this.createWorkNode(currentSection, work));
     }
 
     if (workNodes.length) {
@@ -104,7 +104,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}`,
-      label: `Section ${section}`, // TODO frhorsch: add i18n
+      label: `Abteilung ${section}`, // TODO frhorsch: add i18n
       styleClass: 'font-bold',
       expanded: true,
       selectable: isSelectable,
@@ -120,19 +120,15 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}-${volume.id}`,
-      label: `${volume.title}`,
+      label: `Band ${volume.id}: ${volume.title}`, // TODO frhorsch: add i18n
       styleClass: 'font-bold',
-      expanded: true,
+      expanded: false,
       selectable: isSelectable,
       children: workNodes,
     };
   }
 
-  private createWorkNode(
-    section: number,
-    work: Work,
-    isSelectable: boolean
-  ): TreeNode {
+  private createWorkNode(section: number, work: Work): TreeNode {
     return {
       key: `${section}-${work.volumeId}-${work.id}`,
       label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${

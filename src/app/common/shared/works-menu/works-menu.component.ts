@@ -9,9 +9,9 @@ import { WorksMenuStore } from './works-menu.store';
   providers: [WorksMenuStore],
 })
 export class WorksMenuComponent {
-  @Input() set isSelectable(isSelectable: boolean) {
-    this.mode = isSelectable ? 'checkbox' : 'single';
-    this.store.buildNodes(isSelectable);
+  @Input() set useCheckbox(useCheckbox: boolean) {
+    this.mode = useCheckbox ? 'checkbox' : 'single';
+    this.store.buildNodes(useCheckbox);
   }
   @Output() onSelectionChange = new EventEmitter<Work[]>();
 
