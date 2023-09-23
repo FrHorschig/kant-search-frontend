@@ -121,7 +121,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     return {
       key: `${section}-${volume.id}`,
       label: `Band ${volume.id}: ${volume.title}`, // TODO frhorsch: add i18n
-      styleClass: 'font-bold',
+      styleClass: 'font-normal',
       expanded: false,
       selectable: isSelectable,
       children: workNodes,
@@ -134,7 +134,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
       label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${
         work.title
       }${work.year ? ' (' + work.year + ')' : ''}`,
-      styleClass: 'font-normal',
+      styleClass: 'text-500',
       selectable: true,
       data: work,
     };
