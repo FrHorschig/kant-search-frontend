@@ -18,7 +18,6 @@ describe('WorksMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [WorksMenuComponent],
-      providers: [{ provide: WorksMenuStore, useValue: mockWmStore }],
       imports: [TranslateModule.forRoot(), TreeModule],
     }).compileComponents();
     TestBed.overrideProvider(WorksMenuStore, { useValue: mockWmStore });

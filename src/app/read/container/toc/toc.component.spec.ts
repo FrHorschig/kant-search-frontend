@@ -2,12 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TocComponent } from './toc.component';
 import { Router } from '@angular/router';
-import { Component, Input } from '@angular/core';
-
-@Component({ selector: 'app-works-menu', template: '' })
-class MockWorksMenuComponent {
-  @Input() isSelectable = true;
-}
+import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 
 describe('TocComponent', () => {
   let component: TocComponent;

@@ -1,4 +1,4 @@
-import { Match, Volume, Work } from 'kant-search-api';
+import { Match, Paragraph, Volume, Work } from 'kant-search-api';
 
 export class Testdata {
   static volume: Volume = { id: 1, title: 'Volume 1', section: 1 };
@@ -26,5 +26,11 @@ export class Testdata {
     text: 'text',
     pages: [1, 2],
     elementId: 3,
+  };
+  static paragraph: Paragraph = {
+    id: 1,
+    text: 'text',
+    pages: [1, 2],
+    workId: 1,
   };
 }

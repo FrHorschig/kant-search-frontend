@@ -13,9 +13,9 @@ import { WorksReducers } from 'src/app/store/works';
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   workById$ = this.store.select(WorksReducers.selectWorkById);
-  result$ = this.searchStore.result$;
-  resultCount$ = this.searchStore.resultCount$;
-  isLoaded$ = this.searchStore.isLoaded$;
+  result$ = this.resultsStore.result$;
+  resultCount$ = this.resultsStore.resultCount$;
+  isLoaded$ = this.resultsStore.isLoaded$;
 
   searchTerms: string[] = [];
   showParagraph = false;
@@ -25,30 +25,32 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: Store,
-    private readonly searchStore: ResultsStore
+    private readonly resultsStore: ResultsStore
   ) {
     super();
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((params) => {
-      if (!params) {
-        return;
-      }
+    this.route.queryParamMap
+      .pipe(this.takeUntilDestroy())
+      .subscribe((params) => {
+        if (!params || params.keys.length === 0) {
+          return;
+        }
 
-      this.searchTerms = params.get('searchTerms')?.split(',') || [];
-      const workIds = params.get('workIds')?.split(',').map(Number) || [];
-      const scope =
-        params.get('scope') === 'sentence'
-          ? SearchScope.Sentence
-          : SearchScope.Paragraph;
-      const criteria: SearchCriteria = {
-        searchTerms: this.searchTerms,
-        workIds: workIds,
-        scope: scope,
-      };
-      this.searchStore.searchParagraphs(criteria);
-    });
+        this.searchTerms = params.get('searchTerms')?.split(',') || [];
+        const workIds = params.get('workIds')?.split(',').map(Number) || [];
+        const scope =
+          params.get('scope') === 'sentence'
+            ? SearchScope.Sentence
+            : SearchScope.Paragraph;
+        const criteria: SearchCriteria = {
+          searchTerms: this.searchTerms,
+          workIds: workIds,
+          scope: scope,
+        };
+        this.resultsStore.searchParagraphs(criteria);
+      });
   }
 
   onClick(match: Match) {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ContainerComponent } from 'src/app/common/base/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 
