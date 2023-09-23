@@ -19,7 +19,7 @@
       <ng-container *ngFor="let result of result">
         <div class="mt-6">
           <p-divider align="center">
-            <b>Band {{ result.volumeId }}: {{ result }}</b>
+            <b>Band {{ getVolume(result.workId) }}: {{ result }}</b>
           </p-divider>
         </div>
 

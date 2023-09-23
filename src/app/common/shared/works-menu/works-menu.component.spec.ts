@@ -4,25 +4,25 @@ import { WorksMenuStore } from './works-menu.store';
 import { TreeNode } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
 import { TreeModule } from 'primeng/tree';
+import { of } from 'rxjs';
 
 describe('WorksMenuComponent', () => {
   let component: WorksMenuComponent;
   let fixture: ComponentFixture<WorksMenuComponent>;
-  let store: jasmine.SpyObj<WorksMenuStore>;
+  const mockWmStore = jasmine.createSpyObj(
+    'WorksMenuStore',
+    ['select', 'buildNodes'],
+    { nodes$: of([]) }
+  );
 
   beforeEach(async () => {
-    const mockStore = {
-      nodes$: jasmine.createSpyObj('Observable', { subscribe: null }),
-      buildNodes: jasmine.createSpy('buildNodes'),
-    };
-
     await TestBed.configureTestingModule({
       declarations: [WorksMenuComponent],
-      providers: [{ provide: WorksMenuStore, useValue: mockStore }],
+      providers: [{ provide: WorksMenuStore, useValue: mockWmStore }],
       imports: [TranslateModule.forRoot(), TreeModule],
     }).compileComponents();
+    TestBed.overrideProvider(WorksMenuStore, { useValue: mockWmStore });
 
-    store = TestBed.inject(WorksMenuStore) as jasmine.SpyObj<WorksMenuStore>;
     fixture = TestBed.createComponent(WorksMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -37,7 +37,7 @@ describe('WorksMenuComponent', () => {
     component.isSelectable = true;
     // THEN
     expect(component.mode).toBe('checkbox');
-    expect(store.buildNodes).toHaveBeenCalledWith(true);
+    expect(mockWmStore.buildNodes).toHaveBeenCalledWith(true);
   });
 
   it('should set mode to "single" if isSelectable is false', () => {
@@ -45,7 +45,7 @@ describe('WorksMenuComponent', () => {
     component.isSelectable = false;
     // WHEN
     expect(component.mode).toBe('single');
-    expect(store.buildNodes).toHaveBeenCalledWith(false);
+    expect(mockWmStore.buildNodes).toHaveBeenCalledWith(false);
   });
 
   it('should emit a single work when only one node is selected', () => {

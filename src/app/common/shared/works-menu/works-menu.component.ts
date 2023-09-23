@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { WorksMenuStore } from './works-menu.store';
@@ -6,6 +6,7 @@ import { WorksMenuStore } from './works-menu.store';
 @Component({
   selector: 'app-works-menu',
   templateUrl: './works-menu.component.html',
+  providers: [WorksMenuStore],
 })
 export class WorksMenuComponent {
   @Input() set isSelectable(isSelectable: boolean) {
@@ -14,8 +15,8 @@ export class WorksMenuComponent {
   }
   @Output() onSelectionChange = new EventEmitter<Work[]>();
 
-  mode = '';
   nodes$ = this.store.nodes$;
+  mode = '';
   selection: TreeNode[] = [];
 
   constructor(private readonly store: WorksMenuStore) {}
