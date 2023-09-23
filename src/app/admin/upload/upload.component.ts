@@ -9,18 +9,20 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 })
 export class UploadComponent extends ContainerComponent {
   isLoading = false;
-
-  title = '';
-  abbrev = '';
-  volume: number | undefined;
-  ordinal: number | undefined;
-  year: number | undefined;
+  workId = 0;
 
   constructor(
     private readonly messageService: MessageService,
     private readonly uploadService: UploadService
   ) {
     super();
+  }
+
+  setWorkId(works: Work[]) {
+    // works-menu component returns an array because it supports multiselect
+    if (works.length > 0) {
+      this.workId = works[0].id;
+    }
   }
 
   onUpload(event: any, fileUploadBtn: any) {
@@ -36,16 +38,15 @@ export class UploadComponent extends ContainerComponent {
     fileUploadBtn.clear();
   }
 
-  processText(text: string) {
+  private processText(text: string) {
     const work: WorkUpload = {
-      workId: 0, // TODO frhorsch: refactor this module
+      workId: this.workId,
       text: text,
     };
     this.postText(work);
-    this.resetFields();
   }
 
-  postText(work: WorkUpload) {
+  private postText(work: WorkUpload) {
     this.messageService.clear();
     this.uploadService
       .uploadWork(work)
@@ -67,13 +68,5 @@ export class UploadComponent extends ContainerComponent {
           });
         },
       });
-  }
-
-  resetFields() {
-    this.title = '';
-    this.abbrev = '';
-    this.volume = undefined;
-    this.ordinal = undefined;
-    this.year = undefined;
   }
 }
