@@ -2,14 +2,14 @@
   <div class="max-w-600">
     <ng-container *ngIf="result">
       <div class="flex justify-content-center">
-        {{ "SEARCH.result.COUNT" | translate }}: {{ resultCount }}
+        {{ "SEARCH.RESULTS.COUNT" | translate }}: {{ resultCount }}
       </div>
     </ng-container>
 
     <ng-container *ngIf="!result">
       <div class="flex justify-content-center">
         {{
-          "SEARCH.result.NONE_FOUND"
+          "SEARCH.RESULTS.NONE_FOUND"
             | translate : { searchTerms: searchTerms.join(", ") }
         }}
       </div>
@@ -19,7 +19,10 @@
       <ng-container *ngFor="let result of result">
         <div class="mt-6">
           <p-divider align="center">
-            <b>Band {{ getVolume(result.workId) }}: {{ result }}</b>
+            <b
+              >Band {{ getVolume(result.workId) }}:
+              {{ getWorkTitle(result.workId) }}</b
+            >
           </p-divider>
         </div>
 

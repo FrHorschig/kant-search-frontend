@@ -56,5 +56,6 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   onClick(match: Match) {
     this.text = match.text;
     this.pages = match.pages;
+    this.showParagraph = true;
   }
 }

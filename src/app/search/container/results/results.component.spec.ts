@@ -123,5 +123,6 @@ describe('ResultsComponent', () => {
     // THEN
     expect(component.text).toBe('text');
     expect(component.pages).toEqual([1, 2]);
+    expect(component.showParagraph).toBeTrue();
   });
 });
