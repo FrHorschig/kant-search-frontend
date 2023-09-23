@@ -41,7 +41,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ButtonModule,
     MessagesModule,
     TabMenuModule,
-    StoreModule.forRoot({ worksData: worksFeature.reducer }),
+    StoreModule.forRoot({ works: worksFeature.reducer }),
     EffectsModule.forRoot([WorksEffects]),
   ],
   providers: [MessageService],
