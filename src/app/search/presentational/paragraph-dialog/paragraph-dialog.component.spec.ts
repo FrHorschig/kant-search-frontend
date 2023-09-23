@@ -3,6 +3,10 @@ import { ParagraphDialogComponent } from './paragraph-dialog.component';
 import { DialogModule } from 'primeng/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+import { ScrollService } from 'src/app/read/service/scroll.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ParagraphDialogComponent', () => {
   let component: ParagraphDialogComponent;
@@ -11,7 +15,14 @@ describe('ParagraphDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ParagraphDialogComponent],
-      imports: [TranslateModule.forRoot(), DialogModule, CommonModule],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+        DialogModule,
+        CommonModule,
+        ButtonModule,
+        TooltipModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ParagraphDialogComponent);

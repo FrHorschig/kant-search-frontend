@@ -13,6 +13,8 @@ import {
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
+  @Input() workId = 0;
+  @Input() paragraphId = 0;
   @Input() text = '';
   @Input() pages: number[] = [];
 

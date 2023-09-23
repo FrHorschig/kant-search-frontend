@@ -21,7 +21,9 @@
     "RESULTS": {
       "NONE_FOUND": "No results found for search terms [{{ searchTerms }}]",
       "COUNT": "Number of search results",
-      "PAGES": "[{{ pages }}]"
+      "PAGES": "[{{ pages }}]",
+      "GO_TO_TEXT_LABEL": "Full text",
+      "GO_TO_TEXT_TOOLTIP": "Go to paragraph in full text"
     }
   },
   "WORKS": {

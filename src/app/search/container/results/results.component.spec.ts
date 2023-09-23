@@ -15,6 +15,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
 import { ResultsStore } from './results.store';
 import { SearchScope } from 'kant-search-api';
+import { ScrollService } from 'src/app/read/service/scroll.service';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -38,8 +41,18 @@ describe('ResultsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         provideMockStore({}),
+        {
+          provide: ScrollService,
+          useValue: jasmine.createSpyObj('ScrollService', ['scroll']),
+        },
       ],
-      imports: [TranslateModule.forRoot(), DialogModule, CommonModule],
+      imports: [
+        TranslateModule.forRoot(),
+        DialogModule,
+        CommonModule,
+        ButtonModule,
+        TooltipModule,
+      ],
     });
     TestBed.overrideProvider(ResultsStore, { useValue: mockResultsStore });
 
@@ -119,7 +132,7 @@ describe('ResultsComponent', () => {
 
   it('should set text and pages on match click', () => {
     // WHEN
-    component.onClick(Testdata.match);
+    component.onClick({ workId: 1, match: Testdata.match });
     // THEN
     expect(component.text).toBe('text');
     expect(component.pages).toEqual([1, 2]);

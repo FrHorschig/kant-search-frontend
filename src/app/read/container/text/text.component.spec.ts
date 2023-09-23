@@ -2,34 +2,39 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TextComponent } from './text.component';
 import { TextStore } from './text.store';
-import { of } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
+import { ScrollService } from '../../service/scroll.service';
 
 describe('TextComponent', () => {
   let component: TextComponent;
   let fixture: ComponentFixture<TextComponent>;
+  let mockRoute: any;
   let mockTextStore: jasmine.SpyObj<TextStore>;
-  let mockActivatedRoute: any;
+  let mockScrollService = jasmine.createSpyObj('ScrollService', [
+    'scrollToAnchor',
+  ]);
+  let fragmentSubject = new Subject<string>();
 
   beforeEach(() => {
     mockTextStore = jasmine.createSpyObj('TextStore', ['loadParagraphs'], {
       paragraphs$: of([Testdata.paragraph]),
       isLoaded$: of(true),
     });
-    mockActivatedRoute = {
+    mockRoute = {
       snapshot: {
         params: { workId: 1 },
       },
+      fragment: fragmentSubject.asObservable(),
     };
 
     TestBed.configureTestingModule({
       declarations: [TextComponent],
       providers: [
-        { provide: TextStore, useValue: mockTextStore },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ScrollService, useValue: mockScrollService },
       ],
-    });
-    TestBed.overrideProvider(TextStore, { useValue: mockTextStore });
+    }).overrideProvider(TextStore, { useValue: mockTextStore });
 
     fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
@@ -46,7 +51,7 @@ describe('TextComponent', () => {
 
   it('should have correct observables from store', () => {
     // WHEN
-    component = new TextComponent(mockActivatedRoute, mockTextStore);
+    component = new TextComponent(mockRoute, mockTextStore, mockScrollService);
     // THEN
     component.paragraphs$.subscribe((paras) => {
       expect(paras).toHaveSize(1);
@@ -56,4 +61,23 @@ describe('TextComponent', () => {
       expect(isLoaded).toEqual(true);
     });
   });
+
+  it('should call scroll service when no fragment exists', () => {
+    // WHEN
+    component.ngAfterViewInit();
+    fragmentSubject.next('');
+    // THEN
+    expect(mockScrollService.scrollToAnchor).not.toHaveBeenCalled();
+  });
+
+  /* TODO frhorsch
+  it('should call scroll service when a fragment exists', () => {
+    const fragment = 'id-1';
+    // WHEN
+    component.ngAfterViewInit();
+    fragmentSubject.next(fragment);
+    // THEN
+    expect(mockScrollService.scrollToAnchor).toHaveBeenCalledWith(fragment);
+  });
+  */
 });

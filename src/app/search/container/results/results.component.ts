@@ -5,6 +5,7 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
+import { MatchInfo } from '../../model/match-info';
 
 @Component({
   selector: 'app-results',
@@ -19,6 +20,8 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   searchTerms: string[] = [];
   showParagraph = false;
+  workId = 0;
+  paragraphId = 0;
   text = '';
   pages: number[] = [];
 
@@ -53,9 +56,11 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
       });
   }
 
-  onClick(match: Match) {
-    this.text = match.text;
-    this.pages = match.pages;
+  onClick(info: MatchInfo) {
+    this.workId = info.workId;
+    this.paragraphId = info.match.elementId;
+    this.text = info.match.text;
+    this.pages = info.match.pages;
     this.showParagraph = true;
   }
 }

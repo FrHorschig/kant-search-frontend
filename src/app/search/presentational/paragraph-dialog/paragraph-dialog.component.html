@@ -7,4 +7,18 @@
   }}"
 >
   <div class="max-w-600" [innerHTML]="text | pagenumberNormalMode"></div>
+
+  <div class="flex justify-content-end">
+    <p-button
+      styleClass="p-button-secondary"
+      [routerLink]="['/read/text/', workId]"
+      fragment="paragraph-{{ paragraphId }}"
+      pTooltip="{{ 'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate }}"
+    >
+      <div class="mt-1">
+        {{ "SEARCH.RESULTS.GO_TO_TEXT_LABEL" | translate }}
+      </div>
+      <i class="pi pi-arrow-right ml-2 mb-1"></i>
+    </p-button>
+  </div>
 </p-dialog>

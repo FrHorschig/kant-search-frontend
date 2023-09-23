@@ -16,7 +16,7 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putSearchTerms', 'putWorks'],
+    ['putSearchTerms', 'putWorks', 'navigateSearch'],
     {
       isSearchPermitted$: of(false),
     }
@@ -55,5 +55,12 @@ describe('SearchComponent', () => {
     component.onSelect(Testdata.works);
     // THEN
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(Testdata.works);
+  });
+
+  it('should call navigateSearch', () => {
+    // WHEN
+    component.onSearch();
+    // THEN
+    expect(mockSearchStore.navigateSearch).toHaveBeenCalled();
   });
 });

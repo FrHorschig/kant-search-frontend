@@ -33,7 +33,7 @@
               [workTitle]="getWorkTitle(result.workId)"
               [pages]="match.pages"
               [snippet]="match.snippet"
-              (onClick)="onMatchClick(match)"
+              (onClick)="onMatchClick(result.workId, match)"
             ></app-result-item>
           </div>
         </ng-container>

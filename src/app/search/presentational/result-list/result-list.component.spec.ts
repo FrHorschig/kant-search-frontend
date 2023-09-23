@@ -4,6 +4,7 @@ import { ResultListComponent } from './result-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Match, Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
+import { MatchInfo } from '../../model/match-info';
 
 describe('ResultsComponent', () => {
   let component: ResultListComponent;
@@ -25,12 +26,13 @@ describe('ResultsComponent', () => {
   });
 
   it('should emit the clicked match', () => {
+    const matchInfo: MatchInfo = { workId: 1, match: Testdata.match };
     // GIVEN
     spyOn(component.onClick, 'emit');
     // WHEN
-    component.onMatchClick(Testdata.match);
+    component.onMatchClick(matchInfo.workId, matchInfo.match);
     // THEN
-    expect(component.onClick.emit).toHaveBeenCalledWith(Testdata.match);
+    expect(component.onClick.emit).toHaveBeenCalledWith(matchInfo);
   });
 
   it('should return the title of the work by id', () => {
