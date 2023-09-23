@@ -6,6 +6,7 @@ import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-results',
@@ -18,7 +19,6 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   resultCount$ = this.resultsStore.resultCount$;
   isLoaded$ = this.resultsStore.isLoaded$;
 
-  searchTerms: string[] = [];
   showParagraph = false;
   workId = 0;
   paragraphId = 0;
@@ -37,18 +37,15 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     this.route.queryParamMap
       .pipe(this.takeUntilDestroy())
       .subscribe((params) => {
-        if (!params || params.keys.length === 0) {
-          return;
-        }
-
-        this.searchTerms = params.get('searchTerms')?.split(',') || [];
+        // empty terms or IDs give a 400 error, so we don't have to check here
+        const searchTerms = params.get('searchTerms') || '';
         const workIds = params.get('workIds')?.split(',').map(Number) || [];
         const scope =
           params.get('scope') === 'sentence'
             ? SearchScope.Sentence
             : SearchScope.Paragraph;
         const criteria: SearchCriteria = {
-          searchTerms: this.searchTerms,
+          searchTerms: searchTerms,
           workIds: workIds,
           scope: scope,
         };

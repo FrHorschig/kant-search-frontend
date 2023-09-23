@@ -8,10 +8,7 @@
 
     <ng-container *ngIf="!result">
       <div class="flex justify-content-center">
-        {{
-          "SEARCH.RESULTS.NONE_FOUND"
-            | translate : { searchTerms: searchTerms.join(", ") }
-        }}
+        {{ "SEARCH.RESULTS.NONE_FOUND" | translate }}
       </div>
     </ng-container>
 

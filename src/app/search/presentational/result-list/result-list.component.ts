@@ -10,7 +10,6 @@ export class ResultListComponent {
   @Input() workById: Map<number, Work> | null = null;
   @Input() result: SearchResult[] = [];
   @Input() resultCount = 0;
-  @Input() searchTerms: string[] = [];
 
   @Output() onClick = new EventEmitter<MatchInfo>();
 

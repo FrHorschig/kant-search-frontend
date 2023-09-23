@@ -70,17 +70,18 @@ describe('ResultsComponent', () => {
 
   it('should call searchParagraphs with sentence scope on ngOnInit', () => {
     // GIVEN
-    const paramMap = convertToParamMap({
-      searchTerms: 'term1,term2',
-      workIds: '1,2',
-      scope: 'sentence',
-    });
-    (mockActivatedRoute.queryParamMap as any) = of(paramMap);
+    (mockActivatedRoute.queryParamMap as any) = of(
+      convertToParamMap({
+        searchTerms: 'term1 term2',
+        workIds: '1,2',
+        scope: 'sentence',
+      })
+    );
     // WHEN
     component.ngOnInit();
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: ['term1', 'term2'],
+      searchTerms: 'term1 term2',
       workIds: [1, 2],
       scope: SearchScope.Sentence,
     });
@@ -88,15 +89,16 @@ describe('ResultsComponent', () => {
 
   it('should call searchParagraphs with paragraph scope on ngOnInit', () => {
     // GIVEN
-    const paramMap = convertToParamMap({
-      scope: 'paragraph',
-    });
-    (mockActivatedRoute.queryParamMap as any) = of(paramMap);
+    (mockActivatedRoute.queryParamMap as any) = of(
+      convertToParamMap({
+        scope: 'paragraph',
+      })
+    );
     // WHEN
     component.ngOnInit();
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: [],
+      searchTerms: '',
       workIds: [],
       scope: SearchScope.Paragraph,
     });
@@ -104,30 +106,20 @@ describe('ResultsComponent', () => {
 
   it('should call searchParagraphs with default scope on ngOnInit', () => {
     // GIVEN
-    const paramMap = convertToParamMap({
-      searchTerms: 'term1,term2',
-      workIds: '1,2',
-    });
-    (mockActivatedRoute.queryParamMap as any) = of(paramMap);
-    // WHEN
-    component.ngOnInit();
-    // THEN
-    expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: ['term1', 'term2'],
-      workIds: [1, 2],
-      scope: SearchScope.Paragraph,
-    });
-  });
-
-  it('should not call searchParagraphs on empty query params', () => {
-    // GIVEN
     (mockActivatedRoute.queryParamMap as any) = of(
-      convertToParamMap(new Map())
+      convertToParamMap({
+        searchTerms: 'term1 term2',
+        workIds: '1,2',
+      })
     );
     // WHEN
     component.ngOnInit();
     // THEN
-    expect(mockResultsStore.searchParagraphs).not.toHaveBeenCalled();
+    expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
+      searchTerms: 'term1 term2',
+      workIds: [1, 2],
+      scope: SearchScope.Paragraph,
+    });
   });
 
   it('should set text and pages on match click', () => {

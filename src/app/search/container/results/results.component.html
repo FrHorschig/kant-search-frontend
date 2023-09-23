@@ -3,7 +3,6 @@
     [workById]="workById$ | async"
     [result]="(result$ | async) || []"
     [resultCount]="(resultCount$ | async) || 0"
-    [searchTerms]="searchTerms"
     (onClick)="onClick($event)"
   ></app-result-list>
 </ng-container>

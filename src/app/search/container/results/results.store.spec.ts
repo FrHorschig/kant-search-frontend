@@ -41,7 +41,7 @@ describe('ResultsStore', () => {
     (mockSearchService.search as jasmine.Spy).and.returnValue(of(results));
     // WHEN
     store.searchParagraphs({
-      searchTerms: ['term'],
+      searchTerms: 'term',
       workIds: [1],
       scope: SearchScope.Paragraph,
     });
@@ -59,7 +59,7 @@ describe('ResultsStore', () => {
     );
     // WHEN
     store.searchParagraphs({
-      searchTerms: ['term'],
+      searchTerms: 'term',
       workIds: [1],
       scope: SearchScope.Paragraph,
     });

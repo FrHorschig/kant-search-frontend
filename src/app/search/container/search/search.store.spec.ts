@@ -26,7 +26,7 @@ describe('SearchStore', () => {
     store
       .select((state) => state.searchTerms)
       .subscribe((terms) => {
-        expect(terms).toEqual(['term1', 'term2']);
+        expect(terms).toEqual('term1 term2');
       });
   });
 
@@ -60,7 +60,7 @@ describe('SearchStore', () => {
     });
   });
 
-  it('should not allow search when no work exist', () => {
+  it('should not allow search when no workId exist', () => {
     // THEN
     store.putSearchTerms('term1');
     // THEN
@@ -78,8 +78,8 @@ describe('SearchStore', () => {
     // THEN
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/search/results'], {
       queryParams: {
-        searchTerms: ['term1'],
-        workIds: [1, 2],
+        searchTerms: 'term1',
+        workIds: '1,2',
       },
     });
   });

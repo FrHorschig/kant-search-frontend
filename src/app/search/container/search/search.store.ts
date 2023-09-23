@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { Work } from 'kant-search-api';
-import { filter, switchMap, tap } from 'rxjs';
+import { filter, tap } from 'rxjs';
 
 interface SearchState {
-  searchTerms: string[];
+  searchTerms: string;
   workIds: number[];
 }
 
 @Injectable()
 export class SearchStore extends ComponentStore<SearchState> {
   constructor(private readonly router: Router) {
-    super({ searchTerms: [], workIds: [] });
+    super({ searchTerms: '', workIds: [] });
   }
 
   readonly navigateSearch = this.effect<void>((trigger$) =>
@@ -26,7 +26,7 @@ export class SearchStore extends ComponentStore<SearchState> {
         this.router.navigate(['/search/results'], {
           queryParams: {
             searchTerms: this.get((state) => state.searchTerms),
-            workIds: this.get((state) => state.workIds),
+            workIds: this.get((state) => state.workIds).join(','),
           },
         })
       )
@@ -35,7 +35,7 @@ export class SearchStore extends ComponentStore<SearchState> {
 
   readonly putSearchTerms = this.updater((state, searchTerms: string) => ({
     ...state,
-    searchTerms: searchTerms.split(' '),
+    searchTerms,
   }));
 
   readonly putWorks = this.updater((state, works: Work[]) => ({
