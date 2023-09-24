@@ -73,7 +73,7 @@ describe('ResultsComponent', () => {
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
         workIds: '1,2',
-        searchTerms: 'term1 term2',
+        searchTerms: 'term1,term2',
         excludedTerms: '',
         optionalTerms: '',
         scope: 'SENTENCE',
@@ -84,9 +84,9 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
-      searchTerms: 'term1 term2',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchTerms: ['term1', 'term2'],
+      excludedTerms: [''],
+      optionalTerms: [''],
       scope: SearchScope.Sentence,
     });
   });
@@ -103,9 +103,9 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [],
-      searchTerms: '',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchTerms: [''],
+      excludedTerms: [''],
+      optionalTerms: [''],
       scope: SearchScope.Paragraph,
     });
   });
@@ -115,7 +115,7 @@ describe('ResultsComponent', () => {
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
         workIds: '1,2',
-        searchTerms: 'term1 term2',
+        searchTerms: 'term1,term2',
       })
     );
     // WHEN
@@ -123,9 +123,9 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
-      searchTerms: 'term1 term2',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchTerms: ['term1', 'term2'],
+      excludedTerms: [''],
+      optionalTerms: [''],
       scope: SearchScope.Paragraph,
     });
   });

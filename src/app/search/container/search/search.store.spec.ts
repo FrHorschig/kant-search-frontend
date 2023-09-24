@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
-import { SearchScope, Work } from 'kant-search-api';
+import { SearchScope } from 'kant-search-api';
 import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';

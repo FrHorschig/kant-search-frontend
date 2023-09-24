@@ -43,9 +43,9 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
             : SearchScope.Paragraph;
         const criteria: SearchCriteria = {
           workIds: params.get('workIds')?.split(',').map(Number) || [],
-          searchTerms: params.get('searchTerms') || '',
-          excludedTerms: params.get('excludedTerms') || '',
-          optionalTerms: params.get('optionalTerms') || '',
+          searchTerms: (params.get('searchTerms') || '').split(','),
+          excludedTerms: (params.get('excludedTerms') || '').split(','),
+          optionalTerms: (params.get('optionalTerms') || '').split(','),
           scope,
         };
         this.resultsStore.searchParagraphs(criteria);

@@ -26,9 +26,9 @@ export class SearchStore extends ComponentStore<SearchState> {
         this.router.navigate(['/search/results'], {
           queryParams: {
             workIds: this.get((state) => state.workIds).join(','),
-            searchTerms: input.searchTerms,
-            excludedTerms: input.excludedTerms,
-            optionalTerms: input.optionalTerms,
+            searchTerms: input.searchTerms.split(/\s+/).join(','),
+            excludedTerms: input.excludedTerms.split(/\s+/).join(','),
+            optionalTerms: input.optionalTerms.split(/\s+/).join(','),
             scope: input.scope,
           },
         })
