@@ -74,7 +74,9 @@ describe('ResultsComponent', () => {
       convertToParamMap({
         workIds: '1,2',
         searchTerms: 'term1 term2',
-        scope: 'sentence',
+        excludedTerms: '',
+        optionalTerms: '',
+        scope: 'SENTENCE',
       })
     );
     // WHEN
@@ -83,6 +85,8 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
       searchTerms: 'term1 term2',
+      excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Sentence,
     });
   });
@@ -91,15 +95,17 @@ describe('ResultsComponent', () => {
     // GIVEN
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
-        scope: 'paragraph',
+        scope: 'PARAGRAPH',
       })
     );
     // WHEN
     component.ngOnInit();
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: '',
       workIds: [],
+      searchTerms: '',
+      excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     });
   });
@@ -118,6 +124,8 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
       searchTerms: 'term1 term2',
+      excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     });
   });

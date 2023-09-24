@@ -42,6 +42,7 @@ describe('SearchStore', () => {
         workIds: '1',
         searchTerms: 'test',
         excludedTerms: '',
+        optionalTerms: '',
         scope: 'PARAGRAPH',
       },
     });

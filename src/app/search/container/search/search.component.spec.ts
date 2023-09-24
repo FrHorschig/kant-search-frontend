@@ -13,6 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SearchInput } from '../../model/search-input';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -31,6 +32,7 @@ describe('SearchComponent', () => {
         SearchComponent,
         SearchInputComponent,
         MockWorksMenuComponent,
+        InputGroupComponent,
       ],
       providers: [provideMockStore({})],
       imports: [

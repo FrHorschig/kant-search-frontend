@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputGroupComponent } from './input-group.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('InputGroupComponent', () => {
   let component: InputGroupComponent;
@@ -8,9 +10,9 @@ describe('InputGroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputGroupComponent ]
-    })
-    .compileComponents();
+      declarations: [InputGroupComponent],
+      imports: [TranslateModule.forRoot(), TooltipModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InputGroupComponent);
     component = fixture.componentInstance;

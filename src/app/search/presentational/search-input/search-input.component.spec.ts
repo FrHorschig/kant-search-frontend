@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
@@ -14,7 +15,7 @@ describe('SearchInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchInputComponent],
+      declarations: [SearchInputComponent, InputGroupComponent],
       providers: [FormBuilder],
       imports: [
         ReactiveFormsModule,
@@ -40,11 +41,15 @@ describe('SearchInputComponent', () => {
     const searchInput: SearchInput = {
       searchTerms: 'test',
       excludedTerms: 'exclude',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     };
+    // GIVEN
     spyOn(component.onSearch, 'emit');
     component.form.setValue(searchInput);
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(component.onSearch.emit).toHaveBeenCalledWith(searchInput);
   });
 });

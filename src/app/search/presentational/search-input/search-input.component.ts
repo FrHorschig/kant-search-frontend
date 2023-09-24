@@ -17,6 +17,7 @@ export class SearchInputComponent {
   form: FormGroup = this.formBuilder.group({
     searchTerms: [this.input.searchTerms, Validators.required],
     excludedTerms: [this.input.excludedTerms],
+    optionalTerms: [this.input.optionalTerms],
     scope: [this.input.scope],
   });
 
