@@ -21,9 +21,23 @@
       pInputText
       id="excluded-terms-input"
       type="text"
-      class="w-full mb-2"
+      class="w-full"
       placeholder="{{ 'SEARCH.INPUT.EXCLUDED_TERMS_PLACEHOLDER' | translate }}"
       formControlName="excludedTerms"
+    />
+  </app-input-group>
+
+  <app-input-group
+    idString="optional-terms-input"
+    i18nString="SEARCH.INPUT.OPTIONAL_TERMS"
+  >
+    <input
+      pInputText
+      id="optional-terms-input"
+      type="text"
+      class="w-full"
+      placeholder="{{ 'SEARCH.INPUT.OPTIONAL_TERMS_PLACEHOLDER' | translate }}"
+      formControlName="optionalTerms"
     />
   </app-input-group>
 

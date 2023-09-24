@@ -4,6 +4,7 @@ export class SearchInput {
   constructor(
     public searchTerms = '',
     public excludedTerms = '',
+    public optionalTerms = '',
     public scope = SearchScope.Paragraph
   ) {}
 }

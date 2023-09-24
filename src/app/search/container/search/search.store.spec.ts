@@ -33,6 +33,7 @@ describe('SearchStore', () => {
     store.navigateSearch({
       searchTerms: 'test',
       excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     });
     // THEN
@@ -54,6 +55,7 @@ describe('SearchStore', () => {
     store.navigateSearch({
       searchTerms: '',
       excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     });
     // THEN
@@ -68,6 +70,7 @@ describe('SearchStore', () => {
     store.navigateSearch({
       searchTerms: '',
       excludedTerms: '',
+      optionalTerms: '',
       scope: SearchScope.Paragraph,
     });
     // THEN

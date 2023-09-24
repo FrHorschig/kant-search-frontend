@@ -22,6 +22,9 @@
       "EXCLUDED_TERMS_LABEL": "Excluded terms",
       "EXCLUDED_TERMS_INFO": "Exclude results containing one of these terms",
       "EXCLUDED_TERMS_PLACEHOLDER": "Excluded terms",
+      "OPTIONAL_TERMS_LABEL": "Optional terms",
+      "OPTIONAL_TERMS_INFO": "Include results containing one or more of these terms",
+      "OPTIONAL_TERMS_PLACEHOLDER": "Optional terms",
       "SEARCH_SCOPE_LABEL": "Search scope",
       "SEARCH_SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE": {

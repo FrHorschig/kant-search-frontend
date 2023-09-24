@@ -28,6 +28,7 @@ export class SearchStore extends ComponentStore<SearchState> {
             workIds: this.get((state) => state.workIds).join(','),
             searchTerms: input.searchTerms,
             excludedTerms: input.excludedTerms,
+            optionalTerms: input.optionalTerms,
             scope: input.scope,
           },
         })
