@@ -70,7 +70,7 @@ describe('TextComponent', () => {
     expect(mockScrollService.scrollToAnchor).not.toHaveBeenCalled();
   });
 
-  /* TODO frhorsch
+  /* TODO frhorsch: fix
   it('should call scroll service when a fragment exists', () => {
     const fragment = 'id-1';
     // WHEN

@@ -1,7 +1,17 @@
-<app-search-input
-  [works]="(works$ | async) || []"
-  [isSearchPermitted]="(isSearchPermitted$ | async) || false"
-  (onInput)="onInput($event)"
-  (onSelect)="onSelect($event)"
-  (onSearch)="onSearch()"
-></app-search-input>
+<div class="flex justify-content-center">
+  <div class="w-full max-w-600">
+    <app-works-menu
+      [useCheckbox]="true"
+      (onSelectionChange)="onSelectionChange($event)"
+    ></app-works-menu>
+  </div>
+
+  <div class="mr-2"></div>
+
+  <div class="w-full max-w-600">
+    <app-search-input
+      [hasWorks]="(hasWorks$ | async) || false"
+      (onSearch)="onSearch($event)"
+    ></app-search-input>
+  </div>
+</div>

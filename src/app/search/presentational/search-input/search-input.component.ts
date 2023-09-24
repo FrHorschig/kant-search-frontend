@@ -1,27 +1,28 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Work } from 'kant-search-api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SearchScope } from 'kant-search-api';
+import { SearchInput } from '../../model/search-input';
 
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
 })
 export class SearchInputComponent {
-  @Input() works: Work[] | undefined;
-  @Input() isSearchPermitted = false;
+  @Input() hasWorks = false;
 
-  @Output() onInput = new EventEmitter<string>();
-  @Output() onSelect = new EventEmitter<Work[]>();
-  @Output() onSearch = new EventEmitter<void>();
+  @Output() onSearch = new EventEmitter<SearchInput>();
 
-  onInputChange(event: any) {
-    this.onInput.emit(event?.target?.value || '');
-  }
+  scopes = [SearchScope.Paragraph, SearchScope.Sentence];
+  input = new SearchInput();
+  form: FormGroup = this.formBuilder.group({
+    searchTerms: [this.input.searchTerms, Validators.required],
+    excludedTerms: [this.input.excludedTerms],
+    scope: [this.input.scope],
+  });
 
-  onSelectionChange(works: Work[]) {
-    this.onSelect.emit(works);
-  }
+  constructor(private readonly formBuilder: FormBuilder) {}
 
-  onSearchClick() {
-    this.onSearch.emit();
+  onSubmit() {
+    this.onSearch.emit(this.form.value as SearchInput);
   }
 }

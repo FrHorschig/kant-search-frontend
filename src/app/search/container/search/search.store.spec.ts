@@ -1,86 +1,105 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { Observable } from 'rxjs';
+import { SearchScope, Work } from 'kant-search-api';
 import { SearchStore } from './search.store';
-import { Testdata } from 'src/app/common/test/testdata';
 import { Router } from '@angular/router';
+import { Testdata } from 'src/app/common/test/testdata';
 
 describe('SearchStore', () => {
   let store: SearchStore;
-  let mockRouter = { navigate: jasmine.createSpy() };
+  let actions$: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SearchStore, { provide: Router, useValue: mockRouter }],
+      imports: [RouterTestingModule],
+      providers: [
+        SearchStore,
+        provideMockStore(),
+        provideMockActions(() => actions$),
+      ],
     });
 
     store = TestBed.inject(SearchStore);
   });
 
-  it('should be created', () => {
-    expect(store).toBeTruthy();
-  });
-
-  it('should update search terms', () => {
+  it('should navigate when workIds and search terms exist', () => {
+    // GIVEN
+    store.putWorks([Testdata.work]);
+    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
-    store.putSearchTerms('term1 term2');
+    store.navigateSearch({
+      searchTerms: 'test',
+      excludedTerms: '',
+      scope: SearchScope.Paragraph,
+    });
     // THEN
-    store
-      .select((state) => state.searchTerms)
-      .subscribe((terms) => {
-        expect(terms).toEqual('term1 term2');
-      });
+    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+      queryParams: {
+        workIds: '1',
+        searchTerms: 'test',
+        excludedTerms: '',
+        scope: 'PARAGRAPH',
+      },
+    });
   });
 
-  it('should update workIds', () => {
+  it('should not navigate when search terms are empty', () => {
+    // GIVEN
+    store.putWorks([Testdata.work]);
+    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
-    store.putWorks([Testdata.work, Testdata.work2]);
+    store.navigateSearch({
+      searchTerms: '',
+      excludedTerms: '',
+      scope: SearchScope.Paragraph,
+    });
+    // THEN
+    expect(routerSpy).not.toHaveBeenCalled();
+  });
+
+  it('should not navigate when workIds are empty', () => {
+    // GIVEN
+    store.putWorks([Testdata.work]);
+    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
+    // WHEN
+    store.navigateSearch({
+      searchTerms: '',
+      excludedTerms: '',
+      scope: SearchScope.Paragraph,
+    });
+    // THEN
+    expect(routerSpy).not.toHaveBeenCalled();
+  });
+
+  it('should update works', () => {
+    // WHEN
+    store.putWorks([Testdata.work]);
     // THEN
     store
       .select((state) => state.workIds)
-      .subscribe((ids) => {
-        expect(ids).toEqual([1, 2]);
+      .subscribe((workIds) => {
+        expect(workIds).toEqual([1]);
       });
   });
 
-  it('should allow search when terms and works exist', () => {
-    // THEN
-    store.putSearchTerms('term1');
-    store.putWorks([Testdata.work, Testdata.work2]);
-    // THEN
-    store.isSearchPermitted$.subscribe((isPermitted) => {
-      expect(isPermitted).toBe(true);
-    });
-  });
-
-  it('should not allow search when no search terms exist', () => {
-    // THEN
-    store.putWorks([Testdata.work, Testdata.work2]);
-    // THEN
-    store.isSearchPermitted$.subscribe((isPermitted) => {
-      expect(isPermitted).toBe(false);
-    });
-  });
-
-  it('should not allow search when no workId exist', () => {
-    // THEN
-    store.putSearchTerms('term1');
-    // THEN
-    store.isSearchPermitted$.subscribe((isPermitted) => {
-      expect(isPermitted).toBe(false);
-    });
-  });
-
-  it('should navigate to search results on search', () => {
-    // GIVEN
-    store.putSearchTerms('term1');
-    store.putWorks([Testdata.work, Testdata.work2]);
+  it('should return true when there are work ids', () => {
     // WHEN
-    store.navigateSearch();
+    store.setState({ workIds: [1, 2] });
     // THEN
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/search/results'], {
-      queryParams: {
-        searchTerms: 'term1',
-        workIds: '1,2',
-      },
+    store.hasWorks.subscribe((hasWorks: boolean) => {
+      expect(hasWorks).toBeTrue();
+    });
+  });
+
+  it('should return false when there are no work ids', () => {
+    // WHEN
+    store.setState({ workIds: [] });
+    // THEN
+    store.hasWorks.subscribe((hasWorks: boolean) => {
+      expect(hasWorks).toBeFalse();
     });
   });
 });

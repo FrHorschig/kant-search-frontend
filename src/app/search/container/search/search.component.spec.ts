@@ -10,6 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { SearchInput } from '../../model/search-input';
+import { DropdownModule } from 'primeng/dropdown';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -30,7 +33,13 @@ describe('SearchComponent', () => {
         MockWorksMenuComponent,
       ],
       providers: [provideMockStore({})],
-      imports: [TranslateModule.forRoot(), ButtonModule, TooltipModule],
+      imports: [
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+        ButtonModule,
+        TooltipModule,
+        DropdownModule,
+      ],
     }).compileComponents();
     TestBed.overrideProvider(SearchStore, { useValue: mockSearchStore });
 
@@ -43,23 +52,16 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should delegate putSearchTerms call to searchStore', () => {
-    // WHEN
-    component.onInput('test');
-    // THEN
-    expect(mockSearchStore.putSearchTerms).toHaveBeenCalledWith('test');
-  });
-
   it('should delegate putWorks call to searchStore', () => {
     // WHEN
-    component.onSelect(Testdata.works);
+    component.onSelectionChange(Testdata.works);
     // THEN
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(Testdata.works);
   });
 
   it('should call navigateSearch', () => {
     // WHEN
-    component.onSearch();
+    component.onSearch(new SearchInput());
     // THEN
     expect(mockSearchStore.navigateSearch).toHaveBeenCalled();
   });

@@ -1,30 +1,48 @@
-<div class="flex justify-content-center">
-  <div class="w-full max-w-600">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
     <input
       pInputText
       type="text"
       class="w-full mb-2"
-      placeholder="{{ 'SEARCH.INPUT_PLACEHOLDER' | translate }}"
-      (input)="onInputChange($event)"
-      (keydown.enter)="onSearchClick()"
+      placeholder="{{ 'SEARCH.INPUT.SEARCH_TERMS_PLACEHOLDER' | translate }}"
+      formControlName="searchTerms"
     />
-
-    <div class="mb-2">
-      <app-works-menu
-        [useCheckbox]="true"
-        (onSelectionChange)="onSelectionChange($event)"
-      ></app-works-menu>
-    </div>
-
-    <div class="flex justify-content-center">
-      <p-button
-        label="{{ 'SEARCH.BUTTON_LABEL' | translate }}"
-        (onClick)="onSearchClick()"
-        [disabled]="!isSearchPermitted"
-        pTooltip="{{
-          !isSearchPermitted ? ('SEARCH.BUTTON_TOOLTIP' | translate) : ''
-        }}"
-      ></p-button>
-    </div>
   </div>
-</div>
+
+  <div>
+    <input
+      pInputText
+      type="text"
+      class="w-full mb-2"
+      placeholder="{{ 'SEARCH.INPUT.EXCLUDED_TERMS_PLACEHOLDER' | translate }}"
+      formControlName="excludedTerms"
+    />
+  </div>
+
+  <div>
+    <label for="scope-dropdown">{{
+      "SEARCH.INPUT.SEARCH_SCOPE_LABEL" | translate
+    }}</label>
+    <p-dropdown id="scope-dropdown" [options]="scopes" formControlName="scope">
+      <ng-template let-option pTemplate="selectedItem">
+        {{ "SEARCH.INPUT.SCOPE." + option | translate }}
+      </ng-template>
+      <ng-template let-option pTemplate="item">
+        {{ "SEARCH.INPUT.SCOPE." + option | translate }}
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <div class="flex justify-content-center">
+    <p-button
+      type="submit"
+      label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
+      [disabled]="!form.value.searchTerms || !hasWorks"
+      pTooltip="{{
+        !form.value.searchTerms || !hasWorks
+          ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate)
+          : ''
+      }}"
+    ></p-button>
+  </div>
+</form>

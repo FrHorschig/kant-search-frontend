@@ -4,7 +4,9 @@ import { Store } from '@ngrx/store';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { WorksReducers } from 'src/app/store/works';
 import { SearchStore } from './search.store';
-import { Work } from 'kant-search-api';
+import { SearchCriteria, Work } from 'kant-search-api';
+import { SearchInput } from '../../model/search-input';
+import { SearchInputComponent } from '../../presentational/search-input/search-input.component';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +15,7 @@ import { Work } from 'kant-search-api';
 })
 export class SearchComponent extends ContainerComponent {
   works$ = this.store.select(WorksReducers.selectWorks);
-  isSearchPermitted$ = this.searchStore.isSearchPermitted$;
+  hasWorks$ = this.searchStore.hasWorks;
 
   constructor(
     private readonly store: Store,
@@ -22,15 +24,11 @@ export class SearchComponent extends ContainerComponent {
     super();
   }
 
-  onInput(searchTerms: string) {
-    this.searchStore.putSearchTerms(searchTerms);
-  }
-
-  onSelect(works: Work[]) {
+  onSelectionChange(works: Work[]) {
     this.searchStore.putWorks(works);
   }
 
-  onSearch() {
-    this.searchStore.navigateSearch();
+  onSearch(input: SearchInput) {
+    this.searchStore.navigateSearch(input);
   }
 }
