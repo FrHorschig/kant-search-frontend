@@ -72,8 +72,8 @@ describe('ResultsComponent', () => {
     // GIVEN
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
-        searchTerms: 'term1 term2',
         workIds: '1,2',
+        searchTerms: 'term1 term2',
         scope: 'sentence',
       })
     );
@@ -81,8 +81,8 @@ describe('ResultsComponent', () => {
     component.ngOnInit();
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: 'term1 term2',
       workIds: [1, 2],
+      searchTerms: 'term1 term2',
       scope: SearchScope.Sentence,
     });
   });
@@ -108,16 +108,16 @@ describe('ResultsComponent', () => {
     // GIVEN
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
-        searchTerms: 'term1 term2',
         workIds: '1,2',
+        searchTerms: 'term1 term2',
       })
     );
     // WHEN
     component.ngOnInit();
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      searchTerms: 'term1 term2',
       workIds: [1, 2],
+      searchTerms: 'term1 term2',
       scope: SearchScope.Paragraph,
     });
   });

@@ -37,17 +37,16 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     this.route.queryParamMap
       .pipe(this.takeUntilDestroy())
       .subscribe((params) => {
-        // empty terms or IDs give a 400 error, so we don't have to check here
-        const searchTerms = params.get('searchTerms') || '';
-        const workIds = params.get('workIds')?.split(',').map(Number) || [];
         const scope =
-          params.get('scope') === 'sentence'
+          params.get('scope') === 'SENTENCE'
             ? SearchScope.Sentence
             : SearchScope.Paragraph;
         const criteria: SearchCriteria = {
-          searchTerms: searchTerms,
-          workIds: workIds,
-          scope: scope,
+          workIds: params.get('workIds')?.split(',').map(Number) || [],
+          searchTerms: params.get('searchTerms') || '',
+          excludedTerms: params.get('excludedTerms') || '',
+          optionalTerms: params.get('optionalTerms') || '',
+          scope,
         };
         this.resultsStore.searchParagraphs(criteria);
       });
