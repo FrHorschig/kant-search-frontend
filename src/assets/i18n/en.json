@@ -16,9 +16,14 @@
   },
   "SEARCH": {
     "INPUT": {
+      "SEARCH_TERMS_LABEL": "Search terms",
+      "SEARCH_TERMS_INFO": "Include results containing all of these terms",
       "SEARCH_TERMS_PLACEHOLDER": "Search terms",
+      "EXCLUDED_TERMS_LABEL": "Excluded terms",
+      "EXCLUDED_TERMS_INFO": "Exclude results containing one of these terms",
       "EXCLUDED_TERMS_PLACEHOLDER": "Excluded terms",
       "SEARCH_SCOPE_LABEL": "Search scope",
+      "SEARCH_SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE": {
         "PARAGRAPH": "Paragraph",
         "SENTENCE": "Sentence"
@@ -32,13 +37,6 @@
       "PAGES": "[{{ pages }}]",
       "GO_TO_TEXT_LABEL": "Full text",
       "GO_TO_TEXT_TOOLTIP": "Jump to the paragraph in the full text"
-    }
-  },
-  "WORKS": {
-    "SECTIONS": {
-      "WORKS": "Section 1: Works",
-      "LETTERS": "Section 2: Letters",
-      "MANUSCRIPTS": "Section 3: Manuscripts"
     }
   }
 }

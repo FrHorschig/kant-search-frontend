@@ -1,28 +1,36 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
+  <app-input-group
+    idString="search-terms-input"
+    i18nString="SEARCH.INPUT.SEARCH_TERMS"
+  >
     <input
       pInputText
+      id="search-terms-input"
       type="text"
-      class="w-full mb-2"
+      class="w-full"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_TERMS_PLACEHOLDER' | translate }}"
       formControlName="searchTerms"
     />
-  </div>
+  </app-input-group>
 
-  <div>
+  <app-input-group
+    idString="excluded-terms-input"
+    i18nString="SEARCH.INPUT.EXCLUDED_TERMS"
+  >
     <input
       pInputText
+      id="excluded-terms-input"
       type="text"
       class="w-full mb-2"
       placeholder="{{ 'SEARCH.INPUT.EXCLUDED_TERMS_PLACEHOLDER' | translate }}"
       formControlName="excludedTerms"
     />
-  </div>
+  </app-input-group>
 
-  <div>
-    <label for="scope-dropdown">{{
-      "SEARCH.INPUT.SEARCH_SCOPE_LABEL" | translate
-    }}</label>
+  <app-input-group
+    idString="scope-dropdown"
+    i18nString="SEARCH.INPUT.SEARCH_SCOPE"
+  >
     <p-dropdown id="scope-dropdown" [options]="scopes" formControlName="scope">
       <ng-template let-option pTemplate="selectedItem">
         {{ "SEARCH.INPUT.SCOPE." + option | translate }}
@@ -31,7 +39,7 @@
         {{ "SEARCH.INPUT.SCOPE." + option | translate }}
       </ng-template>
     </p-dropdown>
-  </div>
+  </app-input-group>
 
   <div class="flex justify-content-center">
     <p-button

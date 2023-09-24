@@ -1,0 +1,18 @@
+<div class="grid col-12 flex align-items-center">
+  <div class="col-3">
+    <label for="{{ idString }}">
+      {{ i18nString + "_LABEL" | translate }}
+    </label>
+  </div>
+
+  <div class="col-8">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="col-1">
+    <i
+      class="pi pi-info-circle"
+      pTooltip="{{ i18nString + '_INFO' | translate }}"
+    ></i>
+  </div>
+</div>
