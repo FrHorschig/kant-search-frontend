@@ -6,7 +6,7 @@
     'SEARCH.RESULTS.PAGES' | translate : { pages: pages.join(', ') }
   }}"
 >
-  <div class="max-w-600" [innerHTML]="text | pagenumberNormalMode"></div>
+  <div class="max-w-600" [innerHTML]="text | normalMode"></div>
 
   <div class="flex justify-content-end">
     <p-button

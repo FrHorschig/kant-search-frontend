@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pagenumberNormalMode',
+  name: 'normalMode',
 })
-export class PagenumberNormalModePipe implements PipeTransform {
+export class NormalModePipe implements PipeTransform {
   transform(text: string): string {
     return text.replace(
       // replace {p#} with [#] where '#' is a number

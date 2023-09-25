@@ -1,14 +1,14 @@
-import { PagenumberNormalModePipe } from './pagenumber-normal-mode.pipe';
+import { NormalModePipe } from './normal-mode.pipe';
 import { TestBed } from '@angular/core/testing';
 
-describe('PagenumberNormalModePipe', () => {
-  let pipe: PagenumberNormalModePipe;
+describe('NormalModePipe', () => {
+  let pipe: NormalModePipe;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PagenumberNormalModePipe],
+      declarations: [NormalModePipe],
     });
-    pipe = new PagenumberNormalModePipe();
+    pipe = new NormalModePipe();
   });
 
   it('should create an instance', () => {
