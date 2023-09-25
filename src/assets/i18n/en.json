@@ -18,13 +18,13 @@
     "INPUT": {
       "SEARCH_TERMS_LABEL": "Search terms",
       "SEARCH_TERMS_INFO": "Include results containing all of these terms",
-      "SEARCH_TERMS_PLACEHOLDER": "Search terms",
+      "SEARCH_TERMS_PLACEHOLDER": "Search terms separated by whitespace",
       "EXCLUDED_TERMS_LABEL": "Excluded terms",
       "EXCLUDED_TERMS_INFO": "Exclude results containing one of these terms",
-      "EXCLUDED_TERMS_PLACEHOLDER": "Excluded terms",
+      "EXCLUDED_TERMS_PLACEHOLDER": "Excluded terms separated by whitespace",
       "OPTIONAL_TERMS_LABEL": "Optional terms",
       "OPTIONAL_TERMS_INFO": "Include results containing one or more of these terms",
-      "OPTIONAL_TERMS_PLACEHOLDER": "Optional terms",
+      "OPTIONAL_TERMS_PLACEHOLDER": "Optional terms separated by whitespace",
       "SEARCH_SCOPE_LABEL": "Search scope",
       "SEARCH_SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE": {
