@@ -6,7 +6,6 @@ import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-results',
@@ -21,7 +20,12 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   showParagraph = false;
   workId = 0;
-  match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
+  matchInfo: MatchInfo = {
+    workId: 0,
+    workTitle: '',
+    match: { snippet: '', text: '', pages: [], paragraphId: 0 },
+    index: 0,
+  } as MatchInfo;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -51,8 +55,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   }
 
   onClick(info: MatchInfo) {
-    this.workId = info.workId;
-    this.match = info.match;
+    this.matchInfo = info;
     this.showParagraph = true;
   }
 }

@@ -13,8 +13,13 @@ export class ResultListComponent {
 
   @Output() onClick = new EventEmitter<MatchInfo>();
 
-  onMatchClick(workId: number, match: Match) {
-    this.onClick.emit({ workId, match } as MatchInfo);
+  onMatchClick(workId: number, match: Match, index: number) {
+    this.onClick.emit({
+      workId,
+      workTitle: this.getWorkAbbreviation(workId),
+      match,
+      index,
+    });
   }
 
   getWorkTitle(workId: number): string {

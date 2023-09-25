@@ -20,12 +20,13 @@
           </p-divider>
         </div>
 
-        <ng-container *ngFor="let match of result.matches">
+        <ng-container *ngFor="let match of result.matches; let i = index">
           <div class="mb-2">
             <app-result-item
+              [index]="i + 1"
               [workTitle]="getWorkAbbreviation(result.workId)"
               [match]="match"
-              (onClick)="onMatchClick(result.workId, match)"
+              (onClick)="onMatchClick(result.workId, match, i + 1)"
             ></app-result-item>
           </div>
         </ng-container>
