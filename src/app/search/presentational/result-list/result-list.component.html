@@ -16,15 +16,14 @@
       <ng-container *ngFor="let result of result">
         <div class="mt-6">
           <p-divider align="center">
-            <b>{{ getWorkTitle(result.workId) }}</b
-            >b
+            <b>{{ getWorkTitle(result.workId) }}</b>
           </p-divider>
         </div>
 
         <ng-container *ngFor="let match of result.matches">
           <div class="mb-2">
             <app-result-item
-              [workTitle]="getWorkTitle(result.workId)"
+              [workTitle]="getWorkAbbreviation(result.workId)"
               [match]="match"
               (onClick)="onMatchClick(result.workId, match)"
             ></app-result-item>

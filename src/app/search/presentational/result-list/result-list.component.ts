@@ -18,6 +18,15 @@ export class ResultListComponent {
   }
 
   getWorkTitle(workId: number): string {
-    return this.workById?.get(workId)?.title || '';
+    var title = this.workById?.get(workId)?.title || '';
+    if (title?.length > 40) {
+      title = title.substring(0, 37) + '...';
+    }
+    return title;
+  }
+
+  getWorkAbbreviation(workId: number): string {
+    const abbrev = this.workById?.get(workId)?.abbreviation;
+    return (abbrev ? abbrev : this.getWorkTitle(workId)) || '';
   }
 }
