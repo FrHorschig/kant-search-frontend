@@ -21,9 +21,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   showParagraph = false;
   workId = 0;
-  paragraphId = 0;
-  text = '';
-  pages: number[] = [];
+  match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -54,9 +52,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   onClick(info: MatchInfo) {
     this.workId = info.workId;
-    this.paragraphId = info.match.elementId;
-    this.text = info.match.text;
-    this.pages = info.match.pages;
+    this.match = info.match;
     this.showParagraph = true;
   }
 }

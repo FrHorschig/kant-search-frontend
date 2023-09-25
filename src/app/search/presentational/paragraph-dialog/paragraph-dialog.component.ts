@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Match } from 'kant-search-api';
 
 @Component({
   selector: 'app-paragraph-dialog',
@@ -14,9 +15,7 @@ import {
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
   @Input() workId = 0;
-  @Input() paragraphId = 0;
-  @Input() text = '';
-  @Input() pages: number[] = [];
+  @Input() match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
 

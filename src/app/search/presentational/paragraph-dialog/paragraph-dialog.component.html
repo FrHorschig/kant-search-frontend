@@ -3,16 +3,16 @@
   [modal]="true"
   (onHide)="onHide()"
   header="{{
-    'SEARCH.RESULTS.PAGES' | translate : { pages: pages.join(', ') }
+    'SEARCH.RESULTS.PAGES' | translate : { pages: match.pages.join(', ') }
   }}"
 >
-  <div class="max-w-600" [innerHTML]="text | normalMode"></div>
+  <div class="max-w-600" [innerHTML]="match.text | normalMode"></div>
 
   <div class="flex justify-content-end">
     <p-button
       styleClass="p-button-secondary"
       [routerLink]="['/read/text/', workId]"
-      fragment="paragraph-{{ paragraphId }}"
+      fragment="paragraph-{{ match.paragraphId }}"
       pTooltip="{{ 'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate }}"
     >
       <div class="mt-1">

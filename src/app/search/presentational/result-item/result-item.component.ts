@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Match } from 'kant-search-api';
 
 @Component({
   selector: 'app-result-item',
@@ -7,8 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ResultItemComponent {
   @Input() volume = 0;
   @Input() workTitle = '';
-  @Input() pages: number[] = [];
-  @Input() snippet = '';
+  @Input() match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
 
   @Output() onClick = new EventEmitter<void>();
 

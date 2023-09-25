@@ -28,8 +28,7 @@
             <app-result-item
               [volume]="getVolume(result.workId)"
               [workTitle]="getWorkTitle(result.workId)"
-              [pages]="match.pages"
-              [snippet]="match.snippet"
+              [match]="match"
               (onClick)="onMatchClick(result.workId, match)"
             ></app-result-item>
           </div>

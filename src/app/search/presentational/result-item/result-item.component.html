@@ -5,11 +5,14 @@
         <div>Band {{ volume }}: {{ workTitle }}</div>
 
         <div>
-          {{ "SEARCH.RESULTS.PAGES" | translate : { pages: pages.join(", ") } }}
+          {{
+            "SEARCH.RESULTS.PAGES"
+              | translate : { pages: match.pages.join(", ") }
+          }}
         </div>
       </div>
     </ng-template>
 
-    <p [innerHTML]="snippet | normalMode"></p>
+    <p [innerHTML]="match.snippet | normalMode"></p>
   </p-card>
 </div>
