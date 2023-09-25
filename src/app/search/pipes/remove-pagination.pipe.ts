@@ -8,6 +8,12 @@ export class RemovePaginationPipe implements PipeTransform {
     if (!text) {
       return '';
     }
-    return text.replace(/\s*\{[a-zA-Z0-9.]+\}\s*/g, ' ');
+    return (
+      text
+        .replace(/\s*\{[a-zA-Z0-9.]+\}\s*/g, ' ')
+        // handle cases where pagination string is cut off
+        .replace(/\s*\{[a-zA-Z0-9.]* /g, ' ')
+        .replace(/ [a-zA-Z0-9.]*\}\s*/g, ' ')
+    );
   }
 }
