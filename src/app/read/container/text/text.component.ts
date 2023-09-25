@@ -16,6 +16,8 @@ export class TextComponent
   paragraphs$ = this.store.paragraphs$;
   isLoaded$ = this.store.isLoaded$;
 
+  isOriginalMode = false;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: TextStore,

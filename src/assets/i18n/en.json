@@ -4,15 +4,8 @@
     "SEARCH": "Search",
     "ADMIN": "Admin"
   },
-  "UPLOAD": {
-    "TITLE": "Title",
-    "ABBREV": "Abbreviation",
-    "VOLUME": "Volume Number",
-    "ORDINAL": "Position in Volume",
-    "YEAR": "Year",
-    "TOOLTIP": "Fill out all fields to upload the text",
-    "SELECT_FILE": "Select text file",
-    "START_UPLOAD": "Start upload"
+  "READ": {
+    "MODE_CHECKBOX_LABEL": "Display text with line numbers"
   },
   "SEARCH": {
     "INPUT": {
@@ -41,5 +34,15 @@
       "GO_TO_TEXT_LABEL": "Full text",
       "GO_TO_TEXT_TOOLTIP": "Jump to the paragraph in the full text"
     }
+  },
+  "UPLOAD": {
+    "TITLE": "Title",
+    "ABBREV": "Abbreviation",
+    "VOLUME": "Volume Number",
+    "ORDINAL": "Position in Volume",
+    "YEAR": "Year",
+    "TOOLTIP": "Fill out all fields to upload the text",
+    "SELECT_FILE": "Select text file",
+    "START_UPLOAD": "Start upload"
   }
 }
