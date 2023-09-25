@@ -8,9 +8,15 @@ import { CommonModule as AppCommonModule } from '../common/common.module';
 import { NormalModeComponent } from './presentational/normal-mode/normal-mode.component';
 import { TocComponent } from './container/toc/toc.component';
 import { TextComponent } from './container/text/text.component';
+import { OriginalModeComponent } from './presentational/original-mode/original-mode.component';
 
 @NgModule({
-  declarations: [NormalModeComponent, TocComponent, TextComponent],
+  declarations: [
+    NormalModeComponent,
+    TocComponent,
+    TextComponent,
+    OriginalModeComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule,

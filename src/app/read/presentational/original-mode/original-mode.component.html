@@ -1,0 +1,14 @@
+<ng-container *ngFor="let paragraph of paragraphs">
+  <div id="paragraph-{{ paragraph.id }}"></div>
+
+  <span
+    style="
+      text-align: justify;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+    "
+    lang="de-de"
+    [innerHTML]="paragraph.text | originalMode"
+  ></span>
+</ng-container>
