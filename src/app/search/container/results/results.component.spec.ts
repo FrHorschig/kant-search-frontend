@@ -134,8 +134,7 @@ describe('ResultsComponent', () => {
     // WHEN
     component.onClick({ workId: 1, match: Testdata.match });
     // THEN
-    expect(component.text).toBe('text');
-    expect(component.pages).toEqual([1, 2]);
+    expect(component.match).toBe(Testdata.match);
     expect(component.showParagraph).toBeTrue();
   });
 });

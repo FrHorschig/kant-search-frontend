@@ -8,7 +8,7 @@ export class NormalModePipe implements PipeTransform {
     if (!text) {
       return '';
     }
-    return text.replace(/\{l(\d+)\}/g, '').replace(
+    return text.replace(/\s*\{l(\d+)\}\s*/g, ' ').replace(
       // replace {p#} with [#] where '#' is a number
       // if it's followed by a 'ks-h' span, add a line break
       /\s*\{p(\d+)\}\s*(<span class="ks-h">)?/g,

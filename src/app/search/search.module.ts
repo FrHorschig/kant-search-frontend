@@ -18,6 +18,7 @@ import { ResultListComponent } from './presentational/result-list/result-list.co
 import { SearchInputComponent } from './presentational/search-input/search-input.component';
 import { ResultItemComponent } from './presentational/result-item/result-item.component';
 import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
+import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ParagraphDialogComponent } from './presentational/paragraph-dialog/para
     ResultListComponent,
     ResultItemComponent,
     ParagraphDialogComponent,
+    RemovePaginationPipe,
   ],
   imports: [
     CommonModule,

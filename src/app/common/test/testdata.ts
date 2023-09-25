@@ -25,7 +25,8 @@ export class Testdata {
     snippet: 'snippet',
     text: 'text',
     pages: [1, 2],
-    elementId: 3,
+    sentenceId: 3,
+    paragraphId: 4,
   };
   static paragraph: Paragraph = {
     id: 1,

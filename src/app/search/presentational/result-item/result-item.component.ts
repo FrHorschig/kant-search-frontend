@@ -6,7 +6,6 @@ import { Match } from 'kant-search-api';
   templateUrl: './result-item.component.html',
 })
 export class ResultItemComponent {
-  @Input() volume = 0;
   @Input() workTitle = '';
   @Input() match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
 

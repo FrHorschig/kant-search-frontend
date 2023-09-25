@@ -2,7 +2,7 @@
   <p-card>
     <ng-template pTemplate="subtitle">
       <div class="flex justify-content-between">
-        <div>Band {{ volume }}: {{ workTitle }}</div>
+        <div>{{ workTitle }}</div>
 
         <div>
           {{
@@ -13,6 +13,6 @@
       </div>
     </ng-template>
 
-    <p [innerHTML]="match.snippet | normalMode"></p>
+    <p [innerHTML]="match.snippet | removePagination"></p>
   </p-card>
 </div>

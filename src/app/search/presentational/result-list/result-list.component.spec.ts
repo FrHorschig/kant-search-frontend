@@ -49,18 +49,4 @@ describe('ResultsComponent', () => {
     // THEN
     expect(component.getWorkTitle(1)).toBe('');
   });
-
-  it('should return the volumeId of the work by id', () => {
-    // GIVEN
-    component.workById = new Map([[1, { volumeId: 2 } as Work]]);
-    // THEN
-    expect(component.getVolume(1)).toBe(2);
-  });
-
-  it('should return 0 if work not found', () => {
-    // GIVEN
-    component.workById = null;
-    // THEN
-    expect(component.getVolume(1)).toBe(0);
-  });
 });

@@ -59,7 +59,7 @@ describe('NormalModePipe', () => {
       'Some text {l2} with line {l5} and {p4} page numbers.'
     );
     expect(result).toBe(
-      'Some text  with line  and <span class="ks-pagination-s">[4]</span> page numbers.'
+      'Some text with line and <span class="ks-pagination-s">[4]</span> page numbers.'
     );
   });
 

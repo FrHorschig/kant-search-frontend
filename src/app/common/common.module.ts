@@ -5,22 +5,11 @@ import { TreeModule } from 'primeng/tree';
 import { WorksMenuComponent } from './shared/works-menu/works-menu.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupComponent } from './shared/input-group/input-group.component';
-import { OriginalModePipe } from './pipes/original-mode.pipe';
 import { NormalModePipe } from './pipes/normal-mode.pipe';
 
 @NgModule({
-  declarations: [
-    WorksMenuComponent,
-    InputGroupComponent,
-    OriginalModePipe,
-    NormalModePipe,
-  ],
+  declarations: [WorksMenuComponent, InputGroupComponent, NormalModePipe],
   imports: [NgCommonModule, TranslateModule, TreeModule, TooltipModule],
-  exports: [
-    WorksMenuComponent,
-    NormalModePipe,
-    OriginalModePipe,
-    InputGroupComponent,
-  ],
+  exports: [WorksMenuComponent, NormalModePipe, InputGroupComponent],
 })
 export class CommonModule {}

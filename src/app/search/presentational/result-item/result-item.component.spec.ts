@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultItemComponent } from './result-item.component';
 import { CardModule } from 'primeng/card';
-import { CommonModule } from 'src/app/common/common.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { RemovePaginationPipe } from '../../pipes/remove-pagination.pipe';
 
 describe('ResultItemComponent', () => {
   let component: ResultItemComponent;
@@ -11,8 +11,8 @@ describe('ResultItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResultItemComponent],
-      imports: [TranslateModule.forRoot(), CardModule, CommonModule],
+      declarations: [ResultItemComponent, RemovePaginationPipe],
+      imports: [TranslateModule.forRoot(), CardModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ResultItemComponent);

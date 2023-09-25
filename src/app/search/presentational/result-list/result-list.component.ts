@@ -20,8 +20,4 @@ export class ResultListComponent {
   getWorkTitle(workId: number): string {
     return this.workById?.get(workId)?.title || '';
   }
-
-  getVolume(workId: number): number {
-    return this.workById?.get(workId)?.volumeId || 0;
-  }
 }

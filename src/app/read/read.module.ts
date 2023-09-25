@@ -11,6 +11,7 @@ import { TocComponent } from './container/toc/toc.component';
 import { TextComponent } from './container/text/text.component';
 import { OriginalModeComponent } from './presentational/original-mode/original-mode.component';
 import { FormsModule } from '@angular/forms';
+import { OriginalModePipe } from './pipes/original-mode.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     TocComponent,
     TextComponent,
     OriginalModeComponent,
+    OriginalModePipe,
   ],
   imports: [
     FormsModule,
