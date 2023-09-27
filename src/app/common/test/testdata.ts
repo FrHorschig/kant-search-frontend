@@ -1,4 +1,5 @@
 import { Match, Paragraph, Volume, Work } from 'kant-search-api';
+import { MatchInfo } from 'src/app/search/model/match-info';
 
 export class Testdata {
   static volume: Volume = { id: 1, title: 'Volume 1', section: 1 };
@@ -27,6 +28,12 @@ export class Testdata {
     pages: [1, 2],
     sentenceId: 3,
     paragraphId: 4,
+  };
+  static matchInfo: MatchInfo = {
+    workId: 1,
+    workTitle: 'title',
+    match: Testdata.match,
+    index: 1,
   };
   static paragraph: Paragraph = {
     id: 1,

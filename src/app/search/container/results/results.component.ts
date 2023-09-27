@@ -39,16 +39,13 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     this.route.queryParamMap
       .pipe(this.takeUntilDestroy())
       .subscribe((params) => {
-        const scope =
-          params.get('scope') === 'SENTENCE'
-            ? SearchScope.Sentence
-            : SearchScope.Paragraph;
         const criteria: SearchCriteria = {
           workIds: params.get('workIds')?.split(',').map(Number) || [],
-          searchTerms: (params.get('searchTerms') || '').split(','),
-          excludedTerms: (params.get('excludedTerms') || '').split(','),
-          optionalTerms: (params.get('optionalTerms') || '').split(','),
-          scope,
+          searchString: params.get('searchString') || '',
+          scope:
+            params.get('scope') === 'SENTENCE'
+              ? SearchScope.Sentence
+              : SearchScope.Paragraph,
         };
         this.resultsStore.searchParagraphs(criteria);
       });

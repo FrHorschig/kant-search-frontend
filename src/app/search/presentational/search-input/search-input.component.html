@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <app-input-group
     idString="search-terms-input"
-    i18nString="SEARCH.INPUT.SEARCH_TERMS"
+    i18nString="SEARCH.INPUT.SEARCH_STRING"
   >
     <input
       pInputText
@@ -9,35 +9,7 @@
       type="text"
       class="w-full"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_TERMS_PLACEHOLDER' | translate }}"
-      formControlName="searchTerms"
-    />
-  </app-input-group>
-
-  <app-input-group
-    idString="excluded-terms-input"
-    i18nString="SEARCH.INPUT.EXCLUDED_TERMS"
-  >
-    <input
-      pInputText
-      id="excluded-terms-input"
-      type="text"
-      class="w-full"
-      placeholder="{{ 'SEARCH.INPUT.EXCLUDED_TERMS_PLACEHOLDER' | translate }}"
-      formControlName="excludedTerms"
-    />
-  </app-input-group>
-
-  <app-input-group
-    idString="optional-terms-input"
-    i18nString="SEARCH.INPUT.OPTIONAL_TERMS"
-  >
-    <input
-      pInputText
-      id="optional-terms-input"
-      type="text"
-      class="w-full"
-      placeholder="{{ 'SEARCH.INPUT.OPTIONAL_TERMS_PLACEHOLDER' | translate }}"
-      formControlName="optionalTerms"
+      formControlName="searchString"
     />
   </app-input-group>
 
@@ -49,6 +21,7 @@
       <ng-template let-option pTemplate="selectedItem">
         {{ "SEARCH.INPUT.SCOPE." + option | translate }}
       </ng-template>
+
       <ng-template let-option pTemplate="item">
         {{ "SEARCH.INPUT.SCOPE." + option | translate }}
       </ng-template>
@@ -59,9 +32,9 @@
     <p-button
       type="submit"
       label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
-      [disabled]="!form.value.searchTerms || !hasWorks"
+      [disabled]="!form.value.searchString || !hasWorks"
       pTooltip="{{
-        !form.value.searchTerms || !hasWorks
+        !form.value.searchString || !hasWorks
           ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate)
           : ''
       }}"

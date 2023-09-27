@@ -31,18 +31,14 @@ describe('SearchStore', () => {
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
     store.navigateSearch({
-      searchTerms: 'test',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchString: 'test',
       scope: SearchScope.Paragraph,
     });
     // THEN
     expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
       queryParams: {
         workIds: '1',
-        searchTerms: 'test',
-        excludedTerms: '',
-        optionalTerms: '',
+        searchString: 'test',
         scope: 'PARAGRAPH',
       },
     });
@@ -54,9 +50,7 @@ describe('SearchStore', () => {
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
     store.navigateSearch({
-      searchTerms: '',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchString: '',
       scope: SearchScope.Paragraph,
     });
     // THEN
@@ -69,9 +63,7 @@ describe('SearchStore', () => {
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
     store.navigateSearch({
-      searchTerms: '',
-      excludedTerms: '',
-      optionalTerms: '',
+      searchString: '',
       scope: SearchScope.Paragraph,
     });
     // THEN

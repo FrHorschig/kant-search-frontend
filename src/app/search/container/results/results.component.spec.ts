@@ -18,6 +18,7 @@ import { SearchScope } from 'kant-search-api';
 import { ScrollService } from 'src/app/read/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { MatchInfo } from '../../model/match-info';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -73,9 +74,7 @@ describe('ResultsComponent', () => {
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
         workIds: '1,2',
-        searchTerms: 'term1,term2',
-        excludedTerms: '',
-        optionalTerms: '',
+        searchString: 'term1 term2',
         scope: 'SENTENCE',
       })
     );
@@ -84,9 +83,7 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
-      searchTerms: ['term1', 'term2'],
-      excludedTerms: [''],
-      optionalTerms: [''],
+      searchString: 'term1 term2',
       scope: SearchScope.Sentence,
     });
   });
@@ -103,9 +100,7 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [],
-      searchTerms: [''],
-      excludedTerms: [''],
-      optionalTerms: [''],
+      searchString: '',
       scope: SearchScope.Paragraph,
     });
   });
@@ -115,7 +110,7 @@ describe('ResultsComponent', () => {
     (mockActivatedRoute.queryParamMap as any) = of(
       convertToParamMap({
         workIds: '1,2',
-        searchTerms: 'term1,term2',
+        searchString: 'term1 term2',
       })
     );
     // WHEN
@@ -123,18 +118,16 @@ describe('ResultsComponent', () => {
     // THEN
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
-      searchTerms: ['term1', 'term2'],
-      excludedTerms: [''],
-      optionalTerms: [''],
+      searchString: 'term1 term2',
       scope: SearchScope.Paragraph,
     });
   });
 
   it('should set text and pages on match click', () => {
     // WHEN
-    component.onClick({ workId: 1, match: Testdata.match });
+    component.onClick(Testdata.matchInfo);
     // THEN
-    expect(component.match).toBe(Testdata.match);
+    expect(component.matchInfo).toBe(Testdata.matchInfo);
     expect(component.showParagraph).toBeTrue();
   });
 });

@@ -20,7 +20,7 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putSearchTerms', 'putWorks', 'navigateSearch'],
+    ['putsearchString', 'putWorks', 'navigateSearch'],
     {
       isSearchPermitted$: of(false),
     }

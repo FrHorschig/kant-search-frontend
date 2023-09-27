@@ -19,16 +19,14 @@ export class SearchStore extends ComponentStore<SearchState> {
     input$.pipe(
       filter(
         (input) =>
-          input.searchTerms.length > 0 &&
+          input.searchString.length > 0 &&
           this.get((state) => state.workIds).length > 0
       ),
       tap((input) =>
         this.router.navigate(['/search/results'], {
           queryParams: {
             workIds: this.get((state) => state.workIds).join(','),
-            searchTerms: input.searchTerms.split(/\s+/).join(','),
-            excludedTerms: input.excludedTerms.split(/\s+/).join(','),
-            optionalTerms: input.optionalTerms.split(/\s+/).join(','),
+            searchString: input.searchString,
             scope: input.scope,
           },
         })

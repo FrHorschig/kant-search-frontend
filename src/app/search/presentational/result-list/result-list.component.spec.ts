@@ -2,11 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultListComponent } from './result-list.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Match, Work } from 'kant-search-api';
+import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
-import { MatchInfo } from '../../model/match-info';
 
-describe('ResultsComponent', () => {
+describe('ResultListComponent', () => {
   let component: ResultListComponent;
   let fixture: ComponentFixture<ResultListComponent>;
 
@@ -26,13 +25,52 @@ describe('ResultsComponent', () => {
   });
 
   it('should emit the clicked match', () => {
-    const matchInfo: MatchInfo = { workId: 1, match: Testdata.match };
     // GIVEN
+    component.workById = new Map([[1, { title: 'title' } as Work]]);
     spyOn(component.onClick, 'emit');
     // WHEN
-    component.onMatchClick(matchInfo.workId, matchInfo.match);
+    component.onMatchClick(
+      Testdata.matchInfo.workId,
+      Testdata.matchInfo.match,
+      Testdata.matchInfo.index
+    );
     // THEN
-    expect(component.onClick.emit).toHaveBeenCalledWith(matchInfo);
+    expect(component.onClick.emit).toHaveBeenCalledWith(Testdata.matchInfo);
+  });
+
+  it('should emit the clicked match with shortened title', () => {
+    const longTitle = 'a very long title with many many many, very many words';
+    const shortTitleInfo = {
+      workId: 1,
+      workTitle: 'a very long title with many many many...',
+      match: Testdata.match,
+      index: 1,
+    };
+    // GIVEN
+    component.workById = new Map([[1, { id: 1, title: longTitle } as Work]]);
+    spyOn(component.onClick, 'emit');
+    // WHEN
+    component.onMatchClick(1, Testdata.match, 1);
+    // THEN
+    expect(component.onClick.emit).toHaveBeenCalledWith(shortTitleInfo);
+  });
+
+  it('should emit the clicked match with abbreviation', () => {
+    const abbrevTitleInfo = {
+      workId: 1,
+      workTitle: 'abbreviation',
+      match: Testdata.match,
+      index: 1,
+    };
+    // GIVEN
+    component.workById = new Map([
+      [1, { id: 1, abbreviation: 'abbreviation' } as Work],
+    ]);
+    spyOn(component.onClick, 'emit');
+    // WHEN
+    component.onMatchClick(1, Testdata.match, 1);
+    // THEN
+    expect(component.onClick.emit).toHaveBeenCalledWith(abbrevTitleInfo);
   });
 
   it('should return the title of the work by id', () => {

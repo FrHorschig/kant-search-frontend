@@ -42,7 +42,7 @@ describe('ResultsStore', () => {
     // WHEN
     store.searchParagraphs({
       workIds: [1],
-      searchTerms: ['term'],
+      searchString: 'term',
       scope: SearchScope.Paragraph,
     });
     // THEN
@@ -60,7 +60,7 @@ describe('ResultsStore', () => {
     // WHEN
     store.searchParagraphs({
       workIds: [1],
-      searchTerms: ['term'],
+      searchString: 'term',
       scope: SearchScope.Paragraph,
     });
     // THEN

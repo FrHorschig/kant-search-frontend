@@ -39,9 +39,7 @@ describe('SearchInputComponent', () => {
 
   it('should emit onSearch event when form is submitted', () => {
     const searchInput: SearchInput = {
-      searchTerms: 'test',
-      excludedTerms: 'exclude',
-      optionalTerms: '',
+      searchString: 'test',
       scope: SearchScope.Paragraph,
     };
     // GIVEN

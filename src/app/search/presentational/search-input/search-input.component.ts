@@ -15,9 +15,7 @@ export class SearchInputComponent {
   scopes = [SearchScope.Paragraph, SearchScope.Sentence];
   input = new SearchInput();
   form: FormGroup = this.formBuilder.group({
-    searchTerms: [this.input.searchTerms, Validators.required],
-    excludedTerms: [this.input.excludedTerms],
-    optionalTerms: [this.input.optionalTerms],
+    searchString: [this.input.searchString, Validators.required],
     scope: [this.input.scope],
   });
 
