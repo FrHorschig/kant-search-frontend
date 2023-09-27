@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { SearchInput } from '../../model/search-input';
+import { SearchInput } from '../../model/search-output';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';

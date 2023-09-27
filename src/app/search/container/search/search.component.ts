@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { WorksReducers } from 'src/app/store/works';
 import { SearchStore } from './search.store';
-import { SearchCriteria, Work } from 'kant-search-api';
-import { SearchInput } from '../../model/search-input';
-import { SearchInputComponent } from '../../presentational/search-input/search-input.component';
+import { Work } from 'kant-search-api';
+import { SearchOptions } from '../../model/search-output';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +13,7 @@ import { SearchInputComponent } from '../../presentational/search-input/search-i
 })
 export class SearchComponent extends ContainerComponent {
   works$ = this.store.select(WorksReducers.selectWorks);
-  hasWorks$ = this.searchStore.hasWorks;
+  canSearch$ = this.searchStore.canSearch;
 
   constructor(
     private readonly store: Store,
@@ -24,11 +22,19 @@ export class SearchComponent extends ContainerComponent {
     super();
   }
 
-  onSelectionChange(works: Work[]) {
+  onWorksChange(works: Work[]) {
     this.searchStore.putWorks(works);
   }
 
-  onSearch(input: SearchInput) {
-    this.searchStore.navigateSearch(input);
+  onSearchStringChange(searchString: string) {
+    this.searchStore.putSearchString(searchString);
+  }
+
+  onOptionsChange(options: SearchOptions) {
+    this.searchStore.putOptions(options);
+  }
+
+  onSearch() {
+    this.searchStore.navigateSearch();
   }
 }

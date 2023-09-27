@@ -10,12 +10,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
+import { AccordionModule } from 'primeng/accordion';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { SearchComponent } from './container/search/search.component';
 import { ResultsComponent } from './container/results/results.component';
 import { ResultListComponent } from './presentational/result-list/result-list.component';
-import { SearchInputComponent } from './presentational/search-input/search-input.component';
 import { ResultItemComponent } from './presentational/result-item/result-item.component';
 import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
@@ -26,7 +26,6 @@ import { AdvancedInputComponent } from './presentational/advanced-input/advanced
   declarations: [
     SearchComponent,
     ResultsComponent,
-    SearchInputComponent,
     ResultListComponent,
     ResultItemComponent,
     ParagraphDialogComponent,
@@ -48,6 +47,7 @@ import { AdvancedInputComponent } from './presentational/advanced-input/advanced
     MessagesModule,
     TooltipModule,
     DropdownModule,
+    AccordionModule,
   ],
 })
 export class SearchModule {}

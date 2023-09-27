@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { Work } from 'kant-search-api';
+import { SearchScope, Work } from 'kant-search-api';
 import { filter, tap } from 'rxjs';
-import { SearchInput } from '../../model/search-input';
+import { SearchOptions } from '../../model/search-output';
 
 interface SearchState {
   workIds: number[];
+  searchString: string;
+  options: SearchOptions;
 }
 
 @Injectable()
 export class SearchStore extends ComponentStore<SearchState> {
   constructor(private readonly router: Router) {
-    super({ workIds: [] });
+    super({
+      workIds: [],
+      searchString: '',
+      options: { scope: SearchScope.Paragraph },
+    });
   }
 
-  readonly navigateSearch = this.effect<SearchInput>((input$) =>
-    input$.pipe(
-      filter(
-        (input) =>
-          input.searchString.length > 0 &&
-          this.get((state) => state.workIds).length > 0
-      ),
-      tap((input) =>
+  readonly navigateSearch = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      tap(() =>
         this.router.navigate(['/search/results'], {
           queryParams: {
             workIds: this.get((state) => state.workIds).join(','),
-            searchString: input.searchString,
-            scope: input.scope,
+            searchString: this.get((state) => state.searchString),
+            scope: this.get((state) => state.options.scope),
           },
         })
       )
@@ -38,6 +39,16 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
+  readonly putSearchString = this.updater((state, searchString: string) => ({
+    ...state,
+    searchString,
+  }));
+  readonly putOptions = this.updater((state, options: SearchOptions) => ({
+    ...state,
+    options,
+  }));
 
-  readonly hasWorks = this.select((state) => state.workIds.length > 0);
+  readonly canSearch = this.select(
+    (state) => state.workIds.length > 0 && state.searchString.length > 0
+  );
 }

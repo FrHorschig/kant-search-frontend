@@ -1,17 +1,29 @@
 <div class="flex justify-content-center">
   <div class="w-full max-w-600">
-    <app-works-menu
-      [useCheckbox]="true"
-      (onSelectionChange)="onSelectionChange($event)"
-    ></app-works-menu>
-  </div>
+    <app-simple-input
+      (worksChangeEmitter)="onWorksChange($event)"
+      (searchStringChangeEmitter)="onSearchStringChange($event)"
+    ></app-simple-input>
 
-  <div class="mr-2"></div>
+    <div class="mr-2"></div>
 
-  <div class="w-full max-w-600">
-    <app-search-input
-      [hasWorks]="(hasWorks$ | async) || false"
-      (onSearch)="onSearch($event)"
-    ></app-search-input>
+    <app-advanced-input
+      (optionsChangeEmitter)="onOptionsChange($event)"
+    ></app-advanced-input>
+
+    <div class="mr-2"></div>
+
+    <div class="flex justify-content-center">
+      <p-button
+        type="submit"
+        label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
+        [disabled]="(canSearch$ | async) || true"
+        pTooltip="{{
+          (canSearch$ | async) || true
+            ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate)
+            : ''
+        }}"
+      ></p-button>
+    </div>
   </div>
 </div>
