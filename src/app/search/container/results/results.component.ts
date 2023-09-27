@@ -42,10 +42,12 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
         const criteria: SearchCriteria = {
           workIds: params.get('workIds')?.split(',').map(Number) || [],
           searchString: params.get('searchString') || '',
-          scope:
-            params.get('scope') === 'SENTENCE'
-              ? SearchScope.Sentence
-              : SearchScope.Paragraph,
+          options: {
+            scope:
+              params.get('scope') === 'SENTENCE'
+                ? SearchScope.Sentence
+                : SearchScope.Paragraph,
+          },
         };
         this.resultsStore.searchParagraphs(criteria);
       });

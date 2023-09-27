@@ -9,7 +9,7 @@
   },
   "SEARCH": {
     "INPUT": {
-      "SELECTED_WORKS": "Selected works",
+      "WORKS_SELECTED": "selected works",
       "SELECT_WORKS": "Select works",
       "SEARCH_STRING_LABEL": "Search terms",
       "SEARCH_STRING_PLACEHOLDER": "Search terms",
