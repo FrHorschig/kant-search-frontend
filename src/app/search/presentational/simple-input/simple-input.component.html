@@ -1,0 +1,34 @@
+<div class="flex justify-content-between mb-2">
+  <div class="mt-2">
+    {{ "SEARCH.INPUT.SELECTED_WORKS" | translate }}: {{ selectedWorksCount }}
+  </div>
+
+  <div>
+    <p-button
+      label="{{ 'SEARCH.INPUT.SELECT_WORKS' | translate }}"
+      (onClick)="showWorksMenu = true"
+    ></p-button>
+  </div>
+</div>
+
+<app-input-group
+  idString="search-terms-input"
+  i18nString="SEARCH.INPUT.SEARCH_STRING"
+  [hasIcon]="false"
+>
+  <input
+    pInputText
+    id="search-terms-input"
+    class="w-full"
+    type="text"
+    placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
+    (input)="onSearchStringChange($event)"
+  />
+</app-input-group>
+
+<p-dialog [(visible)]="showWorksMenu" [modal]="true">
+  <app-works-menu
+    [useCheckbox]="true"
+    (onSelectionChange)="onWorksChange($event)"
+  ></app-works-menu>
+</p-dialog>

@@ -9,11 +9,13 @@
   },
   "SEARCH": {
     "INPUT": {
+      "SELECTED_WORKS": "Selected works",
+      "SELECT_WORKS": "Select works",
       "SEARCH_STRING_LABEL": "Search terms",
-      "SEARCH_STRING_INFO": "Include results containing all of these terms",
-      "SEARCH_STRING_PLACEHOLDER": "Search terms separated by whitespace",
-      "SEARCH_SCOPE_LABEL": "Search scope",
-      "SEARCH_SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
+      "SEARCH_STRING_PLACEHOLDER": "Search terms",
+      "ADVANCED_OPTIONS_HEADER": "Advanced options",
+      "SCOPE_LABEL": "Search scope",
+      "SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE": {
         "PARAGRAPH": "Paragraph",
         "SENTENCE": "Sentence"

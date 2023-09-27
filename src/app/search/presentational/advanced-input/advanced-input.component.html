@@ -1,0 +1,24 @@
+<p-accordion [activeIndex]="">
+  <p-accordionTab [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
+    <form [formGroup]="form">
+      <app-input-group
+        idString="scope-dropdown"
+        i18nString="SEARCH.INPUT.SCOPE"
+      >
+        <p-dropdown
+          id="scope-dropdown"
+          [options]="scopes"
+          formControlName="scope"
+        >
+          <ng-template let-option pTemplate="selectedItem">
+            {{ "SEARCH.INPUT.SCOPE." + option | translate }}
+          </ng-template>
+
+          <ng-template let-option pTemplate="item">
+            {{ "SEARCH.INPUT.SCOPE." + option | translate }}
+          </ng-template>
+        </p-dropdown>
+      </app-input-group>
+    </form>
+  </p-accordionTab>
+</p-accordion>

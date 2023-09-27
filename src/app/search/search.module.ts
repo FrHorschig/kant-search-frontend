@@ -19,6 +19,8 @@ import { SearchInputComponent } from './presentational/search-input/search-input
 import { ResultItemComponent } from './presentational/result-item/result-item.component';
 import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
+import { SimpleInputComponent } from './presentational/simple-input/simple-input.component';
+import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
     ResultItemComponent,
     ParagraphDialogComponent,
     RemovePaginationPipe,
+    SimpleInputComponent,
+    AdvancedInputComponent,
   ],
   imports: [
     CommonModule,
