@@ -140,14 +140,3 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     };
   }
 }
-
-function getRecursiveNodes(nodes: TreeNode[]): TreeNode[] {
-  const result: TreeNode[] = [];
-  for (let node of nodes) {
-    nodes.push(node);
-    if (node.children) {
-      result.push(...getRecursiveNodes(node.children));
-    }
-  }
-  return result;
-}

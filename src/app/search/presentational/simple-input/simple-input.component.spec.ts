@@ -9,6 +9,8 @@ import { InputGroupComponent } from 'src/app/common/shared/input-group/input-gro
 import { DialogModule } from 'primeng/dialog';
 import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Work } from 'kant-search-api';
+import { Testdata } from 'src/app/common/test/testdata';
 
 describe('SimpleInputComponent', () => {
   let component: SimpleInputComponent;
@@ -38,5 +40,28 @@ describe('SimpleInputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit worksChangeEmitter when onWorksChange is called', () => {
+    const works: Work[] = [Testdata.work, Testdata.work2];
+    // GIVEN
+    spyOn(component.worksChangeEmitter, 'emit');
+    // WHEN
+    component.onWorksChange(works);
+    // THEN
+    expect(component.selectedWorksCount).toEqual(2);
+    expect(component.worksChangeEmitter.emit).toHaveBeenCalledWith(works);
+  });
+
+  it('should emit searchStringChangeEmitter when onSearchStringChange is called', () => {
+    const event = { target: { value: 'Kant' } } as unknown as Event;
+    // GIVEN
+    spyOn(component.searchStringChangeEmitter, 'emit');
+    // WHEN
+    component.onSearchStringChange(event as Event);
+    // THEN
+    expect(component.searchStringChangeEmitter.emit).toHaveBeenCalledWith(
+      'Kant'
+    );
   });
 });

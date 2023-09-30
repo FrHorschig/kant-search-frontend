@@ -8,6 +8,7 @@ import { InputGroupComponent } from 'src/app/common/shared/input-group/input-gro
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'primeng/tooltip';
+import { SearchScope } from 'kant-search-api';
 
 describe('AdvancedInputComponent', () => {
   let component: AdvancedInputComponent;
@@ -33,5 +34,11 @@ describe('AdvancedInputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit options when form value changes', () => {
+    const spy = spyOn(component.optionsChangeEmitter, 'emit');
+    component.form.patchValue({ scope: SearchScope.Sentence });
+    expect(spy).toHaveBeenCalledWith({ scope: SearchScope.Sentence });
   });
 });

@@ -17,13 +17,15 @@ import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'primeng/tree';
+import { Testdata } from 'src/app/common/test/testdata';
+import { SearchScope } from 'kant-search-api';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putsearchString', 'putWorks', 'navigateSearch'],
+    ['putWorks', 'putSearchString', 'putOptions', 'navigateSearch'],
     {
       isSearchPermitted$: of(false),
     }
@@ -61,5 +63,36 @@ describe('SearchComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call searchStore.putWorks when onWorksChange is called', () => {
+    const works = [Testdata.work];
+    // WHEN
+    component.onWorksChange(works);
+    // THEN
+    expect(mockSearchStore.putWorks).toHaveBeenCalledWith(works);
+  });
+
+  it('should call searchStore.putSearchString when onSearchStringChange is called', () => {
+    const searchString = 'Kant';
+    // WHEN
+    component.onSearchStringChange(searchString);
+    // THEN
+    expect(mockSearchStore.putSearchString).toHaveBeenCalledWith(searchString);
+  });
+
+  it('should call searchStore.putOptions when onOptionsChange is called', () => {
+    const options = { scope: SearchScope.Sentence };
+    // WHEN
+    component.onOptionsChange(options);
+    // THEN
+    expect(mockSearchStore.putOptions).toHaveBeenCalledWith(options);
+  });
+
+  it('should call searchStore.navigateSearch when onSearch is called', () => {
+    // WHEN
+    component.onSearch();
+    // THEN
+    expect(mockSearchStore.navigateSearch).toHaveBeenCalled();
   });
 });
