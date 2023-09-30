@@ -5,7 +5,7 @@
 <div class="flex justify-content-center">
   <app-works-menu
     [useCheckbox]="false"
-    (onSelectionChange)="setWorkId($event)"
+    (selectionChangeEmitter)="setWorkId($event)"
   ></app-works-menu>
 
   <div class="mr-2"></div>

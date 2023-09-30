@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { getCreateEffectMetadata } from '@ngrx/effects/src/effect_creator';
 import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
@@ -139,4 +140,15 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
       data: work,
     };
   }
+}
+
+function getRecursiveNodes(nodes: TreeNode[]): TreeNode[] {
+  const result: TreeNode[] = [];
+  for (let node of nodes) {
+    nodes.push(node);
+    if (node.children) {
+      result.push(...getRecursiveNodes(node.children));
+    }
+  }
+  return result;
 }

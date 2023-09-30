@@ -50,11 +50,11 @@ describe('WorksMenuComponent', () => {
   it('should emit a single work when only one node is selected', () => {
     const mockNode = { data: { id: 1, title: 'Work A' } } as TreeNode;
     // GIVEN
-    spyOn(component.onSelectionChange, 'emit');
+    spyOn(component.selectionChangeEmitter, 'emit');
     // WHEN
     component.onNodeSelect({ node: mockNode });
     // WHEN
-    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
+    expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([
       mockNode.data,
     ]);
   });
@@ -66,11 +66,11 @@ describe('WorksMenuComponent', () => {
     ] as TreeNode[];
     // GIVEN
     component.selection = mockNodes;
-    spyOn(component.onSelectionChange, 'emit');
+    spyOn(component.selectionChangeEmitter, 'emit');
     // WHEN
     component.onNodeSelect({ node: mockNodes[0] });
     // THEN
-    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
+    expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([
       mockNodes[0].data,
       mockNodes[1].data,
     ]);
@@ -80,11 +80,11 @@ describe('WorksMenuComponent', () => {
     const mockNodes = [{ data: { id: 1, title: 'Work A' } }] as TreeNode[];
     // GIVEN
     component.selection = mockNodes;
-    spyOn(component.onSelectionChange, 'emit');
+    spyOn(component.selectionChangeEmitter, 'emit');
     // WHEN
     component.onNodeUnselect();
     // THEN
-    expect(component.onSelectionChange.emit).toHaveBeenCalledWith([
+    expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([
       mockNodes[0].data,
     ]);
   });

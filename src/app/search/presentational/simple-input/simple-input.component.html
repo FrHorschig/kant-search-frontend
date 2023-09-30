@@ -30,6 +30,6 @@
 <p-dialog [(visible)]="showWorksMenu" [modal]="true">
   <app-works-menu
     [useCheckbox]="true"
-    (onSelectionChange)="onWorksChange($event)"
+    (selectionChangeEmitter)="onWorksChange($event)"
   ></app-works-menu>
 </p-dialog>

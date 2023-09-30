@@ -11,6 +11,8 @@
     "INPUT": {
       "WORKS_SELECTED": "selected works",
       "SELECT_WORKS": "Select works",
+      "SELECT_WORKS_ALL": "Select all",
+      "SELECT_WORKS_NOTHING": "Remove all",
       "SEARCH_STRING_LABEL": "Search terms",
       "SEARCH_STRING_PLACEHOLDER": "Search terms",
       "ADVANCED_OPTIONS_HEADER": "Advanced options",
