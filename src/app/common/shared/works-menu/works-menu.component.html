@@ -3,6 +3,7 @@
     <p-tree
       [value]="(nodes$ | async) || []"
       [filter]="true"
+      filterMode="strict"
       [selectionMode]="mode"
       [(selection)]="selection"
       (onNodeSelect)="onNodeSelect($event)"
