@@ -11,6 +11,7 @@ import { MessagesModule } from 'primeng/messages';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
+import { PanelModule } from 'primeng/panel';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { SearchComponent } from './container/search/search.component';
@@ -48,6 +49,7 @@ import { AdvancedInputComponent } from './presentational/advanced-input/advanced
     TooltipModule,
     DropdownModule,
     AccordionModule,
+    PanelModule,
   ],
 })
 export class SearchModule {}

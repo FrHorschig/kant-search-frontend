@@ -9,7 +9,7 @@
   },
   "SEARCH": {
     "INPUT": {
-      "WORKS_SELECTED": "selected works",
+      "SIMPLE_INPUT_HEADER": "Search input",
       "SELECT_WORKS": "Select works",
       "SELECT_WORKS_ALL": "Select all",
       "SELECT_WORKS_NOTHING": "Remove all",

@@ -1,33 +1,38 @@
-<div class="flex justify-content-between mb-2">
-  <div class="mt-2">
-    {{ selectedWorksCount }} {{ "SEARCH.INPUT.WORKS_SELECTED" | translate }}
-  </div>
-
-  <div>
-    <p-button
-      styleClass="p-button-secondary"
-      label="{{ 'SEARCH.INPUT.SELECT_WORKS' | translate }}"
-      (onClick)="showWorksMenu = true"
-    ></p-button>
-  </div>
-</div>
-
-<app-input-group
-  idString="search-terms-input"
-  i18nString="SEARCH.INPUT.SEARCH_STRING"
-  [hasIcon]="false"
+<p-panel
+  [header]="'SEARCH.INPUT.SIMPLE_INPUT_HEADER' | translate"
+  styleClass="mb-2"
 >
-  <input
-    pInputText
-    id="search-terms-input"
-    class="w-full"
-    type="text"
-    placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
-    (input)="onSearchStringChange($event)"
-  />
-</app-input-group>
+  <div class="flex justify-content-between mb-2">
+    <div>
+      <p-button
+        styleClass="p-button-secondary"
+        [label]="'SEARCH.INPUT.SELECT_WORKS' | translate"
+        (onClick)="showWorksMenu = true"
+      ></p-button>
+    </div>
+  </div>
 
-<p-dialog [(visible)]="showWorksMenu" [modal]="true">
+  <app-input-group
+    idString="search-terms-input"
+    i18nString="SEARCH.INPUT.SEARCH_STRING"
+    [hasIcon]="false"
+  >
+    <input
+      pInputText
+      id="search-terms-input"
+      class="w-full"
+      type="text"
+      placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
+      (input)="onSearchStringChange($event)"
+    />
+  </app-input-group>
+</p-panel>
+
+<p-dialog
+  [(visible)]="showWorksMenu"
+  [modal]="true"
+  [header]="'SEARCH.INPUT.SELECT_WORKS' | translate"
+>
   <app-works-menu
     [useCheckbox]="true"
     (selectionChangeEmitter)="onWorksChange($event)"
