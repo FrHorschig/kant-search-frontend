@@ -18,11 +18,8 @@ export class UploadComponent extends ContainerComponent {
     super();
   }
 
-  setWorkId(works: Work[]) {
-    // works-menu component returns an array because it supports multiselect
-    if (works.length > 0) {
-      this.workId = works[0].id;
-    }
+  setWorkId(work: Work) {
+    this.workId = work.id;
   }
 
   onUpload(event: any, fileUploadBtn: any) {

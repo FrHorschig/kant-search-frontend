@@ -33,8 +33,7 @@
   [modal]="true"
   [header]="'SEARCH.INPUT.SELECT_WORKS' | translate"
 >
-  <app-works-menu
-    [useCheckbox]="true"
+  <app-checkbox-works-menu
     (selectionChangeEmitter)="onWorksChange($event)"
-  ></app-works-menu>
+  ></app-checkbox-works-menu>
 </p-dialog>

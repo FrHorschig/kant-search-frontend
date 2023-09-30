@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { getCreateEffectMetadata } from '@ngrx/effects/src/effect_creator';
 import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';

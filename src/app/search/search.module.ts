@@ -12,6 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
 import { PanelModule } from 'primeng/panel';
+import { TreeModule } from 'primeng/tree';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { SearchComponent } from './container/search/search.component';
@@ -22,6 +23,7 @@ import { ParagraphDialogComponent } from './presentational/paragraph-dialog/para
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
 import { SimpleInputComponent } from './presentational/simple-input/simple-input.component';
 import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
+import { CheckboxWorksMenuComponent } from './presentational/works-menu/checkbox-works-menu.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AdvancedInputComponent } from './presentational/advanced-input/advanced
     RemovePaginationPipe,
     SimpleInputComponent,
     AdvancedInputComponent,
+    CheckboxWorksMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ import { AdvancedInputComponent } from './presentational/advanced-input/advanced
     DropdownModule,
     AccordionModule,
     PanelModule,
+    TreeModule,
   ],
 })
 export class SearchModule {}
