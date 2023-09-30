@@ -4,6 +4,7 @@ import { TocComponent } from './toc.component';
 import { Router } from '@angular/router';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('TocComponent', () => {
   let component: TocComponent;
@@ -13,6 +14,7 @@ describe('TocComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
+      providers: [provideMockStore({})],
       declarations: [TocComponent, MockWorksMenuComponent],
     }).compileComponents();
 
