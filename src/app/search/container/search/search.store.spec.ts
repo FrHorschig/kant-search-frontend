@@ -3,10 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
-import { SearchScope } from 'kant-search-api';
 import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';
+import { SearchScope } from 'kant-search-api';
 
 describe('SearchStore', () => {
   let store: SearchStore;
@@ -28,12 +28,10 @@ describe('SearchStore', () => {
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
+    store.putSearchString('test');
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
-    store.navigateSearch({
-      searchString: 'test',
-      scope: SearchScope.Paragraph,
-    });
+    store.navigateSearch();
     // THEN
     expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
       queryParams: {
@@ -42,32 +40,6 @@ describe('SearchStore', () => {
         scope: 'PARAGRAPH',
       },
     });
-  });
-
-  it('should not navigate when search terms are empty', () => {
-    // GIVEN
-    store.putWorks([Testdata.work]);
-    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
-    // WHEN
-    store.navigateSearch({
-      searchString: '',
-      scope: SearchScope.Paragraph,
-    });
-    // THEN
-    expect(routerSpy).not.toHaveBeenCalled();
-  });
-
-  it('should not navigate when workIds are empty', () => {
-    // GIVEN
-    store.putWorks([Testdata.work]);
-    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
-    // WHEN
-    store.navigateSearch({
-      searchString: '',
-      scope: SearchScope.Paragraph,
-    });
-    // THEN
-    expect(routerSpy).not.toHaveBeenCalled();
   });
 
   it('should update works', () => {
@@ -81,21 +53,51 @@ describe('SearchStore', () => {
       });
   });
 
-  it('should return true when there are work ids', () => {
+  it('should update search string', () => {
     // WHEN
-    store.setState({ workIds: [1, 2] });
+    store.putSearchString('test');
     // THEN
-    store.hasWorks.subscribe((hasWorks: boolean) => {
-      expect(hasWorks).toBeTrue();
+    store
+      .select((state) => state.searchString)
+      .subscribe((searchString) => {
+        expect(searchString).toEqual('test');
+      });
+  });
+
+  it('should update options', () => {
+    // WHEN
+    store.putOptions({ scope: SearchScope.Sentence });
+    // THEN
+    store
+      .select((state) => state.options)
+      .subscribe((options) => {
+        expect(options.scope).toEqual(SearchScope.Sentence);
+      });
+  });
+
+  it('should return false when there is not search string', () => {
+    // WHEN
+    store.setState({
+      workIds: [1, 2],
+      searchString: '',
+      options: { scope: SearchScope.Paragraph },
+    });
+    // THEN
+    store.canSearch.subscribe((canSearch: boolean) => {
+      expect(canSearch).toBeFalse();
     });
   });
 
   it('should return false when there are no work ids', () => {
     // WHEN
-    store.setState({ workIds: [] });
+    store.setState({
+      workIds: [],
+      searchString: 'test',
+      options: { scope: SearchScope.Paragraph },
+    });
     // THEN
-    store.hasWorks.subscribe((hasWorks: boolean) => {
-      expect(hasWorks).toBeFalse();
+    store.canSearch.subscribe((canSearch: boolean) => {
+      expect(canSearch).toBeFalse();
     });
   });
 });

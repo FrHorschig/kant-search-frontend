@@ -84,7 +84,9 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
       searchString: 'term1 term2',
-      scope: SearchScope.Sentence,
+      options: {
+        scope: SearchScope.Sentence,
+      },
     });
   });
 
@@ -101,7 +103,9 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [],
       searchString: '',
-      scope: SearchScope.Paragraph,
+      options: {
+        scope: SearchScope.Paragraph,
+      },
     });
   });
 
@@ -119,7 +123,9 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
       workIds: [1, 2],
       searchString: 'term1 term2',
-      scope: SearchScope.Paragraph,
+      options: {
+        scope: SearchScope.Paragraph,
+      },
     });
   });
 

@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TocComponent } from './toc.component';
 import { Router } from '@angular/router';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
+import { Testdata } from 'src/app/common/test/testdata';
 
 describe('TocComponent', () => {
   let component: TocComponent;
@@ -26,20 +27,11 @@ describe('TocComponent', () => {
   });
 
   it('should navigate to the appropriate route when showText is called', () => {
-    const works = [{ id: '12345' }] as any[];
+    const work = Testdata.work;
     const navigateSpy = spyOn(router, 'navigate');
     // WHEN
-    component.showText(works);
+    component.showText(work);
     // THEN
-    expect(navigateSpy).toHaveBeenCalledWith(['/read/text', '12345']);
-  });
-
-  it('should not navigate if works array is empty', () => {
-    const works = [] as any[];
-    const navigateSpy = spyOn(router, 'navigate');
-    // WHEN
-    component.showText(works);
-    // THEN
-    expect(navigateSpy).not.toHaveBeenCalled;
+    expect(navigateSpy).toHaveBeenCalledWith(['/read/text', 1]);
   });
 });

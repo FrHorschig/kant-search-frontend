@@ -43,7 +43,9 @@ describe('ResultsStore', () => {
     store.searchParagraphs({
       workIds: [1],
       searchString: 'term',
-      scope: SearchScope.Paragraph,
+      options: {
+        scope: SearchScope.Paragraph,
+      },
     });
     // THEN
     expect(mockMessageService.clear).toHaveBeenCalled();
@@ -61,7 +63,9 @@ describe('ResultsStore', () => {
     store.searchParagraphs({
       workIds: [1],
       searchString: 'term',
-      scope: SearchScope.Paragraph,
+      options: {
+        scope: SearchScope.Paragraph,
+      },
     });
     // THEN
     expect(mockErrorService.logError).toHaveBeenCalledWith('Some error');

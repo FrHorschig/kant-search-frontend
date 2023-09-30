@@ -23,7 +23,7 @@ import { ParagraphDialogComponent } from './presentational/paragraph-dialog/para
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
 import { SimpleInputComponent } from './presentational/simple-input/simple-input.component';
 import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
-import { CheckboxWorksMenuComponent } from './presentational/works-menu/checkbox-works-menu.component';
+import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu/checkbox-works-menu.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,32 @@
+<div class="flex justify-content-center">
+  <div class="max-w-600">
+    <div class="flex justify-content-between mb-2">
+      <p-button
+        class="mr-2"
+        styleClass="p-button-sm"
+        icon="pi pi-plus"
+        [label]="'SEARCH.INPUT.SELECT_WORKS_ALL' | translate"
+        (onClick)="onSelectAll()"
+      ></p-button>
+
+      <p-button
+        styleClass="p-button-sm"
+        icon="pi pi-minus"
+        [label]="'SEARCH.INPUT.SELECT_WORKS_NOTHING' | translate"
+        (onClick)="onRemoveAll()"
+      ></p-button>
+    </div>
+
+    <p-tree
+      [value]="(nodes$ | async) || []"
+      [filter]="true"
+      filterMode="strict"
+      selectionMode="checkbox"
+      (selectionChange)="onSelectionChange($event)"
+    >
+      <ng-template pTemplate="default" let-node>
+        {{ node.label | translate }}
+      </ng-template>
+    </p-tree>
+  </div>
+</div>
