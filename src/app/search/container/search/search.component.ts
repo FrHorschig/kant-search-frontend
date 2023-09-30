@@ -5,21 +5,25 @@ import { WorksReducers } from 'src/app/store/works';
 import { SearchStore } from './search.store';
 import { Work } from 'kant-search-api';
 import { SearchOptions } from '../../model/search-output';
+import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  providers: [SearchStore],
+  providers: [WorksMenuStore, SearchStore],
 })
 export class SearchComponent extends ContainerComponent {
   works$ = this.store.select(WorksReducers.selectWorks);
-  canSearch$ = this.searchStore.canSearch;
+  canSearch$ = this.searchStore.canSearch$;
+  nodes$ = this.worksMenuStore.nodes$;
 
   constructor(
     private readonly store: Store,
+    private readonly worksMenuStore: WorksMenuStore,
     private readonly searchStore: SearchStore
   ) {
     super();
+    this.worksMenuStore.buildNodes(true);
   }
 
   onWorksChange(works: Work[]) {

@@ -34,6 +34,7 @@
   [header]="'SEARCH.INPUT.SELECT_WORKS' | translate"
 >
   <app-checkbox-works-menu
+    [nodes]="nodes"
     (selectionChangeEmitter)="onWorksChange($event)"
   ></app-checkbox-works-menu>
 </p-dialog>

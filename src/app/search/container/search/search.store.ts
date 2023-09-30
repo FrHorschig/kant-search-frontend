@@ -48,7 +48,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     options,
   }));
 
-  readonly canSearch = this.select(
+  readonly canSearch$ = this.select(
     (state) => state.workIds.length > 0 && state.searchString.length > 0
   );
 }

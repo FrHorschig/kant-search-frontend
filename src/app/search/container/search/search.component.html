@@ -1,6 +1,7 @@
 <div class="flex justify-content-center">
   <div class="w-full max-w-600">
     <app-simple-input
+      [nodes]="(nodes$ | async) || []"
       (worksChangeEmitter)="onWorksChange($event)"
       (searchStringChangeEmitter)="onSearchStringChange($event)"
     ></app-simple-input>

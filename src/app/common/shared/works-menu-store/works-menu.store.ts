@@ -16,8 +16,8 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     super({ nodes: [] });
   }
 
-  readonly buildNodes = this.effect<boolean>((isSelectable$) =>
-    isSelectable$.pipe(
+  readonly buildNodes = this.effect<boolean>((isAllSelectable$) =>
+    isAllSelectable$.pipe(
       switchMap((isSelectable) =>
         this.store.select(WorksReducers.selectIsLoaded).pipe(
           filter((isLoaded) => isLoaded),

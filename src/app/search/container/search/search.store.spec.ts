@@ -83,7 +83,7 @@ describe('SearchStore', () => {
       options: { scope: SearchScope.Paragraph },
     });
     // THEN
-    store.canSearch.subscribe((canSearch: boolean) => {
+    store.canSearch$.subscribe((canSearch: boolean) => {
       expect(canSearch).toBeFalse();
     });
   });
@@ -96,7 +96,7 @@ describe('SearchStore', () => {
       options: { scope: SearchScope.Paragraph },
     });
     // THEN
-    store.canSearch.subscribe((canSearch: boolean) => {
+    store.canSearch$.subscribe((canSearch: boolean) => {
       expect(canSearch).toBeFalse();
     });
   });

@@ -3,7 +3,10 @@
 </p-blockUI>
 
 <div class="flex justify-content-center">
-  <app-works-menu (selectionChangeEmitter)="setWorkId($event)"></app-works-menu>
+  <app-works-menu
+    [nodes]="(nodes$ | async) || []"
+    (selectionChangeEmitter)="setWorkId($event)"
+  ></app-works-menu>
 
   <div class="mr-2"></div>
 

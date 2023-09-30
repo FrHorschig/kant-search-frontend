@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
@@ -10,12 +16,13 @@ import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-men
   providers: [WorksMenuStore],
 })
 export class CheckboxWorksMenuComponent {
+  @Input() nodes: TreeNode[] = [];
+
   @Output() selectionChangeEmitter = new EventEmitter<Work[]>();
 
-  nodes$ = this.store.nodes$;
   @ViewChild(Tree, { static: false }) tree: Tree | undefined;
 
-  constructor(private readonly store: WorksMenuStore) {}
+  constructor() {}
 
   onSelectAll() {
     if (this.tree && this.tree.value) {

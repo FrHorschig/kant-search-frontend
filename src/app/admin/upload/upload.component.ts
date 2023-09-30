@@ -2,20 +2,26 @@ import { Component } from '@angular/core';
 import { HttpError, UploadService, Work, WorkUpload } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
+import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
+  providers: [WorksMenuStore],
 })
 export class UploadComponent extends ContainerComponent {
+  nodes$ = this.worksMenuStore.nodes$;
+
   isLoading = false;
   workId = 0;
 
   constructor(
     private readonly messageService: MessageService,
+    private readonly worksMenuStore: WorksMenuStore,
     private readonly uploadService: UploadService
   ) {
     super();
+    this.worksMenuStore.buildNodes(false);
   }
 
   setWorkId(work: Work) {
