@@ -29,19 +29,17 @@ export class UploadStore extends ComponentStore<UploadState> {
         this.uploadService
           .uploadWork({ workId: this.get((state) => state.workId), text })
           .pipe(
-            tap(
-              () => this.patchState({ workId: 0, isLoading: false }),
-              tapResponse(
-                () =>
-                  this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                  }),
-                (err: HttpErrorResponse) => {
-                  this.errorService.logError(err.error.message);
-                  return EMPTY;
-                }
-              )
+            tap(() => this.patchState({ workId: 0, isLoading: false })),
+            tapResponse(
+              () =>
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                }),
+              (err: HttpErrorResponse) => {
+                this.errorService.logError(err.error.message);
+                return EMPTY;
+              }
             )
           )
       )
