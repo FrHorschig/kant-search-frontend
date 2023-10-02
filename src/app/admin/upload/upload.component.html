@@ -1,25 +1,38 @@
-<p-blockUI [blocked]="isLoading">
+<p-blockUI [blocked]="(isLoading$ | async) || false">
   <p-progressSpinner></p-progressSpinner>
 </p-blockUI>
 
 <div class="flex justify-content-center">
-  <app-works-menu
-    [nodes]="(nodes$ | async) || []"
-    (selectionChangeEmitter)="setWorkId($event)"
-  ></app-works-menu>
+  <div class="w-full max-w-600">
+    <p-button
+      styleClass="p-button-secondary w-full mb-2"
+      [label]="'UPLOAD.SELECT_WORK' | translate"
+      (onClick)="showWorksMenu = true"
+    ></p-button>
 
-  <div class="mr-2"></div>
-
-  <div class="flex justify-content-center">
     <p-fileUpload
       #fileUploadBtn
+      styleClass="w-full"
       chooseLabel="{{ 'UPLOAD.SELECT_FILE' | translate }}"
       uploadLabel="{{ 'UPLOAD.START_UPLOAD' | translate }}"
       mode="basic"
       [customUpload]="true"
       (uploadHandler)="onUpload($event, fileUploadBtn)"
-      [disabled]="workId < 1"
-      pTooltip="{{ workId < 1 ? ('UPLOAD.TOOLTIP' | translate) : '' }}"
+      [disabled]="!(hasWorkId$ | async)"
+      pTooltip="{{
+        !(hasWorkId$ | async) ? ('UPLOAD.TOOLTIP' | translate) : ''
+      }}"
     ></p-fileUpload>
   </div>
 </div>
+
+<p-dialog
+  [(visible)]="showWorksMenu"
+  [modal]="true"
+  [header]="'UPLOAD.SELECT_WORK' | translate"
+>
+  <app-works-menu
+    [nodes]="(nodes$ | async) || []"
+    (selectionChangeEmitter)="onWorksChange($event)"
+  ></app-works-menu>
+</p-dialog>

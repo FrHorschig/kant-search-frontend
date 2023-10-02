@@ -9,8 +9,8 @@
   },
   "SEARCH": {
     "INPUT": {
-      "SIMPLE_INPUT_HEADER": "Search input",
       "SELECT_WORKS": "Select works",
+      "SIMPLE_INPUT_HEADER": "Search input",
       "SELECT_WORKS_ALL": "Select all",
       "SELECT_WORKS_NOTHING": "Remove all",
       "SEARCH_STRING_LABEL": "Search terms",
@@ -34,13 +34,9 @@
     }
   },
   "UPLOAD": {
-    "TITLE": "Title",
-    "ABBREV": "Abbreviation",
-    "VOLUME": "Volume Number",
-    "ORDINAL": "Position in Volume",
-    "YEAR": "Year",
-    "TOOLTIP": "Fill out all fields to upload the text",
-    "SELECT_FILE": "Select text file",
+    "SELECT_WORK": "Select work",
+    "TOOLTIP": "Select the work you want to upload",
+    "SELECT_FILE": "Select text file to upload",
     "START_UPLOAD": "Start upload"
   }
 }

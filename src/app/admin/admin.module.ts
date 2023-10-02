@@ -11,6 +11,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UploadComponent } from './upload/upload.component';
 import { CommonModule as AppCommonModule } from '../common/common.module';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [UploadComponent],
@@ -26,6 +27,7 @@ import { CommonModule as AppCommonModule } from '../common/common.module';
     TooltipModule,
     ProgressSpinnerModule,
     AppCommonModule,
+    DialogModule,
   ],
 })
 export class AdminModule {}
