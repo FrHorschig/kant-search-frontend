@@ -6,6 +6,7 @@ import { SearchStore } from './search.store';
 import { Work } from 'kant-search-api';
 import { SearchOptions } from '../../model/search-output';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,8 @@ export class SearchComponent extends ContainerComponent {
   constructor(
     private readonly store: Store,
     private readonly worksMenuStore: WorksMenuStore,
-    private readonly searchStore: SearchStore
+    private readonly searchStore: SearchStore,
+    private readonly messageService: MessageService
   ) {
     super();
     this.worksMenuStore.buildNodes(true);
@@ -39,6 +41,7 @@ export class SearchComponent extends ContainerComponent {
   }
 
   onSearch() {
+    this.messageService.clear();
     this.searchStore.navigateSearch();
   }
 }
