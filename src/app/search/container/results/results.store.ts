@@ -30,9 +30,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           tapResponse(
             (result) => this.patchState({ results: result, isLoaded: true }),
             (err: HttpErrorResponse) => {
-              if (err.status === 404) {
-                this.patchState({ isLoaded: true });
-              } else {
+              this.patchState({ isLoaded: true });
+              if (err.status !== 404) {
                 this.errorService.logError(err.message);
               }
               return EMPTY;
