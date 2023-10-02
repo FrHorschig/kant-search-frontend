@@ -12,14 +12,12 @@
 
     <p-button
       styleClass="w-full"
-      type="submit"
       label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
-      [disabled]="(canSearch$ | async) || true"
+      [disabled]="!(canSearch$ | async)"
       pTooltip="{{
-        (canSearch$ | async) || true
-          ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate)
-          : ''
+        !(canSearch$ | async) ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate) : ''
       }}"
+      (onClick)="onSearch()"
     ></p-button>
   </div>
 </div>

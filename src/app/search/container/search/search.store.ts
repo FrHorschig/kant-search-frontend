@@ -9,6 +9,7 @@ interface SearchState {
   workIds: number[];
   searchString: string;
   options: SearchOptions;
+  isSearchAllowed: boolean;
 }
 
 @Injectable()
@@ -18,6 +19,7 @@ export class SearchStore extends ComponentStore<SearchState> {
       workIds: [],
       searchString: '',
       options: { scope: SearchScope.Paragraph },
+      isSearchAllowed: false,
     });
   }
 
@@ -38,17 +40,17 @@ export class SearchStore extends ComponentStore<SearchState> {
   readonly putWorks = this.updater((state, works: Work[]) => ({
     ...state,
     workIds: works.map((work) => work.id),
+    isSearchAllowed: works.length > 0 && state.searchString.length > 0,
   }));
   readonly putSearchString = this.updater((state, searchString: string) => ({
     ...state,
     searchString,
+    isSearchAllowed: state.workIds.length > 0 && state.searchString.length > 0,
   }));
   readonly putOptions = this.updater((state, options: SearchOptions) => ({
     ...state,
     options,
   }));
 
-  readonly canSearch$ = this.select(
-    (state) => state.workIds.length > 0 && state.searchString.length > 0
-  );
+  readonly canSearch$ = this.select((state) => state.isSearchAllowed);
 }
