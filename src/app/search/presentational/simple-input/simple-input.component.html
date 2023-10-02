@@ -2,15 +2,11 @@
   [header]="'SEARCH.INPUT.SIMPLE_INPUT_HEADER' | translate"
   styleClass="mb-2"
 >
-  <div class="flex justify-content-between mb-2">
-    <div>
-      <p-button
-        styleClass="p-button-secondary"
-        [label]="'SEARCH.INPUT.SELECT_WORKS' | translate"
-        (onClick)="showWorksMenu = true"
-      ></p-button>
-    </div>
-  </div>
+  <p-button
+    styleClass="p-button-secondary w-full mb-2"
+    [label]="'SEARCH.INPUT.SELECT_WORKS' | translate"
+    (onClick)="showWorksMenu = true"
+  ></p-button>
 
   <app-input-group
     idString="search-terms-input"

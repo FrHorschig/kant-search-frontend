@@ -1,4 +1,4 @@
-<p-accordion [activeIndex]="">
+<p-accordion [activeIndex]="" styleClass="mb-2">
   <p-accordionTab [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
     <form [formGroup]="form">
       <app-input-group
@@ -10,6 +10,7 @@
           id="scope-dropdown"
           [options]="scopes"
           formControlName="scope"
+          styleClass="w-full"
         >
           <ng-template let-option pTemplate="selectedItem">
             {{ "SEARCH.INPUT.SCOPE." + option | translate }}
