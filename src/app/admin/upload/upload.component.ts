@@ -32,7 +32,7 @@ export class UploadComponent {
   onUpload(event: any, fileUploadBtn: any) {
     const file = event.files[0];
     let reader = new FileReader();
-    reader.onload = (e: any) => {
+    reader.onload = () => {
       if (reader.result) {
         this.uploadStore.upload(reader.result.toString());
       }

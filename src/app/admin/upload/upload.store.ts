@@ -24,24 +24,24 @@ export class UploadStore extends ComponentStore<UploadState> {
   readonly upload = this.effect<string>((text$) =>
     text$.pipe(
       tap(() => this.messageService.clear()),
-      tap(() => this.patchState({ workId: 0, isLoading: true })),
+      tap(() => this.patchState({ isLoading: true })),
       switchMap((text) =>
         this.uploadService
           .uploadWork({ workId: this.get((state) => state.workId), text })
           .pipe(
-            tapResponse(
-              () => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Success',
-                });
-                this.patchState({ isLoading: false });
-              },
-              (err: HttpErrorResponse) => {
-                this.errorService.logError(err.message);
-                this.patchState({ isLoading: false });
-                return EMPTY;
-              }
+            tap(
+              () => this.patchState({ workId: 0, isLoading: false }),
+              tapResponse(
+                () =>
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                  }),
+                (err: HttpErrorResponse) => {
+                  this.errorService.logError(err.message);
+                  return EMPTY;
+                }
+              )
             )
           )
       )
