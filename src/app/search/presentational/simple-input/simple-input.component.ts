@@ -12,6 +12,7 @@ export class SimpleInputComponent {
   @Output() worksChangeEmitter = new EventEmitter<Work[]>();
   @Output() searchStringChangeEmitter = new EventEmitter<string>();
 
+  searchString = '';
   showWorksMenu = false;
   selectedWorksCount = 0;
 
@@ -20,8 +21,7 @@ export class SimpleInputComponent {
     this.worksChangeEmitter.emit(works);
   }
 
-  onSearchStringChange(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.searchStringChangeEmitter.emit(target.value);
+  onSearchStringChange() {
+    this.searchStringChangeEmitter.emit(this.searchString);
   }
 }

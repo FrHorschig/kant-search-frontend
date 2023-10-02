@@ -19,7 +19,8 @@
       class="w-full"
       type="text"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
-      (input)="onSearchStringChange($event)"
+      [(ngModel)]="searchString"
+      (ngModelChange)="onSearchStringChange()"
     />
   </app-input-group>
 </p-panel>
