@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Match, SearchResult, Volume, Work } from 'kant-search-api';
+import { Match, SearchResult, Work } from 'kant-search-api';
 import { MatchInfo } from '../../model/match-info';
 
 @Component({
@@ -8,8 +8,7 @@ import { MatchInfo } from '../../model/match-info';
 })
 export class ResultListComponent {
   @Input() workById: Map<number, Work> | null = null;
-  @Input() result: SearchResult[] = [];
-  @Input() resultCount = 0;
+  @Input() results: SearchResult[] = [];
 
   @Output() onClick = new EventEmitter<MatchInfo>();
 

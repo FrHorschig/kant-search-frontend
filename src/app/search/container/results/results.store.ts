@@ -7,8 +7,7 @@ import { EMPTY, switchMap, tap } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface ResultsState {
-  result: SearchResult[];
-  resultCount: number;
+  results: SearchResult[];
   isLoaded: boolean;
 }
 
@@ -19,26 +18,23 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly errorService: ErrorService,
     private readonly searchService: SearchService
   ) {
-    super({ result: [], resultCount: 0, isLoaded: false });
+    super({ results: [], isLoaded: false });
   }
 
   readonly searchParagraphs = this.effect<SearchCriteria>((criteria$) =>
     criteria$.pipe(
       tap(() => this.messageService.clear()),
-      tap(() => this.patchState({ result: [], isLoaded: false })),
+      tap(() => this.patchState({ results: [], isLoaded: false })),
       switchMap((criteria) =>
         this.searchService.search(criteria).pipe(
           tapResponse(
-            (result) =>
-              this.patchState({
-                result: result,
-                resultCount: result
-                  .map((result) => result.matches.length)
-                  .reduce((a, b) => a + b, 0),
-                isLoaded: true,
-              }),
+            (result) => this.patchState({ results: result, isLoaded: true }),
             (err: HttpErrorResponse) => {
-              this.errorService.logError(err.message);
+              if (err.status === 404) {
+                this.patchState({ isLoaded: true });
+              } else {
+                this.errorService.logError(err.message);
+              }
               return EMPTY;
             }
           )
@@ -47,7 +43,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     )
   );
 
-  readonly result$ = this.select((state) => state.result);
-  readonly resultCount$ = this.select((state) => state.resultCount);
+  readonly results$ = this.select((state) => state.results);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 }

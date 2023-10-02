@@ -14,12 +14,10 @@ import { MatchInfo } from '../../model/match-info';
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   workById$ = this.store.select(WorksReducers.selectWorkById);
-  result$ = this.resultsStore.result$;
-  resultCount$ = this.resultsStore.resultCount$;
+  results$ = this.resultsStore.results$;
   isLoaded$ = this.resultsStore.isLoaded$;
 
   showParagraph = false;
-  workId = 0;
   matchInfo: MatchInfo = {
     workId: 0,
     workTitle: '',

@@ -1,19 +1,24 @@
 <div class="flex justify-content-center">
   <div class="max-w-600">
-    <ng-container *ngIf="result">
-      <div class="flex justify-content-center">
-        {{ "SEARCH.RESULTS.COUNT" | translate }}: {{ resultCount }}
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="!result">
+    <ng-container *ngIf="results.length === 0">
       <div class="flex justify-content-center">
         {{ "SEARCH.RESULTS.NONE_FOUND" | translate }}
       </div>
     </ng-container>
 
-    <ng-container *ngIf="result">
-      <ng-container *ngFor="let result of result">
+    <ng-container *ngIf="results.length > 1">
+      <div class="grid">
+        <ng-container *ngFor="let result of results">
+          <div class="col-8">{{ getWorkTitle(result.workId) }}:</div>
+
+          <div class="col-4">
+            {{ result.matches.length }}
+            {{ "SEARCH.RESULTS.MATCHES" | translate }}
+          </div>
+        </ng-container>
+      </div>
+
+      <ng-container *ngFor="let result of results">
         <div class="mt-6">
           <p-divider align="center">
             <b>{{ getWorkTitle(result.workId) }}</b>

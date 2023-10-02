@@ -27,7 +27,7 @@
     },
     "RESULTS": {
       "NONE_FOUND": "No results found",
-      "COUNT": "Number of search results",
+      "MATCHES": "Matches",
       "PAGES": "[{{ pages }}]",
       "GO_TO_TEXT_LABEL": "Full text",
       "GO_TO_TEXT_TOOLTIP": "Jump to the paragraph in the full text"
