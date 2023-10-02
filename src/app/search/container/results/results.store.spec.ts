@@ -32,7 +32,7 @@ describe('ResultsStore', () => {
   it('should have initial state', () => {
     store.results$.subscribe((result) => expect(result).toEqual([]));
     store.resultCount$.subscribe((count) => expect(count).toBe(0));
-    store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
+    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
   });
 
   it('should update state correctly when search succeeds', () => {
@@ -51,7 +51,7 @@ describe('ResultsStore', () => {
     expect(mockMessageService.clear).toHaveBeenCalled();
     store.results$.subscribe((result) => expect(result).toEqual(results));
     store.resultCount$.subscribe((count) => expect(count).toBe(1));
-    store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
+    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
   });
 
   it('should log error when search fails', () => {
@@ -69,6 +69,6 @@ describe('ResultsStore', () => {
     });
     // THEN
     expect(mockErrorService.logError).toHaveBeenCalledWith('Some error');
-    store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
+    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
   });
 });

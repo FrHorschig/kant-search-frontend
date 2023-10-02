@@ -8,7 +8,7 @@ import { ErrorService } from 'src/app/common/service/error.service';
 
 interface ResultsState {
   results: SearchResult[];
-  isLoaded: boolean;
+  isLoading: boolean;
 }
 
 @Injectable()
@@ -18,19 +18,19 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly errorService: ErrorService,
     private readonly searchService: SearchService
   ) {
-    super({ results: [], isLoaded: false });
+    super({ results: [], isLoading: true });
   }
 
   readonly searchParagraphs = this.effect<SearchCriteria>((criteria$) =>
     criteria$.pipe(
       tap(() => this.messageService.clear()),
-      tap(() => this.patchState({ results: [], isLoaded: false })),
+      tap(() => this.patchState({ results: [], isLoading: true })),
       switchMap((criteria) =>
         this.searchService.search(criteria).pipe(
           tapResponse(
-            (result) => this.patchState({ results: result, isLoaded: true }),
+            (result) => this.patchState({ results: result, isLoading: false }),
             (err: HttpErrorResponse) => {
-              this.patchState({ isLoaded: true });
+              this.patchState({ isLoading: false });
               if (err.status !== 404) {
                 this.errorService.logError(err.message);
               }
@@ -43,5 +43,5 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   );
 
   readonly results$ = this.select((state) => state.results);
-  readonly isLoaded$ = this.select((state) => state.isLoaded);
+  readonly isLoading = this.select((state) => state.isLoading);
 }

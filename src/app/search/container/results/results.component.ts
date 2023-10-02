@@ -15,7 +15,7 @@ import { MatchInfo } from '../../model/match-info';
 export class ResultsComponent extends ContainerComponent implements OnInit {
   workById$ = this.store.select(WorksReducers.selectWorkById);
   results$ = this.resultsStore.results$;
-  isLoaded$ = this.resultsStore.isLoaded$;
+  isLoading$ = this.resultsStore.isLoading;
 
   showParagraph = false;
   matchInfo: MatchInfo = {
