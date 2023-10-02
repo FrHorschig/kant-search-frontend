@@ -27,12 +27,16 @@ export class CheckboxWorksMenuComponent {
   onSelectAll() {
     if (this.tree && this.tree.value) {
       this.tree.selection = this.getRecursiveSelection(this.tree.value);
+      this.removeParialSelection(this.tree.value);
+      this.onSelectionChange(this.tree?.selection || []);
     }
   }
 
   onRemoveAll() {
     if (this.tree) {
       this.tree.selection = [];
+      this.removeParialSelection(this.tree.value);
+      this.onSelectionChange(this.tree?.selection || []);
     }
   }
 
@@ -59,6 +63,17 @@ export class CheckboxWorksMenuComponent {
         selectedNodes.push(...this.getRecursiveSelection(node.children));
       }
       selectedNodes.push(node);
+    });
+    return selectedNodes;
+  }
+
+  removeParialSelection(node: TreeNode[]): TreeNode[] {
+    const selectedNodes: TreeNode[] = [];
+    node.forEach((node) => {
+      if (node.children) {
+        this.removeParialSelection(node.children);
+      }
+      node.partialSelected = false;
     });
     return selectedNodes;
   }
