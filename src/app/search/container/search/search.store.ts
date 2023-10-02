@@ -45,7 +45,7 @@ export class SearchStore extends ComponentStore<SearchState> {
   readonly putSearchString = this.updater((state, searchString: string) => ({
     ...state,
     searchString,
-    isSearchAllowed: state.workIds.length > 0 && state.searchString.length > 0,
+    isSearchAllowed: state.workIds.length > 0 && searchString.length > 0,
   }));
   readonly putOptions = this.updater((state, options: SearchOptions) => ({
     ...state,
