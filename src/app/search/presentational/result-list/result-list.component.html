@@ -6,20 +6,11 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="results.length > 1">
-      <div class="grid">
-        <ng-container *ngFor="let result of results">
-          <div class="col-8">{{ getWorkTitle(result.workId) }}:</div>
-
-          <div class="col-4">
-            {{ result.matches.length }}
-            {{ "SEARCH.RESULTS.MATCHES" | translate }}
-          </div>
-        </ng-container>
-      </div>
-
+    <ng-container *ngIf="results.length > 0">
       <ng-container *ngFor="let result of results">
         <div class="mt-6">
+          <div id="results-{{ result.workId }}"></div>
+
           <p-divider align="center">
             <b>{{ getWorkTitle(result.workId) }}</b>
           </p-divider>
