@@ -11,9 +11,11 @@ export class WorksMenuComponent {
 
   @Output() selectionChangeEmitter = new EventEmitter<Work>();
 
+  selection: TreeNode[] = [];
+
   constructor() {}
 
-  onSelectionChange(selection: TreeNode[]) {
-    this.selectionChangeEmitter.emit(selection[0].data);
+  onNodeSelect(event: any) {
+    this.selectionChangeEmitter.emit(event.node.data);
   }
 }

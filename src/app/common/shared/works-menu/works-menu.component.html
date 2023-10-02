@@ -4,7 +4,8 @@
       [value]="nodes"
       [filter]="true"
       filterMode="strict"
-      (selectionChange)="onSelectionChange($event)"
+      selectionMode="single"
+      (onNodeSelect)="onNodeSelect($event)"
     >
       <ng-template pTemplate="default" let-node>
         {{ node.label | translate }}

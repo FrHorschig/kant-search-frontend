@@ -134,7 +134,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
       label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${
         work.title
       }${work.year ? ' (' + work.year + ')' : ''}`,
-      styleClass: 'text-500',
+      styleClass: 'font-normal',
       selectable: true,
       data: work,
     };
