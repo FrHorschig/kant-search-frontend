@@ -39,6 +39,7 @@ export class UploadStore extends ComponentStore<UploadState> {
               },
               (err: HttpErrorResponse) => {
                 this.errorService.logError(err.message);
+                this.patchState({ isLoading: false });
                 return EMPTY;
               }
             )
