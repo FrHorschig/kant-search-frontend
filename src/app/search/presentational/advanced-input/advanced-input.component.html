@@ -1,6 +1,10 @@
 <p-accordion [activeIndex]="" styleClass="mb-2">
   <p-accordionTab [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
-    <p>{{ "SEARCH.INPUT.SEARCH_STRING_EXPLANATION" | translate }}</p>
+    <p>{{ "SEARCH.INPUT.ADVANCED_INPUT" | translate }}</p>
+    <ul>
+      <li>{{ "SEARCH.INPUT.OPERATOR_EXPLANATION" | translate }}</li>
+      <li>{{ "SEARCH.INPUT.PHRASE_EXPLANATION" | translate }}</li>
+    </ul>
 
     <form [formGroup]="form">
       <app-input-group
