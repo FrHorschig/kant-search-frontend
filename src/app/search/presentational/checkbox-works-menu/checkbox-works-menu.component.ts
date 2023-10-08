@@ -19,6 +19,7 @@ export class CheckboxWorksMenuComponent {
   @Input() nodes: TreeNode[] = [];
 
   @Output() selectionChangeEmitter = new EventEmitter<Work[]>();
+  @Output() closeEmitter = new EventEmitter<void>();
 
   @ViewChild(Tree, { static: false }) tree: Tree | undefined;
 
@@ -38,6 +39,10 @@ export class CheckboxWorksMenuComponent {
       this.removeParialSelection(this.tree.value);
       this.onSelectionChange(this.tree?.selection || []);
     }
+  }
+
+  onClose() {
+    this.closeEmitter.emit();
   }
 
   onSelectionChange(selection: TreeNode[]) {

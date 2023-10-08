@@ -33,5 +33,6 @@
   <app-checkbox-works-menu
     [nodes]="nodes"
     (selectionChangeEmitter)="onWorksChange($event)"
+    (closeEmitter)="showWorksMenu = false"
   ></app-checkbox-works-menu>
 </p-dialog>
