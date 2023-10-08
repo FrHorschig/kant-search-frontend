@@ -37,7 +37,7 @@ export class CheckboxWorksMenuComponent {
     if (this.tree) {
       this.tree.selection = [];
       this.removeParialSelection(this.tree.value);
-      this.onSelectionChange(this.tree?.selection || []);
+      this.onSelectionChange([]);
     }
   }
 
@@ -50,15 +50,17 @@ export class CheckboxWorksMenuComponent {
   }
 
   private getSelectedWorks(node: TreeNode[]): Work[] {
-    const works: Work[] = [];
+    const works: Map<number, Work> = new Map();
     node.forEach((node) => {
       if (node.data) {
-        works.push(node.data);
+        works.set(node.data.id, node.data);
       } else {
-        works.push(...this.getSelectedWorks(node.children || []));
+        this.getSelectedWorks(node.children || []).forEach((work) => {
+          works.set(work.id, work);
+        });
       }
     });
-    return works;
+    return Array.from(works.values());
   }
 
   getRecursiveSelection(node: TreeNode[]): TreeNode[] {

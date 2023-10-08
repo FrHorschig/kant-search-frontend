@@ -8,7 +8,7 @@ import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
 import { SimpleInputComponent } from '../../presentational/simple-input/simple-input.component';
 import { AdvancedInputComponent } from '../../presentational/advanced-input/advanced-input.component';
@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from 'kant-search-api';
+import { MessageService } from 'primeng/api';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -40,9 +41,16 @@ describe('SearchComponent', () => {
         SimpleInputComponent,
         AdvancedInputComponent,
       ],
-      providers: [provideMockStore({})],
+      providers: [
+        provideMockStore({}),
+        {
+          provide: MessageService,
+          useValue: jasmine.createSpyObj('MessageService', ['clear']),
+        },
+      ],
       imports: [
         ReactiveFormsModule,
+        FormsModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         ButtonModule,

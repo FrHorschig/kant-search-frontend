@@ -2,8 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { TextStore } from './text.store';
 import { MessageService } from 'primeng/api';
-import { ReadService } from 'kant-search-api';
+import { ErrorMessage, HttpError, ReadService } from 'kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('TextStore', () => {
   let store: TextStore;
@@ -47,11 +48,21 @@ describe('TextStore', () => {
   it('should handle error and log it', () => {
     // GIVEN
     readService.getParagraphs.and.returnValue(
-      throwError(() => new Error('Test Error'))
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              code: 400,
+              message: ErrorMessage.BadRequestEmptySearchTerms,
+            } as HttpError,
+          })
+      )
     );
     // WHEN
     store.loadParagraphs(1);
     // THEN
-    expect(errorService.logError).toHaveBeenCalledWith('Test Error');
+    expect(errorService.logError).toHaveBeenCalledWith(
+      ErrorMessage.BadRequestEmptySearchTerms
+    );
   });
 });

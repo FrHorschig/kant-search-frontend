@@ -4,13 +4,14 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { WorksEffects } from './works.effects';
 import { loadWorks, loadWorksSuccess } from './works.actions';
-import { ReadService } from 'kant-search-api';
+import { ErrorMessage, HttpError, ReadService } from 'kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import {
   createErrorServiceSpy,
   createReadServiceSpy,
 } from 'src/app/common/test/api-services';
 import { Testdata } from 'src/app/common/test/testdata';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('WorksEffects', () => {
   let sut: WorksEffects;
@@ -53,7 +54,28 @@ describe('WorksEffects', () => {
     readService.getVolumes.and.returnValue(
       throwError(() => new Error('error'))
     );
-    readService.getWorks.and.returnValue(throwError(() => new Error('error')));
+    readService.getVolumes.and.returnValue(
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              code: 404,
+              message: ErrorMessage.NotFoundVolumes,
+            } as HttpError,
+          })
+      )
+    );
+    readService.getWorks.and.returnValue(
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              code: 404,
+              message: ErrorMessage.NotFoundWorks,
+            } as HttpError,
+          })
+      )
+    );
     // WHEN
     actions$ = cold('-a-', { a: loadWorks() });
     // THEN

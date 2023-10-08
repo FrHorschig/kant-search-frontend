@@ -1,10 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { ResultsStore } from './results.store';
-import { SearchScope, SearchService } from 'kant-search-api';
+import {
+  ErrorMessage,
+  HttpError,
+  SearchScope,
+  SearchService,
+} from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { Testdata } from 'src/app/common/test/testdata';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
@@ -31,8 +37,7 @@ describe('ResultsStore', () => {
 
   it('should have initial state', () => {
     store.results$.subscribe((result) => expect(result).toEqual([]));
-    store.resultCount$.subscribe((count) => expect(count).toBe(0));
-    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
+    store.isLoading$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
   });
 
   it('should update state correctly when search succeeds', () => {
@@ -50,14 +55,21 @@ describe('ResultsStore', () => {
     // THEN
     expect(mockMessageService.clear).toHaveBeenCalled();
     store.results$.subscribe((result) => expect(result).toEqual(results));
-    store.resultCount$.subscribe((count) => expect(count).toBe(1));
-    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
+    store.isLoading$.subscribe((isLoading) => expect(isLoading).toBeFalse());
   });
 
   it('should log error when search fails', () => {
     // GIVEN
     mockSearchService.search.and.returnValue(
-      throwError(() => new Error('Some error'))
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              code: 404,
+              message: ErrorMessage.NotFoundMatches,
+            } as HttpError,
+          })
+      )
     );
     // WHEN
     store.searchParagraphs({
@@ -68,7 +80,9 @@ describe('ResultsStore', () => {
       },
     });
     // THEN
-    expect(mockErrorService.logError).toHaveBeenCalledWith('Some error');
-    store.isLoading.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
+    expect(mockErrorService.logError).toHaveBeenCalledWith(
+      ErrorMessage.NotFoundMatches
+    );
+    store.isLoading$.subscribe((isLoading) => expect(isLoading).toBeFalse());
   });
 });

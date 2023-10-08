@@ -18,7 +18,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly errorService: ErrorService,
     private readonly searchService: SearchService
   ) {
-    super({ results: [], isLoading: true });
+    super({ results: [], isLoading: false });
   }
 
   readonly searchParagraphs = this.effect<SearchCriteria>((criteria$) =>
@@ -43,5 +43,5 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   );
 
   readonly results$ = this.select((state) => state.results);
-  readonly isLoading = this.select((state) => state.isLoading);
+  readonly isLoading$ = this.select((state) => state.isLoading);
 }

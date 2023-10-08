@@ -11,6 +11,7 @@ import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
+import { FormsModule } from '@angular/forms';
 
 describe('SimpleInputComponent', () => {
   let component: SimpleInputComponent;
@@ -26,6 +27,7 @@ describe('SimpleInputComponent', () => {
       imports: [
         BrowserAnimationsModule,
         TranslateModule.forRoot(),
+        FormsModule,
         ButtonModule,
         PanelModule,
         AccordionModule,
@@ -54,11 +56,11 @@ describe('SimpleInputComponent', () => {
   });
 
   it('should emit searchStringChangeEmitter when onSearchStringChange is called', () => {
-    const event = { target: { value: 'Kant' } } as unknown as Event;
     // GIVEN
     spyOn(component.searchStringChangeEmitter, 'emit');
     // WHEN
-    component.onSearchStringChange(event as Event);
+    component.searchString = 'Kant';
+    component.onSearchStringChange();
     // THEN
     expect(component.searchStringChangeEmitter.emit).toHaveBeenCalledWith(
       'Kant'

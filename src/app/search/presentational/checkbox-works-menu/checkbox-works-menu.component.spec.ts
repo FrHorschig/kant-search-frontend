@@ -6,6 +6,8 @@ import { TreeModule } from 'primeng/tree';
 import { of } from 'rxjs';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { ButtonModule } from 'primeng/button';
+import { Work } from 'kant-search-api';
+import { Testdata } from 'src/app/common/test/testdata';
 
 describe('CheckboxWorksMenuComponent', () => {
   let component: CheckboxWorksMenuComponent;
@@ -38,7 +40,7 @@ describe('CheckboxWorksMenuComponent', () => {
     spyOn(component.selectionChangeEmitter, 'emit');
     // WHEN
     component.onSelectionChange(mockNodes);
-    // WHEN
+    // THEN
     expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([
       mockNodes[0].data,
     ]);
@@ -58,5 +60,55 @@ describe('CheckboxWorksMenuComponent', () => {
       mockNodes[0].data,
       mockNodes[1].data,
     ]);
+  });
+
+  it('should select all nodes when onSelectAll is called', () => {
+    const child = { data: Testdata.work } as TreeNode;
+    const parent = { children: [child] } as TreeNode;
+    const mockNodes: TreeNode[] = [parent];
+    // GIVEN
+    if (component.tree) {
+      component.tree.value = mockNodes;
+    } else {
+      expect(component.tree).toBeDefined();
+    }
+    spyOn(component.selectionChangeEmitter, 'emit');
+    // WHEN
+    component.onSelectAll();
+    // THEN
+    expect(component.tree?.selection).toContain(parent);
+    expect(component.tree?.selection).toContain(child);
+    expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([
+      Testdata.work,
+    ]);
+  });
+
+  it('should remove all nodes when onRemoveAll is called', () => {
+    const child = { data: Testdata.work } as TreeNode;
+    const parent = { children: [child] } as TreeNode;
+    const mockNodes: TreeNode[] = [parent];
+    // GIVEN
+    if (component.tree) {
+      component.tree.selection = mockNodes;
+      component.tree.value = mockNodes;
+    } else {
+      expect(component.tree).toBeDefined();
+    }
+    fixture.detectChanges();
+    spyOn(component.selectionChangeEmitter, 'emit');
+    // WHEN
+    component.onRemoveAll();
+    // THEN
+    expect(component.tree?.selection).toEqual([]);
+    expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([]);
+  });
+
+  it('should emit when onClose is called', () => {
+    // GIVEN
+    spyOn(component.closeEmitter, 'emit');
+    // WHEN
+    component.onClose();
+    // THEN
+    expect(component.closeEmitter.emit).toHaveBeenCalled();
   });
 });
