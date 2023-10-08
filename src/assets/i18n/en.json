@@ -16,6 +16,7 @@
       "ACCEPT": "Accept",
       "SEARCH_STRING_LABEL": "Search terms",
       "SEARCH_STRING_PLACEHOLDER": "Search terms",
+      "SEARCH_STRING_EXPLANATION": "You can use `&` as AND, `|` as OR, `!` as NOT, and parentheses to group terms. For example, `cat & (dog | mouse)` will find all paragraphs that contain the word `cat` and either `dog` or `mouse`. You can also use double quotes to search for a phrase, e.g. `dog & \"the cat\"` will find all paragraphs that contain the word `dog and the phrase `the cat`.",
       "ADVANCED_OPTIONS_HEADER": "Advanced options",
       "SCOPE_LABEL": "Search scope",
       "SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",

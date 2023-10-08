@@ -1,5 +1,7 @@
 <p-accordion [activeIndex]="" styleClass="mb-2">
   <p-accordionTab [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
+    <p>{{ "SEARCH.INPUT.SEARCH_STRING_EXPLANATION" | translate }}</p>
+
     <form [formGroup]="form">
       <app-input-group
         idString="scope-dropdown"
