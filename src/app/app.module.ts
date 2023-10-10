@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TooltipModule } from 'primeng/tooltip';
 import { ApiModule } from 'kant-search-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,11 +39,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    StoreModule.forRoot({ works: worksFeature.reducer }),
+    EffectsModule.forRoot([WorksEffects]),
     ButtonModule,
     MessagesModule,
     TabMenuModule,
-    StoreModule.forRoot({ works: worksFeature.reducer }),
-    EffectsModule.forRoot([WorksEffects]),
+    TooltipModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

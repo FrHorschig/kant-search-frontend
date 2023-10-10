@@ -1,4 +1,7 @@
 {
+  "COMMON": {
+    "SCROLL_TOP_TOOLTIP": "Scroll to top"
+  },
   "NAVBAR": {
     "READ": "Read",
     "SEARCH": "Search",
