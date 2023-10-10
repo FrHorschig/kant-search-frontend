@@ -37,8 +37,9 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     this.route.queryParamMap
       .pipe(this.takeUntilDestroy())
       .subscribe((params) => {
+        const workIdsParam = params.get('workIds');
         const criteria: SearchCriteria = {
-          workIds: params.get('workIds')?.split(',').map(Number) || [],
+          workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
           searchString: params.get('searchString') || '',
           options: {
             scope:
