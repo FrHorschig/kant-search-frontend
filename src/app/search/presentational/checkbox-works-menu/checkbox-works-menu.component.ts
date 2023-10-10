@@ -16,10 +16,11 @@ import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-men
   providers: [WorksMenuStore],
 })
 export class CheckboxWorksMenuComponent {
+  @Input() visible = false;
   @Input() nodes: TreeNode[] = [];
 
+  @Output() visibleChange = new EventEmitter<boolean>();
   @Output() selectionChangeEmitter = new EventEmitter<Work[]>();
-  @Output() closeEmitter = new EventEmitter<void>();
 
   @ViewChild(Tree, { static: false }) tree: Tree | undefined;
 
@@ -42,7 +43,8 @@ export class CheckboxWorksMenuComponent {
   }
 
   onClose() {
-    this.closeEmitter.emit();
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
   }
 
   onSelectionChange(selection: TreeNode[]) {

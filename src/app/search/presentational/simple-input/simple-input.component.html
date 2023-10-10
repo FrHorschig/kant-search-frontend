@@ -25,14 +25,8 @@
   </app-input-group>
 </p-panel>
 
-<p-dialog
+<app-checkbox-works-menu
   [(visible)]="showWorksMenu"
-  [modal]="true"
-  [header]="'SEARCH.INPUT.SELECT_WORKS' | translate"
->
-  <app-checkbox-works-menu
-    [nodes]="nodes"
-    (selectionChangeEmitter)="onWorksChange($event)"
-    (closeEmitter)="showWorksMenu = false"
-  ></app-checkbox-works-menu>
-</p-dialog>
+  [nodes]="nodes"
+  (selectionChangeEmitter)="onWorksChange($event)"
+></app-checkbox-works-menu>
