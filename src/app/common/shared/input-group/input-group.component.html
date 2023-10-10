@@ -5,16 +5,14 @@
     </label>
   </div>
 
-  <div [ngClass]="hasIcon ? 'col-8' : 'col-9'">
+  <div [ngClass]="'col-8'">
     <ng-content></ng-content>
   </div>
 
-  <ng-container *ngIf="hasIcon">
-    <div class="col-1 mt-3">
-      <i
-        class="pi pi-info-circle"
-        pTooltip="{{ i18nString + '_INFO' | translate }}"
-      ></i>
-    </div>
-  </ng-container>
+  <div class="col-1 mt-3">
+    <i
+      class="pi pi-info-circle"
+      pTooltip="{{ i18nString + '_INFO' | translate }}"
+    ></i>
+  </div>
 </div>
