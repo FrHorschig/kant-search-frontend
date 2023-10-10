@@ -5,7 +5,7 @@
     "ADMIN": "Admin"
   },
   "READ": {
-    "MODE_CHECKBOX_LABEL": "Display text with line numbers"
+    "MODE_CHECKBOX_LABEL": "Show line numbers"
   },
   "SEARCH": {
     "INPUT": {
