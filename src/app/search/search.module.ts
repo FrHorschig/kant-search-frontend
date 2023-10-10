@@ -10,8 +10,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
-import { AccordionModule } from 'primeng/accordion';
-import { PanelModule } from 'primeng/panel';
 import { TreeModule } from 'primeng/tree';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
@@ -52,8 +50,6 @@ import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu
     MessagesModule,
     TooltipModule,
     DropdownModule,
-    AccordionModule,
-    PanelModule,
     TreeModule,
   ],
 })
