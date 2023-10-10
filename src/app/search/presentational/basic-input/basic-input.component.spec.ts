@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimpleInputComponent } from './simple-input.component';
+import { BasicInputComponent } from './basic-input.component';
 import { AccordionModule } from 'primeng/accordion';
 import { PanelModule } from 'primeng/panel';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,14 +13,14 @@ import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
 import { FormsModule } from '@angular/forms';
 
-describe('SimpleInputComponent', () => {
-  let component: SimpleInputComponent;
-  let fixture: ComponentFixture<SimpleInputComponent>;
+describe('BasicInputComponent', () => {
+  let component: BasicInputComponent;
+  let fixture: ComponentFixture<BasicInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        SimpleInputComponent,
+        BasicInputComponent,
         InputGroupComponent,
         MockCheckboxWorksMenuComponent,
       ],
@@ -35,7 +35,7 @@ describe('SimpleInputComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SimpleInputComponent);
+    fixture = TestBed.createComponent(BasicInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

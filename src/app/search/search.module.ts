@@ -19,9 +19,9 @@ import { ResultListComponent } from './presentational/result-list/result-list.co
 import { ResultItemComponent } from './presentational/result-item/result-item.component';
 import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
-import { SimpleInputComponent } from './presentational/simple-input/simple-input.component';
 import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
 import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu/checkbox-works-menu.component';
+import { BasicInputComponent } from './presentational/basic-input/basic-input.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu
     ResultItemComponent,
     ParagraphDialogComponent,
     RemovePaginationPipe,
-    SimpleInputComponent,
+    BasicInputComponent,
     AdvancedInputComponent,
     CheckboxWorksMenuComponent,
   ],

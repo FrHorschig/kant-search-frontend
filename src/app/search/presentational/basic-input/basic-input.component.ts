@@ -5,10 +5,10 @@ import { Section, SimpleInput } from '../../model/simple-input';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-simple-input',
-  templateUrl: './simple-input.component.html',
+  selector: 'app-basic-input',
+  templateUrl: './basic-input.component.html',
 })
-export class SimpleInputComponent implements OnInit {
+export class BasicInputComponent implements OnInit {
   @Input() nodes: TreeNode[] = [];
 
   @Output() simpleInputEmitter = new EventEmitter<SimpleInput>();
