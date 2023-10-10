@@ -14,7 +14,6 @@ import { MatchInfo } from '../../model/match-info';
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
-  @Input() workId = 0;
   @Input() info: MatchInfo = {
     workId: 0,
     workTitle: '',
