@@ -2,13 +2,10 @@
   <div class="w-full max-w-600">
     <app-simple-input
       [nodes]="(nodes$ | async) || []"
-      (worksChangeEmitter)="onWorksChange($event)"
-      (searchStringChangeEmitter)="onSearchStringChange($event)"
+      (simpleInputEmitter)="onSimpleInputChange($event)"
+      (worksEmitter)="onWorksChange($event)"
+      (doSearchEmitter)="onSearch()"
     ></app-simple-input>
-
-    <app-advanced-input
-      (optionsChangeEmitter)="onOptionsChange($event)"
-    ></app-advanced-input>
 
     <p-button
       styleClass="w-full"
@@ -19,5 +16,11 @@
       }}"
       (onClick)="onSearch()"
     ></p-button>
+
+    <div class="mb-5"></div>
+
+    <app-advanced-input
+      (optionsChangeEmitter)="onOptionsChange($event)"
+    ></app-advanced-input>
   </div>
 </div>

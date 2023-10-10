@@ -1,12 +1,42 @@
-<p-panel
-  [header]="'SEARCH.INPUT.SIMPLE_INPUT_HEADER' | translate"
-  styleClass="mb-2"
->
-  <p-button
-    styleClass="p-button-secondary w-full mb-2"
-    [label]="'SEARCH.INPUT.SELECT_WORKS' | translate"
-    (onClick)="showWorksMenu = true"
-  ></p-button>
+<form [formGroup]="form">
+  <div class="grid">
+    <div class="col-3 mt-3">
+      <label for="works-selection-dropdown">
+        {{ "SEARCH.INPUT.WORKS_BASIC_LABEL" | translate }}
+      </label>
+    </div>
+
+    <div [ngClass]="'col-8'">
+      <p-dropdown
+        id="works-selection-dropdown"
+        styleClass="w-full"
+        [options]="isCustomSelection ? customSelectOption : simpleSelectOptions"
+        [disabled]="isCustomSelection"
+        formControlName="section"
+      >
+        <ng-template pTemplate="selectedItem" let-item>
+          {{ "SEARCH.INPUT.WORKS_BASIC_OPTIONS." + item.label | translate }}
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+          {{ "SEARCH.INPUT.WORKS_BASIC_OPTIONS." + item.label | translate }}
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="col-1">
+      <p-button
+        [icon]="isCustomSelection ? 'pi pi-times' : 'pi pi-list'"
+        styleClass="p-button-sm p-button-secondary w-full"
+        pTooltip="{{
+          (isCustomSelection
+            ? 'SEARCH.INPUT.WORKS_ADVANCED_TOOLTIP_CUSTOM'
+            : 'SEARCH.INPUT.WORKS_ADVANCED_TOOLTIP'
+          ) | translate
+        }}"
+        (onClick)="onWorksMenuClick()"
+      ></p-button>
+    </div>
+  </div>
 
   <app-input-group
     idString="search-terms-input"
@@ -18,11 +48,10 @@
       class="w-full"
       type="text"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
-      [(ngModel)]="searchString"
-      (ngModelChange)="onSearchStringChange()"
+      formControlName="searchString"
     />
   </app-input-group>
-</p-panel>
+</form>
 
 <app-checkbox-works-menu
   [(visible)]="showWorksMenu"

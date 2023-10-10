@@ -1,6 +1,7 @@
-import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { Volume, Work } from 'kant-search-api';
 import { loadWorks, loadWorksSuccess } from './works.actions';
+import { Section } from 'src/app/search/model/simple-input';
 
 export const globalDataFeatureKey = 'globalData';
 
@@ -9,6 +10,7 @@ export interface State {
   volumeById: Map<number, Volume>;
   works: Work[];
   workById: Map<number, Work>;
+  worksBySection: Map<Section, Work[]>;
   isLoaded: boolean;
 }
 
@@ -17,6 +19,7 @@ export const initialState: State = {
   volumeById: new Map<number, Volume>(),
   works: [],
   workById: new Map<number, Work>(),
+  worksBySection: new Map<Section, Work[]>(),
   isLoaded: false,
 };
 
@@ -31,24 +34,26 @@ export const worksFeature = createFeature({
         volumeById: new Map<number, Volume>(),
         works: [],
         workById: new Map<number, Work>(),
+        worksBySection: new Map<Section, Work[]>(),
         isLoaded: false,
       };
     }),
     on(loadWorksSuccess, (state, { volumes, works }) => {
-      const volumesMap = new Map<number, Volume>();
+      const volumesById = new Map<number, Volume>();
       volumes.forEach((volume) => {
-        volumesMap.set(volume.id, volume);
+        volumesById.set(volume.id, volume);
       });
-      const worksMap = new Map<number, Work>();
+      const workById = new Map<number, Work>();
       works.forEach((work) => {
-        worksMap.set(work.id, work);
+        workById.set(work.id, work);
       });
       return {
         ...state,
         volumes,
-        volumeById: volumesMap,
+        volumeById: volumesById,
         works,
-        workById: worksMap,
+        workById: workById,
+        worksBySection: getWorksBySection(works, volumesById),
         isLoaded: true,
       };
     })
@@ -60,11 +65,27 @@ export const {
   selectVolumeById,
   selectWorks,
   selectWorkById,
+  selectWorksBySection,
   selectIsLoaded,
 } = worksFeature;
 
-// TODO frhorsch: if not needed, remove
-// export const selectVolume = (id: number) =>
-// createSelector(selectVolumeById, (volumeById) => volumeById.get(id));
-// export const selectWork = (id: number) =>
-// createSelector(selectWorkById, (workById) => workById.get(id));
+const getWorksBySection = (works: Work[], volumesById: Map<number, Volume>) => {
+  const worksBySection = new Map<Section, Work[]>([
+    [Section.ALL, []],
+    [Section.SEC1, []],
+    [Section.SEC2, []],
+    [Section.SEC3, []],
+  ]);
+  works.forEach((work) => {
+    worksBySection.get(Section.ALL)?.push(work);
+    const sec = volumesById.get(work.volumeId)?.section;
+    if (sec == 1) {
+      worksBySection.get(Section.SEC1)?.push(work);
+    } else if (sec == 2) {
+      worksBySection.get(Section.SEC2)?.push(work);
+    } else if (sec == 3) {
+      worksBySection.get(Section.SEC3)?.push(work);
+    }
+  });
+  return worksBySection;
+};

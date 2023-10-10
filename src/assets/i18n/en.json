@@ -9,24 +9,30 @@
   },
   "SEARCH": {
     "INPUT": {
-      "SELECT_WORKS": "Select works",
-      "SIMPLE_INPUT_HEADER": "Search input",
-      "SELECT_WORKS_ALL": "Select all",
-      "SELECT_WORKS_NOTHING": "Remove all",
-      "ACCEPT": "Accept",
+      "WORKS_BASIC_LABEL": "Select works",
+      "WORKS_BASIC_OPTIONS": {
+        "ALL": "All works",
+        "SECTION_1": "Section 1: Works",
+        "SECTION_2": "Section 2: Letters",
+        "SECTION_3": "Section 3: Handwritten Legacy",
+        "CUSTOM": "Custom selection"
+      },
+      "WORKS_ADVANCED_TOOLTIP": "Show full list",
+      "WORKS_ADVANCED_TOOLTIP_CUSTOM": "Clear custom selection",
+      "WORKS_ADVANCED_SELECT_ALL": "Select all",
+      "WORKS_ADVANCED_REMOVE_ALL": "Remove all",
       "SEARCH_STRING_LABEL": "Search terms",
       "SEARCH_STRING_INFO": "Use special characters for advanced searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: !cat & (dog | \"white mice\")",
       "SEARCH_STRING_PLACEHOLDER": "Search terms",
-      "ADVANCED_INPUT": "Advanced input",
       "ADVANCED_OPTIONS_HEADER": "Advanced options",
       "SCOPE_LABEL": "Search scope",
       "SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
-      "SCOPE": {
+      "SCOPE_OPTIONS": {
         "PARAGRAPH": "Paragraph",
         "SENTENCE": "Sentence"
       },
       "BUTTON_LABEL": "Search",
-      "BUTTON_TOOLTIP": "You must enter at least one search term and select at least one work"
+      "BUTTON_TOOLTIP": "You must enter at least one search term"
     },
     "RESULTS": {
       "NONE_FOUND": "No results found",

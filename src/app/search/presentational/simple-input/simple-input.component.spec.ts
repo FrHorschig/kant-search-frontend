@@ -51,7 +51,6 @@ describe('SimpleInputComponent', () => {
     // WHEN
     component.onWorksChange(works);
     // THEN
-    expect(component.selectedWorksCount).toEqual(2);
     expect(component.worksChangeEmitter.emit).toHaveBeenCalledWith(works);
   });
 

@@ -1,25 +1,26 @@
-<p-accordion [activeIndex]="" styleClass="mb-2">
-  <p-accordionTab [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
-    <form [formGroup]="form">
-      <app-input-group
-        idString="scope-dropdown"
-        i18nString="SEARCH.INPUT.SCOPE"
+<p-panel
+  [header]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate"
+  [toggleable]="true"
+  [collapsed]="true"
+  toggler="header"
+  styleClass="mb-2"
+>
+  <form [formGroup]="form">
+    <app-input-group idString="scope-dropdown" i18nString="SEARCH.INPUT.SCOPE">
+      <p-dropdown
+        id="scope-dropdown"
+        [options]="scopes"
+        formControlName="scope"
+        styleClass="w-full"
       >
-        <p-dropdown
-          id="scope-dropdown"
-          [options]="scopes"
-          formControlName="scope"
-          styleClass="w-full"
-        >
-          <ng-template let-option pTemplate="selectedItem">
-            {{ "SEARCH.INPUT.SCOPE." + option | translate }}
-          </ng-template>
+        <ng-template let-option pTemplate="selectedItem">
+          {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
+        </ng-template>
 
-          <ng-template let-option pTemplate="item">
-            {{ "SEARCH.INPUT.SCOPE." + option | translate }}
-          </ng-template>
-        </p-dropdown>
-      </app-input-group>
-    </form>
-  </p-accordionTab>
-</p-accordion>
+        <ng-template let-option pTemplate="item">
+          {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
+        </ng-template>
+      </p-dropdown>
+    </app-input-group>
+  </form>
+</p-panel>
