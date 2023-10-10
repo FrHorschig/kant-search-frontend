@@ -28,7 +28,7 @@ export class TextStore extends ComponentStore<TextState> {
           tapResponse(
             (paragraphs) => this.patchState({ paragraphs }),
             (err: HttpErrorResponse) => {
-              this.errorService.logError(err.error.message);
+              this.errorService.logError(err.error.message, err.error.args);
               return EMPTY;
             }
           )

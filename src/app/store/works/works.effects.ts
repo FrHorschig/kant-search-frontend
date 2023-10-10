@@ -21,7 +21,7 @@ export class WorksEffects {
             return loadWorksSuccess({ volumes, works });
           }),
           catchError((err: HttpErrorResponse) => {
-            this.errorService.logError(err.error.message);
+            this.errorService.logError(err.error.message, err.error.args);
             return EMPTY;
           })
         )

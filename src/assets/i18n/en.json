@@ -47,5 +47,31 @@
     "TOOLTIP": "Select the work you want to upload",
     "SELECT_FILE": "Select text file to upload",
     "START_UPLOAD": "Start upload"
+  },
+  "ERROR": {
+    "SUMMARY": "Error",
+    "BAD_REQUEST": {
+      "GENERIC": "Bad request.",
+      "INVALID_WORK_SELECTION": "Invalid work selection.",
+      "INVALID_SEARCH_CRITERIA": "Invalid search criteria.",
+      "EMPTY_WORKS_SELECTION": "You must select at least one work.",
+      "EMPTY_SEARCH_TERMS": "Search terms cannot be empty.",
+      "EMPTY_WORK_TEXT": "Work text cannot be empty.",
+      "SYNTAX.UNEXPECTED_TOKEN": "Syntax error: unexpected token '{{ param0 }}'.",
+      "SYNTAX.UNEXPECTED_END_OF_INPUT": "Syntax error: unexpected end of input.",
+      "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntax error: missing closing parenthesis after '{{ param0 }}'.",
+      "SYNTAX.WRONG_STARTING_CHAR": "Syntax error: wrong starting character '{{ param0 }}'.",
+      "SYNTAX.WRONG_ENDING_CHAR": "Syntax error: wrong ending character '{{ param0 }}'.",
+      "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntax error: unterminated double quote after '{{ param0 }}'."
+    },
+    "NOT_FOUND": {
+      "GENERIC": "Not found.",
+      "VOLUMES": "No volumes found.",
+      "WORKS": "No works found.",
+      "PARAGRAPHS": "No paragraphs found.",
+      "MATCHES": "No matches found."
+    },
+    "INTERNAL_SERVER_ERROR": "Internal server error.",
+    "NOT_IMPLEMENTED": "Feature not implemented."
   }
 }

@@ -37,7 +37,7 @@ export class UploadStore extends ComponentStore<UploadState> {
                   summary: 'Success',
                 }),
               (err: HttpErrorResponse) => {
-                this.errorService.logError(err.error.message);
+                this.errorService.logError(err.error.message, err.error.args);
                 return EMPTY;
               }
             )

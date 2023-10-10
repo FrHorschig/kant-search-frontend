@@ -32,7 +32,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             (err: HttpErrorResponse) => {
               this.patchState({ isLoading: false });
               if (err.status !== 404) {
-                this.errorService.logError(err.error.message);
+                this.errorService.logError(err.error.message, err.error.args);
               }
               return EMPTY;
             }
