@@ -46,25 +46,18 @@ describe('TextStore', () => {
   });
 
   it('should handle error and log it', () => {
+    const err: HttpError = {
+      code: 404,
+      message: ErrorMessage.NotFoundMatches,
+      params: ['param'],
+    };
     // GIVEN
     readService.getParagraphs.and.returnValue(
-      throwError(
-        () =>
-          new HttpErrorResponse({
-            error: {
-              code: 400,
-              message: ErrorMessage.BadRequestEmptySearchTerms,
-              args: ['arg'],
-            } as HttpError,
-          })
-      )
+      throwError(() => new HttpErrorResponse({ error: err }))
     );
     // WHEN
     store.loadParagraphs(1);
     // THEN
-    expect(errorService.logError).toHaveBeenCalledWith(
-      ErrorMessage.BadRequestEmptySearchTerms,
-      ['arg']
-    );
+    expect(errorService.logError).toHaveBeenCalledWith(err);
   });
 });

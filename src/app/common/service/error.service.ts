@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { HttpError } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
 import { forkJoin } from 'rxjs';
 
@@ -12,16 +13,16 @@ export class ErrorService {
     private readonly messageService: MessageService
   ) {}
 
-  logError(msg: string, args: string[] | undefined) {
+  logError(err: HttpError) {
     this.messageService.clear();
     const summary$ = this.translateService.get('ERROR.SUMMARY');
-    const argsObject = args
-      ? args.reduce((acc: any, arg, index) => {
-          acc[`param${index}`] = arg;
+    const paramsObj = err.params
+      ? err.params.reduce((acc: any, param, index) => {
+          acc[`param${index}`] = param;
           return acc;
         }, {})
       : {};
-    const msg$ = this.translateService.get('ERROR.' + msg, argsObject);
+    const msg$ = this.translateService.get('ERROR.' + err.message, paramsObj);
     forkJoin([summary$, msg$]).subscribe((translations) => {
       this.messageService.add({
         severity: 'error',

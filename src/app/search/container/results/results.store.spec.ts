@@ -64,18 +64,14 @@ describe('ResultsStore', () => {
   });
 
   it('should log error when search fails', () => {
+    const err: HttpError = {
+      code: 404,
+      message: ErrorMessage.NotFoundMatches,
+      params: ['param'],
+    };
     // GIVEN
     mockSearchService.search.and.returnValue(
-      throwError(
-        () =>
-          new HttpErrorResponse({
-            error: {
-              code: 404,
-              message: ErrorMessage.NotFoundMatches,
-              args: ['arg'],
-            } as HttpError,
-          })
-      )
+      throwError(() => new HttpErrorResponse({ error: err }))
     );
     // WHEN
     store.searchParagraphs({
@@ -86,10 +82,7 @@ describe('ResultsStore', () => {
       },
     });
     // THEN
-    expect(mockErrorService.logError).toHaveBeenCalledWith(
-      ErrorMessage.NotFoundMatches,
-      ['arg']
-    );
+    expect(mockErrorService.logError).toHaveBeenCalledWith(err);
     store.isLoading$.subscribe((isLoading) => expect(isLoading).toBeFalse());
   });
 

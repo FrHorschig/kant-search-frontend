@@ -5,6 +5,7 @@ import { createMessageServiceSpy } from '../test/primeng-services';
 import { TranslateService } from '@ngx-translate/core';
 import { createTranslateServiceSpy } from '../test/serivces';
 import { of } from 'rxjs';
+import { ErrorMessage } from 'kant-search-api';
 
 describe('ErrorService', () => {
   let sut: ErrorService;
@@ -29,11 +30,14 @@ describe('ErrorService', () => {
   });
 
   it('should clear previous messages and log a message with a parameter', () => {
-    const msg = 'Test Error';
     // GIVEN
     translateService.get.and.returnValue(of('Test text'));
     // WHEN
-    sut.logError(msg, ['test']);
+    sut.logError({
+      code: 400,
+      message: ErrorMessage.BadRequestGeneric,
+      params: ['test'],
+    });
     // THEN
     expect(messageService.clear).toHaveBeenCalled();
     expect(translateService.get).toHaveBeenCalled();
@@ -41,11 +45,10 @@ describe('ErrorService', () => {
   });
 
   it('should clear previous messages and log a message with undefined parameter', () => {
-    const msg = 'Test Error';
     // GIVEN
     translateService.get.and.returnValue(of('Test text'));
     // WHEN
-    sut.logError(msg, undefined);
+    sut.logError({ code: 400, message: ErrorMessage.BadRequestGeneric });
     // THEN
     expect(messageService.clear).toHaveBeenCalled();
     expect(translateService.get).toHaveBeenCalled();
