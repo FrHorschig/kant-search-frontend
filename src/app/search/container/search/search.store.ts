@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from 'kant-search-api';
-import { switchMap, tap, withLatestFrom } from 'rxjs';
+import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
 import { Section, BasicInput } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
@@ -33,6 +33,7 @@ export class SearchStore extends ComponentStore<SearchState> {
 
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
+      filter(() => this.get((state) => state.searchString) !== ''),
       switchMap(() =>
         this.workStore.select(WorksReducers.selectWorksBySection).pipe(
           withLatestFrom(this.langStore.currentLanguage$),

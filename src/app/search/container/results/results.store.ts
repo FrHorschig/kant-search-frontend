@@ -9,7 +9,7 @@ import {
   SearchService,
 } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
-import { EMPTY, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface ResultsState {
@@ -61,6 +61,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   );
   readonly updateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
+      filter(() => this.get((state) => state.criteria.searchString) !== ''),
       tap(() => this.messageService.clear()),
       withLatestFrom(this.select((state) => state.criteria)),
       tap(([_, criteria]) =>
