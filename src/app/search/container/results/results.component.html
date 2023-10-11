@@ -18,4 +18,5 @@
 <app-paragraph-dialog
   [(isVisible)]="showParagraph"
   [info]="matchInfo"
+  (navigateEmitter)="onFullTextNavigation($event)"
 ></app-paragraph-dialog>

@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
 import { ScrollService } from 'src/app/read/service/scroll.service';
+import { FullTextInfo } from '../../model/full-text-info';
 
 @Component({
   selector: 'app-results',
@@ -74,5 +75,9 @@ export class ResultsComponent
   onUpdate(searchString: string) {
     this.resultsStore.updateSearchString(searchString);
     this.resultsStore.updateSearch();
+  }
+
+  onFullTextNavigation(info: FullTextInfo) {
+    this.resultsStore.navigateToFullText(info);
   }
 }

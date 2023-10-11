@@ -9,8 +9,7 @@
   <div class="flex justify-content-end">
     <p-button
       styleClass="p-button-secondary"
-      [routerLink]="['/read/text/', info.workId]"
-      fragment="paragraph-{{ info.match.paragraphId }}"
+      (click)="onNavigate()"
       pTooltip="{{ 'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate }}"
     >
       <div class="mt-1">

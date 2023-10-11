@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatchInfo } from '../../model/match-info';
+import { FullTextInfo } from '../../model/full-text-info';
 
 @Component({
   selector: 'app-paragraph-dialog',
@@ -22,6 +23,7 @@ export class ParagraphDialogComponent implements OnChanges {
   } as MatchInfo;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
+  @Output() navigateEmitter = new EventEmitter<FullTextInfo>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isVisible']) {
@@ -33,5 +35,12 @@ export class ParagraphDialogComponent implements OnChanges {
   onHide() {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible);
+  }
+
+  onNavigate() {
+    this.navigateEmitter.emit({
+      workId: this.info.workId,
+      fragment: `paragraph-${this.info.match.paragraphId}`,
+    });
   }
 }

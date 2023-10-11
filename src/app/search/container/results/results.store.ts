@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { EMPTY, filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
+import { FullTextInfo } from '../../model/full-text-info';
 
 interface ResultsState {
   criteria: SearchCriteria;
@@ -81,6 +82,16 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           },
         })
       )
+    )
+  );
+  readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
+    info$.pipe(
+      withLatestFrom(this.langStore.currentLanguage$),
+      tap(([info, lang]) => {
+        this.router.navigate([`${lang}/read/text`, info.workId], {
+          fragment: info.fragment,
+        });
+      })
     )
   );
 

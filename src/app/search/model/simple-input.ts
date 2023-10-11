@@ -8,5 +8,5 @@ export enum Section {
 }
 
 export class BasicInput {
-  constructor(public section = Section.ALL, public searchString = '') {}
+  constructor(public section: Section, public searchString: string) {}
 }
