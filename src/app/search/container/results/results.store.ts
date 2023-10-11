@@ -11,6 +11,7 @@ import {
 import { MessageService } from 'primeng/api';
 import { EMPTY, filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
+import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface ResultsState {
   criteria: SearchCriteria;
@@ -22,6 +23,7 @@ interface ResultsState {
 export class ResultsStore extends ComponentStore<ResultsState> {
   constructor(
     private readonly router: Router,
+    private readonly langStore: LanguageStore,
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,
     private readonly searchService: SearchService
@@ -63,9 +65,12 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     trigger$.pipe(
       filter(() => this.get((state) => state.criteria.searchString) !== ''),
       tap(() => this.messageService.clear()),
-      withLatestFrom(this.select((state) => state.criteria)),
-      tap(([_, criteria]) =>
-        this.router.navigate(['/search/results'], {
+      withLatestFrom(
+        this.select((state) => state.criteria),
+        this.langStore.currentLanguage$
+      ),
+      tap(([_, criteria, lang]) =>
+        this.router.navigate([`${lang}/search/results`], {
           queryParams: {
             workIds: criteria.workIds.join(','),
             searchString: criteria.searchString,
