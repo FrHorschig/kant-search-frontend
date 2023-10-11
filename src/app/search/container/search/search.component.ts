@@ -7,7 +7,7 @@ import { Work } from 'kant-search-api';
 import { SearchOptions } from '../../model/search-output';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { MessageService } from 'primeng/api';
-import { SimpleInput } from '../../model/simple-input';
+import { BasicInput } from '../../model/simple-input';
 
 @Component({
   selector: 'app-search',
@@ -33,7 +33,7 @@ export class SearchComponent extends ContainerComponent {
     this.searchStore.putWorks(works);
   }
 
-  onSimpleInputChange(options: SimpleInput) {
+  onSimpleInputChange(options: BasicInput) {
     this.searchStore.putSimpleInput(options);
   }
 

@@ -61,6 +61,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   );
   readonly updateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
+      tap(() => this.messageService.clear()),
       withLatestFrom(this.select((state) => state.criteria)),
       tap(([_, criteria]) =>
         this.router.navigate(['/search/results'], {

@@ -1,6 +1,5 @@
 import { OriginalModePipe } from './original-mode.pipe';
 
-const s2 = '&nbsp;&nbsp;';
 const s3 = '&nbsp;&nbsp;&nbsp;';
 
 describe('OriginalModePipe', () => {
@@ -42,7 +41,7 @@ describe('OriginalModePipe', () => {
     const input = '{l2} This is another test string.';
     const output = pipe.transform(input);
     expect(output).toContain(
-      `</br>${s3}${s2}<span class="ks-pagination-s">.</span>${s3}`
+      `</br>${s3}<span class="ks-pagination-s">${s3}.</span>${s3}`
     );
   });
 

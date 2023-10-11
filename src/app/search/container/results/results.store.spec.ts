@@ -11,12 +11,15 @@ import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { Testdata } from 'src/app/common/test/testdata';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
   let mockSearchService: jasmine.SpyObj<SearchService>;
   let mockMessageService: jasmine.SpyObj<MessageService>;
   let mockErrorService: jasmine.SpyObj<ErrorService>;
+  let router: Router;
 
   beforeEach(() => {
     mockSearchService = jasmine.createSpyObj('SearchService', ['search']);
@@ -30,9 +33,11 @@ describe('ResultsStore', () => {
         { provide: MessageService, useValue: mockMessageService },
         { provide: ErrorService, useValue: mockErrorService },
       ],
+      imports: [RouterTestingModule],
     });
 
     store = TestBed.inject(ResultsStore);
+    router = TestBed.inject(Router);
   });
 
   it('should have initial state', () => {
@@ -86,5 +91,24 @@ describe('ResultsStore', () => {
       ['arg']
     );
     store.isLoading$.subscribe((isLoading) => expect(isLoading).toBeFalse());
+  });
+
+  it('should update search string', () => {
+    // WHEN
+    store.updateSearchString('test');
+    // THEN
+    store.searchString$.subscribe((searchString) =>
+      expect(searchString).toBe('test')
+    );
+  });
+
+  it('should navigate when updateSearch is called', () => {
+    // GIVEN
+    const routerSpy = spyOn(router, 'navigate');
+    // WHEN
+    store.updateSearch();
+    // THEN
+    expect(mockMessageService.clear).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalled();
   });
 });

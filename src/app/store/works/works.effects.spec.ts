@@ -37,7 +37,7 @@ describe('WorksEffects', () => {
   it('should load works data and dispatch loadWorksSuccess action', () => {
     // GIVEN
     (readService.getVolumes as jasmine.Spy).and.returnValue(
-      of(Testdata.volumes)
+      of([Testdata.volume])
     );
     (readService.getWorks as jasmine.Spy).and.returnValue(of([Testdata.work]));
     // WHEN
@@ -45,7 +45,7 @@ describe('WorksEffects', () => {
     // THEN
     const expected = cold('-b-', {
       b: loadWorksSuccess({
-        volumes: Testdata.volumes,
+        volumes: [Testdata.volume],
         works: [Testdata.work],
       }),
     });

@@ -5,15 +5,14 @@ import { TextStore } from './text.store';
 import { Subject, of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
 import { ScrollService } from '../../service/scroll.service';
+import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 
 describe('TextComponent', () => {
   let component: TextComponent;
   let fixture: ComponentFixture<TextComponent>;
   let mockRoute: any;
   let mockTextStore: jasmine.SpyObj<TextStore>;
-  let mockScrollService = jasmine.createSpyObj('ScrollService', [
-    'scrollToAnchor',
-  ]);
+  let mockScrollService = createScrollServiceSpy();
   let fragmentSubject = new Subject<string>();
 
   beforeEach(() => {
@@ -30,11 +29,10 @@ describe('TextComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [TextComponent],
-      providers: [
-        { provide: ActivatedRoute, useValue: mockRoute },
-        { provide: ScrollService, useValue: mockScrollService },
-      ],
-    }).overrideProvider(TextStore, { useValue: mockTextStore });
+      providers: [{ provide: ActivatedRoute, useValue: mockRoute }],
+    })
+      .overrideProvider(TextStore, { useValue: mockTextStore })
+      .overrideProvider(ScrollService, { useValue: mockScrollService });
 
     fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
@@ -63,6 +61,7 @@ describe('TextComponent', () => {
   });
 
   it('should call scroll service when no fragment exists', () => {
+    mockScrollService.scrollToAnchor.calls.reset();
     // WHEN
     component.ngAfterViewInit();
     fragmentSubject.next('');
@@ -70,8 +69,8 @@ describe('TextComponent', () => {
     expect(mockScrollService.scrollToAnchor).not.toHaveBeenCalled();
   });
 
-  /* TODO frhorsch: fix
   it('should call scroll service when a fragment exists', () => {
+    mockScrollService.scrollToAnchor.calls.reset();
     const fragment = 'id-1';
     // WHEN
     component.ngAfterViewInit();
@@ -79,5 +78,4 @@ describe('TextComponent', () => {
     // THEN
     expect(mockScrollService.scrollToAnchor).toHaveBeenCalledWith(fragment);
   });
-  */
 });

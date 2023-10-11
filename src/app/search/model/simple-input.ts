@@ -7,6 +7,6 @@ export enum Section {
   CUSTOM = 4,
 }
 
-export class SimpleInput {
-  constructor(public section: Section, public searchString: string) {}
+export class BasicInput {
+  constructor(public section = Section.ALL, public searchString = '') {}
 }

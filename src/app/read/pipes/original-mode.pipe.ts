@@ -23,7 +23,7 @@ export class OriginalModePipe implements PipeTransform {
             ? `</br>${this.s3()}<span class="ks-pagination-s">${this.addLeadingSpace(
                 num
               )}</span>${this.s3()}`
-            : `</br>${this.s5()}<span class="ks-pagination-s">.</span>${this.s3()}`;
+            : `</br>${this.s3()}<span class="ks-pagination-s">${this.s3()}.</span>${this.s3()}`;
         }
       );
   }
@@ -35,15 +35,7 @@ export class OriginalModePipe implements PipeTransform {
     return n.toString();
   }
 
-  private s2(): string {
-    return `&nbsp;&nbsp;&nbsp;`;
-  }
-
   private s3(): string {
     return `&nbsp;&nbsp;&nbsp;`;
-  }
-
-  private s5(): string {
-    return `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
   }
 }

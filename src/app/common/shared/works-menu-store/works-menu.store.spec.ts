@@ -166,8 +166,8 @@ describe('WorksMenuStore', () => {
   });
 
   it('should create one node when one volume is not found', (done) => {
-    const works: Work[] = [Testdata.work];
-    const volumeById = Testdata.volumeById;
+    const works: Work[] = [Testdata.work, Testdata.work2];
+    const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
 
     // GIVEN
     mockStore.select.and.callFake((selector: any) => {

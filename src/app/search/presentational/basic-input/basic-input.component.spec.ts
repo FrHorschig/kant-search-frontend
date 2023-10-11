@@ -45,7 +45,7 @@ describe('BasicInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit worksChangeEmitter when onWorksChange is called', () => {
+  it('should emit works when onWorksChange is called', () => {
     const works: Work[] = [Testdata.work, Testdata.work2];
     // GIVEN
     spyOn(component.worksEmitter, 'emit');
@@ -65,5 +65,35 @@ describe('BasicInputComponent', () => {
       section: Section.SEC1,
       searchString: 'Kant',
     });
+  });
+
+  it('should emit doSearchEmitter when onSubmit is called', () => {
+    // GIVEN
+    spyOn(component.doSearchEmitter, 'emit');
+    // WHEN
+    component.onSubmit();
+    // THEN
+    expect(component.doSearchEmitter.emit).toHaveBeenCalled();
+  });
+
+  it('should set isCustomSelection to false and set form value if isCustomSelection is true', () => {
+    // GIVEN
+    component.isCustomSelection = true;
+    component.form.setValue({ section: Section.SEC1, searchString: 'Kant' });
+    // WHEN
+    component.onWorksMenuClick();
+    // THEN
+    expect(component.isCustomSelection).toBeFalse();
+    expect(component.form.value.section).toEqual(Section.ALL);
+    expect(component.form.value.searchString).toBe('Kant');
+  });
+
+  it('should set showWorksMenu to true if isCustomSelection is false', () => {
+    // GIVEN
+    component.isCustomSelection = false;
+    // WHEN
+    component.onWorksMenuClick();
+    // THEN
+    expect(component.showWorksMenu).toBe(true);
   });
 });

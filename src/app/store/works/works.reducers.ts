@@ -39,21 +39,14 @@ export const worksFeature = createFeature({
       };
     }),
     on(loadWorksSuccess, (state, { volumes, works }) => {
-      const volumesById = new Map<number, Volume>();
-      volumes.forEach((volume) => {
-        volumesById.set(volume.id, volume);
-      });
-      const workById = new Map<number, Work>();
-      works.forEach((work) => {
-        workById.set(work.id, work);
-      });
+      const volsById = new Map<number, Volume>(volumes.map((v) => [v.id, v]));
       return {
         ...state,
         volumes,
-        volumeById: volumesById,
+        volumeById: volsById,
         works,
-        workById: workById,
-        worksBySection: getWorksBySection(works, volumesById),
+        workById: new Map<number, Work>(works.map((w) => [w.id, w])),
+        worksBySection: getWorksBySection(works, volsById),
         isLoaded: true,
       };
     })

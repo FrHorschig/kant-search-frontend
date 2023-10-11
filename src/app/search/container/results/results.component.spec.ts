@@ -1,9 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResultsComponent } from './results.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
@@ -18,7 +13,6 @@ import { SearchScope } from 'kant-search-api';
 import { ScrollService } from 'src/app/read/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { MatchInfo } from '../../model/match-info';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -28,7 +22,7 @@ describe('ResultsComponent', () => {
   };
   let mockResultsStore = jasmine.createSpyObj(
     'ResultsStore',
-    ['searchParagraphs'],
+    ['searchParagraphs', 'updateSearch', 'updateSearchString'],
     {
       result$: of([]),
       resultCount$: of(0),
@@ -135,5 +129,16 @@ describe('ResultsComponent', () => {
     // THEN
     expect(component.matchInfo).toBe(Testdata.matchInfo);
     expect(component.showParagraph).toBeTrue();
+  });
+
+  it('should update search string and trigger a new search', () => {
+    const testSearchString = 'Test String';
+    // WHEN
+    component.onUpdate(testSearchString);
+    // GIVEN
+    expect(mockResultsStore.updateSearchString).toHaveBeenCalledWith(
+      testSearchString
+    );
+    expect(mockResultsStore.updateSearch).toHaveBeenCalled();
   });
 });

@@ -58,4 +58,22 @@ describe('AppComponent', () => {
   it('should dispatch loadWorks action', () => {
     expect(mockStore.dispatch).toHaveBeenCalledWith(WorksActions.loadWorks());
   });
+
+  it('should set showButton to true when window.scrollY > 200', () => {
+    spyOnProperty(window, 'scrollY').and.returnValue(201);
+    component.onWindowScroll();
+    expect(component.showButton).toBeTrue();
+  });
+
+  it('should set showButton to false when window.scrollY <= 200', () => {
+    spyOnProperty(window, 'scrollY').and.returnValue(200);
+    component.onWindowScroll();
+    expect(component.showButton).toBeFalse();
+  });
+
+  it('should call window.scrollTo with correct parameters', () => {
+    const scrollSpy = spyOn(window as any, 'scrollTo');
+    component.scrollTop();
+    expect(scrollSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+  });
 });

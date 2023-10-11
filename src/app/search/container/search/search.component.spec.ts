@@ -18,7 +18,7 @@ import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
-import { Section, SimpleInput } from '../../model/simple-input';
+import { Section, BasicInput } from '../../model/simple-input';
 import { DividerModule } from 'primeng/divider';
 
 describe('SearchComponent', () => {
@@ -84,7 +84,7 @@ describe('SearchComponent', () => {
     const basicInput = {
       section: Section.ALL,
       searchString: 'test',
-    } as SimpleInput;
+    } as BasicInput;
     // WHEN
     component.onSimpleInputChange(basicInput);
     // THEN

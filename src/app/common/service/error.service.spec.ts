@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { ErrorService } from './error.service';
 import { createMessageServiceSpy } from '../test/primeng-services';
 import { TranslateService } from '@ngx-translate/core';
-import { createTranslateServiceSpy } from '../test/ngx-serivce';
+import { createTranslateServiceSpy } from '../test/serivces';
 import { of } from 'rxjs';
 
 describe('ErrorService', () => {
@@ -28,17 +28,27 @@ describe('ErrorService', () => {
     expect(sut).toBeTruthy();
   });
 
-  describe('logError', () => {
-    it('should clear previous messages and log a new error message', () => {
-      const msg = 'Test Error';
-      // GIVEN
-      translateService.get.and.returnValue(of('Test text'));
-      // WHEN
-      sut.logError(msg, ['test']);
-      // THEN
-      expect(messageService.clear).toHaveBeenCalled();
-      expect(translateService.get).toHaveBeenCalled();
-      expect(messageService.add).toHaveBeenCalled();
-    });
+  it('should clear previous messages and log a message with a parameter', () => {
+    const msg = 'Test Error';
+    // GIVEN
+    translateService.get.and.returnValue(of('Test text'));
+    // WHEN
+    sut.logError(msg, ['test']);
+    // THEN
+    expect(messageService.clear).toHaveBeenCalled();
+    expect(translateService.get).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should clear previous messages and log a message with undefined parameter', () => {
+    const msg = 'Test Error';
+    // GIVEN
+    translateService.get.and.returnValue(of('Test text'));
+    // WHEN
+    sut.logError(msg, undefined);
+    // THEN
+    expect(messageService.clear).toHaveBeenCalled();
+    expect(translateService.get).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
   });
 });

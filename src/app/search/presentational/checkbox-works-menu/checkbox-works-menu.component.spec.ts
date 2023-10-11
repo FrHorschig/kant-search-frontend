@@ -107,4 +107,15 @@ describe('CheckboxWorksMenuComponent', () => {
     expect(component.tree?.selection).toEqual([]);
     expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([]);
   });
+
+  it('should set visible to false and emit visibleChange event on onClose', () => {
+    // GIVEN
+    spyOn(component.visibleChange, 'emit');
+    component.visible = true;
+    // WHEN
+    component.onClose();
+    // THEN
+    expect(component.visible).toBeFalse();
+    expect(component.visibleChange.emit).toHaveBeenCalledWith(false);
+  });
 });

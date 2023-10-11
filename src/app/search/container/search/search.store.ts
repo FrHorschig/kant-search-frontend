@@ -4,7 +4,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from 'kant-search-api';
 import { switchMap, tap } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
-import { Section, SimpleInput } from '../../model/simple-input';
+import { Section, BasicInput } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 
@@ -51,7 +51,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
-  readonly putSimpleInput = this.updater((state, options: SimpleInput) => ({
+  readonly putSimpleInput = this.updater((state, options: BasicInput) => ({
     ...state,
     section: options.section,
     searchString: options.searchString,

@@ -4,6 +4,7 @@ import { MatchInfo } from 'src/app/search/model/match-info';
 export class Testdata {
   static volume: Volume = { id: 1, title: 'Volume 1', section: 1 };
   static volume2: Volume = { id: 2, title: 'Volume 2', section: 2 };
+  static volume3: Volume = { id: 3, title: 'Volume 3', section: 3 };
   static work: Work = {
     id: 1,
     title: 'Work 1',
@@ -18,20 +19,27 @@ export class Testdata {
     ordinal: 0,
     volumeId: 2,
   };
-  static volumes: Volume[] = [this.volume, this.volume2];
+  static work3: Work = {
+    id: 3,
+    title: 'Work 3',
+    ordinal: 0,
+    volumeId: 3,
+  };
   static volumeById = new Map<number, Volume>([
     [1, this.volume],
     [2, this.volume2],
+    [3, this.volume3],
   ]);
   static workById = new Map<number, Work>([
     [1, this.work],
     [2, this.work2],
+    [3, this.work3],
   ]);
   static worksBySection = new Map<number, Work[]>([
-    [0, [this.work, this.work2]],
+    [0, [this.work, this.work2, this.work3]],
     [1, [this.work]],
     [2, [this.work2]],
-    [3, []],
+    [3, [this.work3]],
   ]);
 
   static match: Match = {

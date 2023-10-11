@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';
-import { SearchScope } from 'kant-search-api';
+import { SearchScope, Work } from 'kant-search-api';
 import { Section } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
@@ -53,7 +53,7 @@ describe('SearchStore', () => {
     });
   });
 
-  it('should navigate when non-custom section and search terms exist', () => {
+  it('should navigate with non-custom section and search terms', () => {
     // GIVEN
     store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
     mockStore.select.and.callFake((selector: any) => {
@@ -68,11 +68,41 @@ describe('SearchStore', () => {
     // THEN
     expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
       queryParams: {
-        workIds: '1,2',
+        workIds: '1,2,3',
         searchString: 'test',
         scope: 'PARAGRAPH',
       },
     });
+    Testdata.worksBySection.set(Section.SEC3, [Testdata.work3]);
+  });
+
+  it('should navigate with empty ALL map item', () => {
+    // GIVEN
+    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectWorksBySection) {
+        return of(
+          new Map<number, Work[]>([
+            [1, [Testdata.work]],
+            [2, [Testdata.work2]],
+            [3, [Testdata.work3]],
+          ])
+        );
+      }
+      return of();
+    });
+    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
+    // WHEN
+    store.navigateSearch();
+    // THEN
+    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+      queryParams: {
+        workIds: '',
+        searchString: 'test',
+        scope: 'PARAGRAPH',
+      },
+    });
+    Testdata.worksBySection.set(Section.SEC3, [Testdata.work3]);
   });
 
   it('should update works', () => {

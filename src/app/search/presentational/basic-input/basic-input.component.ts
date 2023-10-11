@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { Section, SimpleInput } from '../../model/simple-input';
+import { Section, BasicInput } from '../../model/simple-input';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class BasicInputComponent implements OnInit {
   @Input() nodes: TreeNode[] = [];
 
-  @Output() simpleInputEmitter = new EventEmitter<SimpleInput>();
+  @Output() simpleInputEmitter = new EventEmitter<BasicInput>();
   @Output() worksEmitter = new EventEmitter<Work[]>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
@@ -40,7 +40,10 @@ export class BasicInputComponent implements OnInit {
   onWorksMenuClick() {
     if (this.isCustomSelection) {
       this.isCustomSelection = false;
-      this.form.setValue({ section: Section.ALL });
+      this.form.setValue({
+        section: Section.ALL,
+        searchString: this.form.value.searchString,
+      });
     } else {
       this.showWorksMenu = true;
     }
