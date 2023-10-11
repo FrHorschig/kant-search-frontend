@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from 'kant-search-api';
-import { switchMap, tap } from 'rxjs';
+import { switchMap, tap, withLatestFrom } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
 import { Section, BasicInput } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
+import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface SearchState {
   workIds: number[];
@@ -19,7 +20,8 @@ interface SearchState {
 export class SearchStore extends ComponentStore<SearchState> {
   constructor(
     private readonly router: Router,
-    private readonly workStore: Store
+    private readonly workStore: Store,
+    private readonly langStore: LanguageStore
   ) {
     super({
       workIds: [],
@@ -33,8 +35,9 @@ export class SearchStore extends ComponentStore<SearchState> {
     trigger$.pipe(
       switchMap(() =>
         this.workStore.select(WorksReducers.selectWorksBySection).pipe(
-          tap((worksBySection) => {
-            this.router.navigate(['/search/results'], {
+          withLatestFrom(this.langStore.currentLanguage$),
+          tap(([worksBySection, lang]) => {
+            this.router.navigate([`/${lang}/search/results`], {
               queryParams: {
                 workIds: this.getWorkIds(worksBySection).join(','),
                 searchString: this.get((state) => state.searchString),
