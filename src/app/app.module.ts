@@ -12,20 +12,26 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ApiModule } from 'kant-search-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StartpageComponent } from './startpage/startpage.component';
+import { StartpageComponent } from './app/startpage/startpage.component';
 import { MessageService } from 'primeng/api';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { worksFeature } from './store/works/works.reducers';
 import { WorksEffects } from './store/works/works.effects';
+import { NotFoundComponent } from './app/not-found/not-found.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 }
 
 @NgModule({
-  declarations: [AppComponent, StartpageComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    StartpageComponent,
+    NavbarComponent,
+    NotFoundComponent,
+  ],
   imports: [
     ApiModule,
     HttpClientModule,

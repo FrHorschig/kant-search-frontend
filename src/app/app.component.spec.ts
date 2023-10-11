@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
 import { MessagesModule } from 'primeng/messages';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TabMenuModule } from 'primeng/tabmenu';
