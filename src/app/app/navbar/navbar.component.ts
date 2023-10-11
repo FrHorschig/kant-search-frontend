@@ -12,6 +12,13 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
   currentLang: string = '';
   items: MenuItem[] = [
     {
+      icon: 'pi pi-home',
+      command: () => {
+        this.messageService.clear();
+        this.router.navigate([`/${this.currentLang}/startpage`]);
+      },
+    },
+    {
       label: 'NAVBAR.READ',
       icon: 'pi pi-eye',
       command: () => {
