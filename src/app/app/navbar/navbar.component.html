@@ -9,11 +9,15 @@
     </ng-template>
   </p-tabMenu>
 
-  <p-tabMenu [model]="langItems" [activeItem]="{}">
+  <p-tabMenu
+    [model]="langItems"
+    [activeItem]="{}"
+    (click)="menu.toggle($event)"
+  >
     <ng-template pTemplate="item" let-item>
-      <div style="margin-top: 0.125rem" (click)="menu.toggle($event)">
-        <i [ngClass]="item.icon"></i>
-      </div>
+      <i [ngClass]="item.icon"></i>
+
+      <div class="mt-1 ml-1" style="visibility: hidden">&nbsp;</div>
     </ng-template>
   </p-tabMenu>
 </div>

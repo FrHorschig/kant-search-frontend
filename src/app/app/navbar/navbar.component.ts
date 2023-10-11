@@ -49,7 +49,6 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
   ];
   langItems: MenuItem[] = [
     {
-      label: 'dummy',
       icon: 'pi pi-globe',
     },
   ];
