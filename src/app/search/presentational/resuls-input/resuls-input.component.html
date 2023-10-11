@@ -7,14 +7,15 @@
       type="text"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
       [(ngModel)]="searchString"
+      (keyup.enter)="onSearchUpdate()"
     />
   </div>
 
   <div class="col-1">
     <p-button
       icon="pi pi-replay"
-      styleClass="p-button-sm p-button-secondary w-full"
-      pTooltip="{{ 'SEARCH.RESULTS.UPDATE_SEARCH_STRING' | translate }}"
+      styleClass="p-button-sm w-full"
+      pTooltip="{{ 'SEARCH.RESULTS.UPDATE_SEARCH_INPUT' | translate }}"
       [disabled]="!searchString"
       (onClick)="onSearchUpdate()"
     ></p-button>

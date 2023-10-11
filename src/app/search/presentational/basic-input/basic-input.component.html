@@ -49,6 +49,7 @@
       type="text"
       placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
       formControlName="searchString"
+      (keyup.enter)="onSubmit()"
     />
   </app-input-group>
 </form>
