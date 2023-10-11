@@ -1,6 +1,7 @@
 {
   "COMMON": {
-    "SCROLL_TOP_TOOLTIP": "Scroll to top"
+    "SCROLL_TOP_TOOLTIP": "Scroll to top",
+    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element"
   },
   "NAVBAR": {
     "READ": "Read",

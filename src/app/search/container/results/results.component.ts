@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Match, SearchCriteria, SearchScope } from 'kant-search-api';
+import { SearchCriteria, SearchScope } from 'kant-search-api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
+import { ScrollService } from 'src/app/read/service/scroll.service';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  providers: [ResultsStore],
+  providers: [ResultsStore, ScrollService],
 })
-export class ResultsComponent extends ContainerComponent implements OnInit {
+export class ResultsComponent
+  extends ContainerComponent
+  implements OnInit, AfterViewInit
+{
   workById$ = this.store.select(WorksReducers.selectWorkById);
   searchString$ = this.resultsStore.searchString$;
   results$ = this.resultsStore.results$;
@@ -29,7 +33,8 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: Store,
-    private readonly resultsStore: ResultsStore
+    private readonly resultsStore: ResultsStore,
+    private readonly scrollService: ScrollService
   ) {
     super();
   }
@@ -51,6 +56,14 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
         };
         this.resultsStore.searchParagraphs(criteria);
       });
+  }
+
+  ngAfterViewInit() {
+    this.route.fragment.pipe(this.takeUntilDestroy()).subscribe((fragment) => {
+      if (!!fragment) {
+        this.scrollService.scrollToAnchor(fragment);
+      }
+    });
   }
 
   onClick(info: MatchInfo) {

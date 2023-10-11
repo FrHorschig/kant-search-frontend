@@ -3,7 +3,7 @@
     <ng-template pTemplate="item" let-item>
       <i [ngClass]="item.icon"></i>
 
-      <div class="mt-1 ml-1">
+      <div *ngIf="item.label" class="mt-1 ml-1">
         {{ item.label | translate }}
       </div>
     </ng-template>

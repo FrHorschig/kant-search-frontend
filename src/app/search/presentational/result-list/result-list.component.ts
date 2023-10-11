@@ -33,4 +33,10 @@ export class ResultListComponent {
     const abbrev = this.workById?.get(workId)?.abbreviation;
     return (abbrev ? abbrev : this.getWorkTitle(workId)) || '';
   }
+
+  getAnchorId(workId: number, match: Match): string {
+    return `match-${workId}-${match.paragraphId}${
+      match.sentenceId ? '-' + match.sentenceId : ''
+    }`;
+  }
 }

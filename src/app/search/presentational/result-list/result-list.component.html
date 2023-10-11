@@ -15,9 +15,10 @@
     </div>
 
     <ng-container *ngFor="let match of result.matches; let i = index">
-      <div class="mb-2">
+      <div id="{{ getAnchorId(result.workId, match) }}" class="mb-2">
         <app-result-item
           [index]="i + 1"
+          [anchor]="getAnchorId(result.workId, match)"
           [workTitle]="getWorkAbbreviation(result.workId)"
           [match]="match"
           (onClick)="onMatchClick(result.workId, match, i + 1)"

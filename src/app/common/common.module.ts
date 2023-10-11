@@ -7,10 +7,15 @@ import { WorksMenuComponent } from './shared/works-menu/works-menu.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupComponent } from './shared/input-group/input-group.component';
 import { NormalModePipe } from './pipes/normal-mode.pipe';
-import { WorksMenuStore } from './shared/works-menu-store/works-menu.store';
+import { LinkButtonComponent } from './shared/link-button/link-button.component';
 
 @NgModule({
-  declarations: [WorksMenuComponent, InputGroupComponent, NormalModePipe],
+  declarations: [
+    WorksMenuComponent,
+    InputGroupComponent,
+    NormalModePipe,
+    LinkButtonComponent,
+  ],
   imports: [
     NgCommonModule,
     TranslateModule,
@@ -18,6 +23,11 @@ import { WorksMenuStore } from './shared/works-menu-store/works-menu.store';
     TooltipModule,
     ButtonModule,
   ],
-  exports: [WorksMenuComponent, NormalModePipe, InputGroupComponent],
+  exports: [
+    WorksMenuComponent,
+    NormalModePipe,
+    InputGroupComponent,
+    LinkButtonComponent,
+  ],
 })
 export class CommonModule {}
