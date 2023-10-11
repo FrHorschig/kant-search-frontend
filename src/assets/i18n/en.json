@@ -66,7 +66,7 @@
       "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntax error: missing closing parenthesis after '{{ param0 }}'.",
       "SYNTAX.WRONG_STARTING_CHAR": "Syntax error: wrong starting character '{{ param0 }}'.",
       "SYNTAX.WRONG_ENDING_CHAR": "Syntax error: wrong ending character '{{ param0 }}'.",
-      "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntax error: unterminated double quote after '{{ param0 }}'."
+      "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntax error: unterminated double quote."
     },
     "NOT_FOUND": {
       "GENERIC": "Not found.",
