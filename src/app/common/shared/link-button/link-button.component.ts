@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class LinkButtonComponent {
   @Input() anchor = '';
 
-  constructor(private location: Location) {}
+  constructor(private readonly location: Location) {}
 
   addAnchor(event: Event) {
     event.stopPropagation();
