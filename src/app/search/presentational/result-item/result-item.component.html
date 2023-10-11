@@ -4,12 +4,7 @@
       <div class="flex justify-content-between">
         <div>{{ workTitle }} #{{ index }}</div>
 
-        <div>
-          {{
-            "SEARCH.RESULTS.PAGES"
-              | translate : { pages: match.pages.join(", ") }
-          }}
-        </div>
+        <div>[{{ match.pages.join(", ") }}]</div>
       </div>
     </ng-template>
 

@@ -14,7 +14,7 @@
     "INPUT": {
       "WORKS_BASIC_LABEL": "Select works",
       "WORKS_BASIC_OPTIONS": {
-        "ALL": "All works",
+        "ALL": "All volumes",
         "SECTION_1": "Section 1: Works",
         "SECTION_2": "Section 2: Letters",
         "SECTION_3": "Section 3: Handwritten Legacy",
@@ -41,7 +41,6 @@
       "NONE_FOUND": "No results found",
       "UPDATE_SEARCH_INPUT": "Update search input",
       "MATCHES": "Matches",
-      "PAGES": "[{{ pages }}]",
       "GO_TO_TEXT_LABEL": "Full text",
       "GO_TO_TEXT_TOOLTIP": "Jump to the paragraph in the full text"
     }
@@ -60,10 +59,10 @@
       "INVALID_SEARCH_CRITERIA": "Invalid search criteria.",
       "EMPTY_WORKS_SELECTION": "You must select at least one work.",
       "EMPTY_SEARCH_TERMS": "Search terms cannot be empty.",
-      "EMPTY_WORK_TEXT": "Work text cannot be empty.",
+      "EMPTY_WORK_TEXT": "Text cannot be empty.",
       "SYNTAX.UNEXPECTED_TOKEN": "Syntax error: unexpected token '{{ param0 }}'.",
       "SYNTAX.UNEXPECTED_END_OF_INPUT": "Syntax error: unexpected end of input.",
-      "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntax error: missing closing parenthesis after '{{ param0 }}'.",
+      "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntax error: missing closing parenthesis.",
       "SYNTAX.WRONG_STARTING_CHAR": "Syntax error: wrong starting character '{{ param0 }}'.",
       "SYNTAX.WRONG_ENDING_CHAR": "Syntax error: wrong ending character '{{ param0 }}'.",
       "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntax error: unterminated double quote."
@@ -72,7 +71,7 @@
       "GENERIC": "Not found.",
       "VOLUMES": "No volumes found.",
       "WORKS": "No works found.",
-      "PARAGRAPHS": "No paragraphs found.",
+      "PARAGRAPHS": "No text found.",
       "MATCHES": "No matches found."
     },
     "INTERNAL_SERVER_ERROR": "Internal server error.",

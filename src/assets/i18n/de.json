@@ -1,0 +1,80 @@
+{
+  "COMMON": {
+    "SCROLL_TOP_TOOLTIP": "Nach oben"
+  },
+  "NAVBAR": {
+    "READ": "Lesen",
+    "SEARCH": "Suchen",
+    "ADMIN": "Admin"
+  },
+  "READ": {
+    "MODE_CHECKBOX_LABEL": "Zeilennummern anzeigen"
+  },
+  "SEARCH": {
+    "INPUT": {
+      "WORKS_BASIC_LABEL": "Werkauswahl",
+      "WORKS_BASIC_OPTIONS": {
+        "ALL": "Alle Bände",
+        "SECTION_1": "Abschnitt 1: Werke",
+        "SECTION_2": "Abschnitt 2: Briefe",
+        "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass",
+        "CUSTOM": "Benutzerdefinierte Auswahl"
+      },
+      "WORKS_ADVANCED_TOOLTIP": "Komplette Liste anzeigen",
+      "WORKS_ADVANCED_TOOLTIP_CUSTOM": "Benutzerdefinierte Auswahl löschen",
+      "WORKS_ADVANCED_SELECT_ALL": "Alles auswählen",
+      "WORKS_ADVANCED_REMOVE_ALL": "Alles entfernen",
+      "SEARCH_STRING_LABEL": "Suchbegriffe",
+      "SEARCH_STRING_INFO": "Verwenden Sie die folgenden Sonderzeichen für fortgeschrittenes Suchen: & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen. Beispiel: !Katze & (Hund | \"weiße Mäuse\")",
+      "SEARCH_STRING_PLACEHOLDER": "Suchbegriffe eingeben",
+      "ADVANCED_OPTIONS_HEADER": "Erweiterte Optionen",
+      "SCOPE_LABEL": "Suchbereich",
+      "SCOPE_INFO": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
+      "SCOPE_OPTIONS": {
+        "PARAGRAPH": "Absatz",
+        "SENTENCE": "Satz"
+      },
+      "BUTTON_LABEL": "Suchen",
+      "BUTTON_TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben"
+    },
+    "RESULTS": {
+      "NONE_FOUND": "Keine Ergebnisse gefunden",
+      "UPDATE_SEARCH_INPUT": "Sucheingabe aktualisieren",
+      "MATCHES": "Treffer",
+      "GO_TO_TEXT_LABEL": "Volltext",
+      "GO_TO_TEXT_TOOLTIP": "Zum Absatz im Volltext springen"
+    }
+  },
+  "UPLOAD": {
+    "SELECT_WORK": "Werk auswählen",
+    "TOOLTIP": "Wählen Sie das Werk aus, das Sie hochladen möchten",
+    "SELECT_FILE": "Textdatei zum Hochladen auswählen",
+    "START_UPLOAD": "Hochladen starten"
+  },
+  "ERROR": {
+    "SUMMARY": "Fehler",
+    "BAD_REQUEST": {
+      "GENERIC": "Ungültige Anfrage.",
+      "INVALID_WORK_SELECTION": "Ungültige Werkauswahl.",
+      "INVALID_SEARCH_CRITERIA": "Ungültige Suchkriterien.",
+      "EMPTY_WORKS_SELECTION": "Sie müssen mindestens ein Werk auswählen.",
+      "EMPTY_SEARCH_TERMS": "Suchbegriffe dürfen nicht leer sein.",
+      "EMPTY_WORK_TEXT": "Der Text darf nicht leer sein.",
+      "SYNTAX.UNEXPECTED_TOKEN": "Syntaxfehler: unerwartetes Token '{{ param0 }}'.",
+      "SYNTAX.UNEXPECTED_END_OF_INPUT": "Syntaxfehler: unerwartetes Ende der Eingabe.",
+      "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntaxfehler: fehlende schließende Klammer.",
+      "SYNTAX.WRONG_STARTING_CHAR": "Syntaxfehler: falsches erstes Zeichen '{{ param0 }}'.",
+      "SYNTAX.WRONG_ENDING_CHAR": "Syntaxfehler: falsches letztes Zeichen '{{ param0 }}'.",
+      "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntaxfehler: nicht abgeschlossenes Anführungszeichen."
+    },
+    "NOT_FOUND": {
+      "GENERIC": "Nicht gefunden.",
+      "VOLUMES": "Keine Bände gefunden.",
+      "WORKS": "Keine Werke gefunden.",
+      "PARAGRAPHS": "Kein Text gefunden.",
+      "MATCHES": "Keine Übereinstimmungen gefunden."
+    },
+    "INTERNAL_SERVER_ERROR": "Interner Serverfehler.",
+    "NOT_IMPLEMENTED": "Funktion nicht implementiert."
+  }
+}
