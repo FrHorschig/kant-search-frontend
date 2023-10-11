@@ -22,6 +22,7 @@ import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
 import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
 import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu/checkbox-works-menu.component';
 import { BasicInputComponent } from './presentational/basic-input/basic-input.component';
+import { ResulsInputComponent } from './presentational/resuls-input/resuls-input.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { BasicInputComponent } from './presentational/basic-input/basic-input.co
     BasicInputComponent,
     AdvancedInputComponent,
     CheckboxWorksMenuComponent,
+    ResulsInputComponent,
   ],
   imports: [
     CommonModule,

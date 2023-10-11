@@ -14,6 +14,7 @@ import { MatchInfo } from '../../model/match-info';
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   workById$ = this.store.select(WorksReducers.selectWorkById);
+  searchString$ = this.resultsStore.searchString$;
   results$ = this.resultsStore.results$;
   isLoading$ = this.resultsStore.isLoading$;
 
@@ -55,5 +56,10 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
   onClick(info: MatchInfo) {
     this.matchInfo = info;
     this.showParagraph = true;
+  }
+
+  onUpdate(searchString: string) {
+    this.resultsStore.updateSearchString(searchString);
+    this.resultsStore.updateSearch();
   }
 }

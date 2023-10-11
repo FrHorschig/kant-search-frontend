@@ -1,0 +1,22 @@
+<div class="grid">
+  <div class="col-11">
+    <input
+      pInputText
+      id="search-terms-input"
+      class="w-full mr-2"
+      type="text"
+      placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
+      [(ngModel)]="searchString"
+    />
+  </div>
+
+  <div class="col-1">
+    <p-button
+      icon="pi pi-replay"
+      styleClass="p-button-sm p-button-secondary w-full"
+      pTooltip="{{ 'SEARCH.RESULTS.UPDATE_SEARCH_STRING' | translate }}"
+      [disabled]="!searchString"
+      (onClick)="onSearchUpdate()"
+    ></p-button>
+  </div>
+</div>

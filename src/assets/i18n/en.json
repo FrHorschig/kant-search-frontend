@@ -39,6 +39,7 @@
     },
     "RESULTS": {
       "NONE_FOUND": "No results found",
+      "UPDATE_SEARCH_INPUT": "Update search input",
       "MATCHES": "Matches",
       "PAGES": "[{{ pages }}]",
       "GO_TO_TEXT_LABEL": "Full text",

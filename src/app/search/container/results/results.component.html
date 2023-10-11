@@ -1,10 +1,19 @@
-<ng-container *ngIf="!(isLoading$ | async)">
-  <app-result-list
-    [workById]="workById$ | async"
-    [results]="(results$ | async) || []"
-    (onClick)="onClick($event)"
-  ></app-result-list>
-</ng-container>
+<div class="flex justify-content-center">
+  <div class="max-w-600">
+    <ng-container *ngIf="!(isLoading$ | async)">
+      <app-resuls-input
+        [searchString]="(searchString$ | async) || ''"
+        (onUpdateEmitter)="onUpdate($event)"
+      ></app-resuls-input>
+
+      <app-result-list
+        [workById]="workById$ | async"
+        [results]="(results$ | async) || []"
+        (onClick)="onClick($event)"
+      ></app-result-list>
+    </ng-container>
+  </div>
+</div>
 
 <app-paragraph-dialog
   [(isVisible)]="showParagraph"
