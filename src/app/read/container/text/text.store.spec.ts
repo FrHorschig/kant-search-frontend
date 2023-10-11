@@ -54,6 +54,7 @@ describe('TextStore', () => {
             error: {
               code: 400,
               message: ErrorMessage.BadRequestEmptySearchTerms,
+              args: ['arg'],
             } as HttpError,
           })
       )
@@ -62,7 +63,8 @@ describe('TextStore', () => {
     store.loadParagraphs(1);
     // THEN
     expect(errorService.logError).toHaveBeenCalledWith(
-      ErrorMessage.BadRequestEmptySearchTerms
+      ErrorMessage.BadRequestEmptySearchTerms,
+      ['arg']
     );
   });
 });

@@ -67,6 +67,7 @@ describe('ResultsStore', () => {
             error: {
               code: 404,
               message: ErrorMessage.NotFoundMatches,
+              args: ['arg'],
             } as HttpError,
           })
       )
@@ -81,7 +82,8 @@ describe('ResultsStore', () => {
     });
     // THEN
     expect(mockErrorService.logError).toHaveBeenCalledWith(
-      ErrorMessage.NotFoundMatches
+      ErrorMessage.NotFoundMatches,
+      ['arg']
     );
     store.isLoading$.subscribe((isLoading) => expect(isLoading).toBeFalse());
   });

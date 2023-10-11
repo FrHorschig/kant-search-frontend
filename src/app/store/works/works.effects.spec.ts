@@ -39,12 +39,15 @@ describe('WorksEffects', () => {
     (readService.getVolumes as jasmine.Spy).and.returnValue(
       of(Testdata.volumes)
     );
-    (readService.getWorks as jasmine.Spy).and.returnValue(of(Testdata.works));
+    (readService.getWorks as jasmine.Spy).and.returnValue(of([Testdata.work]));
     // WHEN
     actions$ = hot('-a-', { a: loadWorks() });
     // THEN
     const expected = cold('-b-', {
-      b: loadWorksSuccess({ volumes: Testdata.volumes, works: Testdata.works }),
+      b: loadWorksSuccess({
+        volumes: Testdata.volumes,
+        works: [Testdata.work],
+      }),
     });
     expect(sut.loadData$).toBeObservable(expected);
   });

@@ -10,23 +10,23 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
-import { SimpleInputComponent } from '../../presentational/simple-input/simple-input.component';
+import { BasicInputComponent } from '../../presentational/basic-input/basic-input.component';
 import { AdvancedInputComponent } from '../../presentational/advanced-input/advanced-input.component';
-import { AccordionModule } from 'primeng/accordion';
-import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from 'kant-search-api';
 import { MessageService } from 'primeng/api';
+import { Section, SimpleInput } from '../../model/simple-input';
+import { DividerModule } from 'primeng/divider';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putWorks', 'putSearchString', 'putOptions', 'navigateSearch'],
+    ['putWorks', 'putSimpleInput', 'putOptions', 'navigateSearch'],
     {
       isSearchPermitted$: of(false),
     }
@@ -38,7 +38,7 @@ describe('SearchComponent', () => {
         SearchComponent,
         MockCheckboxWorksMenuComponent,
         InputGroupComponent,
-        SimpleInputComponent,
+        BasicInputComponent,
         AdvancedInputComponent,
       ],
       providers: [
@@ -56,8 +56,7 @@ describe('SearchComponent', () => {
         ButtonModule,
         TooltipModule,
         DropdownModule,
-        PanelModule,
-        AccordionModule,
+        DividerModule,
         DialogModule,
         TreeModule,
       ],
@@ -81,12 +80,15 @@ describe('SearchComponent', () => {
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(works);
   });
 
-  it('should call searchStore.putSearchString when onSearchStringChange is called', () => {
-    const searchString = 'Kant';
+  it('should call searchStore.putSimpleInput when onSimpleInputChange is called', () => {
+    const basicInput = {
+      section: Section.ALL,
+      searchString: 'test',
+    } as SimpleInput;
     // WHEN
-    component.onSearchStringChange(searchString);
+    component.onSimpleInputChange(basicInput);
     // THEN
-    expect(mockSearchStore.putSearchString).toHaveBeenCalledWith(searchString);
+    expect(mockSearchStore.putSimpleInput).toHaveBeenCalledWith(basicInput);
   });
 
   it('should call searchStore.putOptions when onOptionsChange is called', () => {

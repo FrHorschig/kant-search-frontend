@@ -6,8 +6,8 @@ import { TreeModule } from 'primeng/tree';
 import { of } from 'rxjs';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { ButtonModule } from 'primeng/button';
-import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
+import { DialogModule } from 'primeng/dialog';
 
 describe('CheckboxWorksMenuComponent', () => {
   let component: CheckboxWorksMenuComponent;
@@ -21,7 +21,12 @@ describe('CheckboxWorksMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CheckboxWorksMenuComponent],
-      imports: [TranslateModule.forRoot(), TreeModule, ButtonModule],
+      imports: [
+        TranslateModule.forRoot(),
+        TreeModule,
+        ButtonModule,
+        DialogModule,
+      ],
     }).compileComponents();
     TestBed.overrideProvider(WorksMenuStore, { useValue: mockWmStore });
 
@@ -101,14 +106,5 @@ describe('CheckboxWorksMenuComponent', () => {
     // THEN
     expect(component.tree?.selection).toEqual([]);
     expect(component.selectionChangeEmitter.emit).toHaveBeenCalledWith([]);
-  });
-
-  it('should emit when onClose is called', () => {
-    // GIVEN
-    spyOn(component.closeEmitter, 'emit');
-    // WHEN
-    component.onClose();
-    // THEN
-    expect(component.closeEmitter.emit).toHaveBeenCalled();
   });
 });

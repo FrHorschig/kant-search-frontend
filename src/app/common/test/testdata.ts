@@ -3,6 +3,7 @@ import { MatchInfo } from 'src/app/search/model/match-info';
 
 export class Testdata {
   static volume: Volume = { id: 1, title: 'Volume 1', section: 1 };
+  static volume2: Volume = { id: 2, title: 'Volume 2', section: 2 };
   static work: Work = {
     id: 1,
     title: 'Work 1',
@@ -17,10 +18,21 @@ export class Testdata {
     ordinal: 0,
     volumeId: 2,
   };
-  static volumes: Volume[] = [this.volume];
-  static works: Work[] = [this.work];
-  static volumeById = new Map<number, Volume>([[1, this.volume]]);
-  static workById = new Map<number, Work>([[1, this.work]]);
+  static volumes: Volume[] = [this.volume, this.volume2];
+  static volumeById = new Map<number, Volume>([
+    [1, this.volume],
+    [2, this.volume2],
+  ]);
+  static workById = new Map<number, Work>([
+    [1, this.work],
+    [2, this.work2],
+  ]);
+  static worksBySection = new Map<number, Work[]>([
+    [0, [this.work, this.work2]],
+    [1, [this.work]],
+    [2, [this.work2]],
+    [3, []],
+  ]);
 
   static match: Match = {
     snippet: 'snippet',

@@ -8,4 +8,5 @@ export class MockWorksMenuComponent {
 @Component({ selector: 'app-checkbox-works-menu', template: '' })
 export class MockCheckboxWorksMenuComponent {
   @Input() nodes: any;
+  @Input() visible: any;
 }

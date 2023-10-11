@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BasicInputComponent } from './basic-input.component';
-import { AccordionModule } from 'primeng/accordion';
-import { PanelModule } from 'primeng/panel';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
@@ -11,7 +9,10 @@ import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Work } from 'kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Section } from '../../model/simple-input';
+import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('BasicInputComponent', () => {
   let component: BasicInputComponent;
@@ -27,11 +28,11 @@ describe('BasicInputComponent', () => {
       imports: [
         BrowserAnimationsModule,
         TranslateModule.forRoot(),
-        FormsModule,
+        ReactiveFormsModule,
         ButtonModule,
-        PanelModule,
-        AccordionModule,
         DialogModule,
+        DropdownModule,
+        TooltipModule,
       ],
     }).compileComponents();
 
@@ -47,22 +48,22 @@ describe('BasicInputComponent', () => {
   it('should emit worksChangeEmitter when onWorksChange is called', () => {
     const works: Work[] = [Testdata.work, Testdata.work2];
     // GIVEN
-    spyOn(component.worksChangeEmitter, 'emit');
+    spyOn(component.worksEmitter, 'emit');
     // WHEN
     component.onWorksChange(works);
     // THEN
-    expect(component.worksChangeEmitter.emit).toHaveBeenCalledWith(works);
+    expect(component.worksEmitter.emit).toHaveBeenCalledWith(works);
   });
 
-  it('should emit searchStringChangeEmitter when onSearchStringChange is called', () => {
+  it('should emit simpleInputEmitter when onSearchStringChange is called', () => {
     // GIVEN
-    spyOn(component.searchStringChangeEmitter, 'emit');
+    spyOn(component.simpleInputEmitter, 'emit');
     // WHEN
-    component.searchString = 'Kant';
-    component.onSearchStringChange();
+    component.form.setValue({ section: Section.SEC1, searchString: 'Kant' });
     // THEN
-    expect(component.searchStringChangeEmitter.emit).toHaveBeenCalledWith(
-      'Kant'
-    );
+    expect(component.simpleInputEmitter.emit).toHaveBeenCalledWith({
+      section: Section.SEC1,
+      searchString: 'Kant',
+    });
   });
 });

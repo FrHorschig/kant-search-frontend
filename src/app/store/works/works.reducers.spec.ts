@@ -13,8 +13,9 @@ describe('WorksReducers', () => {
     const prevState: State = {
       volumes: Testdata.volumes,
       volumeById: Testdata.volumeById,
-      works: Testdata.works,
+      works: [Testdata.work, Testdata.work2],
       workById: Testdata.workById,
+      worksBySection: Testdata.worksBySection,
       isLoaded: true,
     };
     const action = loadWorks();
@@ -25,14 +26,15 @@ describe('WorksReducers', () => {
   it('should populate data and set isLoaded to true', () => {
     const action = loadWorksSuccess({
       volumes: Testdata.volumes,
-      works: Testdata.works,
+      works: [Testdata.work, Testdata.work2],
     });
     const state = worksFeature.reducer(initialState, action);
     expect(state).toEqual({
       volumes: Testdata.volumes,
       volumeById: Testdata.volumeById,
-      works: Testdata.works,
+      works: [Testdata.work, Testdata.work2],
       workById: Testdata.workById,
+      worksBySection: Testdata.worksBySection,
       isLoaded: true,
     });
   });

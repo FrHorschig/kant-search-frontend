@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'primeng/tooltip';
 import { SearchScope } from 'kant-search-api';
+import { DividerModule } from 'primeng/divider';
 
 describe('AdvancedInputComponent', () => {
   let component: AdvancedInputComponent;
@@ -22,7 +23,7 @@ describe('AdvancedInputComponent', () => {
         BrowserAnimationsModule,
         TranslateModule.forRoot(),
         DropdownModule,
-        AccordionModule,
+        DividerModule,
         TooltipModule,
       ],
     }).compileComponents();

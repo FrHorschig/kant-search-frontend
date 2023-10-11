@@ -1,15 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from 'kant-search-api';
+import { Section } from '../../model/simple-input';
+import { Store } from '@ngrx/store';
+import { WorksReducers } from 'src/app/store/works';
 
 describe('SearchStore', () => {
   let store: SearchStore;
+  let mockStore: jasmine.SpyObj<Store>;
   let actions$: Observable<any>;
 
   beforeEach(() => {
@@ -17,25 +20,55 @@ describe('SearchStore', () => {
       imports: [RouterTestingModule],
       providers: [
         SearchStore,
-        provideMockStore(),
+        { provide: Store, useValue: jasmine.createSpyObj('Store', ['select']) },
         provideMockActions(() => actions$),
       ],
     });
 
+    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
     store = TestBed.inject(SearchStore);
   });
 
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
-    store.putSearchString('test');
+    store.putSimpleInput({ section: Section.CUSTOM, searchString: 'test' });
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectWorksBySection) {
+        return of(Testdata.worksBySection);
+      }
+      return of();
+    });
     // WHEN
     store.navigateSearch();
     // THEN
     expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
       queryParams: {
         workIds: '1',
+        searchString: 'test',
+        scope: 'PARAGRAPH',
+      },
+    });
+  });
+
+  it('should navigate when non-custom section and search terms exist', () => {
+    // GIVEN
+    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectWorksBySection) {
+        return of(Testdata.worksBySection);
+      }
+      return of();
+    });
+    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
+    // WHEN
+    store.navigateSearch();
+    // THEN
+    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+      queryParams: {
+        workIds: '1,2',
         searchString: 'test',
         scope: 'PARAGRAPH',
       },
@@ -55,7 +88,7 @@ describe('SearchStore', () => {
 
   it('should update search string', () => {
     // WHEN
-    store.putSearchString('test');
+    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
     // THEN
     store
       .select((state) => state.searchString)
@@ -79,20 +112,8 @@ describe('SearchStore', () => {
     // WHEN
     store.setState({
       workIds: [1, 2],
+      section: Section.ALL,
       searchString: '',
-      options: { scope: SearchScope.Paragraph },
-    });
-    // THEN
-    store.canSearch$.subscribe((canSearch: boolean) => {
-      expect(canSearch).toBeFalse();
-    });
-  });
-
-  it('should return false when there are no work ids', () => {
-    // WHEN
-    store.setState({
-      workIds: [],
-      searchString: 'test',
       options: { scope: SearchScope.Paragraph },
     });
     // THEN

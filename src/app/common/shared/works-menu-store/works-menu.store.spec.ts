@@ -165,8 +165,8 @@ describe('WorksMenuStore', () => {
     });
   });
 
-  it('should create no nodes when one volume is not found', (done) => {
-    const works: Work[] = [Testdata.work, Testdata.work2];
+  it('should create one node when one volume is not found', (done) => {
+    const works: Work[] = [Testdata.work];
     const volumeById = Testdata.volumeById;
 
     // GIVEN
