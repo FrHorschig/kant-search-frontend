@@ -5,7 +5,11 @@
   "NAVBAR": {
     "READ": "Read",
     "SEARCH": "Search",
-    "ADMIN": "Admin"
+    "ADMIN": "Admin",
+    "LANG": {
+      "DE": "Deutsch",
+      "EN": "English"
+    }
   },
   "READ": {
     "MODE_CHECKBOX_LABEL": "Show line numbers"

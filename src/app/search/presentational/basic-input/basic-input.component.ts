@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Section, BasicInput } from '../../model/simple-input';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { isSubscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-basic-input',
@@ -25,7 +26,10 @@ export class BasicInputComponent implements OnInit {
     { label: 'SECTION_3', value: Section.SEC3 },
   ];
   form: FormGroup = this.formBuilder.group({
-    section: Section.ALL,
+    section: new FormControl({
+      value: Section.ALL,
+      disabled: this.isCustomSelection,
+    }),
     searchString: '',
   });
 

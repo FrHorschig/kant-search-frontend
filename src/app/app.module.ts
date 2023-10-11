@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { ApiModule } from 'kant-search-api';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { worksFeature } from './store/works/works.reducers';
 import { WorksEffects } from './store/works/works.effects';
 import { NotFoundComponent } from './app/not-found/not-found.component';
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -47,10 +49,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
     StoreModule.forRoot({ works: worksFeature.reducer }),
     EffectsModule.forRoot([WorksEffects]),
+    FormsModule,
     ButtonModule,
     MessagesModule,
     TabMenuModule,
     TooltipModule,
+    MenuModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

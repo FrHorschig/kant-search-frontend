@@ -5,7 +5,11 @@
   "NAVBAR": {
     "READ": "Lesen",
     "SEARCH": "Suchen",
-    "ADMIN": "Admin"
+    "ADMIN": "Admin",
+    "LANG": {
+      "DE": "Deutsch",
+      "EN": "English"
+    }
   },
   "READ": {
     "MODE_CHECKBOX_LABEL": "Zeilennummern anzeigen"

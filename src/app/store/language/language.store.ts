@@ -21,12 +21,13 @@ export class LanguageStore extends ComponentStore<LanguageState> {
     this.subscribeRouterEvents();
   }
 
-  readonly updateCurrentLanguage = this.updater(
-    (state, currentLanguage: string) => ({
+  readonly updateCurrentLanguage = this.updater((state, lang: string) => {
+    this.translateService.use(lang);
+    return {
       ...state,
-      current: currentLanguage,
-    })
-  );
+      current: lang,
+    };
+  });
 
   readonly availableLanguages$ = this.select((state) => state.available);
   readonly currentLanguage$ = this.select((state) => state.current);

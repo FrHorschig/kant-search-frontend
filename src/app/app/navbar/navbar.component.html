@@ -1,11 +1,27 @@
-<p-tabMenu [model]="items">
-  <ng-template pTemplate="item" let-item>
-    <i [ngClass]="item.icon"></i>
+<div class="flex justify-content-between">
+  <p-tabMenu class="flex-grow-1" [model]="items">
+    <ng-template pTemplate="item" let-item>
+      <i [ngClass]="item.icon"></i>
 
-    <div class="mt-2 ml-1">
-      {{ item.label | translate }}
-    </div>
-  </ng-template>
-</p-tabMenu>
+      <div class="mt-1 ml-1">
+        {{ item.label | translate }}
+      </div>
+    </ng-template>
+  </p-tabMenu>
+
+  <p-tabMenu [model]="langItems" [activeItem]="{}">
+    <ng-template pTemplate="item" let-item>
+      <div style="margin-top: 0.125rem" (click)="menu.toggle($event)">
+        <i [ngClass]="item.icon"></i>
+      </div>
+    </ng-template>
+  </p-tabMenu>
+</div>
+
+<p-menu
+  #menu
+  [model]="getItems((availableLanguages$ | async) || [])"
+  [popup]="true"
+></p-menu>
 
 <div class="mb-2"></div>

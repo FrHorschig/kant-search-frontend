@@ -3,12 +3,16 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { LanguageStore } from '../../store/language/language.store';
 import { ContainerComponent } from '../../common/base/container.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent extends ContainerComponent implements OnInit {
+  availableLanguages$ = this.langStore.availableLanguages$;
+
+  showLanguages = false;
   currentLang: string = '';
   items: MenuItem[] = [
     {
@@ -43,11 +47,18 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
       },
     },
   ];
+  langItems: MenuItem[] = [
+    {
+      label: 'dummy',
+      icon: 'pi pi-globe',
+    },
+  ];
 
   constructor(
     private readonly router: Router,
     private readonly messageService: MessageService,
-    private readonly langStore: LanguageStore
+    private readonly langStore: LanguageStore,
+    private readonly translateService: TranslateService
   ) {
     super();
   }
@@ -56,5 +67,19 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
     this.langStore.currentLanguage$
       .pipe(this.takeUntilDestroy())
       .subscribe((lang) => (this.currentLang = lang));
+  }
+
+  getItems(langs: string[]): MenuItem[] {
+    return langs.map((lang) => {
+      return {
+        // TODO frhorsch: preload translation files
+        label: this.translateService.instant(
+          'NAVBAR.LANG.' + lang.toUpperCase()
+        ),
+        command: () => {
+          this.langStore.updateCurrentLanguage(lang);
+        },
+      };
+    });
   }
 }
