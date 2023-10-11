@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { ScrollService } from 'src/app/read/service/scroll.service';
+import { ScrollService } from 'src/app/common/service/scroll.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ParagraphDialogComponent', () => {

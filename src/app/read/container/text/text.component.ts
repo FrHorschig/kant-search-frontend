@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
-import { ScrollService } from '../../service/scroll.service';
+import { ScrollService } from '../../../common/service/scroll.service';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 
 @Component({

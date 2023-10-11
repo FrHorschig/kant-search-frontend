@@ -6,7 +6,7 @@ import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
-import { ScrollService } from 'src/app/read/service/scroll.service';
+import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../../model/full-text-info';
 
 @Component({

@@ -4,7 +4,7 @@ import { TextComponent } from './text.component';
 import { TextStore } from './text.store';
 import { Subject, of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
-import { ScrollService } from '../../service/scroll.service';
+import { ScrollService } from '../../../common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 
 describe('TextComponent', () => {
