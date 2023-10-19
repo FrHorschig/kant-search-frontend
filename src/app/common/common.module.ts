@@ -6,15 +6,15 @@ import { TreeModule } from 'primeng/tree';
 import { WorksMenuComponent } from './shared/works-menu/works-menu.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupComponent } from './shared/input-group/input-group.component';
-import { NormalModePipe } from './pipes/normal-mode.pipe';
 import { LinkButtonComponent } from './shared/link-button/link-button.component';
+import { PaginationPipe } from './pipes/pagination.pipe';
 
 @NgModule({
   declarations: [
     WorksMenuComponent,
     InputGroupComponent,
-    NormalModePipe,
     LinkButtonComponent,
+    PaginationPipe,
   ],
   imports: [
     NgCommonModule,
@@ -25,7 +25,7 @@ import { LinkButtonComponent } from './shared/link-button/link-button.component'
   ],
   exports: [
     WorksMenuComponent,
-    NormalModePipe,
+    PaginationPipe,
     InputGroupComponent,
     LinkButtonComponent,
   ],

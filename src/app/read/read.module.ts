@@ -10,9 +10,10 @@ import { TextComponent } from './presentational/text/text.component';
 import { TocComponent } from './container/toc/toc.component';
 import { ReadComponent } from './container/read/read.component';
 import { FormsModule } from '@angular/forms';
+import { FormatPipe } from './pipes/format.pipe';
 
 @NgModule({
-  declarations: [TextComponent, TocComponent, ReadComponent],
+  declarations: [TextComponent, TocComponent, ReadComponent, FormatPipe],
   imports: [
     FormsModule,
     CommonModule,

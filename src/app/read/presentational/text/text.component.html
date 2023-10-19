@@ -3,16 +3,24 @@
     <ng-container *ngFor="let paragraph of paragraphs">
       <div id="paragraph-{{ paragraph.id }}"></div>
 
-      <p
-        style="
-          text-align: justify;
-          -webkit-hyphens: auto;
-          -ms-hyphens: auto;
-          hyphens: auto;
-        "
-        lang="de-de"
-        [innerHTML]="paragraph.text | normalMode"
-      ></p>
+      <div
+        class="{{
+          paragraph.footnoteName ? 'flex justify-content-center' : ''
+        }}"
+      >
+        <div class="{{ paragraph.footnoteName ? 'max-w-550' : 'max-w-600' }}">
+          <p
+            style="
+              text-align: justify;
+              -webkit-hyphens: auto;
+              -ms-hyphens: auto;
+              hyphens: auto;
+            "
+            lang="de-de"
+            [innerHTML]="paragraph | format | pagination"
+          ></p>
+        </div>
+      </div>
     </ng-container>
   </div>
 </div>
