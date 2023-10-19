@@ -6,12 +6,12 @@ import { MessageService } from 'primeng/api';
 import { EMPTY, switchMap, tap } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 
-interface TextState {
+interface ReadState {
   paragraphs: Paragraph[];
 }
 
 @Injectable()
-export class TextStore extends ComponentStore<TextState> {
+export class ReadStore extends ComponentStore<ReadState> {
   constructor(
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,

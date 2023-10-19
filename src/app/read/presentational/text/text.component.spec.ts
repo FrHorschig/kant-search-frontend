@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NormalModeComponent } from './normal-mode.component';
+import { TextComponent } from './text.component';
 
 describe('NormalModeComponent', () => {
-  let component: NormalModeComponent;
-  let fixture: ComponentFixture<NormalModeComponent>;
+  let component: TextComponent;
+  let fixture: ComponentFixture<TextComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NormalModeComponent ]
-    })
-    .compileComponents();
+      declarations: [TextComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(NormalModeComponent);
+    fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

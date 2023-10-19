@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TextComponent } from './text.component';
-import { TextStore } from './text.store';
+import { ReadComponent } from './read.component';
+import { ReadStore } from './read.store';
 import { Subject, of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
 import { ScrollService } from '../../../common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 
 describe('TextComponent', () => {
-  let component: TextComponent;
-  let fixture: ComponentFixture<TextComponent>;
+  let component: ReadComponent;
+  let fixture: ComponentFixture<ReadComponent>;
   let mockRoute: any;
-  let mockTextStore: jasmine.SpyObj<TextStore>;
+  let mockReadStore: jasmine.SpyObj<ReadStore>;
   let mockScrollService = createScrollServiceSpy();
   let fragmentSubject = new Subject<string>();
 
   beforeEach(() => {
-    mockTextStore = jasmine.createSpyObj('TextStore', ['loadParagraphs'], {
+    mockReadStore = jasmine.createSpyObj('ReadStore', ['loadParagraphs'], {
       paragraphs$: of([Testdata.paragraph]),
       isLoaded$: of(true),
     });
@@ -28,13 +28,13 @@ describe('TextComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [TextComponent],
+      declarations: [ReadComponent],
       providers: [{ provide: ActivatedRoute, useValue: mockRoute }],
     })
-      .overrideProvider(TextStore, { useValue: mockTextStore })
+      .overrideProvider(ReadStore, { useValue: mockReadStore })
       .overrideProvider(ScrollService, { useValue: mockScrollService });
 
-    fixture = TestBed.createComponent(TextComponent);
+    fixture = TestBed.createComponent(ReadComponent);
     component = fixture.componentInstance;
   });
 
@@ -44,12 +44,12 @@ describe('TextComponent', () => {
 
   it('should load paragraphs on initialization with correct workId', () => {
     component.ngOnInit();
-    expect(mockTextStore.loadParagraphs).toHaveBeenCalledWith(1);
+    expect(mockReadStore.loadParagraphs).toHaveBeenCalledWith(1);
   });
 
   it('should have correct observables from store', () => {
     // WHEN
-    component = new TextComponent(mockRoute, mockTextStore, mockScrollService);
+    component = new ReadComponent(mockRoute, mockReadStore, mockScrollService);
     // THEN
     component.paragraphs$.subscribe((paras) => {
       expect(paras).toHaveSize(1);

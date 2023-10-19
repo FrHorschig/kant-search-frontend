@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TocComponent } from './container/toc/toc.component';
-import { TextComponent } from './container/text/text.component';
+import { ReadComponent } from './container/read/read.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'text/:workId',
-    component: TextComponent,
+    component: ReadComponent,
   },
 ];
 

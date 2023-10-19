@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { TextStore } from './text.store';
+import { ReadStore } from './read.store';
 import { MessageService } from 'primeng/api';
 import { ErrorMessage, HttpError, ReadService } from 'kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('TextStore', () => {
-  let store: TextStore;
+  let store: ReadStore;
   let readService: jasmine.SpyObj<ReadService>;
   let errorService: jasmine.SpyObj<ErrorService>;
   let messageService: jasmine.SpyObj<MessageService>;
@@ -19,14 +19,14 @@ describe('TextStore', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        TextStore,
+        ReadStore,
         { provide: ReadService, useValue: readService },
         { provide: ErrorService, useValue: errorService },
         { provide: MessageService, useValue: messageService },
       ],
     });
 
-    store = TestBed.inject(TextStore);
+    store = TestBed.inject(ReadStore);
   });
 
   it('should load paragraphs and update state on success', () => {

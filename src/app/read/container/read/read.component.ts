@@ -1,26 +1,24 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TextStore } from './text.store';
+import { ReadStore } from './read.store';
 import { ScrollService } from '../../../common/service/scroll.service';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 
 @Component({
-  selector: 'app-text',
-  templateUrl: './text.component.html',
-  providers: [TextStore, ScrollService],
+  selector: 'app-read',
+  templateUrl: './read.component.html',
+  providers: [ReadStore, ScrollService],
 })
-export class TextComponent
+export class ReadComponent
   extends ContainerComponent
   implements OnInit, AfterViewInit
 {
   paragraphs$ = this.store.paragraphs$;
   isLoaded$ = this.store.isLoaded$;
 
-  isOriginalMode = false;
-
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly store: TextStore,
+    private readonly store: ReadStore,
     private readonly scrollService: ScrollService
   ) {
     super();
