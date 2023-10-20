@@ -13,7 +13,7 @@ export class FormatPipe implements PipeTransform {
       }>${p.text.slice(afterPageNumber)}</h${p.headingLevel}>`;
     }
     if (p.footnoteName) {
-      p.text = `<span id="${p.footnoteName}" class="ks-footnote"><sup>(${p.footnoteName})</sup> ${p.text}</span>`;
+      p.text = `<span id="${p.footnoteName}" class="ks-footnote"><sup><span class="ks-fn-ref">(${p.footnoteName})</span></sup> ${p.text}</span>`;
     }
     return p.text;
   }
