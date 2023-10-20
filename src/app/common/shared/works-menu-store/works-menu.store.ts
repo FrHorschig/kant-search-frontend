@@ -104,7 +104,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}`,
-      label: `Abteilung ${section}`, // TODO frhorsch: add i18n
+      label: `COMMON.SECTION_${section}`,
       styleClass: 'font-bold',
       expanded: true,
       selectable: isSelectable,
@@ -120,7 +120,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}-${volume.id}`,
-      label: `Band ${volume.id}: ${volume.title}`, // TODO frhorsch: add i18n
+      label: `Band ${volume.id}: ${volume.title}`,
       styleClass: 'font-normal',
       expanded: false,
       selectable: isSelectable,

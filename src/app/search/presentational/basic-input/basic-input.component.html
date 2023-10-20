@@ -14,10 +14,10 @@
         formControlName="section"
       >
         <ng-template pTemplate="selectedItem" let-item>
-          {{ "SEARCH.INPUT.WORKS_BASIC_OPTIONS." + item.label | translate }}
+          {{ item.label | translate }}
         </ng-template>
         <ng-template pTemplate="item" let-item>
-          {{ "SEARCH.INPUT.WORKS_BASIC_OPTIONS." + item.label | translate }}
+          {{ item.label | translate }}
         </ng-template>
       </p-dropdown>
     </div>

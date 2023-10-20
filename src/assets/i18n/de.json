@@ -1,7 +1,10 @@
 {
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Nach oben",
-    "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element"
+    "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element",
+    "SECTION_1": "Abschnitt 1: Werke",
+    "SECTION_2": "Abschnitt 2: Briefe",
+    "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass"
   },
   "NAVBAR": {
     "READ": "Lesen",
@@ -20,9 +23,6 @@
       "WORKS_BASIC_LABEL": "Werkauswahl",
       "WORKS_BASIC_OPTIONS": {
         "ALL": "Alle Bände",
-        "SECTION_1": "Abschnitt 1: Werke",
-        "SECTION_2": "Abschnitt 2: Briefe",
-        "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass",
         "CUSTOM": "Benutzerdefinierte Auswahl"
       },
       "WORKS_ADVANCED_TOOLTIP": "Komplette Liste anzeigen",

@@ -1,7 +1,10 @@
 {
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Scroll to top",
-    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element"
+    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element",
+    "SECTION_1": "Section 1: Works",
+    "SECTION_2": "Section 2: Letters",
+    "SECTION_3": "Section 3: Handwritten Legacy"
   },
   "NAVBAR": {
     "READ": "Read",
@@ -20,9 +23,6 @@
       "WORKS_BASIC_LABEL": "Select works",
       "WORKS_BASIC_OPTIONS": {
         "ALL": "All volumes",
-        "SECTION_1": "Section 1: Works",
-        "SECTION_2": "Section 2: Letters",
-        "SECTION_3": "Section 3: Handwritten Legacy",
         "CUSTOM": "Custom selection"
       },
       "WORKS_ADVANCED_TOOLTIP": "Show full list",

@@ -20,10 +20,10 @@ export class BasicInputComponent implements OnInit {
   isCustomSelection = false;
   customSelectOption = [{ label: 'CUSTOM', value: Section.CUSTOM }];
   simpleSelectOptions = [
-    { label: 'ALL', value: Section.ALL },
-    { label: 'SECTION_1', value: Section.SEC1 },
-    { label: 'SECTION_2', value: Section.SEC2 },
-    { label: 'SECTION_3', value: Section.SEC3 },
+    { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL', value: Section.ALL },
+    { label: 'COMMON.SECTION_1', value: Section.SEC1 },
+    { label: 'COMMON.SECTION_2', value: Section.SEC2 },
+    { label: 'COMMON.SECTION_3', value: Section.SEC3 },
   ];
   form: FormGroup = this.formBuilder.group({
     section: new FormControl({
