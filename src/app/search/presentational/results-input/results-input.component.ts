@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-resuls-input',
-  templateUrl: './resuls-input.component.html',
+  selector: 'app-results-input',
+  templateUrl: './results-input.component.html',
 })
-export class ResulsInputComponent {
+export class ResultsInputComponent {
   @Input() searchString = '';
 
   @Output() onUpdateEmitter = new EventEmitter<string>();

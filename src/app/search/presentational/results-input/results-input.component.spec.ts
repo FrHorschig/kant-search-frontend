@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResulsInputComponent } from './resuls-input.component';
+import { ResultsInputComponent } from './results-input.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 
-describe('ResulsInputComponent', () => {
-  let component: ResulsInputComponent;
-  let fixture: ComponentFixture<ResulsInputComponent>;
+describe('ResultsInputComponent', () => {
+  let component: ResultsInputComponent;
+  let fixture: ComponentFixture<ResultsInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResulsInputComponent],
+      declarations: [ResultsInputComponent],
       imports: [
         TranslateModule.forRoot(),
         ButtonModule,
@@ -21,7 +21,7 @@ describe('ResulsInputComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ResulsInputComponent);
+    fixture = TestBed.createComponent(ResultsInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
