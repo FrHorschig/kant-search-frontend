@@ -29,7 +29,6 @@ describe('LanguageStore', () => {
   let store: LanguageStore;
   let mockRouterEvents: Subject<any>;
   let mockTranslateServiceUse: jasmine.Spy;
-  let mockRouter: MockRouter = new MockRouter();
 
   beforeEach(() => {
     mockRouterEvents = new Subject();

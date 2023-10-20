@@ -87,4 +87,9 @@ describe('ResultListComponent', () => {
     // THEN
     expect(component.getWorkTitle(1)).toBe('');
   });
+
+  it('should return correct string when getAnchorId is called', () => {
+    // THEN
+    expect(component.getAnchorId(1, Testdata.match)).toBe('match-1-4-3');
+  });
 });

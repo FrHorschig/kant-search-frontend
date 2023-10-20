@@ -25,10 +25,17 @@ describe('WorksMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit selectionChangeEmitter when onNodeSelect is called', () => {
+  it('should emit workSelectEmitter when onNodeSelect is called', () => {
     const work = Testdata.work;
     const spy = spyOn(component.workSelectEmitter, 'emit');
     component.onNodeSelect({ node: { data: work } as TreeNode });
     expect(spy).toHaveBeenCalledWith(work);
+  });
+
+  it('should emit expandableSelectEmitter when onClick is called', () => {
+    const key = '1-2';
+    const spy = spyOn(component.expandableSelectEmitter, 'emit');
+    component.onClick({ key } as TreeNode);
+    expect(spy).toHaveBeenCalledWith(key);
   });
 });

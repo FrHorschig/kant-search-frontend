@@ -191,4 +191,64 @@ describe('WorksMenuStore', () => {
       done();
     });
   });
+
+  it('should toggle node expansion', (done) => {
+    const works: Work[] = [Testdata.work, Testdata.work2];
+    const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+    sut.buildNodes(false);
+
+    // WHEN
+    sut.toggleNode('1-1-1');
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      const children = nodes[0].children || [];
+      expect(children[0].expanded).toBeFalsy();
+      const children2 = children[0].children || [];
+      expect(children2[0].expanded).toBeTrue();
+      done();
+    });
+  });
+
+  it('should not toggle node expansion for unknown key', (done) => {
+    const works: Work[] = [Testdata.work, Testdata.work2];
+    const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
+
+    // GIVEN
+    mockStore.select.and.callFake((selector: any) => {
+      if (selector === WorksReducers.selectIsLoaded) {
+        return of(true);
+      } else if (selector === WorksReducers.selectWorks) {
+        return of(works);
+      } else if (selector === WorksReducers.selectVolumeById) {
+        return of(volumeById);
+      }
+      return of();
+    });
+    sut.buildNodes(false);
+
+    // WHEN
+    sut.toggleNode('x');
+
+    // THEN
+    sut.nodes$.subscribe((nodes) => {
+      const children = nodes[0].children || [];
+      expect(children[0].expanded).toBeFalsy();
+      const children2 = children[0].children || [];
+      expect(children2[0].expanded).toBeFalsy();
+      done();
+    });
+  });
 });

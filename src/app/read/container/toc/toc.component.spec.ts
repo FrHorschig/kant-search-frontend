@@ -37,4 +37,14 @@ describe('TocComponent', () => {
     // THEN
     expect(navigateSpy).toHaveBeenCalledWith(['/de/read/text', 1]);
   });
+
+  it('should toggle the node in the worksMenuStore', () => {
+    // GIVEN
+    const key = 'someKey';
+    spyOn(component['worksMenuStore'], 'toggleNode');
+    // WHEN
+    component.toggleNode(key);
+    // THEN
+    expect(component['worksMenuStore'].toggleNode).toHaveBeenCalledWith(key);
+  });
 });

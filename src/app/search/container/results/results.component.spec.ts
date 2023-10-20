@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResultsComponent } from './results.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { of } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Testdata } from 'src/app/common/test/testdata';
 import { ParagraphDialogComponent } from '../../presentational/paragraph-dialog/paragraph-dialog.component';
@@ -13,16 +13,26 @@ import { SearchScope } from 'kant-search-api';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { FullTextInfo } from '../../model/full-text-info';
+import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
   let fixture: ComponentFixture<ResultsComponent>;
+  let fragmentSubject = new Subject<string>();
   let mockActivatedRoute = {
     queryParamMap: of(convertToParamMap({})),
+    fragment: fragmentSubject.asObservable(),
   };
+  let mockScrollService = createScrollServiceSpy();
   let mockResultsStore = jasmine.createSpyObj(
     'ResultsStore',
-    ['searchParagraphs', 'updateSearch', 'updateSearchString'],
+    [
+      'searchParagraphs',
+      'updateSearch',
+      'updateSearchString',
+      'navigateToFullText',
+    ],
     {
       result$: of([]),
       resultCount$: of(0),
@@ -49,7 +59,9 @@ describe('ResultsComponent', () => {
         TooltipModule,
       ],
     });
-    TestBed.overrideProvider(ResultsStore, { useValue: mockResultsStore });
+    TestBed.overrideProvider(ResultsStore, {
+      useValue: mockResultsStore,
+    }).overrideProvider(ScrollService, { useValue: mockScrollService });
 
     fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
@@ -123,6 +135,24 @@ describe('ResultsComponent', () => {
     });
   });
 
+  it('should call scroll service when no fragment exists', () => {
+    mockScrollService.scrollToAnchor.calls.reset();
+    // WHEN
+    component.ngAfterViewInit();
+    fragmentSubject.next('');
+    // THEN
+    expect(mockScrollService.scrollToAnchor).not.toHaveBeenCalled();
+  });
+
+  it('should call scroll service when a fragment exists', () => {
+    mockScrollService.scrollToAnchor.calls.reset();
+    const fragment = 'id-1';
+    // WHEN
+    component.ngAfterViewInit();
+    fragmentSubject.next(fragment);
+    // THEN
+    expect(mockScrollService.scrollToAnchor).toHaveBeenCalledWith(fragment);
+  });
   it('should set text and pages on match click', () => {
     // WHEN
     component.onClick(Testdata.matchInfo);
@@ -140,5 +170,16 @@ describe('ResultsComponent', () => {
       testSearchString
     );
     expect(mockResultsStore.updateSearch).toHaveBeenCalled();
+  });
+
+  it('should call navigateToFullText', () => {
+    const info: FullTextInfo = {
+      workId: 1,
+      fragment: 'fragment',
+    };
+    // WHEN
+    component.onFullTextNavigation(info);
+    // THEN
+    expect(mockResultsStore.navigateToFullText).toHaveBeenCalledWith(info);
   });
 });

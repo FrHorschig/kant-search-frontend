@@ -71,7 +71,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.langStore.currentLanguage$
       ),
       tap(([_, criteria, lang]) =>
-        this.router.navigate([`${lang}/search/results`], {
+        this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
             workIds: criteria.workIds.join(','),
             searchString: criteria.searchString,
@@ -88,7 +88,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([info, lang]) => {
-        this.router.navigate([`${lang}/read/text`, info.workId], {
+        this.router.navigate([`/${lang}/read/text`, info.workId], {
           fragment: info.fragment,
         });
       })

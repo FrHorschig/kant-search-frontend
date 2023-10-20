@@ -7,6 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Testdata } from 'src/app/common/test/testdata';
+import { FullTextInfo } from '../../model/full-text-info';
 
 describe('ParagraphDialogComponent', () => {
   let component: ParagraphDialogComponent;
@@ -58,5 +60,23 @@ describe('ParagraphDialogComponent', () => {
     // THEN
     expect(component.isVisible).toBeFalse();
     expect(component.isVisibleChange.emit).toHaveBeenCalledWith(false);
+  });
+
+  it('should emit navigateEmitter when onNavigate is called', () => {
+    // GIVEN
+    spyOn(component.navigateEmitter, 'emit');
+    component.info = {
+      workId: 1,
+      workTitle: 'title',
+      match: Testdata.match,
+      index: 1,
+    };
+    // WHEN
+    component.onNavigate();
+    // THEN
+    expect(component.navigateEmitter.emit).toHaveBeenCalledWith({
+      workId: 1,
+      fragment: 'paragraph-' + Testdata.match.paragraphId,
+    } as FullTextInfo);
   });
 });

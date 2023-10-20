@@ -14,6 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { FullTextInfo } from '../../model/full-text-info';
+import { query } from '@angular/animations';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
@@ -99,11 +101,61 @@ describe('ResultsStore', () => {
   it('should navigate when updateSearch is called', () => {
     // GIVEN
     const routerSpy = spyOn(router, 'navigate');
-    store.updateSearchString('test');
+    store.patchState({
+      criteria: {
+        workIds: [1, 2],
+        searchString: 'term',
+        options: { scope: SearchScope.Sentence },
+      },
+    });
     // WHEN
     store.updateSearch();
     // THEN
     expect(mockMessageService.clear).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
+      queryParams: {
+        workIds: '1,2',
+        searchString: 'term',
+        scope: SearchScope.Sentence,
+      },
+    });
+  });
+
+  it('should navigate when updateSearch is called using Paragraph scope', () => {
+    // GIVEN
+    const routerSpy = spyOn(router, 'navigate');
+    store.patchState({
+      criteria: {
+        workIds: [1, 2],
+        searchString: 'term',
+        options: { scope: SearchScope.Paragraph },
+      },
+    });
+    // WHEN
+    store.updateSearch();
+    // THEN
+    expect(mockMessageService.clear).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
+      queryParams: {
+        workIds: '1,2',
+        searchString: 'term',
+        scope: SearchScope.Paragraph,
+      },
+    });
+  });
+
+  it('should navigate when navigateToFullText is called', () => {
+    const info: FullTextInfo = {
+      workId: 1,
+      fragment: 'fragment',
+    };
+    // GIVEN
+    const routerSpy = spyOn(router, 'navigate');
+    // WHEN
+    store.navigateToFullText(info);
+    // THEN
+    expect(routerSpy).toHaveBeenCalledWith(['/de/read/text', info.workId], {
+      fragment: info.fragment,
+    });
   });
 });

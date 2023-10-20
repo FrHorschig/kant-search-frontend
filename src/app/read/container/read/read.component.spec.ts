@@ -10,8 +10,8 @@ import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 describe('TextComponent', () => {
   let component: ReadComponent;
   let fixture: ComponentFixture<ReadComponent>;
-  let mockRoute: any;
   let mockReadStore: jasmine.SpyObj<ReadStore>;
+  let mockRoute: any;
   let mockScrollService = createScrollServiceSpy();
   let fragmentSubject = new Subject<string>();
 
