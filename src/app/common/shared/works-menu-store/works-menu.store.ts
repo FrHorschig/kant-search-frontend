@@ -3,6 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
+import { Tree } from 'primeng/tree';
 import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { WorksReducers } from 'src/app/store/works';
 
@@ -33,6 +34,18 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
           tap((nodes) => this.patchState({ nodes }))
         )
       )
+    )
+  );
+  readonly toggleNode = this.effect<string>((key$) =>
+    key$.pipe(
+      tap((key) => {
+        const nodes = this.get().nodes;
+        var node = this.findNodeByKey(nodes, key);
+        if (node) {
+          node.expanded = !node.expanded;
+          this.patchState({ nodes });
+        }
+      })
     )
   );
 
@@ -138,5 +151,23 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
       selectable: true,
       data: work,
     };
+  }
+
+  private findNodeByKey(
+    nodes: TreeNode<any>[],
+    key: string
+  ): TreeNode | undefined {
+    for (const node of nodes) {
+      if (node.key === key) {
+        return node;
+      }
+      if (node.children) {
+        var child = this.findNodeByKey(node.children, key);
+        if (child) {
+          return child;
+        }
+      }
+    }
+    return undefined;
   }
 }

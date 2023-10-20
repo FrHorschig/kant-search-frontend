@@ -33,6 +33,7 @@
 >
   <app-works-menu
     [nodes]="(nodes$ | async) || []"
-    (selectionChangeEmitter)="onWorksChange($event)"
+    (workSelectEmitter)="onWorksChange($event)"
+    (expandableSelectEmitter)="toggleNode($event)"
   ></app-works-menu>
 </p-dialog>

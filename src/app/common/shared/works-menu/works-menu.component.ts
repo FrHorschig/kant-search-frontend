@@ -9,13 +9,18 @@ import { TreeNode } from 'primeng/api';
 export class WorksMenuComponent {
   @Input() nodes: TreeNode[] = [];
 
-  @Output() selectionChangeEmitter = new EventEmitter<Work>();
+  @Output() workSelectEmitter = new EventEmitter<Work>();
+  @Output() expandableSelectEmitter = new EventEmitter<string>();
 
   selection: TreeNode[] = [];
 
   constructor() {}
 
   onNodeSelect(event: any) {
-    this.selectionChangeEmitter.emit(event.node.data);
+    this.workSelectEmitter.emit(event.node.data);
+  }
+
+  onClick(node: TreeNode) {
+    this.expandableSelectEmitter.emit(node.key);
   }
 }

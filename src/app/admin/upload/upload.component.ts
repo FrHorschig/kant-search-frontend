@@ -29,6 +29,10 @@ export class UploadComponent {
     this.showWorksMenu = false;
   }
 
+  toggleNode(key: string) {
+    this.worksMenuStore.toggleNode(key);
+  }
+
   onUpload(event: any, fileUploadBtn: any) {
     const file = event.files[0];
     let reader = new FileReader();

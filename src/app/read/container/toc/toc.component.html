@@ -1,4 +1,5 @@
 <app-works-menu
   [nodes]="(nodes$ | async) || []"
-  (selectionChangeEmitter)="showText($event)"
+  (workSelectEmitter)="showText($event)"
+  (expandableSelectEmitter)="toggleNode($event)"
 ></app-works-menu>

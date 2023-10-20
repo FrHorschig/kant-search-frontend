@@ -8,7 +8,9 @@
       (onNodeSelect)="onNodeSelect($event)"
     >
       <ng-template pTemplate="default" let-node>
-        {{ node.label | translate }}
+        <span (click)="onClick(node)">
+          {{ node.label | translate }}
+        </span>
       </ng-template>
     </p-tree>
   </div>

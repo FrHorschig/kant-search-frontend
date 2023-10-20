@@ -27,7 +27,7 @@ describe('WorksMenuComponent', () => {
 
   it('should emit selectionChangeEmitter when onNodeSelect is called', () => {
     const work = Testdata.work;
-    const spy = spyOn(component.selectionChangeEmitter, 'emit');
+    const spy = spyOn(component.workSelectEmitter, 'emit');
     component.onNodeSelect({ node: { data: work } as TreeNode });
     expect(spy).toHaveBeenCalledWith(work);
   });

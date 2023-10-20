@@ -21,4 +21,8 @@ export class TocComponent {
   showText(work: Work) {
     this.store.navigateToText(work.id);
   }
+
+  toggleNode(key: string) {
+    this.worksMenuStore.toggleNode(key);
+  }
 }
