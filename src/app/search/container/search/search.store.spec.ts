@@ -9,6 +9,7 @@ import { SearchScope, Work } from 'kant-search-api';
 import { Section } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SearchStore', () => {
   let store: SearchStore;
@@ -17,12 +18,12 @@ describe('SearchStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       providers: [
         SearchStore,
         { provide: Store, useValue: jasmine.createSpyObj('Store', ['select']) },
         provideMockActions(() => actions$),
       ],
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
     });
 
     mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
@@ -44,7 +45,7 @@ describe('SearchStore', () => {
     // WHEN
     store.navigateSearch();
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
         workIds: '1',
         searchString: 'test',
@@ -66,7 +67,7 @@ describe('SearchStore', () => {
     // WHEN
     store.navigateSearch();
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
         workIds: '1,2,3',
         searchString: 'test',
@@ -95,7 +96,7 @@ describe('SearchStore', () => {
     // WHEN
     store.navigateSearch();
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/search/results'], {
+    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
         workIds: '',
         searchString: 'test',

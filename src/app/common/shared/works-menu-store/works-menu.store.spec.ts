@@ -49,7 +49,7 @@ describe('WorksMenuStore', () => {
     const volumeNodes: TreeNode[] = [{ key: 'key' }];
     const result = sut['createSectionNode'](1, true, volumeNodes);
     expect(result.key).toEqual('1');
-    expect(result.label).toEqual('Abteilung 1');
+    expect(result.label).toEqual('COMMON.SECTION_1');
     expect(result.selectable).toBeTrue();
     expect(result.children).toEqual(volumeNodes);
   });

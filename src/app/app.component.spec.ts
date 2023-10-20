@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Store } from '@ngrx/store';
 import { WorksActions } from './store/works';
+import { MenuModule } from 'primeng/menu';
 
 class MockTranslateService {
   setDefaultLang = jasmine.createSpy('setDefaultLang');
@@ -38,6 +39,7 @@ describe('AppComponent', () => {
         TranslateModule.forRoot(),
         MessagesModule,
         TabMenuModule,
+        MenuModule,
       ],
     }).compileComponents();
 
@@ -51,8 +53,8 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set default language to "en"', () => {
-    expect(mockTranslateService.setDefaultLang).toHaveBeenCalledWith('en');
+  it('should set default language to "de"', () => {
+    expect(mockTranslateService.setDefaultLang).toHaveBeenCalledWith('de');
   });
 
   it('should dispatch loadWorks action', () => {

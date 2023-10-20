@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TocComponent', () => {
   let component: TocComponent;
@@ -13,9 +14,9 @@ describe('TocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       providers: [provideMockStore({})],
       declarations: [TocComponent, MockWorksMenuComponent],
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TocComponent);
@@ -34,6 +35,6 @@ describe('TocComponent', () => {
     // WHEN
     component.showText(work);
     // THEN
-    expect(navigateSpy).toHaveBeenCalledWith(['/read/text', 1]);
+    expect(navigateSpy).toHaveBeenCalledWith(['/de/read/text', 1]);
   });
 });

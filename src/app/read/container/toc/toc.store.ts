@@ -19,7 +19,7 @@ export class TocStore extends ComponentStore<TocState> {
     workId$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([workId, lang]) =>
-        this.router.navigate([`${lang}/read/text`, workId])
+        this.router.navigate([`/${lang}/read/text`, workId])
       )
     )
   );

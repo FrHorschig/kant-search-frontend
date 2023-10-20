@@ -4,6 +4,9 @@ import { ResultItemComponent } from './result-item.component';
 import { CardModule } from 'primeng/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { RemovePaginationPipe } from '../../pipes/remove-pagination.pipe';
+import { LinkButtonComponent } from 'src/app/common/shared/link-button/link-button.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { MenuModule } from 'primeng/menu';
 
 describe('ResultItemComponent', () => {
   let component: ResultItemComponent;
@@ -11,8 +14,17 @@ describe('ResultItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResultItemComponent, RemovePaginationPipe],
-      imports: [TranslateModule.forRoot(), CardModule],
+      declarations: [
+        ResultItemComponent,
+        RemovePaginationPipe,
+        LinkButtonComponent,
+      ],
+      imports: [
+        TranslateModule.forRoot(),
+        CardModule,
+        TooltipModule,
+        MenuModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ResultItemComponent);

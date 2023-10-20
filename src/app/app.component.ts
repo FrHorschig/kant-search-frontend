@@ -14,7 +14,7 @@ export class AppComponent {
     private readonly translateService: TranslateService,
     private readonly store: Store
   ) {
-    this.translateService.setDefaultLang('en');
+    this.translateService.setDefaultLang('de');
     this.store.dispatch(WorksActions.loadWorks());
   }
 

@@ -13,6 +13,7 @@ import { Testdata } from 'src/app/common/test/testdata';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
@@ -33,7 +34,7 @@ describe('ResultsStore', () => {
         { provide: MessageService, useValue: mockMessageService },
         { provide: ErrorService, useValue: mockErrorService },
       ],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
     });
 
     store = TestBed.inject(ResultsStore);
@@ -98,6 +99,7 @@ describe('ResultsStore', () => {
   it('should navigate when updateSearch is called', () => {
     // GIVEN
     const routerSpy = spyOn(router, 'navigate');
+    store.updateSearchString('test');
     // WHEN
     store.updateSearch();
     // THEN
