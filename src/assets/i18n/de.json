@@ -15,6 +15,9 @@
       "EN": "English"
     }
   },
+  "STARTPAGE": {
+    "TEXT": "Diese Website wird eine Webanwendung zum Durchsuchen der Texte des Bonner Kant-Korpus bieten. Sie befindet sich derzeit in der Entwicklung."
+  },
   "READ": {
     "MODE_CHECKBOX_LABEL": "Zeilennummern anzeigen"
   },

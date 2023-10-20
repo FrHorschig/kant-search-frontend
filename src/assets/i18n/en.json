@@ -15,6 +15,9 @@
       "EN": "English"
     }
   },
+  "STARTPAGE": {
+    "TEXT": "This website will offer a web application for reading and searching the texts of the Bonn Kant Corpus. It is currently under development, and at the moment only some texts are available."
+  },
   "READ": {
     "MODE_CHECKBOX_LABEL": "Show line numbers"
   },
