@@ -31,7 +31,7 @@ export class ReadComponent
 
   ngAfterViewInit() {
     this.route.fragment.pipe(this.takeUntilDestroy()).subscribe((fragment) => {
-      if (!!fragment) {
+      if (fragment) {
         this.scrollService.scrollToAnchor(fragment);
       }
     });

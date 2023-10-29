@@ -14,8 +14,6 @@ export class WorksMenuComponent {
 
   selection: TreeNode[] = [];
 
-  constructor() {}
-
   onNodeSelect(event: any) {
     this.workSelectEmitter.emit(event.node.data);
   }

@@ -74,7 +74,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     return (
       worksBySection
         .get(this.get((state) => state.section))
-        ?.map((work) => work.id) || []
+        ?.map((work) => work.id) ?? []
     );
   }
 }

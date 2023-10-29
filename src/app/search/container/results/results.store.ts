@@ -70,7 +70,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.select((state) => state.criteria),
         this.langStore.currentLanguage$
       ),
-      tap(([_, criteria, lang]) =>
+      tap(([_, criteria, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
             workIds: criteria.workIds.join(','),
@@ -80,8 +80,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
                 ? SearchScope.Sentence
                 : SearchScope.Paragraph,
           },
-        })
-      )
+        });
+        return EMPTY;
+      })
     )
   );
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
@@ -91,6 +92,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.router.navigate([`/${lang}/read/text`, info.workId], {
           fragment: info.fragment,
         });
+        return EMPTY;
       })
     )
   );

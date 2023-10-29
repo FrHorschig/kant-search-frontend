@@ -3,7 +3,6 @@ import { Work } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Section, BasicInput } from '../../model/simple-input';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { isSubscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-basic-input',

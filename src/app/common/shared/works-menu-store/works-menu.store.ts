@@ -3,7 +3,6 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
 import { Work, Volume } from 'kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
 import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { WorksReducers } from 'src/app/store/works';
 
@@ -40,7 +39,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     key$.pipe(
       tap((key) => {
         const nodes = this.get().nodes;
-        var node = this.findNodeByKey(nodes, key);
+        const node = this.findNodeByKey(nodes, key);
         if (node) {
           node.expanded = !node.expanded;
           this.patchState({ nodes });
@@ -59,12 +58,12 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     if (works.length === 0) {
       return [];
     }
-    var volume = volumeById.get(works[0].volumeId);
-    var sectionNodes: TreeNode[] = [];
-    var currentSection = volume?.section || 0;
-    var volumeNodes: TreeNode[] = [];
-    var currentVolume = works[0].volumeId;
-    var workNodes: TreeNode[] = [];
+    let volume = volumeById.get(works[0].volumeId);
+    const sectionNodes: TreeNode[] = [];
+    let currentSection = volume?.section ?? 0;
+    let volumeNodes: TreeNode[] = [];
+    let currentVolume = works[0].volumeId;
+    let workNodes: TreeNode[] = [];
 
     for (const work of works) {
       if (!volume) {
@@ -162,7 +161,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
         return node;
       }
       if (node.children) {
-        var child = this.findNodeByKey(node.children, key);
+        const child = this.findNodeByKey(node.children, key);
         if (child) {
           return child;
         }

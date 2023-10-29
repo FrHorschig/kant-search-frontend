@@ -22,7 +22,7 @@ export class ResultListComponent {
   }
 
   getWorkTitle(workId: number): string {
-    var title = this.workById?.get(workId)?.title || '';
+    let title = this.workById?.get(workId)?.title ?? '';
     if (title?.length > 40) {
       title = title.substring(0, 37) + '...';
     }
@@ -31,7 +31,7 @@ export class ResultListComponent {
 
   getWorkAbbreviation(workId: number): string {
     const abbrev = this.workById?.get(workId)?.abbreviation;
-    return (abbrev ? abbrev : this.getWorkTitle(workId)) || '';
+    return abbrev ?? this.getWorkTitle(workId) ?? '';
   }
 
   getAnchorId(workId: number, match: Match): string {

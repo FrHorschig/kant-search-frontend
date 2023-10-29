@@ -7,7 +7,7 @@ export class PaginationPipe implements PipeTransform {
   transform(text: string): string {
     return text
       .replace(
-        /\{fn(\d+.\d+)\}/g,
+        /\{fn(\d+\.\d+)\}/g,
         (_, g1) => `<sup><span class="ks-fn-ref">(${g1})</span></sup>`
       ) //
       .replace(/\s*\{l(\d+)\}\s*/g, ' ') //

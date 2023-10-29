@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { tap, withLatestFrom } from 'rxjs';
+import { EMPTY, tap, withLatestFrom } from 'rxjs';
 import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface TocState {}
@@ -18,9 +18,10 @@ export class TocStore extends ComponentStore<TocState> {
   readonly navigateToText = this.effect<number>((workId$) =>
     workId$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
-      tap(([workId, lang]) =>
-        this.router.navigate([`/${lang}/read/text`, workId])
-      )
+      tap(([workId, lang]) => {
+        this.router.navigate([`/${lang}/read/text`, workId]);
+        return EMPTY;
+      })
     )
   );
 }

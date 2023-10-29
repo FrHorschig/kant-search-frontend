@@ -47,7 +47,7 @@ export class ResultsComponent
         const workIdsParam = params.get('workIds');
         const criteria: SearchCriteria = {
           workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
-          searchString: params.get('searchString') || '',
+          searchString: params.get('searchString') ?? '',
           options: {
             scope:
               params.get('scope') === 'SENTENCE'
@@ -61,7 +61,7 @@ export class ResultsComponent
 
   ngAfterViewInit() {
     this.route.fragment.pipe(this.takeUntilDestroy()).subscribe((fragment) => {
-      if (!!fragment) {
+      if (fragment) {
         this.scrollService.scrollToAnchor(fragment);
       }
     });

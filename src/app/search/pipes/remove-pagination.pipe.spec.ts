@@ -44,12 +44,12 @@ describe('NormalModePipe', () => {
   });
 
   it('should remove pagination cut off at start', () => {
-    const result = pipe.transform(' fr234.5} some words');
+    const result = pipe.transform('fr234.5} some words');
     expect(result).toBe(' some words');
   });
 
   it('should remove pagination cut off at end', () => {
-    const result = pipe.transform('some words {fr234.5 ');
+    const result = pipe.transform('some words {fr234.5');
     expect(result).toBe('some words ');
   });
 });

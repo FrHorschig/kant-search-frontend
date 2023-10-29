@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpError, UploadService, Work, WorkUpload } from 'kant-search-api';
-import { MessageService } from 'primeng/api';
-import { ContainerComponent } from 'src/app/common/base/container.component';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { UploadStore } from './upload.store';
+import { Work } from 'kant-search-api';
 
 @Component({
   selector: 'app-upload',
@@ -38,7 +36,7 @@ export class UploadComponent {
     let reader = new FileReader();
     reader.onload = () => {
       if (reader.result) {
-        this.uploadStore.upload(reader.result.toString());
+        this.uploadStore.upload(reader.result as string);
       }
     };
     reader.readAsText(file);

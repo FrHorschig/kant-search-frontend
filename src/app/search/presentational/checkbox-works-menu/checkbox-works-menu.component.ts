@@ -24,10 +24,8 @@ export class CheckboxWorksMenuComponent {
 
   @ViewChild(Tree, { static: false }) tree: Tree | undefined;
 
-  constructor() {}
-
   onSelectAll() {
-    if (this.tree && this.tree.value) {
+    if (this.tree?.value) {
       this.tree.selection = this.getRecursiveSelection(this.tree.value);
       this.removeParialSelection(this.tree.value);
       this.onSelectionChange(this.tree?.selection || []);
@@ -57,7 +55,7 @@ export class CheckboxWorksMenuComponent {
       if (node.data) {
         works.set(node.data.id, node.data);
       } else {
-        this.getSelectedWorks(node.children || []).forEach((work) => {
+        this.getSelectedWorks(node.children ?? []).forEach((work) => {
           works.set(work.id, work);
         });
       }
