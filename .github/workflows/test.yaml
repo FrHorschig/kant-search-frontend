@@ -23,4 +23,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.API_PKG_PAT }}
       - run: npm run build --if-present
-      - run: npm test
+      - run: npm test -- --watch=false
