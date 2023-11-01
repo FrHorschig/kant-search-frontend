@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { UploadStore } from './upload.store';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 
 @Component({
   selector: 'app-upload',

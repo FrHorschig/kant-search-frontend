@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { EMPTY, forkJoin } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { loadWorks, loadWorksSuccess } from './works.actions';
-import { ReadService } from 'kant-search-api';
+import { ReadService } from '@frhorschig/kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

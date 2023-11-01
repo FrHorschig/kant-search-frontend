@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Match } from 'kant-search-api';
+import { Match } from '@frhorschig/kant-search-api';
 
 @Component({
   selector: 'app-result-item',

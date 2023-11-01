@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SearchCriteria, SearchScope } from 'kant-search-api';
+import { SearchCriteria, SearchScope } from '@frhorschig/kant-search-api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { ResultsStore } from './results.store';
 import { Store } from '@ngrx/store';

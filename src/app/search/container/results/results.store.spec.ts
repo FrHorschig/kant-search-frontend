@@ -6,7 +6,7 @@ import {
   HttpError,
   SearchScope,
   SearchService,
-} from 'kant-search-api';
+} from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { Testdata } from 'src/app/common/test/testdata';

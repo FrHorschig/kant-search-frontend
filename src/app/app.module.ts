@@ -9,7 +9,7 @@ import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { ApiModule } from 'kant-search-api';
+import { ApiModule } from '@frhorschig/kant-search-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartpageComponent } from './app/startpage/startpage.component';

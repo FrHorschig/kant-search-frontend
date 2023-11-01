@@ -7,7 +7,7 @@ import {
   SearchResult,
   SearchScope,
   SearchService,
-} from 'kant-search-api';
+} from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { EMPTY, filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';

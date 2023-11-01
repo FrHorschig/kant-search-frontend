@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { UploadService, Work } from 'kant-search-api';
+import { UploadService, Work } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { EMPTY, switchMap, tap } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';

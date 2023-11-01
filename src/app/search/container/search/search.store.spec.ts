@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';
-import { SearchScope, Work } from 'kant-search-api';
+import { SearchScope, Work } from '@frhorschig/kant-search-api';
 import { Section } from '../../model/simple-input';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';

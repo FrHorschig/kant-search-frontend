@@ -1,4 +1,4 @@
-import { Match } from 'kant-search-api';
+import { Match } from '@frhorschig/kant-search-api';
 
 export interface MatchInfo {
   workId: number;

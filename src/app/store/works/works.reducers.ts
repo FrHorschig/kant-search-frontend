@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { Volume, Work } from 'kant-search-api';
+import { Volume, Work } from '@frhorschig/kant-search-api';
 import { loadWorks, loadWorksSuccess } from './works.actions';
 import { Section } from 'src/app/search/model/simple-input';
 

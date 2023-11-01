@@ -1,5 +1,5 @@
 import { FormatPipe } from './format.pipe';
-import { Paragraph } from 'kant-search-api';
+import { Paragraph } from '@frhorschig/kant-search-api';
 
 describe('FormatPipe', () => {
   let pipe: FormatPipe = new FormatPipe();

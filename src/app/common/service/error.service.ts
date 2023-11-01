@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpError } from 'kant-search-api';
+import { HttpError } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { forkJoin } from 'rxjs';
 

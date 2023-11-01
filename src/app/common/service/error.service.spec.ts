@@ -5,7 +5,7 @@ import { createMessageServiceSpy } from '../test/primeng-services';
 import { TranslateService } from '@ngx-translate/core';
 import { createTranslateServiceSpy } from '../test/serivces';
 import { of } from 'rxjs';
-import { ErrorMessage } from 'kant-search-api';
+import { ErrorMessage } from '@frhorschig/kant-search-api';
 
 describe('ErrorService', () => {
   let sut: ErrorService;

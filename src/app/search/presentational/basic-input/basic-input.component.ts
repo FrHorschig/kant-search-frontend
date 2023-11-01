@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Section, BasicInput } from '../../model/simple-input';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';

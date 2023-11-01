@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { SearchScope, Work } from 'kant-search-api';
+import { SearchScope, Work } from '@frhorschig/kant-search-api';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
 import { Section, BasicInput } from '../../model/simple-input';

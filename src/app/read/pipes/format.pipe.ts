@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Paragraph } from 'kant-search-api';
+import { Paragraph } from '@frhorschig/kant-search-api';
 
 @Pipe({
   name: 'format',

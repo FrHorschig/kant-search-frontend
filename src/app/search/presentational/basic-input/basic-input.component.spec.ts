@@ -7,7 +7,7 @@ import { InputGroupComponent } from 'src/app/common/shared/input-group/input-gro
 import { DialogModule } from 'primeng/dialog';
 import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Section } from '../../model/simple-input';

@@ -4,7 +4,7 @@ import { WorksMenuStore } from './works-menu.store';
 import { TreeNode } from 'primeng/api';
 import { Testdata } from '../../test/testdata';
 import { WorksReducers } from 'src/app/store/works';
-import { Volume, Work } from 'kant-search-api';
+import { Volume, Work } from '@frhorschig/kant-search-api';
 import { of } from 'rxjs';
 
 const assertSingleSectionNode = (

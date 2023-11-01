@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultListComponent } from './result-list.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
 
 describe('ResultListComponent', () => {

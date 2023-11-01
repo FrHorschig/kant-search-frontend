@@ -4,7 +4,11 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { WorksEffects } from './works.effects';
 import { loadWorks, loadWorksSuccess } from './works.actions';
-import { ErrorMessage, HttpError, ReadService } from 'kant-search-api';
+import {
+  ErrorMessage,
+  HttpError,
+  ReadService,
+} from '@frhorschig/kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import {
   createErrorServiceSpy,

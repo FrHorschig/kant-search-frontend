@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SearchOptions } from '../../model/search-output';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SearchScope } from 'kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 
 @Component({
   selector: 'app-advanced-input',

@@ -16,7 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
-import { SearchScope } from 'kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { Section, BasicInput } from '../../model/simple-input';
 import { DividerModule } from 'primeng/divider';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 
 @Component({

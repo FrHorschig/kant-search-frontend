@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Paragraph } from 'kant-search-api';
+import { Paragraph } from '@frhorschig/kant-search-api';
 
 @Component({
   selector: 'app-text',

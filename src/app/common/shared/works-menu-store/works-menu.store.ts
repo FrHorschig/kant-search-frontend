@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
-import { Work, Volume } from 'kant-search-api';
+import { Work, Volume } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { WorksReducers } from 'src/app/store/works';

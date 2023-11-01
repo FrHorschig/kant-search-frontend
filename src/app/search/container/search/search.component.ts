@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { WorksReducers } from 'src/app/store/works';
 import { SearchStore } from './search.store';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { SearchOptions } from '../../model/search-output';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { MessageService } from 'primeng/api';

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WorksMenuComponent } from './works-menu.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TreeModule } from 'primeng/tree';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Testdata } from '../../test/testdata';
 

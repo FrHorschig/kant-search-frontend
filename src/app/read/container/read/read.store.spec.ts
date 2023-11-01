@@ -2,7 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { ReadStore } from './read.store';
 import { MessageService } from 'primeng/api';
-import { ErrorMessage, HttpError, ReadService } from 'kant-search-api';
+import {
+  ErrorMessage,
+  HttpError,
+  ReadService,
+} from '@frhorschig/kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

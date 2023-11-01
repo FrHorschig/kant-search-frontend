@@ -1,4 +1,4 @@
-import { SearchScope } from 'kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 
 export class SearchOptions {
   constructor(public scope = SearchScope.Paragraph) {}

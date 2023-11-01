@@ -9,7 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
 import { ResultsStore } from './results.store';
-import { SearchScope } from 'kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';

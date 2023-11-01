@@ -5,7 +5,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Work } from 'kant-search-api';
+import { Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';

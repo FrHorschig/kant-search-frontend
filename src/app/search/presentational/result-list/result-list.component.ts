@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Match, SearchResult, Work } from 'kant-search-api';
+import { Match, SearchResult, Work } from '@frhorschig/kant-search-api';
 import { MatchInfo } from '../../model/match-info';
 
 @Component({

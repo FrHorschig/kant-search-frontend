@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Volume, Work } from 'kant-search-api';
+import { Volume, Work } from '@frhorschig/kant-search-api';
 
 export const loadWorks = createAction('[Works] Load Works');
 export const loadWorksSuccess = createAction(

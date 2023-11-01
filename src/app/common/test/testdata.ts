@@ -1,4 +1,4 @@
-import { Match, Paragraph, Volume, Work } from 'kant-search-api';
+import { Match, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
 import { MatchInfo } from 'src/app/search/model/match-info';
 
 export class Testdata {

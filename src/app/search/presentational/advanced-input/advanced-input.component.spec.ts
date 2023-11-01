@@ -8,7 +8,7 @@ import { InputGroupComponent } from 'src/app/common/shared/input-group/input-gro
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'primeng/tooltip';
-import { SearchScope } from 'kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 import { DividerModule } from 'primeng/divider';
 
 describe('AdvancedInputComponent', () => {
