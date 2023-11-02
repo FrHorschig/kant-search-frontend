@@ -10,7 +10,7 @@ import {
 import { ErrorService } from 'src/app/common/service/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
-describe('TextStore', () => {
+describe('ReadStore', () => {
   let store: ReadStore;
   let readService: jasmine.SpyObj<ReadService>;
   let errorService: jasmine.SpyObj<ErrorService>;

@@ -15,7 +15,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { FullTextInfo } from '../../model/full-text-info';
-import { query } from '@angular/animations';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
