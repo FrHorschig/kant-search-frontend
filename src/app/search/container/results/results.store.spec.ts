@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { FullTextInfo } from '../../model/full-text-info';
 
-fdescribe('ResultsStore', () => {
+describe('ResultsStore', () => {
   let store: ResultsStore;
   let mockSearchService: jasmine.SpyObj<SearchService>;
   let mockMessageService: jasmine.SpyObj<MessageService>;
