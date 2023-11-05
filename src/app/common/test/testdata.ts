@@ -7,7 +7,7 @@ export class Testdata {
   static volume3: Volume = { id: 3, section: 3 };
   static work: Work = {
     id: 1,
-    code: 'Work 1',
+    code: 'ABC',
     abbreviation: 'Abbrev 1',
     ordinal: 0,
     year: '1234',
@@ -15,13 +15,13 @@ export class Testdata {
   };
   static work2: Work = {
     id: 2,
-    code: 'Work 2',
+    code: 'DEF',
     ordinal: 0,
     volumeId: 2,
   };
   static work3: Work = {
     id: 3,
-    code: 'Work 3',
+    code: 'GHI',
     ordinal: 0,
     volumeId: 3,
   };
