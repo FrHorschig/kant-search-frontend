@@ -20,9 +20,9 @@ export class BasicInputComponent implements OnInit {
   customSelectOption = [{ label: 'CUSTOM', value: Section.CUSTOM }];
   simpleSelectOptions = [
     { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL', value: Section.ALL },
-    { label: 'COMMON.SECTION_1', value: Section.SEC1 },
-    { label: 'COMMON.SECTION_2', value: Section.SEC2 },
-    { label: 'COMMON.SECTION_3', value: Section.SEC3 },
+    { label: 'SECTIONS.SEC_1', value: Section.SEC1 },
+    { label: 'SECTIONS.SEC_2', value: Section.SEC2 },
+    { label: 'SECTIONS.SEC_3', value: Section.SEC3 },
   ];
   form: FormGroup = this.formBuilder.group({
     section: new FormControl({

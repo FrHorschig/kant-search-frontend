@@ -26,7 +26,9 @@ describe('ResultListComponent', () => {
 
   it('should emit the clicked match', () => {
     // GIVEN
-    component.workById = new Map([[1, { code: 'code' } as Work]]);
+    component.workById = new Map([
+      [1, { code: 'code', abbreviation: 'code' } as Work],
+    ]);
     spyOn(component.onClick, 'emit');
     // WHEN
     component.onMatchClick(
@@ -36,23 +38,6 @@ describe('ResultListComponent', () => {
     );
     // THEN
     expect(component.onClick.emit).toHaveBeenCalledWith(Testdata.matchInfo);
-  });
-
-  it('should emit the clicked match with shortened code', () => {
-    const longCode = 'a very long code with many many many, very many words';
-    const shortCodeInfo = {
-      workId: 1,
-      workCode: 'a very long code with many many many...',
-      match: Testdata.match,
-      index: 1,
-    };
-    // GIVEN
-    component.workById = new Map([[1, { id: 1, code: longCode } as Work]]);
-    spyOn(component.onClick, 'emit');
-    // WHEN
-    component.onMatchClick(1, Testdata.match, 1);
-    // THEN
-    expect(component.onClick.emit).toHaveBeenCalledWith(shortCodeInfo);
   });
 
   it('should emit the clicked match with abbreviation', () => {
@@ -78,14 +63,14 @@ describe('ResultListComponent', () => {
     // WHEN
     component.workById = new Map([[1, { code: code } as Work]]);
     // THEN
-    expect(component.getWorkCode(1)).toBe(code);
+    expect(component.getWorkTitle(1)).toBe(code);
   });
 
   it('should return an empty string if work not found', () => {
     // GIVEN
     component.workById = null;
     // THEN
-    expect(component.getWorkCode(1)).toBe('');
+    expect(component.getWorkTitle(1)).toBe('');
   });
 
   it('should return correct string when getAnchorId is called', () => {

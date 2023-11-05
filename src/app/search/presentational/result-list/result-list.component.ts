@@ -21,17 +21,12 @@ export class ResultListComponent {
     });
   }
 
-  getWorkCode(workId: number): string {
-    let code = this.workById?.get(workId)?.code ?? '';
-    if (code?.length > 40) {
-      code = code.substring(0, 37) + '...';
-    }
-    return code;
+  getWorkTitle(workId: number): string {
+    return this.workById?.get(workId)?.code ?? '';
   }
 
   getWorkAbbreviation(workId: number): string {
-    const abbrev = this.workById?.get(workId)?.abbreviation;
-    return abbrev ?? this.getWorkCode(workId) ?? '';
+    return this.workById?.get(workId)?.abbreviation ?? '';
   }
 
   getAnchorId(workId: number, match: Match): string {
