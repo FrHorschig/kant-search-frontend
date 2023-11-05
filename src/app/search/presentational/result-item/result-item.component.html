@@ -3,7 +3,10 @@
     <ng-template pTemplate="subtitle">
       <div class="flex justify-content-between">
         <div class="mt-4">
-          {{ workTitle }} #{{ index }}
+          #{{ index }}
+          {{
+            workAbbrev !== "" ? workAbbrev : ("WORKS." + workCode | translate)
+          }}
 
           [{{ match.pages.join(", ") }}]
         </div>

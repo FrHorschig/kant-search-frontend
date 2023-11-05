@@ -67,7 +67,7 @@ describe('ParagraphDialogComponent', () => {
     spyOn(component.navigateEmitter, 'emit');
     component.info = {
       workId: 1,
-      workTitle: 'title',
+      workCode: 'code',
       match: Testdata.match,
       index: 1,
     };

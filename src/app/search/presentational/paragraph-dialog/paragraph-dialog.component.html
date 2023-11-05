@@ -2,7 +2,7 @@
   [(visible)]="isVisible"
   [modal]="true"
   (onHide)="onHide()"
-  header="{{ info.workTitle }} #{{ info.index }}"
+  header="{{ 'WORKS.' + info.workCode | translate }} #{{ info.index }}"
 >
   <div class="max-w-600 mb-3" [innerHTML]="info.match.text | pagination"></div>
 

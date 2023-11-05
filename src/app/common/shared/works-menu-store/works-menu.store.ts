@@ -116,7 +116,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}`,
-      label: `COMMON.SECTION_${section}`,
+      label: `SECTIONS.SEC_${section}`,
       styleClass: 'font-bold',
       expanded: true,
       selectable: isSelectable,
@@ -132,7 +132,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   ): TreeNode {
     return {
       key: `${section}-${volume.id}`,
-      label: `Band ${volume.id}: ${volume.title}`,
+      label: `VOLUMES.VOL_${volume.id}`,
       styleClass: 'font-normal',
       expanded: false,
       selectable: isSelectable,
@@ -143,9 +143,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   private createWorkNode(section: number, work: Work): TreeNode {
     return {
       key: `${section}-${work.volumeId}-${work.id}`,
-      label: `${work.abbreviation ? work.abbreviation + ': ' : ''}${
-        work.title
-      }${work.year ? ' (' + work.year + ')' : ''}`,
+      label: `WORKS.${work.code}`,
       styleClass: 'font-normal',
       selectable: true,
       data: work,

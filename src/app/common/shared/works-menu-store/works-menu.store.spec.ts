@@ -49,7 +49,7 @@ describe('WorksMenuStore', () => {
     const volumeNodes: TreeNode[] = [{ key: 'key' }];
     const result = sut['createSectionNode'](1, true, volumeNodes);
     expect(result.key).toEqual('1');
-    expect(result.label).toEqual('COMMON.SECTION_1');
+    expect(result.label).toEqual('SECTIONS.SEC_1');
     expect(result.selectable).toBeTrue();
     expect(result.children).toEqual(volumeNodes);
   });
@@ -58,7 +58,7 @@ describe('WorksMenuStore', () => {
     const workNodes: TreeNode[] = [{ key: 'key' }];
     const result = sut['createVolumeNode'](1, Testdata.volume, true, workNodes);
     expect(result.key).toEqual('1-1');
-    expect(result.label).toEqual('Band 1: Volume 1');
+    expect(result.label).toEqual('VOLUMES.VOL_1');
     expect(result.selectable).toBeTrue();
     expect(result.children).toEqual(workNodes);
   });
@@ -66,7 +66,7 @@ describe('WorksMenuStore', () => {
   it('should create work nodes correctly', () => {
     const result = sut['createWorkNode'](1, Testdata.work);
     expect(result.key).toEqual('1-1-1');
-    expect(result.label).toEqual('Abbrev 1: Work 1 (1234)');
+    expect(result.label).toEqual('WORKS.ABC');
     expect(result.selectable).toBeTrue();
     expect(result.data).toEqual(Testdata.work);
   });
@@ -77,15 +77,15 @@ describe('WorksMenuStore', () => {
       Testdata.work2,
       {
         id: 3,
-        title: 'Work 3',
+        code: 'Work 3',
         ordinal: 0,
         volumeId: 3,
       },
     ];
     const volumeById = new Map<number, Volume>([
       [1, Testdata.volume],
-      [2, { id: 2, title: 'Volume 2', section: 2 }],
-      [3, { id: 3, title: 'Volume 3', section: 3 }],
+      [2, { id: 2, section: 2 }],
+      [3, { id: 3, section: 3 }],
     ]);
 
     // GIVEN

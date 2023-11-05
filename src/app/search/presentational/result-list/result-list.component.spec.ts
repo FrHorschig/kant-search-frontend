@@ -26,7 +26,9 @@ describe('ResultListComponent', () => {
 
   it('should emit the clicked match', () => {
     // GIVEN
-    component.workById = new Map([[1, { title: 'title' } as Work]]);
+    component.workById = new Map([
+      [1, { code: 'code', abbreviation: 'code' } as Work],
+    ]);
     spyOn(component.onClick, 'emit');
     // WHEN
     component.onMatchClick(
@@ -38,27 +40,10 @@ describe('ResultListComponent', () => {
     expect(component.onClick.emit).toHaveBeenCalledWith(Testdata.matchInfo);
   });
 
-  it('should emit the clicked match with shortened title', () => {
-    const longTitle = 'a very long title with many many many, very many words';
-    const shortTitleInfo = {
-      workId: 1,
-      workTitle: 'a very long title with many many many...',
-      match: Testdata.match,
-      index: 1,
-    };
-    // GIVEN
-    component.workById = new Map([[1, { id: 1, title: longTitle } as Work]]);
-    spyOn(component.onClick, 'emit');
-    // WHEN
-    component.onMatchClick(1, Testdata.match, 1);
-    // THEN
-    expect(component.onClick.emit).toHaveBeenCalledWith(shortTitleInfo);
-  });
-
   it('should emit the clicked match with abbreviation', () => {
-    const abbrevTitleInfo = {
+    const abbrevCodeInfo = {
       workId: 1,
-      workTitle: 'abbreviation',
+      workCode: 'abbreviation',
       match: Testdata.match,
       index: 1,
     };
@@ -70,22 +55,22 @@ describe('ResultListComponent', () => {
     // WHEN
     component.onMatchClick(1, Testdata.match, 1);
     // THEN
-    expect(component.onClick.emit).toHaveBeenCalledWith(abbrevTitleInfo);
+    expect(component.onClick.emit).toHaveBeenCalledWith(abbrevCodeInfo);
   });
 
-  it('should return the title of the work by id', () => {
-    const title = 'Test Title';
+  it('should return the code of the work by id', () => {
+    const code = 'Test Code';
     // WHEN
-    component.workById = new Map([[1, { title: title } as Work]]);
+    component.workById = new Map([[1, { code: code } as Work]]);
     // THEN
-    expect(component.getWorkTitle(1)).toBe(title);
+    expect(component.getWorkCode(1)).toBe(code);
   });
 
   it('should return an empty string if work not found', () => {
     // GIVEN
     component.workById = null;
     // THEN
-    expect(component.getWorkTitle(1)).toBe('');
+    expect(component.getWorkCode(1)).toBe('');
   });
 
   it('should return correct string when getAnchorId is called', () => {

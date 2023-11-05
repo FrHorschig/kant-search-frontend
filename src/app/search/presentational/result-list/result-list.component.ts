@@ -15,23 +15,18 @@ export class ResultListComponent {
   onMatchClick(workId: number, match: Match, index: number) {
     this.onClick.emit({
       workId,
-      workTitle: this.getWorkAbbreviation(workId),
+      workCode: this.getWorkAbbreviation(workId),
       match,
       index,
     });
   }
 
-  getWorkTitle(workId: number): string {
-    let title = this.workById?.get(workId)?.title ?? '';
-    if (title?.length > 40) {
-      title = title.substring(0, 37) + '...';
-    }
-    return title;
+  getWorkCode(workId: number): string {
+    return this.workById?.get(workId)?.code ?? '';
   }
 
   getWorkAbbreviation(workId: number): string {
-    const abbrev = this.workById?.get(workId)?.abbreviation;
-    return abbrev ?? this.getWorkTitle(workId) ?? '';
+    return this.workById?.get(workId)?.abbreviation ?? '';
   }
 
   getAnchorId(workId: number, match: Match): string {
