@@ -1,10 +1,7 @@
 {
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Scroll to top",
-    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element",
-    "SECTION_1": "Section 1: Works",
-    "SECTION_2": "Section 2: Letters",
-    "SECTION_3": "Section 3: Handwritten Legacy"
+    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element"
   },
   "NAVBAR": {
     "READ": "Read",
@@ -84,5 +81,36 @@
     },
     "INTERNAL_SERVER_ERROR": "Internal server error.",
     "NOT_IMPLEMENTED": "Feature not implemented."
+  },
+
+  "SECTIONS": {
+    "SEC_1": "Section 1: Works",
+    "SEC_2": "Section 2: Letters",
+    "SEC_3": "Section 3: Handwritten Legacy"
+  },
+  "VOLUMES": {
+    "VOL_1": "Pre-Critical Writings I, 1747-1756",
+    "VOL_2": "Pre-Critical Writings II, 1757-1777",
+    "VOL_3": "Critique of Pure Reason (B-ed. 1787)",
+    "VOL_4": "Critique of Pure Reason (A-ed.)/Prolegomena/etc.",
+    "VOL_5": "Critique of Practical Reason/Critique of Judgment",
+    "VOL_6": "Religion/Metaphysics of Morals",
+    "VOL_7": "Conflict of the Faculties/Anthropology",
+    "VOL_8": "Essays after 1781",
+    "VOL_9": "Logic/Physical Geography/Education",
+    "VOL_10": "Correspondence, 1747-1788",
+    "VOL_11": "Correspondence, 1789-1794",
+    "VOL_12": "Correspondence, 1795-1803 + varia",
+    "VOL_13": "Correspondence Index",
+    "VOL_14": "Natural Sciences Nachlaß",
+    "VOL_15": "Anthropology Nachlaß",
+    "VOL_16": "Logic Nachlaß",
+    "VOL_17": "Metaphysics Nachlaß I",
+    "VOL_18": "Metaphysics Nachlaß II",
+    "VOL_19": "Moral Philosophy, Philosophy of Law, and Philosophy of Religion Nachlaß",
+    "VOL_20": "Drafts and Revisions",
+    "VOL_21": "Opus postumum I",
+    "VOL_22": "Opus postumum II",
+    "VOL_23": "Drafts and Revisions"
   }
 }
