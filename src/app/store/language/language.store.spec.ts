@@ -1,52 +1,36 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
 import { LanguageStore } from './language.store';
-
-class MockRouter {
-  private _events = new Subject();
-  private _root: any;
-
-  get events() {
-    return this._events.asObservable();
-  }
-  get routerState() {
-    return {
-      root: this._root,
-    };
-  }
-  public pushEvent(event: any) {
-    this._events.next(event);
-  }
-  public setRoot(root: any) {
-    this._root = root;
-  }
-  public navigate = jasmine.createSpy('navigate');
-}
+import { ReplaySubject } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LanguageStore', () => {
   let store: LanguageStore;
-  let mockRouterEvents: Subject<any>;
-  let mockTranslateServiceUse: jasmine.Spy;
+  let router: Router;
+  let translateService: jasmine.SpyObj<TranslateService>;
+  const emitNavigationEndEvent = (url: string) => {
+    (router.events as ReplaySubject<any>).next(new NavigationEnd(0, url, url));
+  };
 
   beforeEach(() => {
-    mockRouterEvents = new Subject();
+    const mockTranslateService = jasmine.createSpyObj('TranslateService', [
+      'use',
+    ]);
 
     TestBed.configureTestingModule({
       providers: [
         LanguageStore,
-        { provide: Router, useClass: MockRouter },
-        {
-          provide: TranslateService,
-          useValue: { use: jasmine.createSpy('use') },
-        },
+        { provide: TranslateService, useValue: mockTranslateService },
       ],
+      imports: [RouterTestingModule],
     });
 
     store = TestBed.inject(LanguageStore);
-    mockTranslateServiceUse = TestBed.inject(TranslateService)
-      .use as jasmine.Spy;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    translateService = TestBed.inject(
+      TranslateService
+    ) as jasmine.SpyObj<TranslateService>;
   });
 
   it('should have correct initial state', () => {
@@ -59,11 +43,16 @@ describe('LanguageStore', () => {
     });
   });
 
-  it('updateCurrentLanguage should set current language and call translateService', () => {
-    store.updateCurrentLanguage('en');
-    store.currentLanguage$.subscribe((language) => {
-      expect(language).toBe('en');
-    });
-    expect(mockTranslateServiceUse).toHaveBeenCalledWith('en');
+  it('should change the current language when updateCurrentLanguage is called', () => {
+    spyOn(router, 'navigateByUrl');
+    const newLang = 'en';
+    store.updateCurrentLanguage(newLang);
+    expect(router.navigateByUrl).toHaveBeenCalledWith(newLang);
+  });
+
+  it('should navigate to "not-found" if language is not available', () => {
+    spyOn(router, 'navigate');
+    emitNavigationEndEvent(`abcdef/another/path`);
+    expect(router.navigate).toHaveBeenCalledWith(['/not-found']);
   });
 });
