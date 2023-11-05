@@ -21,7 +21,7 @@ export class ResultListComponent {
     });
   }
 
-  getWorkTitle(workId: number): string {
+  getWorkCode(workId: number): string {
     return this.workById?.get(workId)?.code ?? '';
   }
 

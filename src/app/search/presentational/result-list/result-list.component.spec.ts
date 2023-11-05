@@ -63,14 +63,14 @@ describe('ResultListComponent', () => {
     // WHEN
     component.workById = new Map([[1, { code: code } as Work]]);
     // THEN
-    expect(component.getWorkTitle(1)).toBe(code);
+    expect(component.getWorkCode(1)).toBe(code);
   });
 
   it('should return an empty string if work not found', () => {
     // GIVEN
     component.workById = null;
     // THEN
-    expect(component.getWorkTitle(1)).toBe('');
+    expect(component.getWorkCode(1)).toBe('');
   });
 
   it('should return correct string when getAnchorId is called', () => {

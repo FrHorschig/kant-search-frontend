@@ -7,7 +7,8 @@ import { Match } from '@frhorschig/kant-search-api';
 })
 export class ResultItemComponent {
   @Input() anchor = '';
-  @Input() workTitle = '';
+  @Input() workCode = '';
+  @Input() workAbbrev = '';
   @Input() index = 0;
   @Input() match: Match = { snippet: '', text: '', pages: [], paragraphId: 0 };
 

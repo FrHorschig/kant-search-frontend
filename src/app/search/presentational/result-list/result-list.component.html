@@ -10,7 +10,7 @@
       <div id="results-{{ result.workId }}"></div>
 
       <p-divider align="center">
-        <b>{{ "WORKS." + getWorkTitle(result.workId) | translate }}</b>
+        <b>{{ "WORKS." + getWorkCode(result.workId) | translate }}</b>
       </p-divider>
     </div>
 
@@ -19,7 +19,8 @@
         <app-result-item
           [index]="i + 1"
           [anchor]="getAnchorId(result.workId, match)"
-          [workTitle]="getWorkAbbreviation(result.workId)"
+          [workCode]="getWorkCode(result.workId)"
+          [workAbbrev]="getWorkAbbreviation(result.workId)"
           [match]="match"
           (onClick)="onMatchClick(result.workId, match, i + 1)"
         ></app-result-item>
