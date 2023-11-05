@@ -77,15 +77,15 @@ describe('WorksMenuStore', () => {
       Testdata.work2,
       {
         id: 3,
-        title: 'Work 3',
+        code: 'Work 3',
         ordinal: 0,
         volumeId: 3,
       },
     ];
     const volumeById = new Map<number, Volume>([
       [1, Testdata.volume],
-      [2, { id: 2, title: 'Volume 2', section: 2 }],
-      [3, { id: 3, title: 'Volume 3', section: 3 }],
+      [2, { id: 2, section: 2 }],
+      [3, { id: 3, section: 3 }],
     ]);
 
     // GIVEN

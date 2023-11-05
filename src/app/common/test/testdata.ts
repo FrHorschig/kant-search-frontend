@@ -2,12 +2,12 @@ import { Match, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
 import { MatchInfo } from 'src/app/search/model/match-info';
 
 export class Testdata {
-  static volume: Volume = { id: 1, title: 'Volume 1', section: 1 };
-  static volume2: Volume = { id: 2, title: 'Volume 2', section: 2 };
-  static volume3: Volume = { id: 3, title: 'Volume 3', section: 3 };
+  static volume: Volume = { id: 1, section: 1 };
+  static volume2: Volume = { id: 2, section: 2 };
+  static volume3: Volume = { id: 3, section: 3 };
   static work: Work = {
     id: 1,
-    title: 'Work 1',
+    code: 'Work 1',
     abbreviation: 'Abbrev 1',
     ordinal: 0,
     year: '1234',
@@ -15,13 +15,13 @@ export class Testdata {
   };
   static work2: Work = {
     id: 2,
-    title: 'Work 2',
+    code: 'Work 2',
     ordinal: 0,
     volumeId: 2,
   };
   static work3: Work = {
     id: 3,
-    title: 'Work 3',
+    code: 'Work 3',
     ordinal: 0,
     volumeId: 3,
   };
@@ -51,7 +51,7 @@ export class Testdata {
   };
   static matchInfo: MatchInfo = {
     workId: 1,
-    workTitle: 'title',
+    workCode: 'code',
     match: Testdata.match,
     index: 1,
   };

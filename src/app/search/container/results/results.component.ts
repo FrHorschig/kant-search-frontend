@@ -26,7 +26,7 @@ export class ResultsComponent
   showParagraph = false;
   matchInfo: MatchInfo = {
     workId: 0,
-    workTitle: '',
+    workCode: '',
     match: { snippet: '', text: '', pages: [], paragraphId: 0 },
     index: 0,
   } as MatchInfo;

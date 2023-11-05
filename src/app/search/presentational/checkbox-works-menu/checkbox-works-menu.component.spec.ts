@@ -40,7 +40,7 @@ describe('CheckboxWorksMenuComponent', () => {
   });
 
   it('should emit a single work when only one node is selected', () => {
-    const mockNodes: TreeNode[] = [{ data: { id: 1, title: 'Work A' } }];
+    const mockNodes: TreeNode[] = [{ data: { id: 1, code: 'Work A' } }];
     // GIVEN
     spyOn(component.selectionChangeEmitter, 'emit');
     // WHEN
@@ -53,8 +53,8 @@ describe('CheckboxWorksMenuComponent', () => {
 
   it('should emit multiple works when multiple nodes are selected', () => {
     const mockNodes: TreeNode[] = [
-      { data: { id: 1, title: 'Work A' } },
-      { data: { id: 2, title: 'Work B' } },
+      { data: { id: 1, code: 'Work A' } },
+      { data: { id: 2, code: 'Work B' } },
     ];
     // GIVEN
     spyOn(component.selectionChangeEmitter, 'emit');

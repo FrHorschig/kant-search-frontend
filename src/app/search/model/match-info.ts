@@ -2,7 +2,7 @@ import { Match } from '@frhorschig/kant-search-api';
 
 export interface MatchInfo {
   workId: number;
-  workTitle: string;
+  workCode: string;
   match: Match;
   index: number;
 }
