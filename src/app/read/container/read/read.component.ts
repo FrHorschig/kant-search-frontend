@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ReadStore } from './read.store';
 import { ScrollService } from '../../../common/service/scroll.service';
 import { ContainerComponent } from 'src/app/common/base/container.component';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-read',
@@ -30,10 +31,12 @@ export class ReadComponent
   }
 
   ngAfterViewInit() {
-    this.route.fragment.pipe(this.takeUntilDestroy()).subscribe((fragment) => {
-      if (fragment) {
-        this.scrollService.scrollToAnchor(fragment);
-      }
-    });
+    combineLatest([this.route.fragment, this.isLoaded$])
+      .pipe(this.takeUntilDestroy())
+      .subscribe(([fragment, isLoaded]) => {
+        if (fragment && isLoaded) {
+          this.scrollService.scrollToAnchor(fragment);
+        }
+      });
   }
 }
