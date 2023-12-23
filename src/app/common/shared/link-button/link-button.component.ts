@@ -16,5 +16,6 @@ export class LinkButtonComponent {
     const currentUrl = this.location.path();
     const urlWithAnchor = `${currentUrl}#${this.anchor}`;
     this.location.go(urlWithAnchor);
+    // TODO frhorschig: show some kind of notification for the user that the url now includes the anchor
   }
 }
