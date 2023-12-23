@@ -30,11 +30,11 @@
       "WORKS_ADVANCED_SELECT_ALL": "Select all",
       "WORKS_ADVANCED_REMOVE_ALL": "Remove all",
       "SEARCH_STRING_LABEL": "Search terms",
-      "SEARCH_STRING_INFO": "Use special characters for advanced searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: !cat & (dog | \"white mice\")",
+      "SEARCH_STRING_TOOLTIP": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
       "SEARCH_STRING_PLACEHOLDER": "Search terms",
       "ADVANCED_OPTIONS_HEADER": "Advanced options",
       "SCOPE_LABEL": "Search scope",
-      "SCOPE_INFO": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
+      "SCOPE_TOOLTIP": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE_OPTIONS": {
         "PARAGRAPH": "Paragraph",
         "SENTENCE": "Sentence"

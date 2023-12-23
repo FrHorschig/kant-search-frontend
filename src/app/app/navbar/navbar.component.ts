@@ -71,7 +71,7 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
   getItems(langs: string[]): MenuItem[] {
     return langs.map((lang) => {
       return {
-        // TODO frhorsch: preload translation files
+        // TODO frhorschig: preload translation files
         label: this.translateService.instant(
           'NAVBAR.LANG.' + lang.toUpperCase()
         ),

@@ -33,11 +33,11 @@
       "WORKS_ADVANCED_SELECT_ALL": "Alles auswählen",
       "WORKS_ADVANCED_REMOVE_ALL": "Alles entfernen",
       "SEARCH_STRING_LABEL": "Suchbegriffe",
-      "SEARCH_STRING_INFO": "Verwenden Sie die folgenden Sonderzeichen für fortgeschrittenes Suchen: & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen. Beispiel: !Katze & (Hund | \"weiße Mäuse\")",
+      "SEARCH_STRING_TOOLTIP": "Verwenden Sie die folgenden Sonderzeichen für die Expertensuche: & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen. Beispiel: (Hund | \"weiße Mäuse\") & !Katze",
       "SEARCH_STRING_PLACEHOLDER": "Suchbegriffe eingeben",
       "ADVANCED_OPTIONS_HEADER": "Erweiterte Optionen",
       "SCOPE_LABEL": "Suchbereich",
-      "SCOPE_INFO": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
+      "SCOPE_TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
       "SCOPE_OPTIONS": {
         "PARAGRAPH": "Absatz",
         "SENTENCE": "Satz"
