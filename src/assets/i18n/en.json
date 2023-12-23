@@ -13,10 +13,10 @@
     }
   },
   "STARTPAGE": {
-    "TEXT": "This website will offer a web application for reading and searching the texts of the Bonn Kant Corpus. It is currently under development, and at the moment only some texts are available."
+    "TEXT": "This website will offer a web application for reading and searching the texts of the Bonn Kant Corpus. It is currently under development."
   },
-  "READ": {
-    "MODE_CHECKBOX_LABEL": "Show line numbers"
+  "NOT-FOUND": {
+    "TEXT": "The requested page does not exist."
   },
   "SEARCH": {
     "INPUT": {

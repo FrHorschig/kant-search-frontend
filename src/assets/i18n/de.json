@@ -16,10 +16,10 @@
     }
   },
   "STARTPAGE": {
-    "TEXT": "Diese Website wird eine Webanwendung zum Durchsuchen der Texte des Bonner Kant-Korpus bieten. Sie befindet sich derzeit in der Entwicklung."
+    "TEXT": "Diese Website wird eine Webanwendung zum Lesen und Durchsuchen der Texte des Bonner Kant-Korpus bieten. Sie befindet sich derzeit in der Entwicklung."
   },
-  "READ": {
-    "MODE_CHECKBOX_LABEL": "Zeilennummern anzeigen"
+  "NOT-FOUND": {
+    "TEXT": "Die angeforderte Seite existiert nicht."
   },
   "SEARCH": {
     "INPUT": {
