@@ -61,10 +61,10 @@ export class ResultsComponent
   }
 
   ngAfterViewInit() {
-    combineLatest([this.route.fragment])
+    combineLatest([this.route.fragment, this.isLoaded$])
       .pipe(this.takeUntilDestroy())
-      .subscribe(([fragment]) => {
-        if (fragment) {
+      .subscribe(([fragment, isLoaded]) => {
+        if (fragment && isLoaded) {
           this.scrollService.scrollToAnchor(fragment);
         }
       });
