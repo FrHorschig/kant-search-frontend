@@ -17,7 +17,7 @@ import { FullTextInfo } from '../../model/full-text-info';
 interface ResultsState {
   criteria: SearchCriteria;
   results: SearchResult[];
-  isLoading: boolean;
+  isLoaded: boolean;
 }
 
 @Injectable()
@@ -36,7 +36,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         options: { scope: SearchScope.Paragraph },
       },
       results: [],
-      isLoading: false,
+      isLoaded: false,
     });
   }
 
@@ -44,14 +44,14 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     criteria$.pipe(
       tap(() => this.messageService.clear()),
       tap((criteria) =>
-        this.patchState({ criteria: criteria, results: [], isLoading: true })
+        this.patchState({ criteria: criteria, results: [], isLoaded: false })
       ),
       switchMap((criteria) =>
         this.searchService.search(criteria).pipe(
           tapResponse(
-            (result) => this.patchState({ results: result, isLoading: false }),
+            (result) => this.patchState({ results: result, isLoaded: true }),
             (err: HttpErrorResponse) => {
-              this.patchState({ isLoading: false });
+              this.patchState({ isLoaded: true });
               if (err.status !== 404) {
                 this.errorService.logError(err.error);
               }
@@ -104,5 +104,5 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   readonly searchString$ = this.select((state) => state.criteria.searchString);
   readonly results$ = this.select((state) => state.results);
-  readonly isLoading$ = this.select((state) => state.isLoading);
+  readonly isLoaded$ = this.select((state) => state.isLoaded);
 }
