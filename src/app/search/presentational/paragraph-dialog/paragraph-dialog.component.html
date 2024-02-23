@@ -4,7 +4,7 @@
   (onHide)="onHide()"
   header="{{ 'WORKS.' + info.workCode | translate }} #{{ info.index }}"
 >
-  <div class="max-w-600 mb-3" [innerHTML]="info.match.text | pagination"></div>
+  <div class="max-w-base mb-3" [innerHTML]="info.match.text | pagination"></div>
 
   <div class="flex justify-content-end">
     <p-button

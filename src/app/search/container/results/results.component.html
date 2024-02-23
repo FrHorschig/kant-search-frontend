@@ -1,5 +1,5 @@
 <div class="flex justify-content-center">
-  <div class="max-w-600">
+  <div class="max-w-base">
     <ng-container *ngIf="isLoaded$ | async">
       <app-results-input
         [searchString]="(searchString$ | async) || ''"
