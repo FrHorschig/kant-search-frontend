@@ -26,7 +26,7 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putWorks', 'putSimpleInput', 'putOptions', 'navigateSearch'],
+    ['putWorks', 'putBasicInput', 'putOptions', 'navigateSearch'],
     {
       isSearchPermitted$: of(false),
     }
@@ -80,15 +80,15 @@ describe('SearchComponent', () => {
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(works);
   });
 
-  it('should call searchStore.putSimpleInput when onSimpleInputChange is called', () => {
+  it('should call searchStore.putBasicInput when onBasicInputChange is called', () => {
     const basicInput = {
       section: Section.ALL,
       searchString: 'test',
     } as BasicInput;
     // WHEN
-    component.onSimpleInputChange(basicInput);
+    component.onBasicInputChange(basicInput);
     // THEN
-    expect(mockSearchStore.putSimpleInput).toHaveBeenCalledWith(basicInput);
+    expect(mockSearchStore.putBasicInput).toHaveBeenCalledWith(basicInput);
   });
 
   it('should call searchStore.putOptions when onOptionsChange is called', () => {

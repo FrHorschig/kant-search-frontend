@@ -2,7 +2,7 @@
   <div class="w-full max-w-600">
     <app-basic-input
       [nodes]="(nodes$ | async) || []"
-      (simpleInputEmitter)="onSimpleInputChange($event)"
+      (simpleInputEmitter)="onBasicInputChange($event)"
       (worksEmitter)="onWorksChange($event)"
       (doSearchEmitter)="onSearch()"
     ></app-basic-input>
