@@ -81,15 +81,15 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       filter((searchString) => searchString !== ''),
       tap(() => this.messageService.clear()),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
-      tap(([searchString, params, lang]) =>
+      tap(([searchString, params, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
             workIds: params.get('workIds'),
             searchString: searchString,
             scope: params.get('scope'),
           },
-        })
-      )
+        });
+      })
     )
   );
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
