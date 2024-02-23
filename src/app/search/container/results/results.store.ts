@@ -9,7 +9,7 @@ import {
   SearchService,
 } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { EMPTY, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../../model/full-text-info';
@@ -81,15 +81,15 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       filter((searchString) => searchString !== ''),
       tap(() => this.messageService.clear()),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
-      tap(([searchString, params, lang]) =>
+      tap(([searchString, params, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
             workIds: params.get('workIds'),
             searchString: searchString,
             scope: params.get('scope'),
           },
-        })
-      )
+        });
+      })
     )
   );
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
