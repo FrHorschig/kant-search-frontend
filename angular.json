@@ -66,8 +66,8 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "sslKey": "ssl/key.pem",
-            "sslCert": "ssl/cert.pem"
+            "sslKey": "ssl/server.key",
+            "sslCert": "ssl/server.crt"
           }
         },
         "extract-i18n": {
