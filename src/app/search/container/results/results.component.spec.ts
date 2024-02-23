@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResultsComponent } from './results.component';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, of } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Testdata } from 'src/app/common/test/testdata';
@@ -9,7 +9,6 @@ import { DialogModule } from 'primeng/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
 import { ResultsStore } from './results.store';
-import { SearchScope } from '@frhorschig/kant-search-api';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -21,22 +20,16 @@ describe('ResultsComponent', () => {
   let fixture: ComponentFixture<ResultsComponent>;
   let fragmentSubject = new Subject<string>();
   let mockActivatedRoute = {
-    queryParamMap: of(convertToParamMap({})),
     fragment: fragmentSubject.asObservable(),
   };
   let mockScrollService = createScrollServiceSpy();
   let mockResultsStore = jasmine.createSpyObj(
     'ResultsStore',
-    [
-      'searchParagraphs',
-      'updateSearch',
-      'updateSearchString',
-      'navigateToFullText',
-    ],
+    ['searchParagraphs', 'updateSearch', 'navigateToFullText'],
     {
       result$: of([]),
       resultCount$: of(0),
-      isLoaded$: of(false),
+      isLoaded$: of(true),
     }
   );
 
@@ -46,10 +39,6 @@ describe('ResultsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         provideMockStore({}),
-        {
-          provide: ScrollService,
-          useValue: jasmine.createSpyObj('ScrollService', ['scroll']),
-        },
       ],
       imports: [
         TranslateModule.forRoot(),
@@ -58,10 +47,9 @@ describe('ResultsComponent', () => {
         ButtonModule,
         TooltipModule,
       ],
-    });
-    TestBed.overrideProvider(ResultsStore, {
-      useValue: mockResultsStore,
-    }).overrideProvider(ScrollService, { useValue: mockScrollService });
+    })
+      .overrideProvider(ResultsStore, { useValue: mockResultsStore })
+      .overrideProvider(ScrollService, { useValue: mockScrollService });
 
     fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
@@ -75,67 +63,14 @@ describe('ResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call searchParagraphs with sentence scope on ngOnInit', () => {
-    // GIVEN
-    (mockActivatedRoute.queryParamMap as any) = of(
-      convertToParamMap({
-        workIds: '1,2',
-        searchString: 'term1 term2',
-        scope: 'SENTENCE',
-      })
-    );
+  it('should call searchParagraphs on ngOnInit', () => {
     // WHEN
     component.ngOnInit();
     // THEN
-    expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      workIds: [1, 2],
-      searchString: 'term1 term2',
-      options: {
-        scope: SearchScope.Sentence,
-      },
-    });
+    expect(mockResultsStore.searchParagraphs).toHaveBeenCalled();
   });
 
-  it('should call searchParagraphs with paragraph scope on ngOnInit', () => {
-    // GIVEN
-    (mockActivatedRoute.queryParamMap as any) = of(
-      convertToParamMap({
-        scope: 'PARAGRAPH',
-      })
-    );
-    // WHEN
-    component.ngOnInit();
-    // THEN
-    expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      workIds: [],
-      searchString: '',
-      options: {
-        scope: SearchScope.Paragraph,
-      },
-    });
-  });
-
-  it('should call searchParagraphs with default scope on ngOnInit', () => {
-    // GIVEN
-    (mockActivatedRoute.queryParamMap as any) = of(
-      convertToParamMap({
-        workIds: '1,2',
-        searchString: 'term1 term2',
-      })
-    );
-    // WHEN
-    component.ngOnInit();
-    // THEN
-    expect(mockResultsStore.searchParagraphs).toHaveBeenCalledWith({
-      workIds: [1, 2],
-      searchString: 'term1 term2',
-      options: {
-        scope: SearchScope.Paragraph,
-      },
-    });
-  });
-
-  it('should call scroll service when no fragment exists', () => {
+  it('should not call scroll service when no fragment exists', () => {
     mockScrollService.scrollToAnchor.calls.reset();
     // WHEN
     component.ngAfterViewInit();
@@ -166,10 +101,9 @@ describe('ResultsComponent', () => {
     // WHEN
     component.onUpdate(testSearchString);
     // GIVEN
-    expect(mockResultsStore.updateSearchString).toHaveBeenCalledWith(
+    expect(mockResultsStore.updateSearch).toHaveBeenCalledWith(
       testSearchString
     );
-    expect(mockResultsStore.updateSearch).toHaveBeenCalled();
   });
 
   it('should call navigateToFullText', () => {

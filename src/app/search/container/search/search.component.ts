@@ -33,8 +33,8 @@ export class SearchComponent extends ContainerComponent {
     this.searchStore.putWorks(works);
   }
 
-  onSimpleInputChange(options: BasicInput) {
-    this.searchStore.putSimpleInput(options);
+  onBasicInputChange(options: BasicInput) {
+    this.searchStore.putBasicInput(options);
   }
 
   onOptionsChange(options: SearchOptions) {

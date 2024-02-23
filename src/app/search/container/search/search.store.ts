@@ -55,7 +55,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
-  readonly putSimpleInput = this.updater((state, options: BasicInput) => ({
+  readonly putBasicInput = this.updater((state, options: BasicInput) => ({
     ...state,
     section: options.section,
     searchString: options.searchString,

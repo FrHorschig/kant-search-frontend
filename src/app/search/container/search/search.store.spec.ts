@@ -33,7 +33,7 @@ describe('SearchStore', () => {
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
-    store.putSimpleInput({ section: Section.CUSTOM, searchString: 'test' });
+    store.putBasicInput({ section: Section.CUSTOM, searchString: 'test' });
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // GIVEN
     mockStore.select.and.callFake((selector: any) => {
@@ -56,7 +56,7 @@ describe('SearchStore', () => {
 
   it('should navigate with non-custom section and search terms', () => {
     // GIVEN
-    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(Testdata.worksBySection);
@@ -79,7 +79,7 @@ describe('SearchStore', () => {
 
   it('should navigate with empty ALL map item', () => {
     // GIVEN
-    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(
@@ -119,7 +119,7 @@ describe('SearchStore', () => {
 
   it('should update search string', () => {
     // WHEN
-    store.putSimpleInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
     // THEN
     store
       .select((state) => state.searchString)

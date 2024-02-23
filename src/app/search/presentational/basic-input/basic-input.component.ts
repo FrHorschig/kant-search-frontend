@@ -17,7 +17,9 @@ export class BasicInputComponent implements OnInit {
 
   showWorksMenu = false;
   isCustomSelection = false;
-  customSelectOption = [{ label: 'CUSTOM', value: Section.CUSTOM }];
+  customSelectOption = [
+    { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.CUSTOM', value: Section.CUSTOM },
+  ];
   simpleSelectOptions = [
     { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL', value: Section.ALL },
     { label: 'SECTIONS.SEC_1', value: Section.SEC1 },

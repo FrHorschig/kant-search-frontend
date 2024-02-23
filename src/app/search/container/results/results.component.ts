@@ -8,6 +8,7 @@ import { WorksReducers } from 'src/app/store/works';
 import { MatchInfo } from '../../model/match-info';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../../model/full-text-info';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -21,7 +22,7 @@ export class ResultsComponent
   workById$ = this.store.select(WorksReducers.selectWorkById);
   searchString$ = this.resultsStore.searchString$;
   results$ = this.resultsStore.results$;
-  isLoading$ = this.resultsStore.isLoading$;
+  isLoaded$ = this.resultsStore.isLoaded$;
 
   showParagraph = false;
   matchInfo: MatchInfo = {
@@ -29,7 +30,7 @@ export class ResultsComponent
     workCode: '',
     match: { snippet: '', text: '', pages: [], paragraphId: 0 },
     index: 0,
-  } as MatchInfo;
+  };
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -41,30 +42,17 @@ export class ResultsComponent
   }
 
   ngOnInit() {
-    this.route.queryParamMap
-      .pipe(this.takeUntilDestroy())
-      .subscribe((params) => {
-        const workIdsParam = params.get('workIds');
-        const criteria: SearchCriteria = {
-          workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
-          searchString: params.get('searchString') ?? '',
-          options: {
-            scope:
-              params.get('scope') === 'SENTENCE'
-                ? SearchScope.Sentence
-                : SearchScope.Paragraph,
-          },
-        };
-        this.resultsStore.searchParagraphs(criteria);
-      });
+    this.resultsStore.searchParagraphs();
   }
 
   ngAfterViewInit() {
-    this.route.fragment.pipe(this.takeUntilDestroy()).subscribe((fragment) => {
-      if (fragment) {
-        this.scrollService.scrollToAnchor(fragment);
-      }
-    });
+    combineLatest([this.route.fragment, this.isLoaded$])
+      .pipe(this.takeUntilDestroy())
+      .subscribe(([fragment, isLoaded]) => {
+        if (fragment && isLoaded) {
+          this.scrollService.scrollToAnchor(fragment);
+        }
+      });
   }
 
   onClick(info: MatchInfo) {
@@ -73,8 +61,7 @@ export class ResultsComponent
   }
 
   onUpdate(searchString: string) {
-    this.resultsStore.updateSearchString(searchString);
-    this.resultsStore.updateSearch();
+    this.resultsStore.updateSearch(searchString);
   }
 
   onFullTextNavigation(info: FullTextInfo) {
