@@ -31,12 +31,15 @@ export class UploadStore extends ComponentStore<UploadState> {
           .pipe(
             tap(() => this.patchState({ workId: 0, isLoading: false })),
             tapResponse(
-              () =>
+              () => {
+                this.patchState({ workId: 0, isLoading: false });
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Success',
-                }),
+                });
+              },
               (err: HttpErrorResponse) => {
+                this.patchState({ workId: 0, isLoading: false });
                 this.errorService.logError(err.error);
                 return EMPTY;
               }
