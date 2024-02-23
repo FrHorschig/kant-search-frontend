@@ -13,10 +13,10 @@ export class PaginationPipe implements PipeTransform {
           (_, g1) => `<sup><span class="ks-fn-ref">(${g1})</span></sup>`
         ) //
         // remove line information {l123}
-        .replace(/\s*\{l(\d+)\}\s*/g, ' ') //
+        .replace(/\s{0,10}\{l(\d+)\}\s{0,10}/g, ' ') //
         // remove page information {p123} with HTML page reference
         .replace(
-          /\s*\{p(\d+)\}\s*/g,
+          /\s{0,10}\{p(\d+)\}\s{0,10}/g,
           (_, g1) => ` <span class="ks-pagination-s">[${g1}]</span> `
         )
     );
