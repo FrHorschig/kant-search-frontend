@@ -42,22 +42,7 @@ export class ResultsComponent
   }
 
   ngOnInit() {
-    this.route.queryParamMap
-      .pipe(this.takeUntilDestroy())
-      .subscribe((params) => {
-        const workIdsParam = params.get('workIds');
-        const criteria: SearchCriteria = {
-          workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
-          searchString: params.get('searchString') ?? '',
-          options: {
-            scope:
-              params.get('scope') === 'SENTENCE'
-                ? SearchScope.Sentence
-                : SearchScope.Paragraph,
-          },
-        };
-        this.resultsStore.searchParagraphs(criteria);
-      });
+    this.resultsStore.searchParagraphs();
   }
 
   ngAfterViewInit() {
@@ -76,8 +61,7 @@ export class ResultsComponent
   }
 
   onUpdate(searchString: string) {
-    this.resultsStore.updateSearchString(searchString);
-    this.resultsStore.updateSearch();
+    this.resultsStore.updateSearch(searchString);
   }
 
   onFullTextNavigation(info: FullTextInfo) {
