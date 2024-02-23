@@ -9,7 +9,7 @@ import {
   SearchService,
 } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { EMPTY, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../../model/full-text-info';
