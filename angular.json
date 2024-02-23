@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "kant-search-frontend:build:production"
+              "buildTarget": "kant-search-frontend:build:production"
             },
             "development": {
-              "browserTarget": "kant-search-frontend:build:development"
+              "buildTarget": "kant-search-frontend:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kant-search-frontend:build"
+            "buildTarget": "kant-search-frontend:build"
           }
         },
         "test": {
