@@ -27,7 +27,10 @@ export class UploadStore extends ComponentStore<UploadState> {
       tap(() => this.patchState({ isLoading: true })),
       switchMap((text) =>
         this.uploadService
-          .uploadWork({ workId: this.get((state) => state.workId), text })
+          .uploadWork(
+            this.get((state) => state.workId),
+            text
+          )
           .pipe(
             tap(() => this.patchState({ workId: 0, isLoading: false })),
             tapResponse(

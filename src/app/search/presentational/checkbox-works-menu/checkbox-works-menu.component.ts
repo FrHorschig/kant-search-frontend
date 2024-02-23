@@ -27,7 +27,7 @@ export class CheckboxWorksMenuComponent {
   onSelectAll() {
     if (this.tree?.value) {
       this.tree.selection = this.getRecursiveSelection(this.tree.value);
-      this.removeParialSelection(this.tree.value);
+      this.removePartialSelection(this.tree.value);
       this.onSelectionChange(this.tree?.selection || []);
     }
   }
@@ -35,7 +35,7 @@ export class CheckboxWorksMenuComponent {
   onRemoveAll() {
     if (this.tree) {
       this.tree.selection = [];
-      this.removeParialSelection(this.tree.value);
+      this.removePartialSelection(this.tree.value);
       this.onSelectionChange([]);
     }
   }
@@ -45,8 +45,14 @@ export class CheckboxWorksMenuComponent {
     this.visibleChange.emit(this.visible);
   }
 
-  onSelectionChange(selection: TreeNode[]) {
-    this.selectionChangeEmitter.emit(this.getSelectedWorks(selection));
+  onSelectionChange(selection: TreeNode<any> | TreeNode<any>[] | null) {
+    if (selection) {
+      this.selectionChangeEmitter.emit(
+        this.getSelectedWorks(
+          Array.isArray(selection) ? selection : [selection]
+        )
+      );
+    }
   }
 
   private getSelectedWorks(node: TreeNode[]): Work[] {
@@ -74,11 +80,11 @@ export class CheckboxWorksMenuComponent {
     return selectedNodes;
   }
 
-  removeParialSelection(node: TreeNode[]): TreeNode[] {
+  removePartialSelection(node: TreeNode[]): TreeNode[] {
     const selectedNodes: TreeNode[] = [];
     node.forEach((node) => {
       if (node.children) {
-        this.removeParialSelection(node.children);
+        this.removePartialSelection(node.children);
       }
       node.partialSelected = false;
     });
