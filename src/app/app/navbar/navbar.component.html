@@ -1,11 +1,14 @@
 <div class="flex justify-content-between">
   <p-tabMenu class="flex-grow-1" [model]="items">
     <ng-template pTemplate="item" let-item>
-      <i [ngClass]="item.icon"></i>
-
-      <div *ngIf="item.label" class="mt-1 ml-1">
-        {{ item.label | translate }}
-      </div>
+      <a
+        class="p-menuitem-link flex justify-content-between align-items-center p-3"
+      >
+        <div>
+          <span [class]="item.icon"></span>
+          <span> {{ item.label | translate }}</span>
+        </div>
+      </a>
     </ng-template>
   </p-tabMenu>
 
@@ -15,9 +18,13 @@
     (click)="menu.toggle($event)"
   >
     <ng-template pTemplate="item" let-item>
-      <i [ngClass]="item.icon"></i>
-
-      <div class="mt-1 ml-1" style="visibility: hidden">&nbsp;</div>
+      <a
+        class="p-menuitem-link flex justify-content-between align-items-center p-3"
+      >
+        <div>
+          <span [class]="item.icon"></span>
+        </div>
+      </a>
     </ng-template>
   </p-tabMenu>
 </div>
