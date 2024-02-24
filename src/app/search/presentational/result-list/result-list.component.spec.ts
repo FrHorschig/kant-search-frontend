@@ -43,13 +43,13 @@ describe('ResultListComponent', () => {
   it('should emit the clicked match with abbreviation', () => {
     const abbrevCodeInfo = {
       workId: 1,
-      workCode: 'abbreviation',
+      workCode: 'code',
       match: Testdata.match,
       index: 1,
     };
     // GIVEN
     component.workById = new Map([
-      [1, { id: 1, abbreviation: 'abbreviation' } as Work],
+      [1, { id: 1, code: 'code' } as Work],
     ]);
     spyOn(component.onClick, 'emit');
     // WHEN
