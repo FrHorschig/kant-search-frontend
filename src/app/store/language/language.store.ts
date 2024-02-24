@@ -48,6 +48,7 @@ export class LanguageStore extends ComponentStore<LanguageState> {
         tap((params) => {
           const lang = params['lang'];
           if (lang && this.get((state) => state.available).includes(lang)) {
+            this.patchState({current: lang})
             this.translateService.use(lang);
           } else {
             this.router.navigate(['/not-found']);
