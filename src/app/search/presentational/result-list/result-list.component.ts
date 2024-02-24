@@ -15,7 +15,7 @@ export class ResultListComponent {
   onMatchClick(workId: number, match: Match, index: number) {
     this.onClick.emit({
       workId,
-      workCode: this.getWorkAbbreviation(workId),
+      workCode: this.getWorkCode(workId),
       match,
       index,
     });

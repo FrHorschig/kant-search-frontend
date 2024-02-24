@@ -2,7 +2,7 @@
   [(visible)]="isVisible"
   [modal]="true"
   (onHide)="onHide()"
-  header="{{ 'WORKS.' + info.workCode | translate }} #{{ info.index }}"
+  header="#{{ info.index }} {{ 'WORKS.' + info.workCode | translate }}"
 >
   <div class="max-w-base mb-3" [innerHTML]="info.match.text | pagination"></div>
 
