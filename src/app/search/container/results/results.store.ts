@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
   SearchCriteria,
@@ -40,21 +40,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchParagraphs = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
       tap(() => this.messageService.clear()),
-      // TODO frhorschig: extract method
-      map((params) => {
-        const workIdsParam = params.get('workIds');
-        const criteria: SearchCriteria = {
-          workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
-          searchString: params.get('searchString') ?? '',
-          options: {
-            scope:
-              params.get('scope') === 'SENTENCE'
-                ? SearchScope.Sentence
-                : SearchScope.Paragraph,
-          },
-        };
-        return criteria;
-      }),
+      map(this.criteriaFromParams),
       tap((criteria) =>
         this.patchState({
           searchString: criteria.searchString,
@@ -107,4 +93,19 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchString$ = this.select((state) => state.searchString);
   readonly results$ = this.select((state) => state.results);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
+
+  private criteriaFromParams(params: ParamMap): SearchCriteria {
+    const workIdsParam = params.get('workIds');
+    const criteria: SearchCriteria = {
+      workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
+      searchString: params.get('searchString') ?? '',
+      options: {
+        scope:
+          params.get('scope') === 'SENTENCE'
+            ? SearchScope.Sentence
+            : SearchScope.Paragraph,
+      },
+    };
+    return criteria;
+  }
 }
