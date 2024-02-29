@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
+  HttpError,
   SearchCriteria,
   SearchResult,
   SearchScope,
@@ -54,7 +55,10 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             (result) => this.patchState({ results: result, isLoaded: true }),
             (err: HttpErrorResponse) => {
               this.patchState({ isLoaded: true });
-              this.errorService.logError(err.error);
+              const e = err.error as HttpError;
+              if (e.code !== 404) {
+                this.errorService.logError(err.error);
+              }
               return EMPTY;
             }
           )

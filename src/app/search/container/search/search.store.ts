@@ -4,14 +4,14 @@ import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from '@frhorschig/kant-search-api';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
-import { Section, BasicInput } from '../../model/simple-input';
+import { SelectionGroup } from '../../model/selection-group';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface SearchState {
   workIds: number[];
-  section: Section;
+  selectionGroup: SelectionGroup;
   searchString: string;
   options: SearchOptions;
 }
@@ -25,7 +25,7 @@ export class SearchStore extends ComponentStore<SearchState> {
   ) {
     super({
       workIds: [],
-      section: Section.ALL,
+      selectionGroup: SelectionGroup.ALL,
       searchString: '',
       options: { scope: SearchScope.Paragraph },
     });
@@ -55,25 +55,34 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
-  readonly putBasicInput = this.updater((state, options: BasicInput) => ({
+  readonly putSelectionGroup = this.updater((state, group: SelectionGroup) => ({
     ...state,
-    section: options.section,
-    searchString: options.searchString,
+    selectionGroup: group,
+  }));
+  readonly putSearchString = this.updater((state, searchString: string) => ({
+    ...state,
+    searchString: searchString,
   }));
   readonly putOptions = this.updater((state, options: SearchOptions) => ({
     ...state,
     options,
   }));
 
-  readonly canSearch$ = this.select((state) => state.searchString.length > 0);
+  readonly canSearch$ = this.select(
+    (state) =>
+      state.searchString.length > 0 &&
+      (state.selectionGroup !== SelectionGroup.CUSTOM ||
+        state.workIds.length > 0)
+  );
+  readonly selectionGroup$ = this.select((state) => state.selectionGroup);
 
-  private getWorkIds(worksBySection: Map<Section, Work[]>): number[] {
-    if (this.get((state) => state.section) === Section.CUSTOM) {
+  private getWorkIds(worksBySection: Map<SelectionGroup, Work[]>): number[] {
+    if (this.get((state) => state.selectionGroup) === SelectionGroup.CUSTOM) {
       return this.get((state) => state.workIds);
     }
     return (
       worksBySection
-        .get(this.get((state) => state.section))
+        .get(this.get((state) => state.selectionGroup))
         ?.map((work) => work.id) ?? []
     );
   }

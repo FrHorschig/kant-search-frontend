@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { Volume, Work } from '@frhorschig/kant-search-api';
 import { loadWorks, loadWorksSuccess } from './works.actions';
-import { Section } from 'src/app/search/model/simple-input';
+import { SelectionGroup } from 'src/app/search/model/selection-group';
 
 export const globalDataFeatureKey = 'globalData';
 
@@ -10,7 +10,7 @@ export interface State {
   volumeById: Map<number, Volume>;
   works: Work[];
   workById: Map<number, Work>;
-  worksBySection: Map<Section, Work[]>;
+  worksBySection: Map<SelectionGroup, Work[]>;
   isLoaded: boolean;
 }
 
@@ -19,7 +19,7 @@ export const initialState: State = {
   volumeById: new Map<number, Volume>(),
   works: [],
   workById: new Map<number, Work>(),
-  worksBySection: new Map<Section, Work[]>(),
+  worksBySection: new Map<SelectionGroup, Work[]>(),
   isLoaded: false,
 };
 
@@ -34,7 +34,7 @@ export const worksFeature = createFeature({
         volumeById: new Map<number, Volume>(),
         works: [],
         workById: new Map<number, Work>(),
-        worksBySection: new Map<Section, Work[]>(),
+        worksBySection: new Map<SelectionGroup, Work[]>(),
         isLoaded: false,
       };
     }),
@@ -63,21 +63,21 @@ export const {
 } = worksFeature;
 
 const getWorksBySection = (works: Work[], volumesById: Map<number, Volume>) => {
-  const worksBySection = new Map<Section, Work[]>([
-    [Section.ALL, []],
-    [Section.SEC1, []],
-    [Section.SEC2, []],
-    [Section.SEC3, []],
+  const worksBySection = new Map<SelectionGroup, Work[]>([
+    [SelectionGroup.ALL, []],
+    [SelectionGroup.SEC1, []],
+    [SelectionGroup.SEC2, []],
+    [SelectionGroup.SEC3, []],
   ]);
   works.forEach((work) => {
-    worksBySection.get(Section.ALL)?.push(work);
+    worksBySection.get(SelectionGroup.ALL)?.push(work);
     const sec = volumesById.get(work.volumeId)?.section;
     if (sec == 1) {
-      worksBySection.get(Section.SEC1)?.push(work);
+      worksBySection.get(SelectionGroup.SEC1)?.push(work);
     } else if (sec == 2) {
-      worksBySection.get(Section.SEC2)?.push(work);
+      worksBySection.get(SelectionGroup.SEC2)?.push(work);
     } else if (sec == 3) {
-      worksBySection.get(Section.SEC3)?.push(work);
+      worksBySection.get(SelectionGroup.SEC3)?.push(work);
     }
   });
   return worksBySection;

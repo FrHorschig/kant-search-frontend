@@ -26,7 +26,7 @@
         "CUSTOM": "Custom selection"
       },
       "WORKS_ADVANCED_TOOLTIP": "Show full list",
-      "WORKS_ADVANCED_TOOLTIP_CUSTOM": "Clear custom selection",
+      "WORKS_ADVANCED_TOOLTIP_DISABLED": "Select 'Custom selection' to show the full list of works",
       "WORKS_ADVANCED_SELECT_ALL": "Select all",
       "WORKS_ADVANCED_REMOVE_ALL": "Remove all",
       "SEARCH_STRING_LABEL": "Search terms",
@@ -40,7 +40,7 @@
         "SENTENCE": "Sentence"
       },
       "BUTTON_LABEL": "Search",
-      "BUTTON_TOOLTIP": "You must enter at least one search term"
+      "BUTTON_TOOLTIP": "You must enter at least one search term and select at least one work"
     },
     "RESULTS": {
       "NONE_FOUND": "No results found",

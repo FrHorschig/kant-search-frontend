@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Work } from '@frhorschig/kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Section } from '../../model/simple-input';
+import { SelectionGroup } from '../../model/selection-group';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -59,10 +59,13 @@ describe('BasicInputComponent', () => {
     // GIVEN
     spyOn(component.simpleInputEmitter, 'emit');
     // WHEN
-    component.form.setValue({ section: Section.SEC1, searchString: 'Kant' });
+    component.form.setValue({
+      section: SelectionGroup.SEC1,
+      searchString: 'Kant',
+    });
     // THEN
     expect(component.simpleInputEmitter.emit).toHaveBeenCalledWith({
-      section: Section.SEC1,
+      section: SelectionGroup.SEC1,
       searchString: 'Kant',
     });
   });
@@ -79,12 +82,15 @@ describe('BasicInputComponent', () => {
   it('should set isCustomSelection to false and set form value if isCustomSelection is true', () => {
     // GIVEN
     component.isCustomSelection = true;
-    component.form.setValue({ section: Section.SEC1, searchString: 'Kant' });
+    component.form.setValue({
+      section: SelectionGroup.SEC1,
+      searchString: 'Kant',
+    });
     // WHEN
     component.onWorksMenuClick();
     // THEN
     expect(component.isCustomSelection).toBeFalse();
-    expect(component.form.value.section).toEqual(Section.ALL);
+    expect(component.form.value.section).toEqual(SelectionGroup.ALL);
     expect(component.form.value.searchString).toBe('Kant');
   });
 

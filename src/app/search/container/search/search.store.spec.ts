@@ -6,7 +6,7 @@ import { SearchStore } from './search.store';
 import { Router } from '@angular/router';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope, Work } from '@frhorschig/kant-search-api';
-import { Section } from '../../model/simple-input';
+import { SelectionGroup } from '../../model/selection-group';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +33,10 @@ describe('SearchStore', () => {
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
-    store.putBasicInput({ section: Section.CUSTOM, searchString: 'test' });
+    store.putBasicInput({
+      section: SelectionGroup.CUSTOM,
+      searchString: 'test',
+    });
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // GIVEN
     mockStore.select.and.callFake((selector: any) => {
@@ -56,7 +59,7 @@ describe('SearchStore', () => {
 
   it('should navigate with non-custom section and search terms', () => {
     // GIVEN
-    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(Testdata.worksBySection);
@@ -74,12 +77,12 @@ describe('SearchStore', () => {
         scope: 'PARAGRAPH',
       },
     });
-    Testdata.worksBySection.set(Section.SEC3, [Testdata.work3]);
+    Testdata.worksBySection.set(SelectionGroup.SEC3, [Testdata.work3]);
   });
 
   it('should navigate with empty ALL map item', () => {
     // GIVEN
-    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(
@@ -103,7 +106,7 @@ describe('SearchStore', () => {
         scope: 'PARAGRAPH',
       },
     });
-    Testdata.worksBySection.set(Section.SEC3, [Testdata.work3]);
+    Testdata.worksBySection.set(SelectionGroup.SEC3, [Testdata.work3]);
   });
 
   it('should update works', () => {
@@ -119,7 +122,7 @@ describe('SearchStore', () => {
 
   it('should update search string', () => {
     // WHEN
-    store.putBasicInput({ section: Section.ALL, searchString: 'test' });
+    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
     // THEN
     store
       .select((state) => state.searchString)
@@ -143,7 +146,7 @@ describe('SearchStore', () => {
     // WHEN
     store.setState({
       workIds: [1, 2],
-      section: Section.ALL,
+      selectionGroup: SelectionGroup.ALL,
       searchString: '',
       options: { scope: SearchScope.Paragraph },
     });

@@ -18,7 +18,7 @@ import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { Section, BasicInput } from '../../model/simple-input';
+import { SelectionGroup, BasicInput } from '../../model/selection-group';
 import { DividerModule } from 'primeng/divider';
 
 describe('SearchComponent', () => {
@@ -82,7 +82,7 @@ describe('SearchComponent', () => {
 
   it('should call searchStore.putBasicInput when onBasicInputChange is called', () => {
     const basicInput = {
-      section: Section.ALL,
+      section: SelectionGroup.ALL,
       searchString: 'test',
     } as BasicInput;
     // WHEN
