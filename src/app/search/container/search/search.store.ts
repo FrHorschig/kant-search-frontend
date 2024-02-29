@@ -79,6 +79,30 @@ export class SearchStore extends ComponentStore<SearchState> {
   }
 
   private toCompactList(ids: number[]): string {
-    return ids.join(',');
+    if (ids.length === 0) {
+      return '';
+    }
+
+    let result = '';
+    let rangeStart = ids[0];
+    let rangeEnd = ids[0];
+    for (let i = 1; i < ids.length; i++) {
+      if (ids[i] === rangeEnd + 1) {
+        rangeEnd = ids[i];
+      } else {
+        result += this.createWorkIdListItem(rangeStart, rangeEnd);
+        rangeStart = ids[i];
+        rangeEnd = ids[i];
+      }
+    }
+
+    result += this.createWorkIdListItem(rangeStart, rangeEnd);
+    return result.slice(0, -1);
+  }
+
+  private createWorkIdListItem(rangeStart: number, rangeEnd: number) {
+    return rangeStart === rangeEnd
+      ? `${rangeStart},`
+      : `${rangeStart}-${rangeEnd},`;
   }
 }

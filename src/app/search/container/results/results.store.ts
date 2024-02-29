@@ -109,7 +109,19 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return criteria;
   }
 
-  private fromCompactList(lst: string): number[] {
-    return lst.split(',').map(Number);
+  private fromCompactList(param: string): number[] {
+    let result: number[] = [];
+    const lst = param.split(',');
+    for (const l of lst) {
+      const startEnd = l.split('-');
+      if (startEnd.length === 2) {
+        for (let i = +startEnd[0]; i <= +startEnd[1]; i++) {
+          result.push(i);
+        }
+      } else {
+        result.push(+l);
+      }
+    }
+    return result;
   }
 }
