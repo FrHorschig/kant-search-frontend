@@ -40,7 +40,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchParagraphs = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
       tap(() => this.messageService.clear()),
-      map(this.criteriaFromParams),
+      map((params) => this.criteriaFromParams(params)),
       tap((criteria) =>
         this.patchState({
           searchString: criteria.searchString,
@@ -97,7 +97,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private criteriaFromParams(params: ParamMap): SearchCriteria {
     const workIdsParam = params.get('workIds');
     const criteria: SearchCriteria = {
-      workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
+      workIds: workIdsParam ? this.fromCompactList(workIdsParam) : [],
       searchString: params.get('searchString') ?? '',
       options: {
         scope:
@@ -107,5 +107,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       },
     };
     return criteria;
+  }
+
+  private fromCompactList(lst: string): number[] {
+    return lst.split(',').map(Number);
   }
 }

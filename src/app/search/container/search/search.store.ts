@@ -40,7 +40,7 @@ export class SearchStore extends ComponentStore<SearchState> {
           tap(([worksBySection, lang]) => {
             this.router.navigate([`/${lang}/search/results`], {
               queryParams: {
-                workIds: this.getWorkIds(worksBySection).join(','),
+                workIds: this.toCompactList(this.getWorkIds(worksBySection)),
                 searchString: this.get((state) => state.searchString),
                 scope: this.get((state) => state.options.scope),
               },
@@ -76,5 +76,9 @@ export class SearchStore extends ComponentStore<SearchState> {
         .get(this.get((state) => state.section))
         ?.map((work) => work.id) ?? []
     );
+  }
+
+  private toCompactList(ids: number[]): string {
+    return ids.join(',');
   }
 }
