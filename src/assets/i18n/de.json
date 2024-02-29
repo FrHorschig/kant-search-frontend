@@ -16,7 +16,7 @@
     }
   },
   "STARTPAGE": {
-    "TEXT": "Diese Website wird eine Webanwendung zum Lesen und Durchsuchen der Texte des Bonner Kant-Korpus bieten. Sie befindet sich derzeit in der Entwicklung."
+    "TEXT": "Diese Website soll eine Webanwendung zum Lesen und Durchsuchen der Texte des Bonner Kant-Korpus werden. Sie befindet sich derzeit in der Entwicklung."
   },
   "NOT-FOUND": {
     "TEXT": "Die angeforderte Seite existiert nicht."
@@ -93,7 +93,7 @@
   },
   "VOLUMES": {
     "VOL_1": "Band I: Vorkritische Schriften I: 1747-1756",
-    "VOL_2": "Band II: orkritische Schriften II: 1757-1777",
+    "VOL_2": "Band II: Vorkritische Schriften II: 1757-1777",
     "VOL_3": "Band III: Kritik der reinen Vernunft (2. Aufl., 1787)",
     "VOL_4": "Band IV: Kritik der reinen Vernunft (1. Aufl., 1781), Prolegomena, Grundlegung zur Metaphysik der Sitten, Metaphysische Anfangsgründe der Naturwissenschaft",
     "VOL_5": "Band V: Kritik der praktischen Vernunft, Kritik der Urteilskraft",
