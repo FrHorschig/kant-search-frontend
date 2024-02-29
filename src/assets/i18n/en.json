@@ -13,7 +13,7 @@
     }
   },
   "STARTPAGE": {
-    "TEXT": "This website will offer a web application for reading and searching the texts of the Bonn Kant Corpus. It is currently under development."
+    "TEXT": "This website is intended to be a web application for reading and searching the texts of the Bonner Kant-Korpus. It is currently under development."
   },
   "NOT-FOUND": {
     "TEXT": "The requested page does not exist."
