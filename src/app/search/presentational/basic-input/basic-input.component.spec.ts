@@ -9,10 +9,10 @@ import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Work } from '@frhorschig/kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SelectionGroup } from '../../model/selection-group';
-import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
+import { SelectionGroup } from '../../model/selection-group';
 
 describe('BasicInputComponent', () => {
   let component: BasicInputComponent;
@@ -28,7 +28,7 @@ describe('BasicInputComponent', () => {
       imports: [
         BrowserAnimationsModule,
         TranslateModule.forRoot(),
-        ReactiveFormsModule,
+        FormsModule,
         ButtonModule,
         DialogModule,
         DropdownModule,
@@ -45,6 +45,33 @@ describe('BasicInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should set isCustomSelection to true if new value is CUSTOM', () => {
+    // GIVEN
+    component.isCustomSelection = false;
+    component.showWorksMenu = false;
+    // WHEN
+    component.ngOnChanges({
+      selectionGroup: {
+        currentValue: SelectionGroup.CUSTOM,
+        previousValue: SelectionGroup.ALL,
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+    // THEN
+    expect(component.isCustomSelection).toEqual(true);
+    expect(component.showWorksMenu).toEqual(true);
+  });
+
+  it('should set showWorksMenu to true if isCustomSelection is false', () => {
+    // GIVEN
+    component.isCustomSelection = false;
+    // WHEN
+    component.onWorksMenuClick();
+    // THEN
+    expect(component.showWorksMenu).toBe(true);
+  });
+
   it('should emit works when onWorksChange is called', () => {
     const works: Work[] = [Testdata.work, Testdata.work2];
     // GIVEN
@@ -55,19 +82,27 @@ describe('BasicInputComponent', () => {
     expect(component.worksEmitter.emit).toHaveBeenCalledWith(works);
   });
 
-  it('should emit simpleInputEmitter when onSearchStringChange is called', () => {
+  it('should emit new value when onSelectionGroupChange is called', () => {
     // GIVEN
-    spyOn(component.simpleInputEmitter, 'emit');
+    spyOn(component.selectionGroupEmitter, 'emit');
+    component.selectionGroup = SelectionGroup.ALL;
     // WHEN
-    component.form.setValue({
-      section: SelectionGroup.SEC1,
-      searchString: 'Kant',
-    });
+    component.onSelectionGroupChange({
+      value: SelectionGroup.SEC1,
+    } as DropdownChangeEvent);
     // THEN
-    expect(component.simpleInputEmitter.emit).toHaveBeenCalledWith({
-      section: SelectionGroup.SEC1,
-      searchString: 'Kant',
-    });
+    expect(component.selectionGroupEmitter.emit).toHaveBeenCalledWith(
+      SelectionGroup.SEC1
+    );
+  });
+
+  it('should emit searchStringEmitter when onSearchStringChange is called', () => {
+    // GIVEN
+    spyOn(component.searchStringEmitter, 'emit');
+    // WHEN
+    component.onSearchStringChange('test');
+    // THEN
+    expect(component.searchStringEmitter.emit).toHaveBeenCalledWith('test');
   });
 
   it('should emit doSearchEmitter when onSubmit is called', () => {
@@ -77,29 +112,5 @@ describe('BasicInputComponent', () => {
     component.onSubmit();
     // THEN
     expect(component.doSearchEmitter.emit).toHaveBeenCalled();
-  });
-
-  it('should set isCustomSelection to false and set form value if isCustomSelection is true', () => {
-    // GIVEN
-    component.isCustomSelection = true;
-    component.form.setValue({
-      section: SelectionGroup.SEC1,
-      searchString: 'Kant',
-    });
-    // WHEN
-    component.onWorksMenuClick();
-    // THEN
-    expect(component.isCustomSelection).toBeFalse();
-    expect(component.form.value.section).toEqual(SelectionGroup.ALL);
-    expect(component.form.value.searchString).toBe('Kant');
-  });
-
-  it('should set showWorksMenu to true if isCustomSelection is false', () => {
-    // GIVEN
-    component.isCustomSelection = false;
-    // WHEN
-    component.onWorksMenuClick();
-    // THEN
-    expect(component.showWorksMenu).toBe(true);
   });
 });

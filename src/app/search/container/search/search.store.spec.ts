@@ -33,10 +33,8 @@ describe('SearchStore', () => {
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
-    store.putBasicInput({
-      section: SelectionGroup.CUSTOM,
-      searchString: 'test',
-    });
+    store.putSelectionGroup(SelectionGroup.CUSTOM);
+    store.putSearchString('test');
     const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // GIVEN
     mockStore.select.and.callFake((selector: any) => {
@@ -59,7 +57,7 @@ describe('SearchStore', () => {
 
   it('should navigate with non-custom section and search terms', () => {
     // GIVEN
-    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
+    store.putSearchString('test');
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(Testdata.worksBySection);
@@ -72,7 +70,7 @@ describe('SearchStore', () => {
     // THEN
     expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
-        workIds: '1,2,3',
+        workIds: '1-3',
         searchString: 'test',
         scope: 'PARAGRAPH',
       },
@@ -82,7 +80,7 @@ describe('SearchStore', () => {
 
   it('should navigate with empty ALL map item', () => {
     // GIVEN
-    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
+    store.putSearchString('test');
     mockStore.select.and.callFake((selector: any) => {
       if (selector === WorksReducers.selectWorksBySection) {
         return of(
@@ -122,7 +120,7 @@ describe('SearchStore', () => {
 
   it('should update search string', () => {
     // WHEN
-    store.putBasicInput({ section: SelectionGroup.ALL, searchString: 'test' });
+    store.putSearchString('test');
     // THEN
     store
       .select((state) => state.searchString)
@@ -142,7 +140,7 @@ describe('SearchStore', () => {
       });
   });
 
-  it('should return false when there is not search string', () => {
+  it('should be unable to search if search string is empty', () => {
     // WHEN
     store.setState({
       workIds: [1, 2],
@@ -153,6 +151,34 @@ describe('SearchStore', () => {
     // THEN
     store.canSearch$.subscribe((canSearch: boolean) => {
       expect(canSearch).toBeFalse();
+    });
+  });
+
+  it('should be unable to search if selection group is CUSTOM and workIds is empty', () => {
+    // WHEN
+    store.setState({
+      workIds: [],
+      selectionGroup: SelectionGroup.CUSTOM,
+      searchString: 'test',
+      options: { scope: SearchScope.Paragraph },
+    });
+    // THEN
+    store.canSearch$.subscribe((canSearch: boolean) => {
+      expect(canSearch).toBeFalse();
+    });
+  });
+
+  it('should be able to search if selection group is ALL', () => {
+    // WHEN
+    store.setState({
+      workIds: [],
+      selectionGroup: SelectionGroup.ALL,
+      searchString: 'test',
+      options: { scope: SearchScope.Paragraph },
+    });
+    // THEN
+    store.canSearch$.subscribe((canSearch: boolean) => {
+      expect(canSearch).toBeTrue();
     });
   });
 });
