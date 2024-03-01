@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
+  HttpError,
   SearchCriteria,
   SearchResult,
   SearchScope,
@@ -40,21 +41,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchParagraphs = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
       tap(() => this.messageService.clear()),
-      // TODO frhorschig: extract method
-      map((params) => {
-        const workIdsParam = params.get('workIds');
-        const criteria: SearchCriteria = {
-          workIds: workIdsParam ? workIdsParam.split(',').map(Number) : [],
-          searchString: params.get('searchString') ?? '',
-          options: {
-            scope:
-              params.get('scope') === 'SENTENCE'
-                ? SearchScope.Sentence
-                : SearchScope.Paragraph,
-          },
-        };
-        return criteria;
-      }),
+      map((params) => this.criteriaFromParams(params)),
       tap((criteria) =>
         this.patchState({
           searchString: criteria.searchString,
@@ -68,7 +55,10 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             (result) => this.patchState({ results: result, isLoaded: true }),
             (err: HttpErrorResponse) => {
               this.patchState({ isLoaded: true });
-              this.errorService.logError(err.error);
+              const e = err.error as HttpError;
+              if (e.code !== 404) {
+                this.errorService.logError(err.error);
+              }
               return EMPTY;
             }
           )
@@ -107,4 +97,35 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchString$ = this.select((state) => state.searchString);
   readonly results$ = this.select((state) => state.results);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
+
+  private criteriaFromParams(params: ParamMap): SearchCriteria {
+    const workIdsParam = params.get('workIds');
+    const criteria: SearchCriteria = {
+      workIds: workIdsParam ? this.fromCompactList(workIdsParam) : [],
+      searchString: params.get('searchString') ?? '',
+      options: {
+        scope:
+          params.get('scope') === 'SENTENCE'
+            ? SearchScope.Sentence
+            : SearchScope.Paragraph,
+      },
+    };
+    return criteria;
+  }
+
+  private fromCompactList(param: string): number[] {
+    let result: number[] = [];
+    const lst = param.split(',');
+    for (const l of lst) {
+      const startEnd = l.split('-');
+      if (startEnd.length === 2) {
+        for (let i = +startEnd[0]; i <= +startEnd[1]; i++) {
+          result.push(i);
+        }
+      } else {
+        result.push(+l);
+      }
+    }
+    return result;
+  }
 }

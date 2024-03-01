@@ -2,20 +2,25 @@
   <div class="w-full max-w-base">
     <app-basic-input
       [nodes]="(nodes$ | async) || []"
-      (simpleInputEmitter)="onBasicInputChange($event)"
+      [selectionGroup]="(selectionGroup$ | async) ?? selectionGroupDefault"
+      (searchStringEmitter)="onSearchStringChange($event)"
       (worksEmitter)="onWorksChange($event)"
+      (selectionGroupEmitter)="onSelectionGroupChange($event)"
       (doSearchEmitter)="onSearch()"
     ></app-basic-input>
 
-    <p-button
-      styleClass="w-full"
-      label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
-      [disabled]="!(canSearch$ | async)"
+    <div
       pTooltip="{{
         !(canSearch$ | async) ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate) : ''
       }}"
-      (onClick)="onSearch()"
-    ></p-button>
+    >
+      <p-button
+        styleClass="w-full"
+        label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
+        [disabled]="!(canSearch$ | async)"
+        (onClick)="onSearch()"
+      ></p-button>
+    </div>
 
     <div class="mb-5"></div>
 

@@ -4,14 +4,14 @@ import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from '@frhorschig/kant-search-api';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SearchOptions } from '../../model/search-output';
-import { Section, BasicInput } from '../../model/simple-input';
+import { SelectionGroup } from '../../model/selection-group';
 import { Store } from '@ngrx/store';
 import { WorksReducers } from 'src/app/store/works';
 import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface SearchState {
   workIds: number[];
-  section: Section;
+  selectionGroup: SelectionGroup;
   searchString: string;
   options: SearchOptions;
 }
@@ -25,7 +25,7 @@ export class SearchStore extends ComponentStore<SearchState> {
   ) {
     super({
       workIds: [],
-      section: Section.ALL,
+      selectionGroup: SelectionGroup.ALL,
       searchString: '',
       options: { scope: SearchScope.Paragraph },
     });
@@ -40,7 +40,7 @@ export class SearchStore extends ComponentStore<SearchState> {
           tap(([worksBySection, lang]) => {
             this.router.navigate([`/${lang}/search/results`], {
               queryParams: {
-                workIds: this.getWorkIds(worksBySection).join(','),
+                workIds: this.toCompactList(this.getWorkIds(worksBySection)),
                 searchString: this.get((state) => state.searchString),
                 scope: this.get((state) => state.options.scope),
               },
@@ -55,26 +55,63 @@ export class SearchStore extends ComponentStore<SearchState> {
     ...state,
     workIds: works.map((work) => work.id),
   }));
-  readonly putBasicInput = this.updater((state, options: BasicInput) => ({
+  readonly putSelectionGroup = this.updater((state, group: SelectionGroup) => ({
     ...state,
-    section: options.section,
-    searchString: options.searchString,
+    selectionGroup: group,
+  }));
+  readonly putSearchString = this.updater((state, searchString: string) => ({
+    ...state,
+    searchString: searchString,
   }));
   readonly putOptions = this.updater((state, options: SearchOptions) => ({
     ...state,
     options,
   }));
 
-  readonly canSearch$ = this.select((state) => state.searchString.length > 0);
+  readonly canSearch$ = this.select(
+    (state) =>
+      state.searchString.length > 0 &&
+      (state.selectionGroup !== SelectionGroup.CUSTOM ||
+        state.workIds.length > 0)
+  );
+  readonly selectionGroup$ = this.select((state) => state.selectionGroup);
 
-  private getWorkIds(worksBySection: Map<Section, Work[]>): number[] {
-    if (this.get((state) => state.section) === Section.CUSTOM) {
+  private getWorkIds(worksBySection: Map<SelectionGroup, Work[]>): number[] {
+    if (this.get((state) => state.selectionGroup) === SelectionGroup.CUSTOM) {
       return this.get((state) => state.workIds);
     }
     return (
       worksBySection
-        .get(this.get((state) => state.section))
+        .get(this.get((state) => state.selectionGroup))
         ?.map((work) => work.id) ?? []
     );
+  }
+
+  private toCompactList(ids: number[]): string {
+    if (ids.length === 0) {
+      return '';
+    }
+
+    let result = '';
+    let rangeStart = ids[0];
+    let rangeEnd = ids[0];
+    for (let i = 1; i < ids.length; i++) {
+      if (ids[i] === rangeEnd + 1) {
+        rangeEnd = ids[i];
+      } else {
+        result += this.createWorkIdListItem(rangeStart, rangeEnd);
+        rangeStart = ids[i];
+        rangeEnd = ids[i];
+      }
+    }
+
+    result += this.createWorkIdListItem(rangeStart, rangeEnd);
+    return result.slice(0, -1);
+  }
+
+  private createWorkIdListItem(rangeStart: number, rangeEnd: number) {
+    return rangeStart === rangeEnd
+      ? `${rangeStart},`
+      : `${rangeStart}-${rangeEnd},`;
   }
 }

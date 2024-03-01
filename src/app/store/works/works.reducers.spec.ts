@@ -1,4 +1,3 @@
-import { Section } from 'src/app/search/model/simple-input';
 import { loadWorks, loadWorksSuccess } from './works.actions';
 import { State, initialState, worksFeature } from './works.reducers';
 import { Testdata } from 'src/app/common/test/testdata';

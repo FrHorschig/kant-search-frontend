@@ -29,7 +29,7 @@
         "CUSTOM": "Benutzerdefinierte Auswahl"
       },
       "WORKS_ADVANCED_TOOLTIP": "Komplette Liste anzeigen",
-      "WORKS_ADVANCED_TOOLTIP_CUSTOM": "Benutzerdefinierte Auswahl löschen",
+      "WORKS_ADVANCED_TOOLTIP_DISABLED": "Wähle 'Benutzerdefinierte Auswahl', um die vollständige Liste der Werke anzuzeigen",
       "WORKS_ADVANCED_SELECT_ALL": "Alles auswählen",
       "WORKS_ADVANCED_REMOVE_ALL": "Alles entfernen",
       "SEARCH_STRING_LABEL": "Suchbegriffe",
@@ -43,7 +43,7 @@
         "SENTENCE": "Satz"
       },
       "BUTTON_LABEL": "Suchen",
-      "BUTTON_TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben"
+      "BUTTON_TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben und mindestens ein Werk auswählen"
     },
     "RESULTS": {
       "NONE_FOUND": "Keine Ergebnisse gefunden",

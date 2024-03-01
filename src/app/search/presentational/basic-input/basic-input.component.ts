@@ -1,64 +1,81 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { Section, BasicInput } from '../../model/simple-input';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { SelectionGroup } from '../../model/selection-group';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-basic-input',
   templateUrl: './basic-input.component.html',
 })
-export class BasicInputComponent implements OnInit {
+export class BasicInputComponent implements OnChanges {
   @Input() nodes: TreeNode[] = [];
+  @Input() selectionGroup: SelectionGroup = SelectionGroup.ALL;
 
-  @Output() simpleInputEmitter = new EventEmitter<BasicInput>();
   @Output() worksEmitter = new EventEmitter<Work[]>();
+  @Output() selectionGroupEmitter = new EventEmitter<SelectionGroup>();
+  @Output() searchStringEmitter = new EventEmitter<string>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
   showWorksMenu = false;
   isCustomSelection = false;
-  customSelectOption = [
-    { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.CUSTOM', value: Section.CUSTOM },
+  workSelectOptions = [
+    {
+      label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL',
+      value: SelectionGroup.ALL,
+    },
+    { label: 'SECTIONS.SEC_1', value: SelectionGroup.SEC1 },
+    { label: 'SECTIONS.SEC_2', value: SelectionGroup.SEC2 },
+    { label: 'SECTIONS.SEC_3', value: SelectionGroup.SEC3 },
+    {
+      label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.CUSTOM',
+      value: SelectionGroup.CUSTOM,
+    },
   ];
-  simpleSelectOptions = [
-    { label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL', value: Section.ALL },
-    { label: 'SECTIONS.SEC_1', value: Section.SEC1 },
-    { label: 'SECTIONS.SEC_2', value: Section.SEC2 },
-    { label: 'SECTIONS.SEC_3', value: Section.SEC3 },
-  ];
-  form: FormGroup = this.formBuilder.group({
-    section: new FormControl({
-      value: Section.ALL,
-      disabled: this.isCustomSelection,
-    }),
-    searchString: '',
-  });
+  searchString = '';
 
-  constructor(private readonly formBuilder: FormBuilder) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.form.valueChanges.subscribe((options) =>
-      this.simpleInputEmitter.emit(options)
-    );
+  ngOnChanges(changes: SimpleChanges): void {
+    const selectionGroupChanges = changes['selectionGroup'];
+    if (selectionGroupChanges) {
+      if (selectionGroupChanges.currentValue === SelectionGroup.CUSTOM) {
+        this.isCustomSelection = true;
+        this.showWorksMenu = true;
+      } else {
+        this.isCustomSelection = false;
+      }
+    }
   }
 
   onWorksMenuClick() {
-    if (this.isCustomSelection) {
-      this.isCustomSelection = false;
-      this.form.setValue({
-        section: Section.ALL,
-        searchString: this.form.value.searchString,
-      });
-    } else {
-      this.showWorksMenu = true;
-    }
+    this.showWorksMenu = true;
   }
 
   onWorksChange(works: Work[]) {
     if (works.length > 0) {
       this.isCustomSelection = true;
     }
+    this.selectionGroupEmitter.emit(SelectionGroup.CUSTOM);
     this.worksEmitter.emit(works);
+  }
+
+  onSelectionGroupChange(event: DropdownChangeEvent) {
+    const newVal = event.value as SelectionGroup;
+    if (newVal !== this.selectionGroup) {
+      this.selectionGroupEmitter.emit(newVal);
+    }
+  }
+
+  onSearchStringChange(searchString: string) {
+    this.searchStringEmitter.emit(searchString);
   }
 
   onSubmit() {

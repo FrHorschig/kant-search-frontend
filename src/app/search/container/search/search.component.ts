@@ -7,7 +7,7 @@ import { Work } from '@frhorschig/kant-search-api';
 import { SearchOptions } from '../../model/search-output';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { MessageService } from 'primeng/api';
-import { BasicInput } from '../../model/simple-input';
+import { SelectionGroup } from '../../model/selection-group';
 
 @Component({
   selector: 'app-search',
@@ -16,8 +16,11 @@ import { BasicInput } from '../../model/simple-input';
 })
 export class SearchComponent extends ContainerComponent {
   works$ = this.store.select(WorksReducers.selectWorks);
+  selectionGroup$ = this.searchStore.selectionGroup$;
   canSearch$ = this.searchStore.canSearch$;
   nodes$ = this.worksMenuStore.nodes$;
+
+  selectionGroupDefault = SelectionGroup.ALL;
 
   constructor(
     private readonly store: Store,
@@ -33,8 +36,12 @@ export class SearchComponent extends ContainerComponent {
     this.searchStore.putWorks(works);
   }
 
-  onBasicInputChange(options: BasicInput) {
-    this.searchStore.putBasicInput(options);
+  onSelectionGroupChange(group: SelectionGroup) {
+    this.searchStore.putSelectionGroup(group);
+  }
+
+  onSearchStringChange(searchString: string) {
+    this.searchStore.putSearchString(searchString);
   }
 
   onOptionsChange(options: SearchOptions) {

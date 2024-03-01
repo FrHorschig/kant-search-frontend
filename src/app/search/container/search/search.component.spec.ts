@@ -18,15 +18,21 @@ import { TreeModule } from 'primeng/tree';
 import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { Section, BasicInput } from '../../model/simple-input';
 import { DividerModule } from 'primeng/divider';
+import { SelectionGroup } from '../../model/selection-group';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let mockSearchStore = jasmine.createSpyObj(
     'SearchStore',
-    ['putWorks', 'putBasicInput', 'putOptions', 'navigateSearch'],
+    [
+      'putWorks',
+      'putSelectionGroup',
+      'putSearchString',
+      'putOptions',
+      'navigateSearch',
+    ],
     {
       isSearchPermitted$: of(false),
     }
@@ -80,15 +86,20 @@ describe('SearchComponent', () => {
     expect(mockSearchStore.putWorks).toHaveBeenCalledWith(works);
   });
 
-  it('should call searchStore.putBasicInput when onBasicInputChange is called', () => {
-    const basicInput = {
-      section: Section.ALL,
-      searchString: 'test',
-    } as BasicInput;
+  it('should call searchStore.putWorks when onWorksChange is called', () => {
     // WHEN
-    component.onBasicInputChange(basicInput);
+    component.onSelectionGroupChange(SelectionGroup.ALL);
     // THEN
-    expect(mockSearchStore.putBasicInput).toHaveBeenCalledWith(basicInput);
+    expect(mockSearchStore.putSelectionGroup).toHaveBeenCalledWith(
+      SelectionGroup.ALL
+    );
+  });
+
+  it('should call searchStore.putSearchString when onBasicInputChange is called', () => {
+    // WHEN
+    component.onSearchStringChange('test');
+    // THEN
+    expect(mockSearchStore.putSearchString).toHaveBeenCalledWith('test');
   });
 
   it('should call searchStore.putOptions when onOptionsChange is called', () => {
