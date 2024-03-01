@@ -33,7 +33,7 @@ export class SearchStore extends ComponentStore<SearchState> {
 
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
-      filter(() => this.get((state) => state.searchString) !== ''),
+      filter(() => this.get((state) => this.canSearch(state))),
       switchMap(() =>
         this.workStore.select(WorksReducers.selectWorksBySection).pipe(
           withLatestFrom(this.langStore.currentLanguage$),
@@ -68,12 +68,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     options,
   }));
 
-  readonly canSearch$ = this.select(
-    (state) =>
-      state.searchString.length > 0 &&
-      (state.selectionGroup !== SelectionGroup.CUSTOM ||
-        state.workIds.length > 0)
-  );
+  readonly canSearch$ = this.select((state) => this.canSearch(state));
   readonly selectionGroup$ = this.select((state) => state.selectionGroup);
 
   private getWorkIds(worksBySection: Map<SelectionGroup, Work[]>): number[] {
@@ -113,5 +108,13 @@ export class SearchStore extends ComponentStore<SearchState> {
     return rangeStart === rangeEnd
       ? `${rangeStart},`
       : `${rangeStart}-${rangeEnd},`;
+  }
+
+  private canSearch(state: SearchState) {
+    return (
+      state.searchString.length > 0 &&
+      (state.selectionGroup !== SelectionGroup.CUSTOM ||
+        state.workIds.length > 0)
+    );
   }
 }
