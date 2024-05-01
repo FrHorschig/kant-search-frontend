@@ -98,9 +98,12 @@ jobs:
         with:
           name: kant-search-frontend
           path: kant-search-frontend
+      - name: zip Angular files
+        run: |
+          zip -r kant-search-frontend.zip kant-search-frontend
       - name: create release
         uses: softprops/action-gh-release@v2.0.4
         with:
           tag_name: ${{ needs.create-tag.outputs.new_tag }}
-          files: kant-search-frontend
+          files: kant-search-frontend.zip
           token: ${{ secrets.GITHUB_TOKEN }}
