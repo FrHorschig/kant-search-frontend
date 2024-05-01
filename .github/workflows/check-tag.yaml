@@ -1,0 +1,22 @@
+name: Check tag
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: create version env variables
+        run: |
+          echo "VERSION_NPM=$(.github/scripts/extract_version.sh)" >> $GITHUB_ENV
+          echo "VERSION_TAG=$(echo ${GITHUB_REF#refs/tags/} | sed 's/^v//')" >> $GITHUB_ENV
+      - name: fail job if version check fails
+        run: |
+          function version_gt() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"; }
+          if ! version_gt $VERSION_NPM $VERSION_TAG; then
+            exit 1
+          fi
