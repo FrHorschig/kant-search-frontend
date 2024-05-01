@@ -6,5 +6,4 @@ if [ ! -f "$PACKAGE_JSON_FILE" ]; then
     exit 1
 fi
 
-VERSION=$(jq -r '.version' "$PACKAGE_JSON_FILE")
-echo "Version: $VERSION"
+echo "$(jq -r '.version' "$PACKAGE_JSON_FILE")"
