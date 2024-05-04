@@ -64,11 +64,7 @@
               "buildTarget": "kant-search-frontend:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "sslKey": "ssl/server.key",
-            "sslCert": "ssl/server.crt"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
