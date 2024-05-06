@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpError } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,13 +22,22 @@ export class ErrorService {
           return acc;
         }, {})
       : {};
-    const msg$ = this.translateService.get('ERROR.' + err.message, paramsObj);
+    const msg$ = err.code
+      ? this.translateService.get('ERROR.' + err.message, paramsObj)
+      : this.wrapInObservable(err.message);
     forkJoin([summary$, msg$]).subscribe((translations) => {
       this.messageService.add({
         severity: 'error',
         summary: translations[0],
         detail: translations[1],
       });
+    });
+  }
+
+  wrapInObservable(msg: string): Observable<string> {
+    return new Observable<string>((subscriber) => {
+      subscriber.next(msg);
+      subscriber.complete();
     });
   }
 }
