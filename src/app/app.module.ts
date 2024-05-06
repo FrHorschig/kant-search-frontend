@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,9 +21,14 @@ import { worksFeature } from './store/works/works.reducers';
 import { WorksEffects } from './store/works/works.effects';
 import { NotFoundComponent } from './app/not-found/not-found.component';
 import { FormsModule } from '@angular/forms';
+import { UrlLoaderService } from './common/service/url-loader.service';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
+}
+
+export function loadBackendUrl(urlLoader: UrlLoaderService) {
+  return () => urlLoader.adjustBasePath();
 }
 
 @NgModule({
@@ -55,7 +60,15 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TooltipModule,
     MenuModule,
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadBackendUrl,
+      deps: [UrlLoaderService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
