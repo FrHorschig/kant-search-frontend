@@ -4,5 +4,4 @@ COPY ./deployment/nginx.conf /etc/nginx/nginx.conf
 COPY ./kant-search-frontend/* /usr/share/nginx/html
 
 EXPOSE 4200
-
 CMD ["nginx", "-g", "daemon off;"]
