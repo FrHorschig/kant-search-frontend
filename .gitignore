@@ -42,4 +42,5 @@ testem.log
 Thumbs.db
 
 kant-search-api-generated
+**/.sonar
 **/.scannerwork
