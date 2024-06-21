@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
-import { NavbarComponent } from './app/navbar/navbar.component';
-import { MessagesModule } from 'primeng/messages';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Store } from '@ngrx/store';
-import { WorksActions } from './store/works';
 import { MenuModule } from 'primeng/menu';
+import { MessagesModule } from 'primeng/messages';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { of } from 'rxjs';
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
+import { Testdata } from './common/test/testdata';
+import { WorksStore } from './store/works/works.store';
 
 class MockTranslateService {
   setDefaultLang = jasmine.createSpy('setDefaultLang');
@@ -18,7 +19,7 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let mockTranslateService: MockTranslateService;
-  let mockStore: jasmine.SpyObj<Store>;
+  let worksStore = jasmine.createSpyObj('WorksStore', ['loadData'], {});
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,7 +31,6 @@ describe('AppComponent', () => {
         },
         { provide: TranslateService, useClass: MockTranslateService },
         {
-          provide: Store,
           useValue: jasmine.createSpyObj('Store', ['dispatch']),
         },
       ],
@@ -41,12 +41,13 @@ describe('AppComponent', () => {
         TabMenuModule,
         MenuModule,
       ],
-    }).compileComponents();
+    })
+      .overrideProvider(WorksStore, { useValue: worksStore })
+      .compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     mockTranslateService = TestBed.inject(TranslateService) as any;
-    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
   });
 
   it('should create', () => {
@@ -58,7 +59,7 @@ describe('AppComponent', () => {
   });
 
   it('should dispatch loadWorks action', () => {
-    expect(mockStore.dispatch).toHaveBeenCalledWith(WorksActions.loadWorks());
+    expect(worksStore.loadData).toHaveBeenCalled();
   });
 
   it('should set showButton to true when window.scrollY > 200', () => {

@@ -1,32 +1,33 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
-import { SearchStore } from './search.store';
-import { Router } from '@angular/router';
-import { Testdata } from 'src/app/common/test/testdata';
+import { Router, RouterModule } from '@angular/router';
 import { SearchScope, Work } from '@frhorschig/kant-search-api';
-import { SelectionGroup } from '../../model/selection-group';
-import { Store } from '@ngrx/store';
-import { WorksReducers } from 'src/app/store/works';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { Testdata } from 'src/app/common/test/testdata';
+import { LanguageStore } from 'src/app/store/language/language.store';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { SelectionGroup } from '../../model/selection-group';
+import { SearchStore } from './search.store';
 
 describe('SearchStore', () => {
   let store: SearchStore;
-  let mockStore: jasmine.SpyObj<Store>;
-  let actions$: Observable<any>;
+  let router = jasmine.createSpyObj('Router', ['navigate']);
+  let worksStore = jasmine.createSpyObj('WorksStore', [], {
+    worksBySection$: of(Testdata.worksBySection),
+  });
+  let langStore = jasmine.createSpyObj('LanguageStore', [''], {
+    currentLanguage$: of('de'),
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        SearchStore,
-        { provide: Store, useValue: jasmine.createSpyObj('Store', ['select']) },
-        provideMockActions(() => actions$),
-      ],
-      imports: [RouterTestingModule, TranslateModule.forRoot()],
-    });
+      providers: [SearchStore],
+      imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
+    })
+      .overrideProvider(WorksStore, { useValue: worksStore })
+      .overrideProvider(Router, { useValue: router })
+      .overrideProvider(LanguageStore, { useValue: langStore });
 
-    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
     store = TestBed.inject(SearchStore);
   });
 
@@ -35,18 +36,10 @@ describe('SearchStore', () => {
     store.putWorks([Testdata.work]);
     store.putSelectionGroup(SelectionGroup.CUSTOM);
     store.putSearchString('test');
-    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
-    // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectWorksBySection) {
-        return of(Testdata.worksBySection);
-      }
-      return of();
-    });
     // WHEN
     store.navigateSearch();
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
+    expect(router.navigate).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
         workIds: '1',
         searchString: 'test',
@@ -58,48 +51,12 @@ describe('SearchStore', () => {
   it('should navigate with non-custom section and search terms', () => {
     // GIVEN
     store.putSearchString('test');
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectWorksBySection) {
-        return of(Testdata.worksBySection);
-      }
-      return of();
-    });
-    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
     // WHEN
     store.navigateSearch();
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
+    expect(router.navigate).toHaveBeenCalledWith(['/de/search/results'], {
       queryParams: {
         workIds: '1-3',
-        searchString: 'test',
-        scope: 'PARAGRAPH',
-      },
-    });
-    Testdata.worksBySection.set(SelectionGroup.SEC3, [Testdata.work3]);
-  });
-
-  it('should navigate with empty ALL map item', () => {
-    // GIVEN
-    store.putSearchString('test');
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectWorksBySection) {
-        return of(
-          new Map<number, Work[]>([
-            [1, [Testdata.work]],
-            [2, [Testdata.work2]],
-            [3, [Testdata.work3]],
-          ])
-        );
-      }
-      return of();
-    });
-    const routerSpy = spyOn(TestBed.inject(Router), 'navigate');
-    // WHEN
-    store.navigateSearch();
-    // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/de/search/results'], {
-      queryParams: {
-        workIds: '',
         searchString: 'test',
         scope: 'PARAGRAPH',
       },

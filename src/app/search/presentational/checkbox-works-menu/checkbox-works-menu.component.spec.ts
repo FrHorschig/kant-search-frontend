@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CheckboxWorksMenuComponent } from './checkbox-works-menu.component';
-import { TreeNode } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { TreeModule } from 'primeng/tree';
 import { of } from 'rxjs';
 import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
-import { ButtonModule } from 'primeng/button';
 import { Testdata } from 'src/app/common/test/testdata';
-import { DialogModule } from 'primeng/dialog';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { CheckboxWorksMenuComponent } from './checkbox-works-menu.component';
 
 describe('CheckboxWorksMenuComponent', () => {
   let component: CheckboxWorksMenuComponent;
@@ -15,8 +16,9 @@ describe('CheckboxWorksMenuComponent', () => {
   const mockWmStore = jasmine.createSpyObj(
     'WorksMenuStore',
     ['select', 'buildNodes'],
-    { nodes$: of([]) }
+    { nodes$: of([]) },
   );
+  let worksStore = jasmine.createSpyObj('WorksStore', ['loadData']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,8 +29,10 @@ describe('CheckboxWorksMenuComponent', () => {
         ButtonModule,
         DialogModule,
       ],
-    }).compileComponents();
-    TestBed.overrideProvider(WorksMenuStore, { useValue: mockWmStore });
+    })
+      .overrideProvider(WorksStore, { useValue: worksStore })
+      .overrideProvider(WorksMenuStore, { useValue: mockWmStore })
+      .compileComponents();
 
     fixture = TestBed.createComponent(CheckboxWorksMenuComponent);
     component = fixture.componentInstance;

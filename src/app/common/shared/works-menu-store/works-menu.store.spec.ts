@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { WorksMenuStore } from './works-menu.store';
-import { TreeNode } from 'primeng/api';
-import { Testdata } from '../../test/testdata';
-import { WorksReducers } from 'src/app/store/works';
 import { Volume, Work } from '@frhorschig/kant-search-api';
-import { of } from 'rxjs';
+import { TreeNode } from 'primeng/api';
+import { BehaviorSubject, of } from 'rxjs';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { Testdata } from '../../test/testdata';
+import { WorksMenuStore } from './works-menu.store';
 
 const assertSingleSectionNode = (
   nodes: TreeNode[],
   works: Work[],
   n: number,
-  isSelectable: boolean
+  isSelectable: boolean,
 ) => {
   expect(nodes[n].key).toEqual(`${n + 1}`);
   expect(nodes[n].selectable).toEqual(isSelectable);
@@ -30,18 +29,29 @@ const assertSingleSectionNode = (
 };
 
 describe('WorksMenuStore', () => {
+  let volumeById$: BehaviorSubject<Map<number, Volume>>;
+  let works$: BehaviorSubject<Work[]>;
+  let isLoaded$: BehaviorSubject<boolean>;
+
   let sut: WorksMenuStore;
-  let mockStore: jasmine.SpyObj<Store>;
+  let worksStore: jasmine.SpyObj<WorksStore>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        WorksMenuStore,
-        { provide: Store, useValue: jasmine.createSpyObj('Store', ['select']) },
-      ],
+    volumeById$ = new BehaviorSubject<Map<number, Volume>>(
+      new Map<number, Volume>(),
+    );
+    works$ = new BehaviorSubject<Work[]>([]);
+    isLoaded$ = new BehaviorSubject<boolean>(true);
+    worksStore = jasmine.createSpyObj('WorksStore', ['loadData'], {
+      volumeById$: volumeById$,
+      works$: works$,
+      isLoaded$: isLoaded$,
     });
 
-    mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
+    TestBed.configureTestingModule({
+      providers: [WorksMenuStore],
+    }).overrideProvider(WorksStore, { useValue: worksStore });
+
     sut = TestBed.inject(WorksMenuStore);
   });
 
@@ -89,16 +99,8 @@ describe('WorksMenuStore', () => {
     ]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
 
     // WHEN
     sut.buildNodes(false);
@@ -115,19 +117,15 @@ describe('WorksMenuStore', () => {
 
   it('should create no nodes with empty works', (done) => {
     const works: Work[] = [];
-    const volumeById = new Map<number, Volume>([]);
+    const volumeById = new Map<number, Volume>([
+      [1, Testdata.volume],
+      [2, { id: 2, section: 2 }],
+      [3, { id: 3, section: 3 }],
+    ]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
 
     // WHEN
     sut.buildNodes(true);
@@ -140,20 +138,12 @@ describe('WorksMenuStore', () => {
   });
 
   it('should create no nodes when no volume is found', (done) => {
-    const works: Work[] = [Testdata.work];
+    const works = [Testdata.work];
     const volumeById = new Map<number, Volume>([]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
 
     // WHEN
     sut.buildNodes(true);
@@ -170,16 +160,8 @@ describe('WorksMenuStore', () => {
     const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
 
     // WHEN
     sut.buildNodes(true);
@@ -197,16 +179,8 @@ describe('WorksMenuStore', () => {
     const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
     sut.buildNodes(false);
 
     // WHEN
@@ -227,16 +201,8 @@ describe('WorksMenuStore', () => {
     const volumeById = new Map<number, Volume>([[1, Testdata.volume]]);
 
     // GIVEN
-    mockStore.select.and.callFake((selector: any) => {
-      if (selector === WorksReducers.selectIsLoaded) {
-        return of(true);
-      } else if (selector === WorksReducers.selectWorks) {
-        return of(works);
-      } else if (selector === WorksReducers.selectVolumeById) {
-        return of(volumeById);
-      }
-      return of();
-    });
+    works$.next(works);
+    volumeById$.next(volumeById);
     sut.buildNodes(false);
 
     // WHEN

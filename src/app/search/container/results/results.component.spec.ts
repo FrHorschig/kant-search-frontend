@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ResultsComponent } from './results.component';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, of } from 'rxjs';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Testdata } from 'src/app/common/test/testdata';
-import { ParagraphDialogComponent } from '../../presentational/paragraph-dialog/paragraph-dialog.component';
-import { DialogModule } from 'primeng/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from 'src/app/common/common.module';
-import { ResultsStore } from './results.store';
-import { ScrollService } from 'src/app/common/service/scroll.service';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { FullTextInfo } from '../../model/full-text-info';
+import { Subject, of } from 'rxjs';
+import { CommonModule } from 'src/app/common/common.module';
+import { ScrollService } from 'src/app/common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/serivces';
+import { Testdata } from 'src/app/common/test/testdata';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { FullTextInfo } from '../../model/full-text-info';
+import { ParagraphDialogComponent } from '../../presentational/paragraph-dialog/paragraph-dialog.component';
+import { ResultsComponent } from './results.component';
+import { ResultsStore } from './results.store';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -30,16 +30,16 @@ describe('ResultsComponent', () => {
       result$: of([]),
       resultCount$: of(0),
       isLoaded$: of(true),
-    }
+    },
   );
+  let worksStore = jasmine.createSpyObj('WorksStore', [], {
+    worksById: of(),
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ResultsComponent, ParagraphDialogComponent],
-      providers: [
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        provideMockStore({}),
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute }],
       imports: [
         TranslateModule.forRoot(),
         DialogModule,
@@ -49,7 +49,8 @@ describe('ResultsComponent', () => {
       ],
     })
       .overrideProvider(ResultsStore, { useValue: mockResultsStore })
-      .overrideProvider(ScrollService, { useValue: mockScrollService });
+      .overrideProvider(ScrollService, { useValue: mockScrollService })
+      .overrideProvider(WorksStore, { useValue: worksStore });
 
     fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
@@ -102,7 +103,7 @@ describe('ResultsComponent', () => {
     component.onUpdate(testSearchString);
     // GIVEN
     expect(mockResultsStore.updateSearch).toHaveBeenCalledWith(
-      testSearchString
+      testSearchString,
     );
   });
 

@@ -1,23 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TocComponent } from './toc.component';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { TocComponent } from './toc.component';
 
 describe('TocComponent', () => {
   let component: TocComponent;
   let fixture: ComponentFixture<TocComponent>;
   let router: Router;
+  let worksStore = jasmine.createSpyObj('WorksStore', ['loadData']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideMockStore({})],
       declarations: [TocComponent, MockWorksMenuComponent],
       imports: [RouterTestingModule, TranslateModule.forRoot()],
-    }).compileComponents();
+    })
+      .overrideProvider(WorksStore, { useValue: worksStore })
+      .compileComponents();
 
     fixture = TestBed.createComponent(TocComponent);
     component = fixture.componentInstance;

@@ -1,25 +1,25 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { SearchComponent } from './search.component';
-import { of } from 'rxjs';
-import { SearchStore } from './search.store';
-import { TranslateModule } from '@ngx-translate/core';
-import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { DropdownModule } from 'primeng/dropdown';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
-import { BasicInputComponent } from '../../presentational/basic-input/basic-input.component';
-import { AdvancedInputComponent } from '../../presentational/advanced-input/advanced-input.component';
-import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TreeModule } from 'primeng/tree';
-import { Testdata } from 'src/app/common/test/testdata';
 import { SearchScope } from '@frhorschig/kant-search-api';
+import { TranslateModule } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
+import { TreeModule } from 'primeng/tree';
+import { of } from 'rxjs';
+import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
+import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
+import { Testdata } from 'src/app/common/test/testdata';
+import { WorksStore } from 'src/app/store/works/works.store';
 import { SelectionGroup } from '../../model/selection-group';
+import { AdvancedInputComponent } from '../../presentational/advanced-input/advanced-input.component';
+import { BasicInputComponent } from '../../presentational/basic-input/basic-input.component';
+import { SearchComponent } from './search.component';
+import { SearchStore } from './search.store';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -35,8 +35,9 @@ describe('SearchComponent', () => {
     ],
     {
       isSearchPermitted$: of(false),
-    }
+    },
   );
+  let worksStore = jasmine.createSpyObj('WorksStore', ['loadData']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,7 +49,6 @@ describe('SearchComponent', () => {
         AdvancedInputComponent,
       ],
       providers: [
-        provideMockStore({}),
         {
           provide: MessageService,
           useValue: jasmine.createSpyObj('MessageService', ['clear']),
@@ -66,8 +66,10 @@ describe('SearchComponent', () => {
         DialogModule,
         TreeModule,
       ],
-    }).compileComponents();
-    TestBed.overrideProvider(SearchStore, { useValue: mockSearchStore });
+    })
+      .overrideProvider(SearchStore, { useValue: mockSearchStore })
+      .overrideProvider(WorksStore, { useValue: worksStore })
+      .compileComponents();
 
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
@@ -91,7 +93,7 @@ describe('SearchComponent', () => {
     component.onSelectionGroupChange(SelectionGroup.ALL);
     // THEN
     expect(mockSearchStore.putSelectionGroup).toHaveBeenCalledWith(
-      SelectionGroup.ALL
+      SelectionGroup.ALL,
     );
   });
 
