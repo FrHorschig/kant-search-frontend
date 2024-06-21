@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ContainerComponent } from 'src/app/common/base/container.component';
-import { WorksReducers } from 'src/app/store/works';
-import { SearchStore } from './search.store';
 import { Work } from '@frhorschig/kant-search-api';
-import { SearchOptions } from '../../model/search-output';
-import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
 import { MessageService } from 'primeng/api';
+import { ContainerComponent } from 'src/app/common/base/container.component';
+import { WorksMenuStore } from 'src/app/common/shared/works-menu-store/works-menu.store';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { SearchOptions } from '../../model/search-output';
 import { SelectionGroup } from '../../model/selection-group';
+import { SearchStore } from './search.store';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +14,7 @@ import { SelectionGroup } from '../../model/selection-group';
   providers: [WorksMenuStore, SearchStore],
 })
 export class SearchComponent extends ContainerComponent {
-  works$ = this.store.select(WorksReducers.selectWorks);
+  works$ = this.worksStore.works$;
   selectionGroup$ = this.searchStore.selectionGroup$;
   canSearch$ = this.searchStore.canSearch$;
   nodes$ = this.worksMenuStore.nodes$;
@@ -23,10 +22,10 @@ export class SearchComponent extends ContainerComponent {
   selectionGroupDefault = SelectionGroup.ALL;
 
   constructor(
-    private readonly store: Store,
+    private readonly worksStore: WorksStore,
     private readonly worksMenuStore: WorksMenuStore,
     private readonly searchStore: SearchStore,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {
     super();
     this.worksMenuStore.buildNodes(true);

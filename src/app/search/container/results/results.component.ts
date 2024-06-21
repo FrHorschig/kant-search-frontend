@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ContainerComponent } from 'src/app/common/base/container.component';
-import { ResultsStore } from './results.store';
-import { Store } from '@ngrx/store';
-import { WorksReducers } from 'src/app/store/works';
-import { MatchInfo } from '../../model/match-info';
-import { ScrollService } from 'src/app/common/service/scroll.service';
-import { FullTextInfo } from '../../model/full-text-info';
 import { combineLatest } from 'rxjs';
+import { ContainerComponent } from 'src/app/common/base/container.component';
+import { ScrollService } from 'src/app/common/service/scroll.service';
+import { WorksStore } from 'src/app/store/works/works.store';
+import { FullTextInfo } from '../../model/full-text-info';
+import { MatchInfo } from '../../model/match-info';
+import { ResultsStore } from './results.store';
 
 @Component({
   selector: 'app-results',
@@ -18,7 +17,7 @@ export class ResultsComponent
   extends ContainerComponent
   implements OnInit, AfterViewInit
 {
-  workById$ = this.store.select(WorksReducers.selectWorkById);
+  workById$ = this.worksStore.workById$;
   searchString$ = this.resultsStore.searchString$;
   results$ = this.resultsStore.results$;
   isLoaded$ = this.resultsStore.isLoaded$;
@@ -33,9 +32,9 @@ export class ResultsComponent
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly store: Store,
+    private readonly worksStore: WorksStore,
     private readonly resultsStore: ResultsStore,
-    private readonly scrollService: ScrollService
+    private readonly scrollService: ScrollService,
   ) {
     super();
   }

@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { WorksActions } from './store/works';
+import { WorksStore } from './store/works/works.store';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +11,10 @@ export class AppComponent {
 
   constructor(
     private readonly translateService: TranslateService,
-    private readonly store: Store
+    private readonly worksStore: WorksStore,
   ) {
     this.translateService.setDefaultLang('de');
-    this.store.dispatch(WorksActions.loadWorks());
+    this.worksStore.loadData();
   }
 
   @HostListener('window:scroll', ['$event'])

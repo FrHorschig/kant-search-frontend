@@ -1,10 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { Paragraph, ReadService } from '@frhorschig/kant-search-api';
-import { MessageService } from 'primeng/api';
-import { EMPTY, switchMap, tap } from 'rxjs';
-import { ErrorService } from 'src/app/common/service/error.service';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
+import { Paragraph, ReadService } from "@frhorschig/kant-search-api";
+import { MessageService } from "primeng/api";
+import { EMPTY, switchMap, tap } from "rxjs";
+import { ErrorService } from "src/app/common/service/error.service";
 
 interface ReadState {
   paragraphs: Paragraph[];
@@ -15,10 +16,13 @@ export class ReadStore extends ComponentStore<ReadState> {
   constructor(
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,
-    private readonly readService: ReadService
+    private readonly readService: ReadService,
   ) {
     super({ paragraphs: [] });
   }
+
+  readonly paragraphs$ = this.select((state) => state.paragraphs);
+  readonly isLoaded$ = this.select((state) => state.paragraphs.length > 0);
 
   readonly loadParagraphs = this.effect<number>((workId$) =>
     workId$.pipe(
@@ -30,13 +34,10 @@ export class ReadStore extends ComponentStore<ReadState> {
             (err: HttpErrorResponse) => {
               this.errorService.logError(err.error);
               return EMPTY;
-            }
-          )
-        )
-      )
-    )
+            },
+          ),
+        ),
+      ),
+    ),
   );
-
-  readonly paragraphs$ = this.select((state) => state.paragraphs);
-  readonly isLoaded$ = this.select((state) => state.paragraphs.length > 0);
 }

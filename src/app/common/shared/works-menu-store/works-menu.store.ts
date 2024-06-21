@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Volume, Work } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
-import { Store } from '@ngrx/store';
-import { Work, Volume } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
 import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
-import { WorksReducers } from 'src/app/store/works';
+import { WorksStore } from 'src/app/store/works/works.store';
 
 interface WorksMenuState {
   nodes: TreeNode[];
@@ -12,28 +11,28 @@ interface WorksMenuState {
 
 @Injectable()
 export class WorksMenuStore extends ComponentStore<WorksMenuState> {
-  constructor(private readonly store: Store) {
+  constructor(private readonly worksStore: WorksStore) {
     super({ nodes: [] });
   }
 
   readonly buildNodes = this.effect<boolean>((isAllSelectable$) =>
     isAllSelectable$.pipe(
       switchMap((isSelectable) =>
-        this.store.select(WorksReducers.selectIsLoaded).pipe(
+        this.worksStore.isLoaded$.pipe(
           filter((isLoaded) => isLoaded),
           switchMap(() =>
             combineLatest([
-              this.store.select(WorksReducers.selectWorks),
-              this.store.select(WorksReducers.selectVolumeById),
-            ])
+              this.worksStore.works$,
+              this.worksStore.volumeById$,
+            ]),
           ),
           map(([works, volumeById]) =>
-            this.createNodes(works, volumeById, isSelectable)
+            this.createNodes(works, volumeById, isSelectable),
           ),
-          tap((nodes) => this.patchState({ nodes }))
-        )
-      )
-    )
+          tap((nodes) => this.patchState({ nodes })),
+        ),
+      ),
+    ),
   );
   readonly toggleNode = this.effect<string>((key$) =>
     key$.pipe(
@@ -44,8 +43,8 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
           node.expanded = !node.expanded;
           this.patchState({ nodes });
         }
-      })
-    )
+      }),
+    ),
   );
 
   readonly nodes$ = this.select((state) => state.nodes);
@@ -53,7 +52,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   private createNodes(
     works: Work[],
     volumeById: Map<number, Volume>,
-    isSelectable: boolean
+    isSelectable: boolean,
   ): TreeNode[] {
     if (works.length === 0) {
       return [];
@@ -73,7 +72,12 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
 
       if (currentVolume !== work.volumeId) {
         volumeNodes.push(
-          this.createVolumeNode(currentSection, volume, isSelectable, workNodes)
+          this.createVolumeNode(
+            currentSection,
+            volume,
+            isSelectable,
+            workNodes,
+          ),
         );
         workNodes = [];
         currentVolume = work.volumeId;
@@ -87,7 +91,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
 
       if (currentSection !== volume.section) {
         sectionNodes.push(
-          this.createSectionNode(currentSection, isSelectable, volumeNodes)
+          this.createSectionNode(currentSection, isSelectable, volumeNodes),
         );
         volumeNodes = [];
         currentSection = volume.section;
@@ -98,12 +102,12 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
 
     if (workNodes.length) {
       volumeNodes.push(
-        this.createVolumeNode(currentSection, volume!, isSelectable, workNodes)
+        this.createVolumeNode(currentSection, volume!, isSelectable, workNodes),
       );
     }
     if (volumeNodes.length) {
       sectionNodes.push(
-        this.createSectionNode(currentSection, isSelectable, volumeNodes)
+        this.createSectionNode(currentSection, isSelectable, volumeNodes),
       );
     }
     return sectionNodes;
@@ -112,7 +116,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
   private createSectionNode(
     section: number,
     isSelectable: boolean,
-    volumeNodes: TreeNode[]
+    volumeNodes: TreeNode[],
   ): TreeNode {
     return {
       key: `${section}`,
@@ -128,7 +132,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
     section: number,
     volume: Volume,
     isSelectable: boolean,
-    workNodes: TreeNode[]
+    workNodes: TreeNode[],
   ): TreeNode {
     return {
       key: `${section}-${volume.id}`,
@@ -152,7 +156,7 @@ export class WorksMenuStore extends ComponentStore<WorksMenuState> {
 
   private findNodeByKey(
     nodes: TreeNode<any>[],
-    key: string
+    key: string,
   ): TreeNode | undefined {
     for (const node of nodes) {
       if (node.key === key) {

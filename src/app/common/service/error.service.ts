@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { HttpError } from '@frhorschig/kant-search-api';
+import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Observable, forkJoin } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Observable, forkJoin } from 'rxjs';
 export class ErrorService {
   constructor(
     private readonly translateService: TranslateService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   logError(err: HttpError) {
@@ -34,7 +34,21 @@ export class ErrorService {
     });
   }
 
-  wrapInObservable(msg: string): Observable<string> {
+  logErrorString(msg: string) {
+    this.messageService.clear();
+    const summary$ = this.translateService.get('ERROR.SUMMARY');
+    forkJoin([summary$, this.wrapInObservable(msg)]).subscribe(
+      (translations) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: translations[0],
+          detail: translations[1],
+        });
+      },
+    );
+  }
+
+  private wrapInObservable(msg: string): Observable<string> {
     return new Observable<string>((subscriber) => {
       subscriber.next(msg);
       subscriber.complete();

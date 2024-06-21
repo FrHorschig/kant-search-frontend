@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ComponentStore } from '@ngrx/component-store';
 import { SearchScope, Work } from '@frhorschig/kant-search-api';
+import { ComponentStore } from '@ngrx/component-store';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
+import { LanguageStore } from 'src/app/store/language/language.store';
+import { WorksStore } from 'src/app/store/works/works.store';
 import { SearchOptions } from '../../model/search-output';
 import { SelectionGroup } from '../../model/selection-group';
-import { Store } from '@ngrx/store';
-import { WorksReducers } from 'src/app/store/works';
-import { LanguageStore } from 'src/app/store/language/language.store';
 
 interface SearchState {
   workIds: number[];
@@ -20,8 +19,8 @@ interface SearchState {
 export class SearchStore extends ComponentStore<SearchState> {
   constructor(
     private readonly router: Router,
-    private readonly workStore: Store,
-    private readonly langStore: LanguageStore
+    private readonly worksStore: WorksStore,
+    private readonly langStore: LanguageStore,
   ) {
     super({
       workIds: [],
@@ -35,7 +34,7 @@ export class SearchStore extends ComponentStore<SearchState> {
     trigger$.pipe(
       filter(() => this.get((state) => this.canSearch(state))),
       switchMap(() =>
-        this.workStore.select(WorksReducers.selectWorksBySection).pipe(
+        this.worksStore.worksBySection$.pipe(
           withLatestFrom(this.langStore.currentLanguage$),
           tap(([worksBySection, lang]) => {
             this.router.navigate([`/${lang}/search/results`], {
@@ -45,10 +44,10 @@ export class SearchStore extends ComponentStore<SearchState> {
                 scope: this.get((state) => state.options.scope),
               },
             });
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   readonly putWorks = this.updater((state, works: Work[]) => ({
