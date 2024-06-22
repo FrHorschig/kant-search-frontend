@@ -1,14 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
-  HttpError,
-  SearchCriteria,
-  SearchResult,
-  SearchScope,
-  SearchService,
+    HttpError,
+    SearchCriteria,
+    SearchResult,
+    SearchScope,
+    SearchService,
 } from '@frhorschig/kant-search-api';
+import { ComponentStore } from '@ngrx/component-store';
+import { tapResponse } from '@ngrx/operators';
 import { MessageService } from 'primeng/api';
 import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';

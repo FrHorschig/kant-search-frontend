@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { UploadService, Work } from '@frhorschig/kant-search-api';
+import { ComponentStore } from '@ngrx/component-store';
+import { tapResponse } from '@ngrx/operators';
 import { MessageService } from 'primeng/api';
 import { EMPTY, switchMap, tap } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
@@ -16,7 +17,7 @@ export class UploadStore extends ComponentStore<UploadState> {
   constructor(
     private readonly uploadService: UploadService,
     private readonly messageService: MessageService,
-    private readonly errorService: ErrorService
+    private readonly errorService: ErrorService,
   ) {
     super({ workId: 0, isLoading: false });
   }
@@ -29,7 +30,7 @@ export class UploadStore extends ComponentStore<UploadState> {
         this.uploadService
           .uploadWork(
             this.get((state) => state.workId),
-            text
+            text,
           )
           .pipe(
             tap(() => this.patchState({ workId: 0, isLoading: false })),
@@ -45,11 +46,11 @@ export class UploadStore extends ComponentStore<UploadState> {
                 this.patchState({ workId: 0, isLoading: false });
                 this.errorService.logError(err.error);
                 return EMPTY;
-              }
-            )
-          )
-      )
-    )
+              },
+            ),
+          ),
+      ),
+    ),
   );
 
   readonly putWork = this.updater((state, work: Work) => ({
