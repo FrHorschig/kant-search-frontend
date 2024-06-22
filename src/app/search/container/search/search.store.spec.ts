@@ -21,12 +21,14 @@ describe('SearchStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SearchStore],
+      providers: [
+        SearchStore,
+        { provide: Router, useValue: router },
+        { provide: WorksStore, useValue: worksStore },
+        { provide: LanguageStore, useValue: langStore },
+      ],
       imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
-    })
-      .overrideProvider(WorksStore, { useValue: worksStore })
-      .overrideProvider(Router, { useValue: router })
-      .overrideProvider(LanguageStore, { useValue: langStore });
+    });
 
     store = TestBed.inject(SearchStore);
   });

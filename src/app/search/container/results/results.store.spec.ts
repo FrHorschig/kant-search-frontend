@@ -1,22 +1,21 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { EMPTY, of, throwError } from 'rxjs';
-import { ResultsStore } from './results.store';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
   ErrorMessage,
   HttpError,
   SearchScope,
   SearchService,
 } from '@frhorschig/kant-search-api';
+import { TranslateModule } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { EMPTY, of, throwError } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { Testdata } from 'src/app/common/test/testdata';
-import { HttpErrorResponse } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { FullTextInfo } from '../../model/full-text-info';
-import { TestScheduler } from 'rxjs/testing';
+import { ResultsStore } from './results.store';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
@@ -27,7 +26,7 @@ describe('ResultsStore', () => {
   let mockActivatedRoute: any = { queryParamMap: EMPTY };
 
   const testScheduler = new TestScheduler((actual, expected) =>
-    expect(actual).toEqual(expected)
+    expect(actual).toEqual(expected),
   );
   beforeEach(() => {
     mockSearchService = jasmine.createSpyObj('SearchService', ['search']);
@@ -49,9 +48,10 @@ describe('ResultsStore', () => {
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: MessageService, useValue: mockMessageService },
         { provide: ErrorService, useValue: mockErrorService },
+        { provide: SearchService, useValue: mockSearchService },
       ],
       imports: [RouterTestingModule, TranslateModule.forRoot()],
-    }).overrideProvider(SearchService, { useValue: mockSearchService });
+    });
 
     store = TestBed.inject(ResultsStore);
     router = TestBed.inject(Router);
@@ -88,7 +88,7 @@ describe('ResultsStore', () => {
       };
       // GIVEN
       (mockSearchService.search as jasmine.Spy).and.returnValue(
-        throwError(() => new HttpErrorResponse({ error: err }))
+        throwError(() => new HttpErrorResponse({ error: err })),
       );
       // WHEN
       store.searchParagraphs();

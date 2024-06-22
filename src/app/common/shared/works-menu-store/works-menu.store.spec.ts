@@ -49,8 +49,11 @@ describe('WorksMenuStore', () => {
     });
 
     TestBed.configureTestingModule({
-      providers: [WorksMenuStore],
-    }).overrideProvider(WorksStore, { useValue: worksStore });
+      providers: [
+        WorksMenuStore,
+        { provide: WorksStore, useValue: worksStore },
+      ],
+    });
 
     sut = TestBed.inject(WorksMenuStore);
   });
