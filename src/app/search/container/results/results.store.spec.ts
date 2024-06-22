@@ -1,7 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import {
   ErrorMessage,
   HttpError,
@@ -14,25 +18,24 @@ import { EMPTY, of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { Testdata } from 'src/app/common/test/testdata';
+import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../../model/full-text-info';
 import { ResultsStore } from './results.store';
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
-  let router: Router;
-  let mockSearchService: jasmine.SpyObj<SearchService>;
-  let mockMessageService: jasmine.SpyObj<MessageService>;
-  let mockErrorService: jasmine.SpyObj<ErrorService>;
-  let mockActivatedRoute: any = { queryParamMap: EMPTY };
+  let router: jasmine.SpyObj<Router>;
+  let route: any = { queryParamMap: EMPTY };
+  let searchService: jasmine.SpyObj<SearchService>;
+  let messageService: jasmine.SpyObj<MessageService>;
+  let errorService: jasmine.SpyObj<ErrorService>;
 
   const testScheduler = new TestScheduler((actual, expected) =>
     expect(actual).toEqual(expected),
   );
   beforeEach(() => {
-    mockSearchService = jasmine.createSpyObj('SearchService', ['search']);
-    mockMessageService = jasmine.createSpyObj('MessageService', ['clear']);
-    mockErrorService = jasmine.createSpyObj('ErrorService', ['logError']);
-    mockActivatedRoute = {
+    router = jasmine.createSpyObj('Router', ['navigate']);
+    route = {
       queryParamMap: testScheduler.createColdObservable('a', {
         a: convertToParamMap({
           workIds: '1,2',
@@ -41,20 +44,27 @@ describe('ResultsStore', () => {
         }),
       }),
     };
+    searchService = jasmine.createSpyObj('SearchService', ['search']);
+    messageService = jasmine.createSpyObj('MessageService', ['clear']);
+    errorService = jasmine.createSpyObj('ErrorService', ['logError']);
+    let langStore = jasmine.createSpyObj('LanguageStore', [''], {
+      currentLanguage$: of('de'),
+    });
 
     TestBed.configureTestingModule({
       providers: [
         ResultsStore,
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        { provide: MessageService, useValue: mockMessageService },
-        { provide: ErrorService, useValue: mockErrorService },
-        { provide: SearchService, useValue: mockSearchService },
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: MessageService, useValue: messageService },
+        { provide: ErrorService, useValue: errorService },
+        { provide: SearchService, useValue: searchService },
+        { provide: LanguageStore, useValue: langStore },
       ],
-      imports: [RouterTestingModule, TranslateModule.forRoot()],
+      imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
     });
 
     store = TestBed.inject(ResultsStore);
-    router = TestBed.inject(Router);
   });
 
   it('should have initial state', () => {
@@ -67,13 +77,13 @@ describe('ResultsStore', () => {
     testScheduler.run(({ flush }) => {
       const results = [{ workId: 1, matches: [Testdata.match] }];
       // GIVEN
-      (mockSearchService.search as jasmine.Spy).and.returnValue(of(results));
+      (searchService.search as jasmine.Spy).and.returnValue(of(results));
       // WHEN
       store.searchParagraphs();
       flush();
       // THEN
-      expect(mockMessageService.clear).toHaveBeenCalled();
-      expect(mockSearchService.search).toHaveBeenCalled();
+      expect(messageService.clear).toHaveBeenCalled();
+      expect(searchService.search).toHaveBeenCalled();
       store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
       store.results$.subscribe((res) => expect(res).toEqual(results));
     });
@@ -87,14 +97,14 @@ describe('ResultsStore', () => {
         params: ['param'],
       };
       // GIVEN
-      (mockSearchService.search as jasmine.Spy).and.returnValue(
+      (searchService.search as jasmine.Spy).and.returnValue(
         throwError(() => new HttpErrorResponse({ error: err })),
       );
       // WHEN
       store.searchParagraphs();
       flush();
       // THEN
-      expect(mockErrorService.logError).toHaveBeenCalledWith(err);
+      expect(errorService.logError).toHaveBeenCalledWith(err);
       store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
     });
   });
@@ -104,7 +114,6 @@ describe('ResultsStore', () => {
     testScheduler.run(({ flush }) => {
       const results = [{ workId: 1, matches: [Testdata.match] }];
       // GIVEN
-      spyOn(router, 'navigate');
       store.patchState({ searchString: '' });
       (mockSearchService.search as jasmine.Spy).and.returnValue(of(results));
       // WHEN
@@ -128,13 +137,14 @@ describe('ResultsStore', () => {
       workId: 1,
       fragment: 'fragment',
     };
-    // GIVEN
-    const routerSpy = spyOn(router, 'navigate');
     // WHEN
     store.navigateToFullText(info);
     // THEN
-    expect(routerSpy).toHaveBeenCalledWith(['/de/read/text', info.workId], {
-      fragment: info.fragment,
-    });
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['/de/read/text', info.workId],
+      {
+        fragment: info.fragment,
+      },
+    );
   });
 });

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Volume, Work } from '@frhorschig/kant-search-api';
 import { TreeNode } from 'primeng/api';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { WorksStore } from 'src/app/store/works/works.store';
 import { Testdata } from '../../test/testdata';
 import { WorksMenuStore } from './works-menu.store';

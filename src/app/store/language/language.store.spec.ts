@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageStore } from './language.store';
 import { ReplaySubject } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
+import { LanguageStore } from './language.store';
 
 describe('LanguageStore', () => {
   let store: LanguageStore;
   let router: Router;
-  let translateService: jasmine.SpyObj<TranslateService>;
   const emitNavigationEndEvent = (url: string) => {
     (router.events as ReplaySubject<any>).next(new NavigationEnd(0, url, url));
   };
@@ -23,14 +21,11 @@ describe('LanguageStore', () => {
         LanguageStore,
         { provide: TranslateService, useValue: mockTranslateService },
       ],
-      imports: [RouterTestingModule],
+      imports: [RouterModule.forRoot([])],
     });
 
     store = TestBed.inject(LanguageStore);
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    translateService = TestBed.inject(
-      TranslateService
-    ) as jasmine.SpyObj<TranslateService>;
   });
 
   it('should have correct initial state', () => {

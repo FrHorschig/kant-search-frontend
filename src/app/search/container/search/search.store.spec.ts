@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { SearchScope, Work } from '@frhorschig/kant-search-api';
+import { SearchScope } from '@frhorschig/kant-search-api';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
