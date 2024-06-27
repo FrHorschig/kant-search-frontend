@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  ReadService,
-  SearchService,
-  UploadService,
-} from '@frhorschig/kant-search-api';
+import { ReadService, SearchService } from '@frhorschig/kant-search-api';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +10,6 @@ export class UrlLoaderService {
     private readonly http: HttpClient,
     private readonly readService: ReadService,
     private readonly searchService: SearchService,
-    private readonly uploadService: UploadService
   ) {}
 
   adjustBasePath(): Promise<void> {
@@ -23,7 +18,6 @@ export class UrlLoaderService {
         next: (config) => {
           this.readService.configuration.basePath = config.apiUrl;
           this.searchService.configuration.basePath = config.apiUrl;
-          this.uploadService.configuration.basePath = config.apiUrl;
           resolve();
         },
         error: (err) => {
