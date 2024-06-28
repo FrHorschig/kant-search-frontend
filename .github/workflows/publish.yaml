@@ -109,5 +109,5 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             kant-search-frontend.zip
-            deployment/nginx.conf
+            deployment/ksgui.conf
           token: ${{ secrets.GITHUB_TOKEN }}
