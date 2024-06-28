@@ -38,14 +38,6 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
         this.router.navigate([`/${this.currentLang}/search`]);
       },
     },
-    {
-      label: 'NAVBAR.ADMIN',
-      icon: 'pi pi-shield',
-      command: () => {
-        this.messageService.clear();
-        this.router.navigate([`/${this.currentLang}/admin`]);
-      },
-    },
   ];
   langItems: MenuItem[] = [
     {

@@ -38,17 +38,15 @@ describe('NavbarComponent', () => {
 
   it('should initialize navbar items correctly', () => {
     expect(component.items).toBeDefined();
-    expect(component.items.length).toBe(4);
+    expect(component.items.length).toBe(3);
 
     expect(component.items[0].label).toBeUndefined;
     expect(component.items[1].label).toBe('NAVBAR.READ');
     expect(component.items[2].label).toBe('NAVBAR.SEARCH');
-    expect(component.items[3].label).toBe('NAVBAR.ADMIN');
 
     expect(component.items[0].icon).toBe('pi pi-home');
     expect(component.items[1].icon).toBe('pi pi-eye');
     expect(component.items[2].icon).toBe('pi pi-search');
-    expect(component.items[3].icon).toBe('pi pi-shield');
   });
 
   it('should navigate to /startpage and clear messages when the READ command is executed', () => {
@@ -70,12 +68,5 @@ describe('NavbarComponent', () => {
     component.items[2].command!({} as MenuItemCommandEvent);
     expect(mockMessageService.clear).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['/de/search']);
-  });
-
-  it('should navigate to /admin and clear messages when the ADMIN command is executed', () => {
-    const routerSpy = spyOn(router, 'navigate');
-    component.items[3].command!({} as MenuItemCommandEvent);
-    expect(mockMessageService.clear).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalledWith(['/de/admin']);
   });
 });
