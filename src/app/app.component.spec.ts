@@ -1,15 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
-import { Testdata } from './common/test/testdata';
 import { WorksStore } from './store/works/works.store';
+import { RouterModule } from '@angular/router';
 
 class MockTranslateService {
   setDefaultLang = jasmine.createSpy('setDefaultLang');
@@ -35,7 +33,7 @@ describe('AppComponent', () => {
         },
       ],
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
         MessagesModule,
         TabMenuModule,

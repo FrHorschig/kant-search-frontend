@@ -4,8 +4,7 @@ import { NavbarComponent } from './navbar.component';
 import { MenuItemCommandEvent, MessageService } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 
 describe('NavbarComponent', () => {
@@ -19,7 +18,7 @@ describe('NavbarComponent', () => {
       declarations: [NavbarComponent],
       providers: [{ provide: MessageService, useValue: mockMessageService }],
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
         TabMenuModule,
         MenuModule,

@@ -5,10 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from 'src/app/common/common.module';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { ScrollService } from 'src/app/common/service/scroll.service';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Testdata } from 'src/app/common/test/testdata';
 import { FullTextInfo } from '../../model/full-text-info';
+import { RouterModule } from '@angular/router';
 
 describe('ParagraphDialogComponent', () => {
   let component: ParagraphDialogComponent;
@@ -18,7 +17,7 @@ describe('ParagraphDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ParagraphDialogComponent],
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
         DialogModule,
         CommonModule,

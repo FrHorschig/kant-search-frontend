@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
@@ -16,7 +15,7 @@ describe('TocComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TocComponent, MockWorksMenuComponent],
-      imports: [RouterTestingModule, TranslateModule.forRoot()],
+      imports: [ RouterModule.forRoot([]), TranslateModule.forRoot()],
     })
       .overrideProvider(WorksStore, { useValue: worksStore })
       .compileComponents();
