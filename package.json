@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^17.2.2",
     "@angular/platform-browser-dynamic": "^17.2.2",
     "@angular/router": "^17.2.2",
-    "@frhorschig/kant-search-api": "0.19.0",
+    "@frhorschig/kant-search-api": "file:kant-search-api-generated/frhorschig-kant-search-api-0.20.0.tgz",
     "@ngrx/component-store": "^17.1.1",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
