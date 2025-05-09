@@ -13,17 +13,19 @@ import { TocComponent } from './text/toc/toc.component';
 import { FootnoteComponent } from './text/content/footnote/footnote.component';
 import { ContentComponent } from './text/content/content.component';
 import { ParagraphComponent } from './text/content/paragraph/paragraph.component';
+import { SelectionComponent } from './selection/selection.component';
+import { VolumesComponent } from './selection/volumes/volumes.component';
 
 @NgModule({
   declarations: [
+    SelectionComponent,
+    VolumesComponent,
     TextComponent,
     TocComponent,
     TocSectionComponent,
     ContentComponent,
     ParagraphComponent,
     FootnoteComponent,
-    TocSectionComponent,
-    // TODO selection component
   ],
   imports: [
     FormsModule,

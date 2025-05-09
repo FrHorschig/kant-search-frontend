@@ -1,0 +1,7 @@
+<ng-container *ngFor="let vol of volumes">
+  <ng-container *ngFor="let work of vol.works">
+    <p (click)="onWorkClick(work.id)" style="cursor: pointer">
+      {{ work.title }}
+    </p>
+  </ng-container>
+</ng-container>
