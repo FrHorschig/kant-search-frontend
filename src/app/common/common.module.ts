@@ -8,6 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupComponent } from './shared/input-group/input-group.component';
 import { LinkButtonComponent } from './shared/link-button/link-button.component';
 import { PaginationPipe } from './pipes/pagination.pipe';
+import { TextBlockComponent } from './shared/block/block.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PaginationPipe } from './pipes/pagination.pipe';
     InputGroupComponent,
     LinkButtonComponent,
     PaginationPipe,
+    TextBlockComponent,
   ],
   imports: [
     NgCommonModule,
@@ -28,6 +30,7 @@ import { PaginationPipe } from './pipes/pagination.pipe';
     PaginationPipe,
     InputGroupComponent,
     LinkButtonComponent,
+    TextBlockComponent,
   ],
 })
 export class CommonModule {}

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TocComponent } from './container/toc/toc.component';
-import { ReadComponent } from './container/read/read.component';
+import { TocSectionComponent } from './text/toc/section/section.component';
+import { TextComponent } from './text/text.component';
 
 const routes: Routes = [
   {
     path: 'toc',
-    component: TocComponent,
+    component: TocSectionComponent,
   },
   {
     path: 'text/:workId',
-    component: ReadComponent,
+    component: TextComponent,
   },
 ];
 

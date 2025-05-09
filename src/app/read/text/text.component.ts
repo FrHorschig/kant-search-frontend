@@ -1,33 +1,37 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReadStore } from './read.store';
-import { ScrollService } from '../../../common/service/scroll.service';
+import { TextStore } from './text.store';
+import { ScrollService } from '../../common/service/scroll.service';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'app-read',
-  templateUrl: './read.component.html',
-  providers: [ReadStore, ScrollService],
+  selector: 'ks-text',
+  templateUrl: './text.component.html',
+  providers: [TextStore, ScrollService],
 })
-export class ReadComponent
+export class TextComponent
   extends ContainerComponent
   implements OnInit, AfterViewInit
 {
-  paragraphs$ = this.store.paragraphs$;
+  work$ = this.store.work$;
+  textContents$ = this.store.textContents$;
+  headingById$ = this.store.headingById$;
+  footnoteByRef$ = this.store.footnoteByRef$;
+  summaryByRef$ = this.store.summaryByRef$;
   isLoaded$ = this.store.isLoaded$;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly store: ReadStore,
+    private readonly store: TextStore,
     private readonly scrollService: ScrollService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    const workId = this.route.snapshot.params['workId'] as number;
-    this.store.loadParagraphs(workId);
+    const workId = this.route.snapshot.params['workId'];
+    this.store.loadData(workId);
   }
 
   ngAfterViewInit() {

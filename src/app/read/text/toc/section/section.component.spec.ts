@@ -4,23 +4,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
 import { WorksStore } from 'src/app/store/works/works.store';
-import { TocComponent } from './toc.component';
+import { TocSectionComponent } from './section.component';
 
 describe('TocComponent', () => {
-  let component: TocComponent;
-  let fixture: ComponentFixture<TocComponent>;
+  let component: TocSectionComponent;
+  let fixture: ComponentFixture<TocSectionComponent>;
   let router: Router;
   let worksStore = jasmine.createSpyObj('WorksStore', ['loadData']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TocComponent, MockWorksMenuComponent],
-      imports: [ RouterModule.forRoot([]), TranslateModule.forRoot()],
+      declarations: [TocSectionComponent, MockWorksMenuComponent],
+      imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
     })
       .overrideProvider(WorksStore, { useValue: worksStore })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TocComponent);
+    fixture = TestBed.createComponent(TocSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     router = TestBed.inject(Router);

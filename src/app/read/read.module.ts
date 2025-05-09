@@ -6,14 +6,25 @@ import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ReadRoutingModule } from './read-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
-import { TextComponent } from './presentational/text/text.component';
-import { TocComponent } from './container/toc/toc.component';
-import { ReadComponent } from './container/read/read.component';
+import { TocSectionComponent } from './text/toc/section/section.component';
+import { TextComponent } from './text/text.component';
 import { FormsModule } from '@angular/forms';
-import { FormatPipe } from './pipes/format.pipe';
+import { TocComponent } from './text/toc/toc.component';
+import { FootnoteComponent } from './text/content/footnote/footnote.component';
+import { ContentComponent } from './text/content/content.component';
+import { ParagraphComponent } from './text/content/paragraph/paragraph.component';
 
 @NgModule({
-  declarations: [TextComponent, TocComponent, ReadComponent, FormatPipe],
+  declarations: [
+    TextComponent,
+    TocComponent,
+    TocSectionComponent,
+    ContentComponent,
+    ParagraphComponent,
+    FootnoteComponent,
+    TocSectionComponent,
+    // TODO selection component
+  ],
   imports: [
     FormsModule,
     CommonModule,

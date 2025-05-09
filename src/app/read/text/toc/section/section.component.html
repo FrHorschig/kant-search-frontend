@@ -1,0 +1,16 @@
+<div class="flex justify-content-center">
+  <div class="max-w">
+    <!-- TODO create anchor -->
+    <div class="toc-item" [ngStyle]="{ 'padding-left.px': level * 20 }">
+      {{ getHeading(section?.heading) }}
+    </div>
+
+    <ng-container *ngFor="let sec of section?.sections">
+      <ks-toc-section
+        [level]="level + 1"
+        [section]="sec"
+        [headById]="headById"
+      ></ks-toc-section>
+    </ng-container>
+  </div>
+</div>

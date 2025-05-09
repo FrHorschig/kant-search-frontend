@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ReadComponent } from './read.component';
-import { ReadStore } from './read.store';
+import { TextComponent } from './text.component';
+import { TextStore } from './text.store';
 import { Subject, of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
-import { ScrollService } from '../../../common/service/scroll.service';
+import { ScrollService } from '../../common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/serivces';
 
 describe('TextComponent', () => {
-  let component: ReadComponent;
-  let fixture: ComponentFixture<ReadComponent>;
-  let mockReadStore: jasmine.SpyObj<ReadStore>;
+  let component: TextComponent;
+  let fixture: ComponentFixture<TextComponent>;
+  let mockReadStore: jasmine.SpyObj<TextStore>;
   let mockRoute: any;
   let mockScrollService = createScrollServiceSpy();
   let fragmentSubject = new Subject<string>();
@@ -28,13 +28,13 @@ describe('TextComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ReadComponent],
+      declarations: [TextComponent],
       providers: [{ provide: ActivatedRoute, useValue: mockRoute }],
     })
-      .overrideProvider(ReadStore, { useValue: mockReadStore })
+      .overrideProvider(TextStore, { useValue: mockReadStore })
       .overrideProvider(ScrollService, { useValue: mockScrollService });
 
-    fixture = TestBed.createComponent(ReadComponent);
+    fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
   });
 
@@ -49,7 +49,7 @@ describe('TextComponent', () => {
 
   it('should have correct observables from store', () => {
     // WHEN
-    component = new ReadComponent(mockRoute, mockReadStore, mockScrollService);
+    component = new TextComponent(mockRoute, mockReadStore, mockScrollService);
     // THEN
     component.paragraphs$.subscribe((paras) => {
       expect(paras).toHaveSize(1);
