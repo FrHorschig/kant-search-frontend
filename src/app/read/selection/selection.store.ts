@@ -7,6 +7,7 @@ import { tapResponse } from '@ngrx/operators';
 import { EMPTY, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 interface SelectionState {
   volumes: Volume[];
@@ -17,36 +18,13 @@ interface SelectionState {
 export class SelectionStore extends ComponentStore<SelectionState> {
   constructor(
     private readonly router: Router,
-    private readonly langStore: LanguageStore,
-    private readonly errorService: ErrorService,
-    private readonly readService: ReadService
+    private readonly langStore: LanguageStore
   ) {
     super({ volumes: [], isLoaded: false });
   }
 
-  readonly volumes$ = this.select((state) => state.volumes);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
-  readonly loadData = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      tap(() => this.patchState({ isLoaded: false })),
-      switchMap(() =>
-        this.readService.getVolumes().pipe(
-          tapResponse(
-            (result) => this.patchState({ volumes: result, isLoaded: true }),
-            (err: HttpErrorResponse) => {
-              this.patchState({ isLoaded: true });
-              const e = err.error as HttpError;
-              if (e.code !== 404) {
-                this.errorService.logError(err.error);
-              }
-              return EMPTY;
-            }
-          )
-        )
-      )
-    )
-  );
   readonly navigateToText = this.effect<string>((workId$) =>
     workId$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),

@@ -1,24 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { SelectionStore } from './selection.store';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 @Component({
   selector: 'ks-selection',
   templateUrl: './selection.component.html',
+  providers: [SelectionStore],
 })
-export class SelectionComponent extends ContainerComponent implements OnInit {
-  volumes$ = this.store.volumes$;
-  isLoaded$ = this.store.isLoaded$;
+export class SelectionComponent extends ContainerComponent {
+  volumes$ = this.volStore.volumes$;
+  isLoaded$ = this.volStore.isLoaded$;
 
-  constructor(private readonly store: SelectionStore) {
+  constructor(
+    private readonly volStore: VolumesStore,
+    private readonly selectionStore: SelectionStore
+  ) {
     super();
   }
 
-  ngOnInit(): void {
-    this.store.loadData();
-  }
-
   navigate(workId: string) {
-    this.store.navigateToText(workId);
+    this.selectionStore.navigateToText(workId);
   }
 }

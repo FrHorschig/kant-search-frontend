@@ -1,4 +1,10 @@
-import { Hit, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
+import {
+  Hit,
+  Paragraph,
+  Volume,
+  Work,
+  WorkRef,
+} from '@frhorschig/kant-search-api';
 import { HitMetadata } from 'src/app/search/model/hit-metadata';
 
 export class Testdata {
@@ -28,17 +34,32 @@ export class Testdata {
     title: 'Work',
     sections: [],
   };
+  static readonly workRef: WorkRef = {
+    id: 'workId',
+    code: 'ABC',
+    title: 'Work',
+  };
   static readonly work2: Work = {
     id: 'workId2',
     code: 'DEF',
     title: 'Work 2',
     sections: [],
   };
+  static readonly workRef2: WorkRef = {
+    id: 'workId2',
+    code: 'DEF',
+    title: 'Work 2',
+  };
   static readonly work3: Work = {
     id: 'workId3',
     code: 'GHI',
     title: 'Work 3',
     sections: [],
+  };
+  static readonly workRef3: WorkRef = {
+    id: 'workId3',
+    code: 'GHI',
+    title: 'Work 3',
   };
   static readonly volumeById = new Map<string, Volume>([
     ['workId', this.volume],

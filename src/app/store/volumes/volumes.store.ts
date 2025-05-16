@@ -7,14 +7,14 @@ import { EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { ErrorService } from 'src/app/common/service/error.service';
 
-interface WorksState {
+interface VolumesState {
   volumes: Volume[];
   workById: Map<string, WorkRef>;
   isLoaded: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
-export class WorksStore extends ComponentStore<WorksState> {
+export class VolumesStore extends ComponentStore<VolumesState> {
   constructor(
     private errorService: ErrorService,
     private readService: ReadService
@@ -36,6 +36,7 @@ export class WorksStore extends ComponentStore<WorksState> {
         this.readService.getVolumes().pipe(
           tapResponse(
             (volumes) => {
+              volumes.sort((a, b) => a.volumeNumber - b.volumeNumber);
               this.patchState({
                 volumes,
                 workById: new Map<string, WorkRef>(

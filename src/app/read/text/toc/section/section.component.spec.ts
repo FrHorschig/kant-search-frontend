@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
-import { WorksStore } from 'src/app/store/works/works.store';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { TocSectionComponent } from './section.component';
 
 describe('TocComponent', () => {
@@ -17,7 +17,7 @@ describe('TocComponent', () => {
       declarations: [TocSectionComponent, MockWorksMenuComponent],
       imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
     })
-      .overrideProvider(WorksStore, { useValue: worksStore })
+      .overrideProvider(VolumesStore, { useValue: worksStore })
       .compileComponents();
 
     fixture = TestBed.createComponent(TocSectionComponent);

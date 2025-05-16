@@ -27,7 +27,7 @@ export class NavbarComponent extends ContainerComponent implements OnInit {
       icon: 'pi pi-eye',
       command: () => {
         this.messageService.clear();
-        this.router.navigate([`/${this.currentLang}/read/toc`]);
+        this.router.navigate([`/${this.currentLang}/read/selection`]);
       },
     },
     {
