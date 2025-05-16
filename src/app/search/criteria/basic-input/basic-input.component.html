@@ -1,0 +1,56 @@
+<div class="grid">
+  <div class="col-3 mt-3">
+    <label for="works-selection-dropdown">
+      {{ "SEARCH.INPUT.WORKS_BASIC_LABEL" | translate }}
+    </label>
+  </div>
+
+  <div [ngClass]="'col-8'">
+    <p-dropdown
+      id="works-selection-dropdown"
+      styleClass="w-full"
+      [options]="workSelectOptions"
+      (onChange)="onSelectionGroupChange($event)"
+    >
+      <ng-template pTemplate="selectedItem" let-item>
+        {{ item.label | translate }}
+      </ng-template>
+      <ng-template pTemplate="item" let-item>
+        {{ item.label | translate }}
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <div
+    class="col-1"
+    pTooltip="{{
+      (isCustomSelection
+        ? 'SEARCH.INPUT.WORKS_ADVANCED_TOOLTIP'
+        : 'SEARCH.INPUT.WORKS_ADVANCED_TOOLTIP_DISABLED'
+      ) | translate
+    }}"
+  >
+    <p-button
+      icon="pi pi-list"
+      styleClass="p-button-sm p-button-secondary w-full"
+      [disabled]="!isCustomSelection"
+      (onClick)="onWorksMenuClick()"
+    ></p-button>
+  </div>
+</div>
+
+<ks-input-group
+  idString="search-terms-input"
+  i18nString="SEARCH.INPUT.SEARCH_STRING"
+>
+  <input
+    pInputText
+    id="search-terms-input"
+    class="w-full"
+    type="text"
+    placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
+    [ngModel]="searchString"
+    (ngModelChange)="onSearchStringChange($event)"
+    (keyup.enter)="onSubmit()"
+  />
+</ks-input-group>

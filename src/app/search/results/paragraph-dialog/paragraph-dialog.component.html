@@ -1,0 +1,22 @@
+<p-dialog
+  [(visible)]="isVisible"
+  [modal]="true"
+  (onHide)="onHide()"
+  header="#{{ metadata.index }} {{ 'WORKS.' + metadata.workCode | translate }}"
+>
+  <!-- TODO -->
+  <div class="max-w-base mb-3" [innerHTML]=""></div>
+
+  <div class="flex justify-content-end">
+    <p-button
+      styleClass="p-button-secondary"
+      (click)="onNavigate()"
+      pTooltip="{{ 'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate }}"
+    >
+      <div class="mt-1">
+        {{ "SEARCH.RESULTS.GO_TO_TEXT_LABEL" | translate }}
+      </div>
+      <i class="pi pi-arrow-right ml-2 mb-1"></i>
+    </p-button>
+  </div>
+</p-dialog>

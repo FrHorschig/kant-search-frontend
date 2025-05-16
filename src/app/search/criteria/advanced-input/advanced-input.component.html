@@ -1,0 +1,22 @@
+<p-divider align="center">
+  {{ "SEARCH.INPUT.ADVANCED_OPTIONS_HEADER" | translate }}
+</p-divider>
+
+<form [formGroup]="form">
+  <ks-input-group idString="scope-dropdown" i18nString="SEARCH.INPUT.SCOPE">
+    <p-dropdown
+      id="scope-dropdown"
+      [options]="scopes"
+      formControlName="scope"
+      styleClass="w-full"
+    >
+      <ng-template let-option pTemplate="selectedItem">
+        {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
+      </ng-template>
+
+      <ng-template let-option pTemplate="item">
+        {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
+      </ng-template>
+    </p-dropdown>
+  </ks-input-group>
+</form>

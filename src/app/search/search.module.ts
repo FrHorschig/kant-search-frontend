@@ -13,20 +13,19 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TreeModule } from 'primeng/tree';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
-import { SearchComponent } from './container/search/search.component';
-import { ResultsComponent } from './container/results/results.component';
-import { ResultListComponent } from './presentational/result-list/result-list.component';
-import { ResultItemComponent } from './presentational/result-item/result-item.component';
-import { ParagraphDialogComponent } from './presentational/paragraph-dialog/paragraph-dialog.component';
+import { ResultListComponent } from './results/result-list/result-list.component';
+import { ResultItemComponent } from './results/result-item/result-item.component';
+import { ParagraphDialogComponent } from './results/paragraph-dialog/paragraph-dialog.component';
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
-import { AdvancedInputComponent } from './presentational/advanced-input/advanced-input.component';
-import { CheckboxWorksMenuComponent } from './presentational/checkbox-works-menu/checkbox-works-menu.component';
-import { BasicInputComponent } from './presentational/basic-input/basic-input.component';
-import { ResultsInputComponent } from './presentational/results-input/results-input.component';
+import { AdvancedInputComponent } from './criteria/advanced-input/advanced-input.component';
+import { BasicInputComponent } from './criteria/basic-input/basic-input.component';
+import { ResultsInputComponent } from './results/results-input/results-input.component';
+import { CriteriaComponent } from './criteria/criteria.component';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
-    SearchComponent,
+    CriteriaComponent,
     ResultsComponent,
     ResultListComponent,
     ResultItemComponent,
@@ -34,7 +33,6 @@ import { ResultsInputComponent } from './presentational/results-input/results-in
     RemovePaginationPipe,
     BasicInputComponent,
     AdvancedInputComponent,
-    CheckboxWorksMenuComponent,
     ResultsInputComponent,
   ],
   imports: [

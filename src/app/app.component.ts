@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { WorksStore } from './store/works/works.store';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ks-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(
     private readonly translateService: TranslateService,
-    private readonly worksStore: WorksStore,
+    private readonly worksStore: WorksStore
   ) {
     this.translateService.setDefaultLang('de');
     this.worksStore.loadData();

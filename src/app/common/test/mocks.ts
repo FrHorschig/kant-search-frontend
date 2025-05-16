@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-@Component({ selector: 'app-works-menu', template: '' })
+@Component({ selector: 'ks-works-menu', template: '' })
 export class MockWorksMenuComponent {
   @Input() nodes: any;
 }

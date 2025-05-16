@@ -1,0 +1,23 @@
+<div class="flex justify-content-center">
+  <div class="max-w-base">
+    <ng-container *ngIf="isLoaded$ | async">
+      <ks-results-input
+        [searchString]="(searchString$ | async) || ''"
+        (onUpdateEmitter)="onUpdate($event)"
+      ></ks-results-input>
+
+      <ks-result-list
+        [results]="(results$ | async) || []"
+        (onClick)="onClick($event)"
+      ></ks-result-list>
+    </ng-container>
+  </div>
+</div>
+
+<!-- TODO
+<ks-paragraph-dialog
+  [(isVisible)]="showParagraph"
+  [metadata]="metadata"
+  (navigateEmitter)="onFullTextNavigation($event)"
+></ks-paragraph-dialog>
+ -->

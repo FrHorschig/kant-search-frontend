@@ -6,7 +6,7 @@ import { ContainerComponent } from '../../common/base/container.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'ks-navbar',
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent extends ContainerComponent implements OnInit {

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchComponent } from './container/search/search.component';
-import { ResultsComponent } from './container/results/results.component';
+import { CriteriaComponent } from './criteria/criteria.component';
+import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SearchComponent,
+    component: CriteriaComponent,
   },
   {
     path: 'results',
