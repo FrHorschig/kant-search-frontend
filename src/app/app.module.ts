@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,42 +27,36 @@ export function loadBackendUrl(urlLoader: UrlLoaderService) {
   return () => urlLoader.adjustBasePath();
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    StartpageComponent,
-    NavbarComponent,
-    NotFoundComponent,
-  ],
-  imports: [
-    ApiModule,
-    HttpClientModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    FormsModule,
-    ButtonModule,
-    MessagesModule,
-    TabMenuModule,
-    TooltipModule,
-    MenuModule,
-  ],
-  providers: [
-    MessageService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: loadBackendUrl,
-      deps: [UrlLoaderService],
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        StartpageComponent,
+        NavbarComponent,
+        NotFoundComponent,
+    ],
+    bootstrap: [AppComponent], imports: [ApiModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        FormsModule,
+        ButtonModule,
+        MessagesModule,
+        TabMenuModule,
+        TooltipModule,
+        MenuModule], providers: [
+        MessageService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: loadBackendUrl,
+            deps: [UrlLoaderService],
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
