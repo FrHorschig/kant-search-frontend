@@ -8,9 +8,10 @@ import { HitMetadata } from '../model/hit-metadata';
 import { ResultsStore } from './results.store';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  providers: [ResultsStore, ScrollService],
+    selector: 'app-results',
+    templateUrl: './results.component.html',
+    providers: [ResultsStore, ScrollService],
+    standalone: false
 })
 export class ResultsComponent
   extends ContainerComponent

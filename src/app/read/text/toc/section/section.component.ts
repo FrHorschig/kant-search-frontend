@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Section } from '@frhorschig/kant-search-api';
 
 @Component({
-  selector: 'ks-toc-section',
-  templateUrl: './section.component.html',
+    selector: 'ks-toc-section',
+    templateUrl: './section.component.html',
+    standalone: false
 })
 export class TocSectionComponent {
   @Input() level: number = 0;

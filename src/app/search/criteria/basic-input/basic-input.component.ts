@@ -12,8 +12,9 @@ import { SelectionGroup } from '../../model/selection-group';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
-  selector: 'ks-basic-input',
-  templateUrl: './basic-input.component.html',
+    selector: 'ks-basic-input',
+    templateUrl: './basic-input.component.html',
+    standalone: false
 })
 export class BasicInputComponent implements OnChanges {
   @Input() selectionGroup: SelectionGroup = SelectionGroup.ALL;

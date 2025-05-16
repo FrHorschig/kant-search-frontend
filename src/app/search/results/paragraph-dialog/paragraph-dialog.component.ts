@@ -10,8 +10,9 @@ import { HitMetadata } from '../../model/hit-metadata';
 import { FullTextInfo } from '../../model/full-text-info';
 
 @Component({
-  selector: 'ks-paragraph-dialog',
-  templateUrl: './paragraph-dialog.component.html',
+    selector: 'ks-paragraph-dialog',
+    templateUrl: './paragraph-dialog.component.html',
+    standalone: false
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;

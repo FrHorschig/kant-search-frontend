@@ -6,8 +6,9 @@ import { ContainerComponent } from '../../common/base/container.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ks-navbar',
-  templateUrl: './navbar.component.html',
+    selector: 'ks-navbar',
+    templateUrl: './navbar.component.html',
+    standalone: false
 })
 export class NavbarComponent extends ContainerComponent implements OnInit {
   availableLanguages$ = this.langStore.availableLanguages$;

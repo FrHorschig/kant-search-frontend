@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { SearchScope } from '@frhorschig/kant-search-api';
 
 @Component({
-  selector: 'ks-advanced-input',
-  templateUrl: './advanced-input.component.html',
+    selector: 'ks-advanced-input',
+    templateUrl: './advanced-input.component.html',
+    standalone: false
 })
 export class AdvancedInputComponent implements OnInit {
   @Output() optionsChangeEmitter = new EventEmitter<SearchOptions>();

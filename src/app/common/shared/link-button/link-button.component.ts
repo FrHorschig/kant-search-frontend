@@ -2,9 +2,10 @@ import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ks-link-button',
-  templateUrl: './link-button.component.html',
-  styleUrls: ['./link-button.component.less'],
+    selector: 'ks-link-button',
+    templateUrl: './link-button.component.html',
+    styleUrls: ['./link-button.component.less'],
+    standalone: false
 })
 export class LinkButtonComponent {
   @Input() anchor = '';

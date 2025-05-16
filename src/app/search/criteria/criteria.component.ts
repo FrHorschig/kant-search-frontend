@@ -7,9 +7,10 @@ import { SelectionGroup } from '../model/selection-group';
 import { CriteriaStore } from './criteria.store';
 
 @Component({
-  selector: 'ks-criteria',
-  templateUrl: './criteria.component.html',
-  providers: [CriteriaStore],
+    selector: 'ks-criteria',
+    templateUrl: './criteria.component.html',
+    providers: [CriteriaStore],
+    standalone: false
 })
 export class CriteriaComponent extends ContainerComponent {
   selectionGroup$ = this.criteriaStore.selectionGroup$;

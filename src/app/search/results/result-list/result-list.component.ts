@@ -3,8 +3,9 @@ import { Hit, SearchResult, Work, WorkRef } from '@frhorschig/kant-search-api';
 import { HitMetadata } from '../../model/hit-metadata';
 
 @Component({
-  selector: 'ks-result-list',
-  templateUrl: './result-list.component.html',
+    selector: 'ks-result-list',
+    templateUrl: './result-list.component.html',
+    standalone: false
 })
 export class ResultListComponent {
   @Input() workById: Map<string, WorkRef> | null = null;

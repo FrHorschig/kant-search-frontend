@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ks-input-group',
-  templateUrl: './input-group.component.html',
+    selector: 'ks-input-group',
+    templateUrl: './input-group.component.html',
+    standalone: false
 })
 export class InputGroupComponent {
   @Input() idString = '';

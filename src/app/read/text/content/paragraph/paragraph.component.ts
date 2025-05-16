@@ -3,8 +3,9 @@ import { Footnote, Summary } from '@frhorschig/kant-search-api';
 import { TextContent } from '../../model';
 
 @Component({
-  selector: 'ks-paragraph',
-  templateUrl: './paragraph.component.html',
+    selector: 'ks-paragraph',
+    templateUrl: './paragraph.component.html',
+    standalone: false
 })
 export class ParagraphComponent {
   @Input() paragraph: TextContent = new TextContent(false, '', '', [], '');

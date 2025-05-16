@@ -6,9 +6,10 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'ks-text',
-  templateUrl: './text.component.html',
-  providers: [TextStore, ScrollService],
+    selector: 'ks-text',
+    templateUrl: './text.component.html',
+    providers: [TextStore, ScrollService],
+    standalone: false
 })
 export class TextComponent
   extends ContainerComponent

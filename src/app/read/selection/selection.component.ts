@@ -4,9 +4,10 @@ import { SelectionStore } from './selection.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 @Component({
-  selector: 'ks-selection',
-  templateUrl: './selection.component.html',
-  providers: [SelectionStore],
+    selector: 'ks-selection',
+    templateUrl: './selection.component.html',
+    providers: [SelectionStore],
+    standalone: false
 })
 export class SelectionComponent extends ContainerComponent {
   volumes$ = this.volStore.volumes$;

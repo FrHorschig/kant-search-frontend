@@ -3,8 +3,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { VolumesStore } from './store/volumes/volumes.store';
 
 @Component({
-  selector: 'ks-root',
-  templateUrl: './app.component.html',
+    selector: 'ks-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
 export class AppComponent {
   showButton: boolean = false;

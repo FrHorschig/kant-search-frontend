@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'removePagination',
+    name: 'removePagination',
+    standalone: false
 })
 export class RemovePaginationPipe implements PipeTransform {
   transform(text: string): string {
