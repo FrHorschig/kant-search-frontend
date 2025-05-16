@@ -1,5 +1,7 @@
 <ng-container *ngFor="let vol of volumes">
-  <h2>{{ vol.title }}</h2>
+  <h2>
+    {{ "READ.VOLUME" | translate }} {{ vol.volumeNumber }}: {{ vol.title }}
+  </h2>
 
   <ng-container *ngFor="let work of vol.works">
     <p (click)="onWorkClick(work.id)" style="cursor: pointer">

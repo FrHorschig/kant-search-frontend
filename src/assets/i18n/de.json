@@ -23,6 +23,10 @@
     "TEXT": "Die angeforderte Seite existiert nicht."
   },
 
+  "READ": {
+    "VOLUME": "Band"
+  },
+
   "SEARCH": {
     "INPUT": {
       "WORKS_BASIC_LABEL": "Werkauswahl",

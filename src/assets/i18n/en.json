@@ -20,6 +20,10 @@
     "TEXT": "The requested page does not exist."
   },
 
+  "READ": {
+    "VOLUME": "Volume"
+  },
+
   "SEARCH": {
     "INPUT": {
       "WORKS_BASIC_LABEL": "Select works",
