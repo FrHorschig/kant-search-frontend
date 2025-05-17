@@ -12,22 +12,9 @@ interface SelectionState {
 
 @Injectable()
 export class SelectionStore extends ComponentStore<SelectionState> {
-  constructor(
-    private readonly router: Router,
-    private readonly langStore: LanguageStore
-  ) {
+  constructor() {
     super({ volumes: [], isLoaded: false });
   }
 
   readonly isLoaded$ = this.select((state) => state.isLoaded);
-
-  readonly navigateToText = this.effect<string>((workId$) =>
-    workId$.pipe(
-      withLatestFrom(this.langStore.currentLanguage$),
-      tap(([workId, lang]) => {
-        this.router.navigate([`/${lang}/read/text`, workId]);
-        return EMPTY;
-      })
-    )
-  );
 }

@@ -21,7 +21,7 @@
   },
 
   "READ": {
-    "VOLUME": "Volume"
+    "VOLUME": "Volume{{volumeNumber}}: {{title}}"
   },
 
   "SEARCH": {

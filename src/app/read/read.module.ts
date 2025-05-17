@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzListModule } from 'ng-zorro-antd/list';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -34,6 +37,9 @@ import { VolumesComponent } from './selection/volumes/volumes.component';
     ReadRoutingModule,
     AppCommonModule,
     MessagesModule,
+    NzFlexModule,
+    NzCollapseModule,
+    NzListModule,
     TreeModule,
     CheckboxModule,
   ],

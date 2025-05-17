@@ -2,15 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Volume } from '@frhorschig/kant-search-api';
 
 @Component({
-    selector: 'ks-volumes',
-    templateUrl: './volumes.component.html',
-    standalone: false
+  selector: 'ks-volumes',
+  templateUrl: './volumes.component.html',
+  standalone: false,
 })
 export class VolumesComponent {
+  @Input() currentLang: string = '';
   @Input() volumes: Volume[] = [];
-  @Output() onWorkSelect = new EventEmitter<string>();
 
-  onWorkClick(workId: string) {
-    this.onWorkSelect.emit(workId);
-  }
+  hoverIndex = '';
 }

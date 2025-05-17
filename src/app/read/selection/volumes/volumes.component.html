@@ -1,11 +1,33 @@
-<ng-container *ngFor="let vol of volumes">
-  <h2>
-    {{ "READ.VOLUME" | translate }} {{ vol.volumeNumber }}: {{ vol.title }}
-  </h2>
+<nz-collapse>
+  @for (vol of volumes; track vol) {
+  <nz-collapse-panel
+    [nzHeader]="
+      'READ.VOLUME'
+        | translate : { volumeNumber: vol.volumeNumber, title: vol.title }
+    "
+  >
+    <nz-list nzItemLayout="horizontal">
+      @for (work of vol.works; track work) {
+      <nz-list-item>
+        <a
+          *ngIf="hoverIndex == work.id"
+          [routerLink]="['/', currentLang, 'read', 'text', work.id]"
+          (mouseover)="hoverIndex = work.id"
+          (mouseout)="hoverIndex = ''"
+        >
+          {{ work.title }}
+        </a>
 
-  <ng-container *ngFor="let work of vol.works">
-    <p (click)="onWorkClick(work.id)" style="cursor: pointer">
-      {{ work.title }}
-    </p>
-  </ng-container>
-</ng-container>
+        <div
+          *ngIf="hoverIndex != work.id"
+          (mouseover)="hoverIndex = work.id"
+          (mouseout)="hoverIndex = ''"
+        >
+          {{ work.title }}
+        </div>
+      </nz-list-item>
+      }
+    </nz-list>
+  </nz-collapse-panel>
+  }
+</nz-collapse>

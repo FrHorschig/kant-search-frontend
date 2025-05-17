@@ -5,7 +5,7 @@ import { SelectionComponent } from './selection/selection.component';
 
 const routes: Routes = [
   {
-    path: 'selection',
+    path: '',
     component: SelectionComponent,
   },
   {

@@ -24,7 +24,7 @@
   },
 
   "READ": {
-    "VOLUME": "Band"
+    "VOLUME": "Band {{volumeNumber}}: {{title}}"
   },
 
   "SEARCH": {

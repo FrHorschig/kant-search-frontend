@@ -1,9 +1,9 @@
-<div class="flex justify-content-center">
-  <div class="max-w">
+<div nz-flex nzJustify="center">
+  <div class="max-w-base">
     <ng-container *ngIf="isLoaded$ | async">
       <ks-volumes
+        [currentLang]="(currentLang$ | async) ?? ''"
         [volumes]="(volumes$ | async) ?? []"
-        (onWorkSelect)="navigate($event)"
       ></ks-volumes>
     </ng-container>
   </div>
