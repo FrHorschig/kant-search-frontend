@@ -1,10 +1,14 @@
-<ng-container *ngIf="isLoaded$ | async">
-  <ks-read-toc [work]="work$ | async" [headById]="headingById$ | async">
-  </ks-read-toc>
+<div nz-flex nzJustify="center">
+  <div class="max-w-base">
+    <ng-container *ngIf="isLoaded$ | async">
+      <ks-read-toc [work]="work$ | async" [headById]="headingById$ | async">
+      </ks-read-toc>
 
-  <ks-content
-    [contents]="(textContents$ | async) || []"
-    [fnByRef]="footnoteByRef$ | async"
-    [summByRef]="summaryByRef$ | async"
-  ></ks-content>
-</ng-container>
+      <ks-content
+        [contents]="(textContents$ | async) || []"
+        [fnByRef]="footnoteByRef$ | async"
+        [summByRef]="summaryByRef$ | async"
+      ></ks-content>
+    </ng-container>
+  </div>
+</div>
