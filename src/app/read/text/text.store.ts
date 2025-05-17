@@ -58,6 +58,7 @@ export class TextStore extends ComponentStore<ReadState> {
           paragraphs: this.readService.getParagraphs(workId),
           summaries: this.readService.getSummaries(workId),
         }).pipe(
+          // TODO: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
             ({ work, headings, footnotes, paragraphs, summaries }) => {
               const headsById = new Map(headings.map((h) => [h.id, h]));
@@ -70,8 +71,12 @@ export class TextStore extends ComponentStore<ReadState> {
                 summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
               });
             },
-            (err: HttpErrorResponse) => {
-              this.errorService.logError(err.error);
+            (err) => {
+              if (err instanceof HttpErrorResponse) {
+                this.errorService.logError(err.error);
+              } else if (err instanceof Error) {
+                this.errorService.logErrorString(err.message);
+              }
               return EMPTY;
             }
           )
