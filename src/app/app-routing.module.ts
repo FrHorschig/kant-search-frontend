@@ -22,6 +22,7 @@ const routes: Routes = [
     ],
   },
   { path: 'not-found', component: NotFoundComponent },
+  // TODO: NotFoundComponent is not showing
   { path: '**', redirectTo: '/not-found' },
 ];
 
