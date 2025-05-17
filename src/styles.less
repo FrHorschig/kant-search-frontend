@@ -3,31 +3,6 @@ body {
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0.2rem;
-}
-
-.p-card .p-card-body {
-  padding: 1;
-  padding-bottom: 1px;
-  padding-top: 0;
-}
-.p-card .p-card-content {
-  padding: 0;
-}
-.p-card .p-card-footer {
-  padding: 0;
-}
-.p-tree {
-  border: 0;
-  padding-top: 0;
-}
-
 .max-w-base {
   max-width: 650px;
 }
@@ -38,16 +13,94 @@ h6 {
   max-width: 550px;
 }
 
-.ks-pagination-s {
+:root {
+  --surface-500: #585858;
+}
+
+ks-meta-fnref {
+}
+
+ks-meta-line {
+  display: none;
+}
+
+ks-meta-page::before {
+  content: "[";
+}
+
+ks-meta-page {
+  font-size: 0.75em;
+  color: var(--surface-500);
+}
+
+ks-meta-page::after {
+  content: "]";
+}
+
+ks-fmt-bold {
+}
+
+ks-fmt-emph {
+}
+
+ks-fmt-emph2 {
+}
+
+ks-fmt-formula {
+}
+
+ks-fmt-h1 {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.67rem 0;
+  line-height: 1.2;
+}
+
+ks-fmt-h2 {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.75rem 0;
+  line-height: 1.3;
+}
+
+ks-fmt-h3 {
+  display: block;
+  font-size: 1.17rem;
+  font-weight: bold;
+  margin: 0.83rem 0;
+  line-height: 1.4;
+}
+
+ks-fmt-h4 {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1.12rem 0;
+  line-height: 1.5;
+}
+
+ks-fmt-h5 {
+  display: block;
+  font-size: 0.83rem;
+  font-weight: bold;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+ks-fmt-h6 {
+  display: block;
   font-size: 0.75rem;
-  color: var(--surface-500);
+  font-weight: bold;
+  margin: 1.67rem 0;
+  line-height: 1.6;
 }
-.ks-pagination-m {
-  color: var(--surface-500);
+
+ks-fmt-hpar {
 }
-.ks-fn-ref {
-  font-size: 0.8rem;
-  font-style: italic;
+
+ks-fmt-tracked {
 }
 
 .ks-scroll-to-top {
