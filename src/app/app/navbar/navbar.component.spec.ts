@@ -48,11 +48,11 @@ describe('NavbarComponent', () => {
     expect(component.items[2].icon).toBe('pi pi-search');
   });
 
-  it('should navigate to /startpage and clear messages when the READ command is executed', () => {
+  it('should navigate to /start and clear messages when the READ command is executed', () => {
     const routerSpy = spyOn(router, 'navigate');
     component.items[0].command!({} as MenuItemCommandEvent);
     expect(mockMessageService.clear).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalledWith(['/de/startpage']);
+    expect(routerSpy).toHaveBeenCalledWith(['/de/start']);
   });
 
   it('should navigate to /read/toc and clear messages when the READ command is executed', () => {

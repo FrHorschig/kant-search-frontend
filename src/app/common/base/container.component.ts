@@ -2,7 +2,8 @@ import { Directive, OnDestroy } from '@angular/core';
 import { MonoTypeOperatorFunction, Subject, takeUntil } from 'rxjs';
 
 @Directive({
-  selector: 'containerComponent',
+    selector: 'containerComponent',
+    standalone: false
 })
 export abstract class ContainerComponent implements OnDestroy {
   protected readonly onDestroy$ = new Subject<void>();

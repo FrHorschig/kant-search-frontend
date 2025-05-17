@@ -4,11 +4,11 @@ import { NotFoundComponent } from './app/not-found/not-found.component';
 import { StartpageComponent } from './app/startpage/startpage.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/de/startpage', pathMatch: 'full' },
+  { path: '', redirectTo: '/de/start', pathMatch: 'full' },
   {
     path: ':lang',
     children: [
-      { path: 'startpage', component: StartpageComponent },
+      { path: 'start', component: StartpageComponent },
       {
         path: 'read',
         loadChildren: () =>
@@ -22,6 +22,7 @@ const routes: Routes = [
     ],
   },
   { path: 'not-found', component: NotFoundComponent },
+  // TODO: NotFoundComponent is not showing
   { path: '**', redirectTo: '/not-found' },
 ];
 

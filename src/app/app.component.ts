@@ -1,20 +1,21 @@
 import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { WorksStore } from './store/works/works.store';
+import { VolumesStore } from './store/volumes/volumes.store';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+    selector: 'ks-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
 export class AppComponent {
   showButton: boolean = false;
 
   constructor(
     private readonly translateService: TranslateService,
-    private readonly worksStore: WorksStore,
+    private readonly volStore: VolumesStore
   ) {
     this.translateService.setDefaultLang('de');
-    this.worksStore.loadData();
+    this.volStore.loadData();
   }
 
   @HostListener('window:scroll', ['$event'])

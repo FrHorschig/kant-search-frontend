@@ -1,38 +1,33 @@
-<div class="flex justify-content-between">
-  <p-tabMenu class="flex-grow-1" [model]="items">
-    <ng-template pTemplate="item" let-item>
-      <a
-        class="p-menuitem-link flex justify-content-between align-items-center p-3"
-      >
-        <div>
-          <span [class]="item.icon"></span>
-          <span> {{ item.label | translate }}</span>
-        </div>
-      </a>
-    </ng-template>
-  </p-tabMenu>
+<ul nz-menu nzMode="horizontal" nz-flex>
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', currentLanguage$ | async, 'start']">
+      <nz-icon nzType="home" />
+    </a>
+  </li>
 
-  <p-tabMenu
-    [model]="langItems"
-    [activeItem]="{}"
-    (click)="menu.toggle($event)"
-  >
-    <ng-template pTemplate="item" let-item>
-      <a
-        class="p-menuitem-link flex justify-content-between align-items-center p-3"
-      >
-        <div>
-          <span [class]="item.icon"></span>
-        </div>
-      </a>
-    </ng-template>
-  </p-tabMenu>
-</div>
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', currentLanguage$ | async, 'read']">
+      <nz-icon nzType="read" />
+      {{ "NAVBAR.READ" | translate }}
+    </a>
+  </li>
 
-<p-menu
-  #menu
-  [model]="getItems((availableLanguages$ | async) || [])"
-  [popup]="true"
-></p-menu>
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', currentLanguage$ | async, 'search']">
+      <nz-icon nzType="search" />
+      {{ "NAVBAR.SEARCH" | translate }}
+    </a>
+  </li>
 
-<div class="mb-2"></div>
+  <li style="flex-grow: 1; pointer-events: none"></li>
+
+  <li nz-submenu nzPlacement="bottomRight" nzIcon="setting">
+    <ul>
+      <ng-container *ngFor="let lang of availableLanguages$ | async">
+        <li nz-menu-item (click)="updateLang(lang)">
+          {{ "NAVBAR.LANG." + lang.toUpperCase() | translate }}
+        </li>
+      </ng-container>
+    </ul>
+  </li>
+</ul>

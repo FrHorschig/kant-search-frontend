@@ -6,7 +6,7 @@ import { MessagesModule } from 'primeng/messages';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
-import { WorksStore } from './store/works/works.store';
+import { VolumesStore } from './store/volumes/volumes.store';
 import { RouterModule } from '@angular/router';
 
 class MockTranslateService {
@@ -40,7 +40,7 @@ describe('AppComponent', () => {
         MenuModule,
       ],
     })
-      .overrideProvider(WorksStore, { useValue: worksStore })
+      .overrideProvider(VolumesStore, { useValue: worksStore })
       .compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
