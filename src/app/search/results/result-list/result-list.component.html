@@ -1,0 +1,30 @@
+<ng-container *ngIf="results.length === 0">
+  <div class="flex justify-content-center mt-6">
+    {{ "SEARCH.RESULTS.NONE_FOUND" | translate }}
+  </div>
+</ng-container>
+
+<ng-container *ngIf="results.length > 0">
+  <ng-container *ngFor="let result of results">
+    <div class="mt-6">
+      <div id="results-{{ result.workId }}"></div>
+
+      <p-divider align="center">
+        <b>{{ "WORKS." + getWorkCode(result.workId) | translate }}</b>
+      </p-divider>
+    </div>
+
+    <ng-container *ngFor="let hit of result.hits; let i = index">
+      <div id="{{ getAnchorId(result.workId, hit) }}" class="mb-2">
+        <ks-result-item
+          [index]="i + 1"
+          [anchor]="getAnchorId(result.workId, hit)"
+          [workCode]="getWorkCode(result.workId)"
+          [workAbbrev]="getWorkAbbreviation(result.workId)"
+          [hit]="hit"
+          (onClick)="onMatchClick(result.workId, hit, i + 1)"
+        ></ks-result-item>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

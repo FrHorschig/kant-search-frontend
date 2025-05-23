@@ -1,0 +1,30 @@
+<div class="flex justify-content-center">
+  <div class="w-full max-w-base">
+    <ks-basic-input
+      [selectionGroup]="(selectionGroup$ | async) ?? selectionGroupDefault"
+      (searchStringEmitter)="onSearchStringChange($event)"
+      (worksEmitter)="onWorksChange($event)"
+      (selectionGroupEmitter)="onSelectionGroupChange($event)"
+      (doSearchEmitter)="onSearch()"
+    ></ks-basic-input>
+
+    <div
+      pTooltip="{{
+        !(canSearch$ | async) ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate) : ''
+      }}"
+    >
+      <p-button
+        styleClass="w-full"
+        label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
+        [disabled]="!(canSearch$ | async)"
+        (onClick)="onSearch()"
+      ></p-button>
+    </div>
+
+    <div class="mb-5"></div>
+
+    <ks-advanced-input
+      (optionsChangeEmitter)="onOptionsChange($event)"
+    ></ks-advanced-input>
+  </div>
+</div>

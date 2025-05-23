@@ -1,0 +1,10 @@
+<div nz-flex nzJustify="center">
+  <div class="max-w-base">
+    <ng-container *ngIf="isLoaded$ | async">
+      <ks-volumes
+        [currentLang]="(currentLang$ | async) ?? ''"
+        [volumes]="(volumes$ | async) ?? []"
+      ></ks-volumes>
+    </ng-container>
+  </div>
+</div>

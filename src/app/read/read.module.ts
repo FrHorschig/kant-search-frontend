@@ -1,19 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzListModule } from 'ng-zorro-antd/list';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ReadRoutingModule } from './read-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
-import { TextComponent } from './presentational/text/text.component';
-import { TocComponent } from './container/toc/toc.component';
-import { ReadComponent } from './container/read/read.component';
+import { TocSectionComponent } from './text/toc/section/section.component';
+import { TextComponent } from './text/text.component';
 import { FormsModule } from '@angular/forms';
-import { FormatPipe } from './pipes/format.pipe';
+import { TocComponent } from './text/toc/toc.component';
+import { FootnoteComponent } from './text/content/footnote/footnote.component';
+import { ContentComponent } from './text/content/content.component';
+import { ParagraphComponent } from './text/content/paragraph/paragraph.component';
+import { SelectionComponent } from './selection/selection.component';
+import { VolumesComponent } from './selection/volumes/volumes.component';
 
 @NgModule({
-  declarations: [TextComponent, TocComponent, ReadComponent, FormatPipe],
+  declarations: [
+    SelectionComponent,
+    VolumesComponent,
+    TextComponent,
+    TocComponent,
+    TocSectionComponent,
+    ContentComponent,
+    ParagraphComponent,
+    FootnoteComponent,
+  ],
   imports: [
     FormsModule,
     CommonModule,
@@ -21,6 +37,9 @@ import { FormatPipe } from './pipes/format.pipe';
     ReadRoutingModule,
     AppCommonModule,
     MessagesModule,
+    NzFlexModule,
+    NzCollapseModule,
+    NzListModule,
     TreeModule,
     CheckboxModule,
   ],
