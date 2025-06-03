@@ -10,6 +10,7 @@ import { ErrorService } from 'src/app/common/service/error.service';
 interface VolumesState {
   volumes: Volume[];
   workById: Map<string, WorkRef>;
+  workByCode: Map<string, WorkRef>;
   isLoaded: boolean;
 }
 
@@ -22,12 +23,14 @@ export class VolumesStore extends ComponentStore<VolumesState> {
     super({
       volumes: [],
       workById: new Map<string, WorkRef>(),
+      workByCode: new Map<string, WorkRef>(),
       isLoaded: false,
     });
   }
 
   readonly volumes$ = this.select((state) => state.volumes);
   readonly workById$ = this.select((state) => state.workById);
+  readonly workByCode$ = this.select((state) => state.workByCode);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
   readonly loadData = this.effect<void>((dummy$) =>
@@ -39,8 +42,8 @@ export class VolumesStore extends ComponentStore<VolumesState> {
               volumes.sort((a, b) => a.volumeNumber - b.volumeNumber);
               this.patchState({
                 volumes,
-                workById: new Map<string, WorkRef>(
-                  volumes.flatMap((v) => v.works.map((w) => [w.id, w]))
+                workByCode: new Map<string, WorkRef>(
+                  volumes.flatMap((v) => v.works.map((w) => [w.code, w]))
                 ),
                 isLoaded: true,
               });

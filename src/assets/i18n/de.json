@@ -29,27 +29,56 @@
 
   "SEARCH": {
     "INPUT": {
-      "WORKS_BASIC_LABEL": "Werkauswahl",
-      "WORKS_BASIC_OPTIONS": {
-        "ALL": "Alle Bände",
-        "CUSTOM": "Benutzerdefinierte Auswahl"
+      "TERMS": {
+        "PLACEHOLDER": "Suchbegriffe eingeben",
+        "BUTTON": {
+          "LABEL": "Suchen",
+          "TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben und mindestens ein Werk auswählen"
+        }
+      },
+      "WORKS": {
+        "TITLE": "Werkauswahl",
+        "SELECT": {
+          "LABEL": "Werkauswahl",
+          "PLACEHOLDER": "Wähle vordefinierte Sammlung...",
+          "OPTIONS": {
+            "ALL": "Alle Bände",
+            "PRECRITICAL": "Vorkritische Schriften",
+            "CRITIQUES": "Kritiken",
+            "CUSTOM": "Benutzerdefinierte Auswahl..."
+          }
+        }
+      },
+      "ADVANCED": {
+        "INCLUDE_HEADINGS": {
+          "LABEL": "Durchsuche Überschriften",
+          "TOOLTIP": "Überschriften werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+        },
+        "INCLUDE_FOOTNOTES": {
+          "LABEL": "Durchsuche Fußnoten",
+          "TOOLTIP": "Fußnoten werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+        },
+        "INCLUDE_SUMMARIES": {
+          "LABEL": "Durchsuche Zusammenfassungen",
+          "TOOLTIP": "Absatz-Zusammenfassungen werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+        },
+        "SEARCH_TIPS": {
+          "HEADING": "Hinweise zur Kombination von Suchbegriffen",
+          "TEXT": "Es ist möglich, mehrere Suchbegriffe durch logische Operatoren zu kombinieren. Nutzen Sie '&' für UND, '|' für ODER, '!' für NICHT, '(...)' zum Gruppieren von Begriffen und Anführungszeichen für genaue Phrasen.",
+          "EXAMPLE": "Beispiel: (Hund | \"weiße Mäuse\") & !Katze"
+        }
       },
       "WORKS_ADVANCED_TOOLTIP": "Komplette Liste anzeigen",
       "WORKS_ADVANCED_TOOLTIP_DISABLED": "Wähle 'Benutzerdefinierte Auswahl', um die vollständige Liste der Werke anzuzeigen",
       "WORKS_ADVANCED_SELECT_ALL": "Alles auswählen",
       "WORKS_ADVANCED_REMOVE_ALL": "Alles entfernen",
-      "SEARCH_STRING_LABEL": "Suchbegriffe",
-      "SEARCH_STRING_TOOLTIP": "Verwenden Sie die folgenden Sonderzeichen für die Expertensuche: & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen. Beispiel: (Hund | \"weiße Mäuse\") & !Katze",
-      "SEARCH_STRING_PLACEHOLDER": "Suchbegriffe eingeben",
       "ADVANCED_OPTIONS_HEADER": "Erweiterte Optionen",
       "SCOPE_LABEL": "Suchbereich",
       "SCOPE_TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
       "SCOPE_OPTIONS": {
         "PARAGRAPH": "Absatz",
         "SENTENCE": "Satz"
-      },
-      "BUTTON_LABEL": "Suchen",
-      "BUTTON_TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben und mindestens ein Werk auswählen"
+      }
     },
     "RESULTS": {
       "NONE_FOUND": "Keine Ergebnisse gefunden",

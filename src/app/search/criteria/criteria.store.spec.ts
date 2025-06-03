@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { Testdata } from 'src/app/common/test/testdata';
 import { LanguageStore } from 'src/app/store/language/language.store';
-import { SelectionGroup } from '../model/selection-group';
+import { WorksGroup } from '../model/works-group';
 import { CriteriaStore } from './criteria.store';
 
 describe('SearchStore', () => {
@@ -34,8 +34,8 @@ describe('SearchStore', () => {
   it('should navigate when workIds and search terms exist', () => {
     // GIVEN
     store.putWorks([Testdata.work]);
-    store.putSelectionGroup(SelectionGroup.CUSTOM);
-    store.putSearchString('test');
+    store.putSelectionGroup(WorksGroup.CUSTOM);
+    store.putSearchTerms('test');
     // WHEN
     store.navigateSearch();
     // THEN
@@ -50,7 +50,7 @@ describe('SearchStore', () => {
 
   it('should navigate with non-custom section and search terms', () => {
     // GIVEN
-    store.putSearchString('test');
+    store.putSearchTerms('test');
     // WHEN
     store.navigateSearch();
     // THEN
@@ -61,7 +61,7 @@ describe('SearchStore', () => {
         scope: 'PARAGRAPH',
       },
     });
-    Testdata.worksBySection.set(SelectionGroup.SEC3, [Testdata.work3]);
+    Testdata.worksBySection.set(WorksGroup.SEC3, [Testdata.work3]);
   });
 
   it('should update works', () => {
@@ -77,10 +77,10 @@ describe('SearchStore', () => {
 
   it('should update search string', () => {
     // WHEN
-    store.putSearchString('test');
+    store.putSearchTerms('test');
     // THEN
     store
-      .select((state) => state.searchString)
+      .select((state) => state.searchTerms)
       .subscribe((searchString) => {
         expect(searchString).toEqual('test');
       });
@@ -101,8 +101,8 @@ describe('SearchStore', () => {
     // WHEN
     store.setState({
       workIds: ['df4', 'as2'],
-      selectionGroup: SelectionGroup.ALL,
-      searchString: '',
+      selectionGroup: WorksGroup.ALL,
+      searchTerms: '',
       options: { scope: SearchScope.Paragraph },
     });
     // THEN
@@ -115,8 +115,8 @@ describe('SearchStore', () => {
     // WHEN
     store.setState({
       workIds: [],
-      selectionGroup: SelectionGroup.CUSTOM,
-      searchString: 'test',
+      selectionGroup: WorksGroup.CUSTOM,
+      searchTerms: 'test',
       options: { scope: SearchScope.Paragraph },
     });
     // THEN
@@ -129,8 +129,8 @@ describe('SearchStore', () => {
     // WHEN
     store.setState({
       workIds: [],
-      selectionGroup: SelectionGroup.ALL,
-      searchString: 'test',
+      selectionGroup: WorksGroup.ALL,
+      searchTerms: 'test',
       options: { scope: SearchScope.Paragraph },
     });
     // THEN

@@ -34,7 +34,7 @@ describe('WorksStore', () => {
 
   it('should have initial state', () => {
     store.volumes$.subscribe((volumes) => expect(volumes).toEqual([]));
-    store.workById$.subscribe((workById) => expect(workById.size).toBe(0));
+    store.workByCode$.subscribe((workById) => expect(workById.size).toBe(0));
     store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBe(false));
   });
 
@@ -55,7 +55,7 @@ describe('WorksStore', () => {
       expect(state.volumes[0]).toEqual(volumes[1]);
       expect(state.volumes[1]).toEqual(volumes[0]);
       expect(state.isLoaded).toBe(true);
-      expect(state.workById.get('wId')).toEqual(Testdata.workRef);
+      expect(state.workByCode.get('wId')).toEqual(Testdata.workRef);
       done();
     });
   });

@@ -1,22 +1,43 @@
-<p-divider align="center">
-  {{ "SEARCH.INPUT.ADVANCED_OPTIONS_HEADER" | translate }}
-</p-divider>
+<nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
+  <form [formGroup]="form">
+    <nz-space class="w-full" nzDirection="vertical">
+      <ks-labeled-switch
+        *nzSpaceItem
+        idString="include-heading-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_HEADINGS"
+      >
+        <nz-switch formControlName="includeHeadings"></nz-switch>
+      </ks-labeled-switch>
 
-<form [formGroup]="form">
-  <ks-input-group idString="scope-dropdown" i18nString="SEARCH.INPUT.SCOPE">
-    <p-dropdown
-      id="scope-dropdown"
-      [options]="scopes"
-      formControlName="scope"
-      styleClass="w-full"
-    >
-      <ng-template let-option pTemplate="selectedItem">
-        {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
-      </ng-template>
+      <ks-labeled-switch
+        *nzSpaceItem
+        idString="include-footnotes-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_FOOTNOTES"
+      >
+        <nz-switch formControlName="includeFootnotes"></nz-switch>
+      </ks-labeled-switch>
 
-      <ng-template let-option pTemplate="item">
-        {{ "SEARCH.INPUT.SCOPE_OPTIONS." + option | translate }}
-      </ng-template>
-    </p-dropdown>
-  </ks-input-group>
-</form>
+      <ks-labeled-switch
+        *nzSpaceItem
+        idString="include-summaries-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_SUMMARIES"
+      >
+        <nz-switch formControlName="includeSummaries"></nz-switch>
+      </ks-labeled-switch>
+    </nz-space>
+  </form>
+
+  <nz-divider></nz-divider>
+
+  <h5 nz-typography>
+    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.HEADING" | translate }}
+  </h5>
+
+  <p>
+    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}
+  </p>
+
+  <p>
+    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.EXAMPLE" | translate }}
+  </p>
+</nz-card>

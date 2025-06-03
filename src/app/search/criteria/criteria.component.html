@@ -1,30 +1,21 @@
-<div class="flex justify-content-center">
-  <div class="w-full max-w-base">
-    <ks-basic-input
-      [selectionGroup]="(selectionGroup$ | async) ?? selectionGroupDefault"
-      (searchStringEmitter)="onSearchStringChange($event)"
-      (worksEmitter)="onWorksChange($event)"
-      (selectionGroupEmitter)="onSelectionGroupChange($event)"
-      (doSearchEmitter)="onSearch()"
-    ></ks-basic-input>
+<div nz-flex nzJustify="center">
+  <div class="max-w-base">
+    <nz-space class="w-full" nzDirection="vertical">
+      <ks-basic-input
+        *nzSpaceItem
+        [volumes]="(volumes$ | async) ?? []"
+        [canSearch]="(canSearch$ | async) ?? false"
+        (searchTermsEmitter)="onSearchTermsChange($event)"
+        (workCodesEmitter)="onWorkCodesChange($event)"
+        (doSearchEmitter)="onSearch()"
+      ></ks-basic-input>
 
-    <div
-      pTooltip="{{
-        !(canSearch$ | async) ? ('SEARCH.INPUT.BUTTON_TOOLTIP' | translate) : ''
-      }}"
-    >
-      <p-button
-        styleClass="w-full"
-        label="{{ 'SEARCH.INPUT.BUTTON_LABEL' | translate }}"
-        [disabled]="!(canSearch$ | async)"
-        (onClick)="onSearch()"
-      ></p-button>
-    </div>
+      <div *nzSpaceItem></div>
 
-    <div class="mb-5"></div>
-
-    <ks-advanced-input
-      (optionsChangeEmitter)="onOptionsChange($event)"
-    ></ks-advanced-input>
+      <ks-advanced-input
+        *nzSpaceItem
+        (optionsChangeEmitter)="onOptionsChange($event)"
+      ></ks-advanced-input>
+    </nz-space>
   </div>
 </div>

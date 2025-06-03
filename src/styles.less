@@ -3,21 +3,44 @@ body {
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+.w-full {
+  width: 100%;
+}
+.min-w-400 {
+  width: 100%;
+  min-width: 400px;
+}
 .max-w-base {
+  width: 100%;
   max-width: 650px;
 }
 .max-w-minus-1 {
+  width: 100%;
   max-width: 600px;
 }
 .max-w-minus-2 {
+  width: 100%;
   max-width: 550px;
 }
 
 :root {
-  --surface-500: #585858;
+  --surface-500: #4e4e4e;
+}
+
+// TODO (same for ks-meta-page): before and after chars are not usable in browser search
+ks-meta-fnref::before {
+  content: "(";
 }
 
 ks-meta-fnref {
+  font-size: 0.8rem;
+  position: relative;
+  top: -0.2em;
+  color: var(--surface-500);
+}
+
+ks-meta-fnref::after {
+  content: ")";
 }
 
 ks-meta-line {
@@ -29,7 +52,8 @@ ks-meta-page::before {
 }
 
 ks-meta-page {
-  font-size: 0.75em;
+  font-size: 0.75rem;
+  font-weight: normal;
   color: var(--surface-500);
 }
 
@@ -38,15 +62,21 @@ ks-meta-page::after {
 }
 
 ks-fmt-bold {
+  font-weight: bold;
 }
 
 ks-fmt-emph {
+  font-style: italic;
 }
 
 ks-fmt-emph2 {
+  font-style: italic;
+  letter-spacing: 0.8em;
 }
 
 ks-fmt-formula {
+  font-family: "Cambria Math", "STIX Math", "Latin Modern Math", serif;
+  margin: 0 0.25em;
 }
 
 ks-fmt-h1 {
@@ -98,9 +128,14 @@ ks-fmt-h6 {
 }
 
 ks-fmt-hpar {
+  display: block;
+  text-align: center;
+  font-style: italic;
+  margin: 0 5rem;
 }
 
 ks-fmt-tracked {
+  letter-spacing: 0.1em;
 }
 
 .ks-scroll-to-top {

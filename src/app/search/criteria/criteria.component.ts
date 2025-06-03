@@ -1,48 +1,47 @@
 import { Component } from '@angular/core';
-import { Work } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
-import { SearchOptions } from '../model/search-output';
-import { SelectionGroup } from '../model/selection-group';
+import { AdvancedOptions } from '../model/search-options';
 import { CriteriaStore } from './criteria.store';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 @Component({
-    selector: 'ks-criteria',
-    templateUrl: './criteria.component.html',
-    providers: [CriteriaStore],
-    standalone: false
+  selector: 'ks-criteria',
+  templateUrl: './criteria.component.html',
+  providers: [CriteriaStore],
+  standalone: false,
 })
 export class CriteriaComponent extends ContainerComponent {
-  selectionGroup$ = this.criteriaStore.selectionGroup$;
+  volumes$ = this.volStore.volumes$;
+  searchString$ = this.criteriaStore.searchTerms$;
+  workCodes$ = this.criteriaStore.workCodes$;
   canSearch$ = this.criteriaStore.canSearch$;
 
-  selectionGroupDefault = SelectionGroup.ALL;
+  defaultCodeSet = new Set<string>();
+  showWorksSelectDialog = false;
 
   constructor(
-    private readonly criteriaStore: CriteriaStore,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly volStore: VolumesStore,
+    private readonly criteriaStore: CriteriaStore
   ) {
     super();
   }
 
-  onWorksChange(works: Work[]) {
-    this.criteriaStore.putWorks(works);
+  onSearchTermsChange(searchTerms: string) {
+    this.criteriaStore.putSearchTerms(searchTerms);
   }
 
-  onSelectionGroupChange(group: SelectionGroup) {
-    this.criteriaStore.putSelectionGroup(group);
-  }
-
-  onSearchStringChange(searchString: string) {
-    this.criteriaStore.putSearchString(searchString);
-  }
-
-  onOptionsChange(options: SearchOptions) {
-    this.criteriaStore.putOptions(options);
+  onWorkCodesChange(workCodes: Set<string>) {
+    this.criteriaStore.putWorkCodes(workCodes);
   }
 
   onSearch() {
     this.messageService.clear();
     this.criteriaStore.navigateSearch();
+  }
+
+  onOptionsChange(options: AdvancedOptions) {
+    this.criteriaStore.putOptions(options);
   }
 }

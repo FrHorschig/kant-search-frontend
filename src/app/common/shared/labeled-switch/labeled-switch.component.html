@@ -1,17 +1,17 @@
 <div nz-row>
   <div nz-col nzFlex="3">
-    <label for="{{ idString }}">
-      {{ i18nString + "_LABEL" | translate }}
-    </label>
+    <ng-content></ng-content>
   </div>
 
   <div nz-col nzFlex="8">
-    <ng-content></ng-content>
+    <label for="{{ idString }}">
+      {{ i18nString + ".LABEL" | translate }}
+    </label>
   </div>
 
   <div nz-col nzFlex="1">
     <div nz-flex nzJustify="center">
-      <span nz-tooltip [nzTooltipTitle]="i18nString + '_TOOLTIP' | translate">
+      <span nz-tooltip [nzTooltipTitle]="i18nString + '.TOOLTIP' | translate">
         <nz-icon nzType="info-circle" nzTheme="outline" />
       </span>
     </div>

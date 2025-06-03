@@ -10,7 +10,7 @@
       @for (work of vol.works; track work) {
       <nz-list-item>
         <a
-          *ngIf="hoverIndex == work.id"
+          *ngIf="hoverIndex === work.id"
           [routerLink]="['/', currentLang, 'read', 'text', work.id]"
           (mouseover)="hoverIndex = work.id"
           (mouseout)="hoverIndex = ''"

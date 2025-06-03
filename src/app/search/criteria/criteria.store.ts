@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchScope, Work } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
-import { filter, switchMap, tap, withLatestFrom } from 'rxjs';
+import { filter, tap, withLatestFrom } from 'rxjs';
 import { LanguageStore } from 'src/app/store/language/language.store';
-import { SearchOptions } from '../model/search-output';
-import { SelectionGroup } from '../model/selection-group';
+import { AdvancedOptions } from '../model/search-options';
 
 interface CriteriaState {
-  workIds: string[];
-  selectionGroup: SelectionGroup;
-  searchString: string;
-  options: SearchOptions;
+  workCodes: Set<string>;
+  searchTerms: string;
+  options: AdvancedOptions;
 }
 
 @Injectable()
@@ -21,10 +18,13 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     private readonly langStore: LanguageStore
   ) {
     super({
-      workIds: [],
-      selectionGroup: SelectionGroup.ALL,
-      searchString: '',
-      options: { scope: SearchScope.Paragraph },
+      workCodes: new Set(),
+      searchTerms: '',
+      options: {
+        includeHeadings: true,
+        includeFootnotes: true,
+        includeSummaries: true,
+      },
     });
   }
 
@@ -32,43 +32,38 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     trigger$.pipe(
       filter(() => this.get((state) => this.canSearch(state))),
       withLatestFrom(this.langStore.currentLanguage$),
-      tap((lang) => {
+      tap(([_, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
-            workIds: this.get((state) => state.workIds),
-            searchString: this.get((state) => state.searchString),
-            scope: this.get((state) => state.options.scope),
+            workCodes: this.get((state) => state.workCodes),
+            searchString: this.get((state) => state.searchTerms),
+            incHd: this.get((state) => state.options.includeHeadings),
+            incFn: this.get((state) => state.options.includeFootnotes),
+            incSm: this.get((state) => state.options.includeSummaries),
           },
         });
       })
     )
   );
 
-  readonly putWorks = this.updater((state, works: Work[]) => ({
+  readonly putWorkCodes = this.updater((state, workCodes: Set<string>) => ({
     ...state,
-    workIds: works.map((work) => work.id),
+    workCodes,
   }));
-  readonly putSelectionGroup = this.updater((state, group: SelectionGroup) => ({
+  readonly putSearchTerms = this.updater((state, searchTerms: string) => ({
     ...state,
-    selectionGroup: group,
+    searchTerms,
   }));
-  readonly putSearchString = this.updater((state, searchString: string) => ({
-    ...state,
-    searchString: searchString,
-  }));
-  readonly putOptions = this.updater((state, options: SearchOptions) => ({
+  readonly putOptions = this.updater((state, options: AdvancedOptions) => ({
     ...state,
     options,
   }));
 
   readonly canSearch$ = this.select((state) => this.canSearch(state));
-  readonly selectionGroup$ = this.select((state) => state.selectionGroup);
+  readonly searchTerms$ = this.select((state) => state.searchTerms);
+  readonly workCodes$ = this.select((state) => state.workCodes);
 
-  private canSearch(state: CriteriaState) {
-    return (
-      state.searchString.length > 0 &&
-      (state.selectionGroup !== SelectionGroup.CUSTOM ||
-        state.workIds.length > 0)
-    );
+  private canSearch(state: CriteriaState): boolean {
+    return state.workCodes.size > 0 && state.searchTerms.length > 0;
   }
 }

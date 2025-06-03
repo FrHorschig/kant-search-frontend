@@ -26,24 +26,42 @@
 
   "SEARCH": {
     "INPUT": {
-      "WORKS_BASIC_LABEL": "Select works",
-      "WORKS_BASIC_OPTIONS": {
-        "ALL": "All volumes",
-        "CUSTOM": "Custom selection"
+      "WORKS": {
+        "TITLE": "Works selection",
+        "SELECT": {
+          "LABEL": "Works selection",
+          "PLACEHOLDER": "Choose predefined collection...",
+          "OPTIONS": {
+            "ALL": "All volumes",
+            "PRECRITICAL": "Precritical works",
+            "CRITIQUES": "Critiques",
+            "CUSTOM": "Custom selection..."
+          }
+        }
       },
       "WORKS_ADVANCED_TOOLTIP": "Show full list",
       "WORKS_ADVANCED_TOOLTIP_DISABLED": "Select 'Custom selection' to show the full list of works",
       "WORKS_ADVANCED_SELECT_ALL": "Select all",
       "WORKS_ADVANCED_REMOVE_ALL": "Remove all",
-      "SEARCH_STRING_LABEL": "Search terms",
-      "SEARCH_STRING_TOOLTIP": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
-      "SEARCH_STRING_PLACEHOLDER": "Search terms",
+      "SEARCH_STRING": {
+        "LABEL": "Search terms",
+        "TOOLTIP": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
+        "PLACEHOLDER": "Search terms"
+      },
       "ADVANCED_OPTIONS_HEADER": "Advanced options",
       "SCOPE_LABEL": "Search scope",
       "SCOPE_TOOLTIP": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
       "SCOPE_OPTIONS": {
         "PARAGRAPH": "Paragraph",
         "SENTENCE": "Sentence"
+      },
+      "ADVANCED": {
+        "INCLUDE_HEADINGS_LABEL": "Include headings",
+        "INCLUDE_HEADING_TOOLTIPS": "Headings are searched and included in the results if the switch is on.",
+        "INCLUDE_FOOTNOTES_LABEL": "Include footnotes",
+        "INCLUDE_FOOTNOTE_TOOLTIPS": "Footnotes are searched and included in the results if the switch is on.",
+        "INCLUDE_SUMMARIES_LABEL": "Include summaries",
+        "INCLUDE_SUMMARIES_TOOLTIPS": "Paragraph summaries are searched and included in the results if the switch is on."
       },
       "BUTTON_LABEL": "Search",
       "BUTTON_TOOLTIP": "You must enter at least one search term and select at least one work"

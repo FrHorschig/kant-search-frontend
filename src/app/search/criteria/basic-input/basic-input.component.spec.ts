@@ -12,7 +12,7 @@ import { Testdata } from 'src/app/common/test/testdata';
 import { FormsModule } from '@angular/forms';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
-import { SelectionGroup } from '../../model/selection-group';
+import { WorksGroup } from '../../model/works-group';
 
 describe('BasicInputComponent', () => {
   let component: BasicInputComponent;
@@ -52,8 +52,8 @@ describe('BasicInputComponent', () => {
     // WHEN
     component.ngOnChanges({
       selectionGroup: {
-        currentValue: SelectionGroup.CUSTOM,
-        previousValue: SelectionGroup.ALL,
+        currentValue: WorksGroup.CUSTOM,
+        previousValue: WorksGroup.ALL,
         firstChange: true,
         isFirstChange: () => true,
       },
@@ -85,14 +85,14 @@ describe('BasicInputComponent', () => {
   it('should emit new value when onSelectionGroupChange is called', () => {
     // GIVEN
     spyOn(component.selectionGroupEmitter, 'emit');
-    component.selectionGroup = SelectionGroup.ALL;
+    component.selectionGroup = WorksGroup.ALL;
     // WHEN
     component.onSelectionGroupChange({
-      value: SelectionGroup.SEC1,
+      value: WorksGroup.SEC1,
     } as DropdownChangeEvent);
     // THEN
     expect(component.selectionGroupEmitter.emit).toHaveBeenCalledWith(
-      SelectionGroup.SEC1
+      WorksGroup.SEC1
     );
   });
 

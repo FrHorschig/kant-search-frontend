@@ -14,7 +14,7 @@ import { of } from 'rxjs';
 import { InputGroupComponent } from 'src/app/common/shared/input-group/input-group.component';
 import { MockCheckboxWorksMenuComponent } from 'src/app/common/test/mocks';
 import { Testdata } from 'src/app/common/test/testdata';
-import { SelectionGroup } from '../model/selection-group';
+import { WorksGroup } from '../model/works-group';
 import { AdvancedInputComponent } from './advanced-input/advanced-input.component';
 import { BasicInputComponent } from './basic-input/basic-input.component';
 import { CriteriaComponent } from './criteria.component';
@@ -88,10 +88,10 @@ describe('CriteriaComponent', () => {
 
   it('should call searchStore.putWorks when onWorksChange is called', () => {
     // WHEN
-    component.onSelectionGroupChange(SelectionGroup.ALL);
+    component.onSelectionGroupChange(WorksGroup.ALL);
     // THEN
     expect(mockSearchStore.putSelectionGroup).toHaveBeenCalledWith(
-      SelectionGroup.ALL
+      WorksGroup.ALL
     );
   });
 

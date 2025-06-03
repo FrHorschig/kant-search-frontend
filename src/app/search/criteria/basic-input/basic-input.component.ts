@@ -1,85 +1,112 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { Work } from '@frhorschig/kant-search-api';
-import { TreeNode } from 'primeng/api';
-import { SelectionGroup } from '../../model/selection-group';
-import { DropdownChangeEvent } from 'primeng/dropdown';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { WorksGroup } from '../../model/works-group';
+import { Volume } from '@frhorschig/kant-search-api';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
+import { WorksGroupUtil } from '../../util/works-group-util';
 
 @Component({
-    selector: 'ks-basic-input',
-    templateUrl: './basic-input.component.html',
-    standalone: false
+  selector: 'ks-basic-input',
+  templateUrl: './basic-input.component.html',
+  standalone: false,
 })
-export class BasicInputComponent implements OnChanges {
-  @Input() selectionGroup: SelectionGroup = SelectionGroup.ALL;
+export class BasicInputComponent implements OnInit {
+  @Input() volumes: Volume[] = [];
+  @Input() canSearch: boolean = false;
 
-  @Output() worksEmitter = new EventEmitter<Work[]>();
-  @Output() selectionGroupEmitter = new EventEmitter<SelectionGroup>();
-  @Output() searchStringEmitter = new EventEmitter<string>();
+  @Output() searchTermsEmitter = new EventEmitter<string>();
+  @Output() workCodesEmitter = new EventEmitter<Set<string>>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
-  showWorksMenu = false;
-  isCustomSelection = false;
-  workSelectOptions = [
-    // TODO replace/improve (e.g. deactivate options) or add explanatory tooltip
-    // {
-    //   label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.ALL',
-    //   value: SelectionGroup.ALL,
-    // },
-    { label: 'SECTIONS.SEC_1', value: SelectionGroup.SEC1 },
-    // { label: 'SECTIONS.SEC_2', value: SelectionGroup.SEC2 },
-    // { label: 'SECTIONS.SEC_3', value: SelectionGroup.SEC3 },
-    // {
-    //   label: 'SEARCH.INPUT.WORKS_BASIC_OPTIONS.CUSTOM',
-    //   value: SelectionGroup.CUSTOM,
-    // },
-  ];
-  searchString = '';
+  searchTerms: string = '';
+
+  // customGroup = WorksGroup.CUSTOM;
+  worksGroupOptions = Object.values(WorksGroup).filter(
+    (value) => typeof value === 'number' && value !== 99
+  ) as WorksGroup[];
+  worksGroup: WorksGroup | null = null;
+
+  nodes: NzTreeNodeOptions[] = [];
+  checkedKeys: string[] = [];
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const selectionGroupChanges = changes['selectionGroup'];
-    if (selectionGroupChanges) {
-      if (selectionGroupChanges.currentValue === SelectionGroup.CUSTOM) {
-        this.isCustomSelection = true;
-        this.showWorksMenu = true;
-      } else {
-        this.isCustomSelection = false;
+  ngOnInit() {
+    this.nodes = this.volumes.map((vol) => {
+      const children = vol.works.map((work) => {
+        return {
+          title: this.truncate(work.title),
+          key: work.code,
+          isLeaf: true,
+        };
+      });
+      return {
+        title: vol.title,
+        key: `volume-${vol.volumeNumber}`,
+        children: children,
+      };
+    });
+    this.worksGroup = WorksGroup.ALL;
+    this.checkedKeys = WorksGroupUtil.getCodes(WorksGroup.ALL);
+    this.workCodesEmitter.emit(new Set(this.checkedKeys));
+  }
+
+  getWorksGroupString(value: WorksGroup): string {
+    return WorksGroup[value];
+  }
+
+  onSearchTermsChange(terms: string) {
+    this.searchTerms = terms;
+    this.searchTermsEmitter.emit(this.searchTerms);
+  }
+
+  onSelectChange(group: WorksGroup) {
+    this.worksGroup = group;
+    if (
+      group !== WorksGroup.CUSTOM &&
+      this.worksGroupOptions.includes(WorksGroup.CUSTOM)
+    ) {
+      this.worksGroupOptions = this.worksGroupOptions.filter(
+        (opt) => opt !== WorksGroup.CUSTOM
+      );
+    }
+    this.checkedKeys = WorksGroupUtil.getCodes(group);
+    this.workCodesEmitter.emit(new Set(this.checkedKeys));
+  }
+
+  onCheckedKeysChange(keys: NzTreeNodeKey[]) {
+    this.checkedKeys = keys.filter((k) => typeof k === 'string');
+    const codes = this.checkedKeys.filter((key) => !key.startsWith('volume-'));
+    const group = WorksGroupUtil.getGroup(codes);
+    if (group === WorksGroup.CUSTOM) {
+      if (!this.worksGroupOptions.includes(WorksGroup.CUSTOM)) {
+        this.worksGroupOptions = [...this.worksGroupOptions, WorksGroup.CUSTOM];
       }
+    } else {
+      this.worksGroupOptions = this.worksGroupOptions.filter(
+        (opt) => opt !== WorksGroup.CUSTOM
+      );
     }
-  }
-
-  onWorksMenuClick() {
-    this.showWorksMenu = true;
-  }
-
-  onWorksChange(works: Work[]) {
-    if (works.length > 0) {
-      this.isCustomSelection = true;
-    }
-    this.selectionGroupEmitter.emit(SelectionGroup.CUSTOM);
-    this.worksEmitter.emit(works);
-  }
-
-  onSelectionGroupChange(event: DropdownChangeEvent) {
-    const newVal = event.value as SelectionGroup;
-    if (newVal !== this.selectionGroup) {
-      this.selectionGroupEmitter.emit(newVal);
-    }
-  }
-
-  onSearchStringChange(searchString: string) {
-    this.searchStringEmitter.emit(searchString);
+    this.worksGroup = group;
+    this.workCodesEmitter.emit(new Set(codes));
   }
 
   onSubmit() {
     this.doSearchEmitter.emit();
+  }
+
+  private truncate(str: string): string {
+    // TODO make max len configurable
+    const maxLength = 75;
+    if (str.length <= maxLength) {
+      return str;
+    }
+
+    const truncated = str.slice(0, maxLength - 4);
+    const lastSpaceIndex = truncated.lastIndexOf(' ');
+    if (lastSpaceIndex === -1) {
+      return truncated + ' ...';
+    }
+    return truncated.slice(0, lastSpaceIndex) + '...';
   }
 }
