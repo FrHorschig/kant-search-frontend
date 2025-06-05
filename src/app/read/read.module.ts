@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -17,12 +19,10 @@ import { FootnoteComponent } from './text/content/footnote/footnote.component';
 import { ContentComponent } from './text/content/content.component';
 import { ParagraphComponent } from './text/content/paragraph/paragraph.component';
 import { SelectionComponent } from './selection/selection.component';
-import { VolumesComponent } from './selection/volumes/volumes.component';
 
 @NgModule({
   declarations: [
     SelectionComponent,
-    VolumesComponent,
     TextComponent,
     TocComponent,
     TocSectionComponent,
@@ -38,8 +38,10 @@ import { VolumesComponent } from './selection/volumes/volumes.component';
     AppCommonModule,
     MessagesModule,
     NzFlexModule,
-    NzCollapseModule,
+    NzSpaceModule,
     NzListModule,
+    NzTreeModule,
+    NzCardModule,
     TreeModule,
     CheckboxModule,
   ],

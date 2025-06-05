@@ -1,10 +1,14 @@
 <div nz-flex nzJustify="center">
-  <div class="max-w-base">
-    <ng-container *ngIf="isLoaded$ | async">
-      <ks-volumes
-        [currentLang]="(currentLang$ | async) ?? ''"
-        [volumes]="(volumes$ | async) ?? []"
-      ></ks-volumes>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="isLoaded$ | async">
+    <nz-space class="max-w-base" nzDirection="vertical">
+      <div *nzSpaceItem></div>
+
+      <nz-card *nzSpaceItem class="max-w-base">
+        <nz-tree
+          [nzData]="(nodes$ | async) ?? []"
+          (nzClick)="onNodeClick($event)"
+        ></nz-tree>
+      </nz-card>
+    </nz-space>
+  </ng-container>
 </div>

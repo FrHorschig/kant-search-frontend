@@ -15,7 +15,6 @@ const all = [
   'FBZE', //
   'MON_PH', //
   'TW', //
-  // 'INTRO_1', //
   // --- volume 2 ------------------
   'EACG', //
   'NLBR', //
@@ -26,7 +25,7 @@ const all = [
   'NG', //
   'GSE', //
   'VKK', //
-  'REZ_SILBERSCHLAG_2', //
+  'REZ_SIL_2', //
   'UD', //
   'NEV', //
   'TG', //
@@ -58,30 +57,30 @@ const all = [
   'IDEE_GESCHICHTE', //
   'FRAGE_AUFKLAERUNG', //
   'REZ_HERDER', //
-  'VULKANE_MOND', //
+  'VULKANE', //
   'VUB', //
-  'BEGRIFF_MENSCHENRACE', //
-  'ANFANG_MENSCHENGESCHICHTE', //
+  'MENSCHENRACE', //
+  'MENSCHENGES', //
   'REZ_HUFELAND', //
   'WDO', //
-  'BEM_MORGENSTUNDEN', //
+  'BEM_MORGEN', //
   'UEGTP', //
   'UEE', //
-  'MISSLINGEN_THEODICEE', //
+  'THEODICEE', //
   'TP', //
-  'MOND_WITTERUNG', //
+  'WITTERUNG', //
   'EAD', //
   'ZEF', //
   'VT', //
-  'AUSGLEICH_STREIT', //
+  'AUSGLEICH', //
   'VNAEF', //
   'VRML', //
   'BUCHMACHEREI', //
-  'VORREDE_REL_PHIL', //
-  'NACHSCHRIFT_WOERTERBUCH', //
+  'REL_PHIL', //
+  'WOERTERBUCH', //
   // TODO how to handle this special case?
   // 'NACHTRAG_8', //
-  'REZ_SILBERSCHLAG_8', //
+  'REZ_SIL_8', //
   // 'ANHANG_8', //
   'REZ_ULRICH', //
   // --- volume 9 ------------------

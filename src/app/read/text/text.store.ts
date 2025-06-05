@@ -47,16 +47,16 @@ export class TextStore extends ComponentStore<ReadState> {
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
   readonly isLoaded$ = this.select((state) => state.textContents.length > 0);
 
-  readonly loadData = this.effect<string>((workId$) =>
-    workId$.pipe(
+  readonly loadData = this.effect<string>((workCode) =>
+    workCode.pipe(
       tap(() => this.messageService.clear()),
-      switchMap((workId) =>
+      switchMap((workCode) =>
         forkJoin({
-          work: this.readService.getWork(workId),
-          headings: this.readService.getHeadings(workId),
-          footnotes: this.readService.getFootnotes(workId),
-          paragraphs: this.readService.getParagraphs(workId),
-          summaries: this.readService.getSummaries(workId),
+          work: this.readService.getWork(workCode),
+          headings: this.readService.getHeadings(workCode),
+          footnotes: this.readService.getFootnotes(workCode),
+          paragraphs: this.readService.getParagraphs(workCode),
+          summaries: this.readService.getSummaries(workCode),
         }).pipe(
           // TODO: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
