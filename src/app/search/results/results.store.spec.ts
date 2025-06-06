@@ -69,7 +69,7 @@ describe('ResultsStore', () => {
   });
 
   it('should have initial state', () => {
-    store.searchString$.subscribe((str) => expect(str).toEqual(''));
+    store.searchTer, s$.subscribe((str) => expect(str).toEqual(''));
     store.results$.subscribe((result) => expect(result).toEqual([]));
     store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
   });
@@ -135,14 +135,14 @@ describe('ResultsStore', () => {
 
   it('should navigate when navigateToFullText is called', () => {
     const info: FullTextInfo = {
-      workId: 1,
+      workCode: 1,
       fragment: 'fragment',
     };
     // WHEN
     store.navigateToFullText(info);
     // THEN
     expect(router.navigate).toHaveBeenCalledWith(
-      ['/de/read/text', info.workId],
+      ['/de/read/text', info.workCode],
       {
         fragment: info.fragment,
       }

@@ -3,12 +3,12 @@ import { Footnote, Summary } from '@frhorschig/kant-search-api';
 import { TextContent } from '../../model';
 
 @Component({
-    selector: 'ks-paragraph',
-    templateUrl: './paragraph.component.html',
-    standalone: false
+  selector: 'ks-paragraph',
+  templateUrl: './paragraph.component.html',
+  standalone: false,
 })
 export class ParagraphComponent {
-  @Input() paragraph: TextContent = new TextContent(false, '', '', [], '');
+  @Input() paragraph: TextContent = new TextContent(false, 0, '', [], '');
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
   @Input() summByRef: Map<string, Summary> | null = new Map();
 

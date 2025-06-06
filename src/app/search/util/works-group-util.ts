@@ -60,7 +60,7 @@ const all = [
   'VULKANE', //
   'VUB', //
   'MENSCHENRACE', //
-  'MENSCHENGES', //
+  'MENSCHENGESCH', //
   'REZ_HUFELAND', //
   'WDO', //
   'BEM_MORGEN', //
@@ -152,7 +152,6 @@ export class WorksGroupUtil {
     if (codes.length === 0) {
       return null;
     }
-    const a = all;
     if (codes.length === all.length) {
       return WorksGroup.ALL;
     }

@@ -18,7 +18,7 @@ import { TextContent } from './model';
 
 interface ReadState {
   work: Work | undefined;
-  headingById: Map<string, string>;
+  headingByOrdinal: Map<number, string>;
   textContents: TextContent[];
   footnoteByRef: Map<string, Footnote>;
   summaryByRef: Map<string, Summary>;
@@ -33,7 +33,7 @@ export class TextStore extends ComponentStore<ReadState> {
   ) {
     super({
       work: undefined,
-      headingById: new Map(),
+      headingByOrdinal: new Map(),
       textContents: [],
       footnoteByRef: new Map(),
       summaryByRef: new Map(),
@@ -42,7 +42,7 @@ export class TextStore extends ComponentStore<ReadState> {
 
   readonly work$ = this.select((state) => state.work);
   readonly textContents$ = this.select((state) => state.textContents);
-  readonly headingById$ = this.select((state) => state.headingById);
+  readonly headingByOrdinal$ = this.select((state) => state.headingByOrdinal);
   readonly footnoteByRef$ = this.select((state) => state.footnoteByRef);
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
   readonly isLoaded$ = this.select((state) => state.textContents.length > 0);
@@ -61,12 +61,14 @@ export class TextStore extends ComponentStore<ReadState> {
           // TODO: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
             ({ work, headings, footnotes, paragraphs, summaries }) => {
-              const headsById = new Map(headings.map((h) => [h.id, h]));
-              const parsById = new Map(paragraphs.map((p) => [p.id, p]));
+              const headsByOrd = new Map(headings.map((h) => [h.ordinal, h]));
+              const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
               this.patchState({
                 work: work,
-                headingById: new Map(headings.map((h) => [h.id, h.tocText])),
-                textContents: mapTextContents(work, headsById, parsById),
+                headingByOrdinal: new Map(
+                  headings.map((h) => [h.ordinal, h.tocText])
+                ),
+                textContents: mapTextContents(work, headsByOrd, parsByOrd),
                 footnoteByRef: new Map(footnotes.map((f) => [f.ref, f])),
                 summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
               });
@@ -88,40 +90,42 @@ export class TextStore extends ComponentStore<ReadState> {
 
 function mapTextContents(
   work: Work,
-  headsById: Map<string, Heading>,
-  parsById: Map<string, Paragraph>
+  headsByOrd: Map<number, Heading>,
+  parsByOrd: Map<number, Paragraph>
 ): TextContent[] {
   let textContents: TextContent[] = [];
   for (const s of work.sections) {
-    textContents.push(...mapSection(s, headsById, parsById));
+    textContents.push(...mapSection(s, headsByOrd, parsByOrd));
   }
   return textContents;
 }
 
 function mapSection(
   sec: Section,
-  headsById: Map<string, Heading>,
-  parsById: Map<string, Paragraph>
+  headsByOrd: Map<number, Heading>,
+  parsByOrd: Map<number, Paragraph>
 ): TextContent[] {
   let textContents: TextContent[] = [];
-  const h = headsById.get(sec.heading);
+  const h = headsByOrd.get(sec.heading);
   if (!h) {
-    throw new Error('no heading object with ID ' + sec.heading);
+    throw new Error('no heading object with ordinal ' + sec.heading);
   }
-  textContents.push(new TextContent(true, h.id, h.text, h.fnRefs, undefined));
+  textContents.push(
+    new TextContent(true, h.ordinal, h.text, h.fnRefs, undefined)
+  );
 
-  for (const pId of sec.paragraphs ?? []) {
-    const p = parsById.get(pId);
+  for (const wOrd of sec.paragraphs ?? []) {
+    const p = parsByOrd.get(wOrd);
     if (!p) {
-      throw new Error('no paragraph object with ID ' + pId);
+      throw new Error('no paragraph object with ID ' + wOrd);
     }
     textContents.push(
-      new TextContent(false, p.id, p.text, p.fnRefs, p.summaryRef)
+      new TextContent(false, p.ordinal, p.text, p.fnRefs, p.summaryRef)
     );
   }
 
   for (const s of sec.sections ?? []) {
-    textContents.push(...mapSection(s, headsById, parsById));
+    textContents.push(...mapSection(s, headsByOrd, parsByOrd));
   }
   return textContents;
 }

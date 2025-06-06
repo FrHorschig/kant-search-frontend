@@ -1,15 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReadService, Volume, WorkRef } from '@frhorschig/kant-search-api';
+import { ReadService, Volume } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { WorkRef } from 'src/app/common/model/work-ref';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface VolumesState {
   volumes: Volume[];
-  workById: Map<string, WorkRef>;
   workByCode: Map<string, WorkRef>;
   isLoaded: boolean;
 }
@@ -22,14 +22,12 @@ export class VolumesStore extends ComponentStore<VolumesState> {
   ) {
     super({
       volumes: [],
-      workById: new Map<string, WorkRef>(),
       workByCode: new Map<string, WorkRef>(),
       isLoaded: false,
     });
   }
 
   readonly volumes$ = this.select((state) => state.volumes);
-  readonly workById$ = this.select((state) => state.workById);
   readonly workByCode$ = this.select((state) => state.workByCode);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
@@ -39,11 +37,20 @@ export class VolumesStore extends ComponentStore<VolumesState> {
         this.readService.getVolumes().pipe(
           tapResponse(
             (volumes) => {
-              volumes.sort((a, b) => a.volumeNumber - b.volumeNumber);
               this.patchState({
                 volumes,
                 workByCode: new Map<string, WorkRef>(
-                  volumes.flatMap((v) => v.works.map((w) => [w.code, w]))
+                  volumes.flatMap((v) =>
+                    v.works.map((w) => [
+                      w.code,
+                      {
+                        code: w.code,
+                        abbreviation: w.abbreviation,
+                        title: w.title,
+                        volumbeNumber: v.volumeNumber,
+                      },
+                    ])
+                  )
                 ),
                 isLoaded: true,
               });

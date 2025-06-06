@@ -6,31 +6,33 @@ import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { HitMetadata } from '../model/hit-metadata';
 import { ResultsStore } from './results.store';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 @Component({
-    selector: 'app-results',
-    templateUrl: './results.component.html',
-    providers: [ResultsStore, ScrollService],
-    standalone: false
+  selector: 'app-results',
+  templateUrl: './results.component.html',
+  providers: [ResultsStore, ScrollService],
+  standalone: false,
 })
 export class ResultsComponent
   extends ContainerComponent
   implements OnInit, AfterViewInit
 {
-  searchString$ = this.resultsStore.searchString$;
+  worksByCode$ = this.volStore.workByCode$;
+  searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
   isLoaded$ = this.resultsStore.isLoaded$;
 
   showParagraph = false;
   metadata: HitMetadata = {
-    workId: '',
     workCode: '',
-    hit: { contentId: '', pages: [], snippets: [] },
+    hit: { ordinal: 0, pages: [], snippets: [] },
     index: 0,
   };
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly volStore: VolumesStore,
     private readonly resultsStore: ResultsStore,
     private readonly scrollService: ScrollService
   ) {
@@ -51,13 +53,17 @@ export class ResultsComponent
       });
   }
 
+  onSearchTermsChange(searchTerms: string) {
+    this.resultsStore.putSearchTerms(searchTerms);
+  }
+
+  onUpdate() {
+    this.resultsStore.updateSearch();
+  }
+
   onClick(metadata: HitMetadata) {
     this.metadata = metadata;
     this.showParagraph = true;
-  }
-
-  onUpdate(searchString: string) {
-    this.resultsStore.updateSearch(searchString);
   }
 
   onFullTextNavigation(info: FullTextInfo) {

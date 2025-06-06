@@ -1,7 +1,10 @@
 <div nz-flex nzJustify="center">
   <div class="max-w-base">
     <ng-container *ngIf="isLoaded$ | async">
-      <ks-read-toc [work]="work$ | async" [headById]="headingById$ | async">
+      <ks-read-toc
+        [work]="work$ | async"
+        [headByOrdinal]="headingByOrdinal$ | async"
+      >
       </ks-read-toc>
 
       <ks-content

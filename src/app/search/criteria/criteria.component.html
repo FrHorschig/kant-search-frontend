@@ -1,21 +1,17 @@
-<div nz-flex nzJustify="center">
-  <div class="max-w-base">
-    <nz-space class="w-full" nzDirection="vertical">
-      <ks-basic-input
-        *nzSpaceItem
-        [volumes]="(volumes$ | async) ?? []"
-        [canSearch]="(canSearch$ | async) ?? false"
-        (searchTermsEmitter)="onSearchTermsChange($event)"
-        (workCodesEmitter)="onWorkCodesChange($event)"
-        (doSearchEmitter)="onSearch()"
-      ></ks-basic-input>
+<nz-space class="w-full" nzDirection="vertical">
+  <ks-basic-input
+    *nzSpaceItem
+    [volumes]="(volumes$ | async) ?? []"
+    [canSearch]="(canSearch$ | async) ?? false"
+    (searchTermsEmitter)="onSearchTermsChange($event)"
+    (workCodesEmitter)="onWorkCodesChange($event)"
+    (doSearchEmitter)="onSearch()"
+  ></ks-basic-input>
 
-      <div *nzSpaceItem></div>
+  <div *nzSpaceItem></div>
 
-      <ks-advanced-input
-        *nzSpaceItem
-        (optionsChangeEmitter)="onOptionsChange($event)"
-      ></ks-advanced-input>
-    </nz-space>
-  </div>
-</div>
+  <ks-advanced-input
+    *nzSpaceItem
+    (optionsChangeEmitter)="onOptionsChange($event)"
+  ></ks-advanced-input>
+</nz-space>

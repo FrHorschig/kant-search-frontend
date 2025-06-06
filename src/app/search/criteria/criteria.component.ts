@@ -32,7 +32,7 @@ export class CriteriaComponent extends ContainerComponent {
     this.criteriaStore.putSearchTerms(searchTerms);
   }
 
-  onWorkCodesChange(workCodes: Set<string>) {
+  onWorkCodesChange(workCodes: string[]) {
     this.criteriaStore.putWorkCodes(workCodes);
   }
 

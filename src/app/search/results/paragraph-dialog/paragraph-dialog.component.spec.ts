@@ -74,7 +74,7 @@ describe('ParagraphDialogComponent', () => {
     component.onNavigate();
     // THEN
     expect(component.navigateEmitter.emit).toHaveBeenCalledWith({
-      workId: 1,
+      workCode: 1,
       fragment: 'paragraph-' + Testdata.hit.contentId,
     } as FullTextInfo);
   });

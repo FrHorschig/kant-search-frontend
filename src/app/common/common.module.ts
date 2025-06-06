@@ -10,7 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupComponent } from './shared/input-group/input-group.component';
 import { LinkButtonComponent } from './shared/link-button/link-button.component';
 import { PaginationPipe } from './pipes/pagination.pipe';
-import { TextBlockComponent } from './shared/block/block.component';
+import { TextBlockComponent } from './shared/text-block/text-block.component';
 import { LabeledSwitchComponent } from './shared/labeled-switch/labeled-switch.component';
 
 @NgModule({

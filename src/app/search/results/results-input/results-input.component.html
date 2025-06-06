@@ -1,18 +1,44 @@
-<div class="flex">
-  <input
-    pInputText
-    id="search-terms-input"
-    class="flex-grow-1 mr-2"
-    type="text"
-    placeholder="{{ 'SEARCH.INPUT.SEARCH_STRING_PLACEHOLDER' | translate }}"
-    [(ngModel)]="searchString"
-    (keyup.enter)="onSearchUpdate()"
-  />
+<nz-space class="w-full" nzDirection="vertical">
+  <!-- TODO handle this space in a central place -->
+  <div *nzSpaceItem></div>
 
-  <p-button
-    icon="pi pi-replay"
-    pTooltip="{{ 'SEARCH.RESULTS.UPDATE_SEARCH_INPUT' | translate }}"
-    [disabled]="!searchString"
-    (onClick)="onSearchUpdate()"
-  ></p-button>
-</div>
+  <nz-input-group
+    *nzSpaceItem
+    nzSearch
+    nzSize="large"
+    [nzAddOnAfter]="suffixButton"
+  >
+    <input
+      nz-input
+      class="w-full"
+      [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
+      [ngModel]="searchTerms"
+      (ngModelChange)="onSearchTermsChange($event)"
+      (keyup.enter)="onSubmit()"
+      type="text"
+    />
+  </nz-input-group>
+</nz-space>
+
+<ng-template #suffixButton>
+  <span
+    nz-tooltip
+    [nzTooltipTitle]="
+      searchTerms === ''
+        ? ('SEARCH.INPUT.TERMS.BUTTON.TOOLTIP' | translate)
+        : ''
+    "
+  >
+    <button
+      nz-button
+      nzSearch
+      nzType="primary"
+      nzSize="large"
+      [disabled]="searchTerms === ''"
+      (click)="onSubmit()"
+    >
+      <nz-icon nzType="reload" nzTheme="outline" />
+      {{ "SEARCH.INPUT.TERMS.BUTTON.LABEL" | translate }}
+    </button>
+  </span>
+</ng-template>

@@ -6,10 +6,10 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 import { combineLatest } from 'rxjs';
 
 @Component({
-    selector: 'ks-text',
-    templateUrl: './text.component.html',
-    providers: [TextStore, ScrollService],
-    standalone: false
+  selector: 'ks-text',
+  templateUrl: './text.component.html',
+  providers: [TextStore, ScrollService],
+  standalone: false,
 })
 export class TextComponent
   extends ContainerComponent
@@ -17,7 +17,7 @@ export class TextComponent
 {
   work$ = this.store.work$;
   textContents$ = this.store.textContents$;
-  headingById$ = this.store.headingById$;
+  headingByOrdinal$ = this.store.headingByOrdinal$;
   footnoteByRef$ = this.store.footnoteByRef$;
   summaryByRef$ = this.store.summaryByRef$;
   isLoaded$ = this.store.isLoaded$;
@@ -31,8 +31,8 @@ export class TextComponent
   }
 
   ngOnInit(): void {
-    const workId = this.route.snapshot.params['workId'];
-    this.store.loadData(workId);
+    const code = this.route.snapshot.params['workCode'];
+    this.store.loadData(code);
   }
 
   ngAfterViewInit() {

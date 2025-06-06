@@ -1,7 +1,11 @@
 {
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Scroll to top",
-    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element"
+    "ANCHOR_BUTTON_TOOLTIP": "Create link to this element",
+    "VOLUME": "Volume",
+    "SECTION_1": "Section 1: Works",
+    "SECTION_2": "Section 2: Letters",
+    "SECTION_3": "Section 3: Handwritten Legacy"
   },
 
   "NAVBAR": {

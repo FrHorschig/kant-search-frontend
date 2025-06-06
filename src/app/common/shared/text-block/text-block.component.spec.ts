@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TextBlockComponent } from './block.component';
+import { TextBlockComponent } from './text-block.component';
 
 describe('NormalModeComponent', () => {
   let component: TextBlockComponent;

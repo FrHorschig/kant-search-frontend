@@ -4,6 +4,7 @@ import { Volume } from '@frhorschig/kant-search-api';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { WorksGroupUtil } from '../../util/works-group-util';
+import { StringsUtil } from '../../util/strings-util';
 
 @Component({
   selector: 'ks-basic-input',
@@ -15,7 +16,7 @@ export class BasicInputComponent implements OnInit {
   @Input() canSearch: boolean = false;
 
   @Output() searchTermsEmitter = new EventEmitter<string>();
-  @Output() workCodesEmitter = new EventEmitter<Set<string>>();
+  @Output() workCodesEmitter = new EventEmitter<string[]>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
   searchTerms: string = '';
@@ -35,7 +36,7 @@ export class BasicInputComponent implements OnInit {
     this.nodes = this.volumes.map((vol) => {
       const children = vol.works.map((work) => {
         return {
-          title: this.truncate(work.title),
+          title: StringsUtil.truncate(work.title, 75),
           key: work.code,
           isLeaf: true,
         };
@@ -48,7 +49,7 @@ export class BasicInputComponent implements OnInit {
     });
     this.worksGroup = WorksGroup.ALL;
     this.checkedKeys = WorksGroupUtil.getCodes(WorksGroup.ALL);
-    this.workCodesEmitter.emit(new Set(this.checkedKeys));
+    this.workCodesEmitter.emit(this.checkedKeys);
   }
 
   getWorksGroupString(value: WorksGroup): string {
@@ -71,7 +72,7 @@ export class BasicInputComponent implements OnInit {
       );
     }
     this.checkedKeys = WorksGroupUtil.getCodes(group);
-    this.workCodesEmitter.emit(new Set(this.checkedKeys));
+    this.workCodesEmitter.emit(this.checkedKeys);
   }
 
   onCheckedKeysChange(keys: NzTreeNodeKey[]) {
@@ -88,25 +89,10 @@ export class BasicInputComponent implements OnInit {
       );
     }
     this.worksGroup = group;
-    this.workCodesEmitter.emit(new Set(codes));
+    this.workCodesEmitter.emit(codes);
   }
 
   onSubmit() {
     this.doSearchEmitter.emit();
-  }
-
-  private truncate(str: string): string {
-    // TODO make max len configurable
-    const maxLength = 75;
-    if (str.length <= maxLength) {
-      return str;
-    }
-
-    const truncated = str.slice(0, maxLength - 4);
-    const lastSpaceIndex = truncated.lastIndexOf(' ');
-    if (lastSpaceIndex === -1) {
-      return truncated + ' ...';
-    }
-    return truncated.slice(0, lastSpaceIndex) + '...';
   }
 }

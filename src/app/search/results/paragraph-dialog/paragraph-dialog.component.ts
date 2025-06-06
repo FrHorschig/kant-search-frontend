@@ -10,16 +10,15 @@ import { HitMetadata } from '../../model/hit-metadata';
 import { FullTextInfo } from '../../model/full-text-info';
 
 @Component({
-    selector: 'ks-paragraph-dialog',
-    templateUrl: './paragraph-dialog.component.html',
-    standalone: false
+  selector: 'ks-paragraph-dialog',
+  templateUrl: './paragraph-dialog.component.html',
+  standalone: false,
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
   @Input() metadata: HitMetadata = {
-    workId: '',
     workCode: '',
-    hit: { contentId: '', pages: [], snippets: [] },
+    hit: { ordinal: 0, pages: [], snippets: [] },
     index: 0,
   } as HitMetadata;
 
@@ -40,8 +39,8 @@ export class ParagraphDialogComponent implements OnChanges {
 
   onNavigate() {
     this.navigateEmitter.emit({
-      workId: this.metadata.workId,
-      fragment: `paragraph-${this.metadata.hit.contentId}`,
+      workCode: this.metadata.workCode,
+      fragment: `paragraph-${this.metadata.hit.ordinal}`,
     });
   }
 }

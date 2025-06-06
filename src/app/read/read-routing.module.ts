@@ -9,7 +9,7 @@ const routes: Routes = [
     component: SelectionComponent,
   },
   {
-    path: 'text/:workId',
+    path: 'text/:workCode',
     component: TextComponent,
   },
 ];

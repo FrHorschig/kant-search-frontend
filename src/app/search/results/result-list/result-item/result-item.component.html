@@ -1,5 +1,5 @@
 <div class="cursor-pointer" (click)="onCardClick()">
-  <p-card>
+  <nz-card>
     <ng-template pTemplate="subtitle">
       <div class="flex justify-content-between">
         <div class="mt-4">
@@ -10,15 +10,11 @@
 
           [{{ hit.pages.join(", ") }}]
         </div>
-
-        <div class="mt-3">
-          <ks-link-button [anchor]="anchor"></ks-link-button>
-        </div>
       </div>
     </ng-template>
 
     <ng-container *ngFor="let snippet of hit.snippets">
-      <p [innerHTML]="snippet | removePagination"></p>
+      <p [innerHTML]="snippet"></p>
     </ng-container>
-  </p-card>
+  </nz-card>
 </div>

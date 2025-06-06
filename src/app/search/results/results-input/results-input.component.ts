@@ -1,16 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'ks-results-input',
-    templateUrl: './results-input.component.html',
-    standalone: false
+  selector: 'ks-results-input',
+  templateUrl: './results-input.component.html',
+  standalone: false,
 })
 export class ResultsInputComponent {
-  @Input() searchString = '';
+  @Input() searchTerms = '';
 
-  @Output() onUpdateEmitter = new EventEmitter<string>();
+  @Output() searchTermsEmitter = new EventEmitter<string>();
+  @Output() doUpdateEmitter = new EventEmitter<void>();
 
-  onSearchUpdate() {
-    this.onUpdateEmitter.emit(this.searchString);
+  onSearchTermsChange(searchTerms: string) {
+    this.searchTermsEmitter.emit(searchTerms);
+  }
+
+  onSubmit() {
+    this.doUpdateEmitter.emit();
   }
 }

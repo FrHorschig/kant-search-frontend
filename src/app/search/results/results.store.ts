@@ -11,13 +11,13 @@ import {
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { MessageService } from 'primeng/api';
-import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 
 interface ResultsState {
-  searchString: string;
+  searchTerms: string;
   results: SearchResult[];
   isLoaded: boolean;
 }
@@ -33,7 +33,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly searchService: SearchService
   ) {
     super({
-      searchString: '',
+      searchTerms: '',
       results: [],
       isLoaded: false,
     });
@@ -45,7 +45,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       map((params) => this.criteriaFromParams(params)),
       tap((criteria) =>
         this.patchState({
-          searchString: criteria.searchString,
+          searchTerms: criteria.searchTerms,
           results: [],
           isLoaded: false,
         })
@@ -67,17 +67,19 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       )
     )
   );
-  readonly updateSearch = this.effect<string>((searchString$) =>
-    searchString$.pipe(
-      filter((searchString) => searchString !== ''),
+  readonly updateSearch = this.effect<void>((effect$) =>
+    effect$.pipe(
       tap(() => this.messageService.clear()),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
-      tap(([searchString, params, lang]) => {
+      tap(([_, params, lang]) => {
+        const codes = params.get('workCodes')?.split(',') ?? [];
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
-            workIds: params.get('workIds'),
-            searchString: searchString,
-            scope: params.get('scope'),
+            incHead: params.get('incHead') === 'true',
+            incFn: params.get('incFn') === 'true',
+            incSumm: params.get('incSumm') === 'true',
+            searchTerms: this.get((state) => state.searchTerms),
+            workCodes: this.get((state) => codes.join(',')),
           },
         });
       })
@@ -87,7 +89,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([info, lang]) => {
-        this.router.navigate([`/${lang}/read/text`, info.workId], {
+        this.router.navigate([`/${lang}/read/text`, info.workCode], {
           fragment: info.fragment,
         });
         return EMPTY;
@@ -95,21 +97,25 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     )
   );
 
-  readonly searchString$ = this.select((state) => state.searchString);
+  readonly putSearchTerms = this.updater((state, searchTerms: string) => ({
+    ...state,
+    searchTerms,
+  }));
+
+  readonly searchTerms$ = this.select((state) => state.searchTerms);
   readonly results$ = this.select((state) => state.results);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
   private criteriaFromParams(params: ParamMap): SearchCriteria {
-    const workIdsParam = params.get('workIds');
+    const codes = params.get('workCodes')?.split(',') ?? [];
     const criteria: SearchCriteria = {
-      searchString: params.get('searchString') ?? '',
+      searchTerms: params.get('searchTerms') ?? '',
       options: {
-        // TODO read from params, implement write to params
-        includeHeadings: true,
-        includeFootnotes: true,
-        includeSummaries: true,
+        includeHeadings: params.get('incHead') === 'true',
+        includeFootnotes: params.get('incFn') === 'true',
+        includeSummaries: params.get('incSumm') === 'true',
         scope: SearchScope.Paragraph,
-        workIds: workIdsParam ? workIdsParam.split(',') : [],
+        workCodes: Array.from(new Set(codes)),
       },
     };
     return criteria;

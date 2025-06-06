@@ -6,7 +6,7 @@ import { LanguageStore } from 'src/app/store/language/language.store';
 import { AdvancedOptions } from '../model/search-options';
 
 interface CriteriaState {
-  workCodes: Set<string>;
+  workCodes: string[];
   searchTerms: string;
   options: AdvancedOptions;
 }
@@ -18,7 +18,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     private readonly langStore: LanguageStore
   ) {
     super({
-      workCodes: new Set(),
+      workCodes: [],
       searchTerms: '',
       options: {
         includeHeadings: true,
@@ -35,18 +35,18 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       tap(([_, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
-            workCodes: this.get((state) => state.workCodes),
-            searchString: this.get((state) => state.searchTerms),
-            incHd: this.get((state) => state.options.includeHeadings),
+            workCodes: this.get((state) => state.workCodes.join(',')),
+            searchTerms: this.get((state) => state.searchTerms),
+            incHead: this.get((state) => state.options.includeHeadings),
             incFn: this.get((state) => state.options.includeFootnotes),
-            incSm: this.get((state) => state.options.includeSummaries),
+            incSumm: this.get((state) => state.options.includeSummaries),
           },
         });
       })
     )
   );
 
-  readonly putWorkCodes = this.updater((state, workCodes: Set<string>) => ({
+  readonly putWorkCodes = this.updater((state, workCodes: string[]) => ({
     ...state,
     workCodes,
   }));
@@ -64,6 +64,6 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
   readonly workCodes$ = this.select((state) => state.workCodes);
 
   private canSearch(state: CriteriaState): boolean {
-    return state.workCodes.size > 0 && state.searchTerms.length > 0;
+    return state.workCodes.length > 0 && state.searchTerms.length > 0;
   }
 }

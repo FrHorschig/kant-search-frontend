@@ -1,3 +1,3 @@
 export class FullTextInfo {
-  constructor(public workId: string, public fragment: string) {}
+  constructor(public workCode: string, public fragment: string) {}
 }

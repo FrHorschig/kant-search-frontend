@@ -2,19 +2,19 @@ import { Component, Input } from '@angular/core';
 import { Section } from '@frhorschig/kant-search-api';
 
 @Component({
-    selector: 'ks-toc-section',
-    templateUrl: './section.component.html',
-    standalone: false
+  selector: 'ks-toc-section',
+  templateUrl: './section.component.html',
+  standalone: false,
 })
 export class TocSectionComponent {
   @Input() level: number = 0;
   @Input() section: Section | undefined;
-  @Input() headById: Map<string, string> | null = new Map();
+  @Input() headByOrdinal: Map<number, string> | null = new Map();
 
-  getHeading(id: string | undefined): string {
-    const heading = this.headById?.get(id || '');
+  getHeading(ordinal: number | undefined): string {
+    const heading = this.headByOrdinal?.get(ordinal || 0);
     if (!heading) {
-      console.error('heading with id ' + id + ' not found');
+      console.error('heading with ordinal ' + ordinal + ' not found');
       return '';
     }
     return heading;

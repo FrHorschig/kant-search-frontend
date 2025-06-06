@@ -1,18 +1,16 @@
-<div class="flex justify-content-center">
-  <div class="max-w-base">
-    <ng-container *ngIf="isLoaded$ | async">
-      <ks-results-input
-        [searchString]="(searchString$ | async) || ''"
-        (onUpdateEmitter)="onUpdate($event)"
-      ></ks-results-input>
+<ng-container *ngIf="isLoaded$ | async">
+  <ks-results-input
+    [searchTerms]="(searchTerms$ | async) || ''"
+    (searchTermsEmitter)="onSearchTermsChange($event)"
+    (doUpdateEmitter)="onUpdate()"
+  ></ks-results-input>
 
-      <ks-result-list
-        [results]="(results$ | async) || []"
-        (onClick)="onClick($event)"
-      ></ks-result-list>
-    </ng-container>
-  </div>
-</div>
+  <ks-result-list
+    [workByCode]="worksByCode$ | async"
+    [results]="(results$ | async) || []"
+    (onClick)="onClick($event)"
+  ></ks-result-list>
+</ng-container>
 
 <!-- TODO
 <ks-paragraph-dialog

@@ -107,7 +107,7 @@ describe('ResultsComponent', () => {
 
   it('should call navigateToFullText', () => {
     const info: FullTextInfo = {
-      workId: 'workId',
+      workCode: 'workId',
       fragment: 'fragment',
     };
     // WHEN

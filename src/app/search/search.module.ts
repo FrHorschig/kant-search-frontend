@@ -28,7 +28,7 @@ import { TreeModule } from 'primeng/tree';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { ResultListComponent } from './results/result-list/result-list.component';
-import { ResultItemComponent } from './results/result-item/result-item.component';
+import { ResultItemComponent } from './results/result-list/result-item/result-item.component';
 import { ParagraphDialogComponent } from './results/paragraph-dialog/paragraph-dialog.component';
 import { RemovePaginationPipe } from './pipes/remove-pagination.pipe';
 import { AdvancedInputComponent } from './criteria/advanced-input/advanced-input.component';
