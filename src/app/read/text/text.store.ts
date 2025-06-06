@@ -12,9 +12,10 @@ import {
   Work,
 } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
-import { EMPTY, forkJoin, switchMap, tap } from 'rxjs';
+import { EMPTY, forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 
 interface ReadState {
   work: Work | undefined;
@@ -29,7 +30,8 @@ export class TextStore extends ComponentStore<ReadState> {
   constructor(
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,
-    private readonly readService: ReadService
+    private readonly readService: ReadService,
+    private readonly volStore: VolumesStore
   ) {
     super({
       work: undefined,
@@ -50,9 +52,9 @@ export class TextStore extends ComponentStore<ReadState> {
   readonly loadData = this.effect<string>((workCode) =>
     workCode.pipe(
       tap(() => this.messageService.clear()),
-      switchMap((workCode) =>
+      withLatestFrom(this.volStore.workByCode$),
+      switchMap(([workCode, workByCode]) =>
         forkJoin({
-          work: this.readService.getWork(workCode),
           headings: this.readService.getHeadings(workCode),
           footnotes: this.readService.getFootnotes(workCode),
           paragraphs: this.readService.getParagraphs(workCode),
@@ -60,11 +62,14 @@ export class TextStore extends ComponentStore<ReadState> {
         }).pipe(
           // TODO: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
-            ({ work, headings, footnotes, paragraphs, summaries }) => {
+            ({ headings, footnotes, paragraphs, summaries }) => {
+              const work = workByCode.get(workCode);
+              if (!work) {
+                throw new Error('no work with code ' + workCode + ' found');
+              }
               const headsByOrd = new Map(headings.map((h) => [h.ordinal, h]));
               const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
               this.patchState({
-                work: work,
                 headingByOrdinal: new Map(
                   headings.map((h) => [h.ordinal, h.tocText])
                 ),

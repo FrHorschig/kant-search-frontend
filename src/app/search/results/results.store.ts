@@ -79,7 +79,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             incFn: params.get('incFn') === 'true',
             incSumm: params.get('incSumm') === 'true',
             searchTerms: this.get((state) => state.searchTerms),
-            workCodes: this.get((state) => codes.join(',')),
+            workCodes: codes.join(','),
           },
         });
       })

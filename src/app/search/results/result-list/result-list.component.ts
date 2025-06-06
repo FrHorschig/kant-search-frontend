@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit, SearchResult } from '@frhorschig/kant-search-api';
 import { HitMetadata } from '../../model/hit-metadata';
 import { StringsUtil } from '../../util/strings-util';
-import { WorkRef } from 'src/app/common/model/work-ref';
+import { Work } from 'src/app/common/model/work';
 
 @Component({
   selector: 'ks-result-list',
@@ -10,7 +10,7 @@ import { WorkRef } from 'src/app/common/model/work-ref';
   standalone: false,
 })
 export class ResultListComponent {
-  @Input() workByCode: Map<string, WorkRef> | null = null;
+  @Input() workByCode: Map<string, Work> | null = null;
   @Input() results: SearchResult[] = [];
 
   @Output() onClick = new EventEmitter<HitMetadata>();
@@ -29,7 +29,7 @@ export class ResultListComponent {
       console.error("no work with code '" + code + "' exists");
       return this.titleCase(code);
     }
-    return `${work.volumbeNumber}: ${StringsUtil.truncate(work.title, 70)}`;
+    return `${work.volumeNumber}: ${StringsUtil.truncate(work.title, 70)}`;
   }
 
   getWorkAbbreviation(code: string): string {

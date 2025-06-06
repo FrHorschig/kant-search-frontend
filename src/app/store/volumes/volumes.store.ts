@@ -5,12 +5,12 @@ import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { WorkRef } from 'src/app/common/model/work-ref';
+import { Work } from 'src/app/common/model/work';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface VolumesState {
   volumes: Volume[];
-  workByCode: Map<string, WorkRef>;
+  workByCode: Map<string, Work>;
   isLoaded: boolean;
 }
 
@@ -22,7 +22,7 @@ export class VolumesStore extends ComponentStore<VolumesState> {
   ) {
     super({
       volumes: [],
-      workByCode: new Map<string, WorkRef>(),
+      workByCode: new Map<string, Work>(),
       isLoaded: false,
     });
   }
@@ -39,16 +39,11 @@ export class VolumesStore extends ComponentStore<VolumesState> {
             (volumes) => {
               this.patchState({
                 volumes,
-                workByCode: new Map<string, WorkRef>(
+                workByCode: new Map<string, Work>(
                   volumes.flatMap((v) =>
                     v.works.map((w) => [
                       w.code,
-                      {
-                        code: w.code,
-                        abbreviation: w.abbreviation,
-                        title: w.title,
-                        volumbeNumber: v.volumeNumber,
-                      },
+                      { ...w, volumeNumber: v.volumeNumber },
                     ])
                   )
                 ),
