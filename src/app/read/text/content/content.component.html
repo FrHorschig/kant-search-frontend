@@ -1,7 +1,7 @@
 <div class="flex justify-content-center">
   <div class="max-w-minus-1">
     <ng-container *ngFor="let c of contents">
-      <div id="paragraph-{{ c.ordinal }}">
+      <div id="content-{{ c.ordinal }}">
         <ng-container *ngIf="c.isHeading">
           <ks-text-block [text]="c.text"></ks-text-block>
 

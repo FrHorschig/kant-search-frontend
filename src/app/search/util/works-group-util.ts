@@ -129,8 +129,6 @@ const critiques = [
 ].sort();
 
 export class WorksGroupUtil {
-  private WorksSelectUtil() {}
-
   static getCodes(group: WorksGroup | null): string[] {
     switch (group) {
       case WorksGroup.ALL:

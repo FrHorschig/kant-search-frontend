@@ -64,7 +64,7 @@ describe('ParagraphDialogComponent', () => {
   it('should emit navigateEmitter when onNavigate is called', () => {
     // GIVEN
     spyOn(component.navigateEmitter, 'emit');
-    component.metadata = {
+    component.data] = {
       workId: 1,
       workCode: 'code',
       hit: Testdata.hit,

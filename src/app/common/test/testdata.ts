@@ -5,7 +5,7 @@ import {
   Work,
   WorkRef,
 } from '@frhorschig/kant-search-api';
-import { HitMetadata } from 'src/app/search/model/hit-metadata';
+import { HitData } from 'src/app/search/model/hit-data';
 
 export class Testdata {
   static readonly volume: Volume = {
@@ -83,7 +83,7 @@ export class Testdata {
     pages: [1, 2],
     snippets: ['snippet 1', 'snippet 2'],
   };
-  static readonly hitMetadata: HitMetadata = {
+  static readonly hitMetadata: HitData = {
     workId: 'workId',
     workCode: 'code',
     hit: Testdata.hit,

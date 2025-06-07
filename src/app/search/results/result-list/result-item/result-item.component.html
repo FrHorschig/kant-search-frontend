@@ -1,20 +1,24 @@
 <div class="cursor-pointer" (click)="onCardClick()">
   <nz-card>
-    <ng-template pTemplate="subtitle">
-      <div class="flex justify-content-between">
-        <div class="mt-4">
+    <nz-space class="w-full" nzDirection="vertical">
+      <div *nzSpaceItem nz-flex nzJustify="space-between">
+        <span nz-typography nzType="secondary">
           #{{ index }}
           {{
             workAbbrev !== "" ? workAbbrev : ("WORKS." + workCode | translate)
           }}
+        </span>
 
+        <span nz-typography nzType="secondary">
           [{{ hit.pages.join(", ") }}]
-        </div>
+        </span>
       </div>
-    </ng-template>
 
-    <ng-container *ngFor="let snippet of hit.snippets">
-      <p [innerHTML]="snippet"></p>
-    </ng-container>
+      <div *nzSpaceItem>
+        <ng-container *ngFor="let snippet of hit.snippets">
+          <ks-text-block [text]="snippet"></ks-text-block>
+        </ng-container>
+      </div>
+    </nz-space>
   </nz-card>
 </div>

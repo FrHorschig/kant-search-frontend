@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, take } from 'rxjs';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
-import { HitMetadata } from '../model/hit-metadata';
+import { HitData } from '../model/hit-data';
 import { ResultsStore } from './results.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { SearchResult } from '@frhorschig/kant-search-api';
 
 @Component({
   selector: 'app-results',
@@ -22,11 +23,14 @@ export class ResultsComponent
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
   isLoaded$ = this.resultsStore.isLoaded$;
+  resultTextByOrdinal$ = this.resultsStore.resultTextByOrdinal$;
 
   showParagraph = false;
-  metadata: HitMetadata = {
-    workCode: '',
-    hit: { ordinal: 0, pages: [], snippets: [] },
+  hitData: HitData = {
+    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+    snippets: [],
+    text: '',
+    ordinal: 0,
     index: 0,
   };
 
@@ -53,6 +57,10 @@ export class ResultsComponent
       });
   }
 
+  getResultCount(results: SearchResult[]): number {
+    return results.flatMap((r) => r.hits).length;
+  }
+
   onSearchTermsChange(searchTerms: string) {
     this.resultsStore.putSearchTerms(searchTerms);
   }
@@ -61,9 +69,12 @@ export class ResultsComponent
     this.resultsStore.updateSearch();
   }
 
-  onClick(metadata: HitMetadata) {
-    this.metadata = metadata;
-    this.showParagraph = true;
+  onClick(hitData: HitData) {
+    this.hitData = hitData;
+    this.resultTextByOrdinal$.pipe(take(1)).subscribe((textByOrdinal) => {
+      this.hitData.text = textByOrdinal.get(hitData.ordinal) ?? '';
+      this.showParagraph = true;
+    });
   }
 
   onFullTextNavigation(info: FullTextInfo) {

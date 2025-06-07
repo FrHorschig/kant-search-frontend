@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit, SearchResult } from '@frhorschig/kant-search-api';
-import { HitMetadata } from '../../model/hit-metadata';
-import { StringsUtil } from '../../util/strings-util';
+import { HitData } from '../../model/hit-data';
+import { TitleUtil } from '../../util/title-util';
 import { Work } from 'src/app/common/model/work';
 
 @Component({
@@ -13,14 +13,34 @@ export class ResultListComponent {
   @Input() workByCode: Map<string, Work> | null = null;
   @Input() results: SearchResult[] = [];
 
-  @Output() onClick = new EventEmitter<HitMetadata>();
+  @Output() onClick = new EventEmitter<HitData>();
 
-  onMatchClick(workCode: string, hit: Hit, index: number) {
-    this.onClick.emit({
-      workCode,
-      hit: hit,
-      index,
-    });
+  onMatchClick(code: string, hit: Hit, index: number) {
+    const work = this.workByCode?.get(code);
+    if (work) {
+      this.onClick.emit({
+        work,
+        snippets: hit.snippets,
+        text: '',
+        ordinal: hit.ordinal,
+        index,
+      });
+    } else {
+      this.onClick.emit({
+        work: {
+          code: '',
+          sections: [],
+          ordinal: 0,
+          title: '',
+          volumeNumber: 0,
+        },
+        snippets: [],
+        text: '',
+        ordinal: hit.ordinal,
+        index,
+      });
+      console.error("no work with code '" + code + "' exists");
+    }
   }
 
   getWorkDividerText(code: string): string {
@@ -29,11 +49,10 @@ export class ResultListComponent {
       console.error("no work with code '" + code + "' exists");
       return this.titleCase(code);
     }
-    return `${work.volumeNumber}: ${StringsUtil.truncate(work.title, 70)}`;
+    return TitleUtil.getVolNoPlusTitle(work);
   }
 
   getWorkAbbreviation(code: string): string {
-    // TODO implement using abbrev instead of code
     const work = this.workByCode?.get(code);
     if (!work) {
       console.error("no work with code '" + code + "' exists");

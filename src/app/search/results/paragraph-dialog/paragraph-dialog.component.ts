@@ -6,8 +6,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { HitMetadata } from '../../model/hit-metadata';
+import { HitData } from '../../model/hit-data';
 import { FullTextInfo } from '../../model/full-text-info';
+import { TitleUtil } from '../../util/title-util';
 
 @Component({
   selector: 'ks-paragraph-dialog',
@@ -16,11 +17,13 @@ import { FullTextInfo } from '../../model/full-text-info';
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
-  @Input() metadata: HitMetadata = {
-    workCode: '',
-    hit: { ordinal: 0, pages: [], snippets: [] },
+  @Input() data: HitData = {
+    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+    snippets: [],
+    text: '',
+    ordinal: 0,
     index: 0,
-  } as HitMetadata;
+  } as HitData;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() navigateEmitter = new EventEmitter<FullTextInfo>();
@@ -32,6 +35,30 @@ export class ParagraphDialogComponent implements OnChanges {
     }
   }
 
+  getWorkTitle(): string {
+    return TitleUtil.getVolNoPlusTitle(this.data.work);
+  }
+
+  getTextWithHighlights(): string {
+    const highlightRegex = /<ks-meta-hit>(.*?)<\/ks-meta-hit>/g;
+    const highlights = new Set<string>();
+    for (const snippet of this.data.snippets) {
+      let match: RegExpExecArray | null;
+      while ((match = highlightRegex.exec(snippet)) !== null) {
+        highlights.add(match[1]);
+      }
+    }
+
+    let highlighted = this.data.text;
+    for (const hl of highlights) {
+      highlighted = highlighted.replaceAll(
+        hl,
+        `<ks-meta-hit>${hl}</ks-meta-hit>`
+      );
+    }
+    return highlighted;
+  }
+
   onHide() {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible);
@@ -39,8 +66,8 @@ export class ParagraphDialogComponent implements OnChanges {
 
   onNavigate() {
     this.navigateEmitter.emit({
-      workCode: this.metadata.workCode,
-      fragment: `paragraph-${this.metadata.hit.ordinal}`,
+      workCode: this.data.work.code,
+      fragment: `content-${this.data.ordinal}`,
     });
   }
 }

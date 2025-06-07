@@ -5,6 +5,9 @@
     (doUpdateEmitter)="onUpdate()"
   ></ks-results-input>
 
+  <!-- TODO show number of results -->
+  {{ getResultCount((results$ | async) ?? []) }}
+
   <ks-result-list
     [workByCode]="worksByCode$ | async"
     [results]="(results$ | async) || []"
@@ -12,10 +15,8 @@
   ></ks-result-list>
 </ng-container>
 
-<!-- TODO
 <ks-paragraph-dialog
   [(isVisible)]="showParagraph"
-  [metadata]="metadata"
+  [data]="hitData"
   (navigateEmitter)="onFullTextNavigation($event)"
 ></ks-paragraph-dialog>
- -->

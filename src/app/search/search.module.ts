@@ -17,6 +17,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
@@ -71,6 +72,7 @@ import { ResultsComponent } from './results/results.component';
     NzCardModule,
     NzCollapseModule,
     NzTypographyModule,
+    NzIconModule,
     CardModule,
     DialogModule,
     DividerModule,

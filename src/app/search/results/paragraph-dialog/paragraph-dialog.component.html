@@ -1,21 +1,25 @@
-<!-- <p-dialog
-  [(visible)]="isVisible"
-  [modal]="true"
-  (onHide)="onHide()"
-  header="#{{ metadata.index }} {{ 'WORKS.' + metadata.workCode | translate }}"
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="#{{ data.index }} {{
+    ('COMMON.VOLUME' | translate) + ' ' + getWorkTitle()
+  }}"
+  [nzFooter]="null"
+  (nzOnCancel)="onHide()"
 >
-  <div class="max-w-base mb-3" [innerHTML]=""></div>
+  <ng-container *nzModalContent>
+    <ks-text-block [text]="getTextWithHighlights()"></ks-text-block>
 
-  <div class="flex justify-content-end">
-    <p-button
-      styleClass="p-button-secondary"
-      (click)="onNavigate()"
-      pTooltip="{{ 'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate }}"
-    >
-      <div class="mt-1">
+    <div nz-flex nzJustify="flex-end">
+      <button
+        nz-button
+        nzType="primary"
+        nz-tooltip
+        [nzTooltipTitle]="'SEARCH.RESULTS.GO_TO_TEXT_TOOLTIP' | translate"
+        (click)="onNavigate()"
+      >
         {{ "SEARCH.RESULTS.GO_TO_TEXT_LABEL" | translate }}
-      </div>
-      <i class="pi pi-arrow-right ml-2 mb-1"></i>
-    </p-button>
-  </div>
-</p-dialog> -->
+        <nz-icon nzType="arrow-right" />
+      </button>
+    </div>
+  </ng-container>
+</nz-modal>

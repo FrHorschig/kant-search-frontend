@@ -91,7 +91,7 @@ describe('ResultsComponent', () => {
     // WHEN
     component.onClick(Testdata.hitMetadata);
     // THEN
-    expect(component.metadata).toBe(Testdata.hitMetadata);
+    expect(component.hitData).toBe(Testdata.hitMetadata);
     expect(component.showParagraph).toBeTrue();
   });
 

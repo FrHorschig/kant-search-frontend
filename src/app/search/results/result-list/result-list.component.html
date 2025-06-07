@@ -5,34 +5,28 @@
 </ng-container>
 
 <ng-container *ngIf="results.length > 0">
-  <nz-space class="w-full" nzDirection="vertical">
-    <div *nzSpaceItem>
-      <ng-container *ngFor="let result of results">
-        <div id="results-{{ result.workCode }}"></div>
+  <ng-container *ngFor="let result of results">
+    <div id="results-{{ result.workCode }}"></div>
 
-        <nz-divider
-          [nzText]="
-            ('COMMON.VOLUME' | translate) +
-            ' ' +
-            getWorkDividerText(result.workCode)
-          "
-        ></nz-divider>
+    <nz-divider
+      [nzText]="
+        ('COMMON.VOLUME' | translate) +
+        ' ' +
+        getWorkDividerText(result.workCode)
+      "
+      nzOrientation="left"
+    ></nz-divider>
 
-        <ng-container *ngFor="let hit of result.hits; let i = index">
-          <div
-            id="{{ getAnchorId(result.workCode, hit.ordinal) }}"
-            class="mb-2"
-          >
-            <ks-result-item
-              [index]="i + 1"
-              [workCode]="result.workCode"
-              [workAbbrev]="getWorkAbbreviation(result.workCode)"
-              [hit]="hit"
-              (onClick)="onMatchClick(result.workCode, hit, i + 1)"
-            ></ks-result-item>
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
-  </nz-space>
+    <ng-container *ngFor="let hit of result.hits; let i = index">
+      <div id="{{ getAnchorId(result.workCode, hit.ordinal) }}">
+        <ks-result-item
+          [index]="i + 1"
+          [workCode]="result.workCode"
+          [workAbbrev]="getWorkAbbreviation(result.workCode)"
+          [hit]="hit"
+          (onClick)="onMatchClick(result.workCode, hit, i + 1)"
+        ></ks-result-item>
+      </div>
+    </ng-container>
+  </ng-container>
 </ng-container>

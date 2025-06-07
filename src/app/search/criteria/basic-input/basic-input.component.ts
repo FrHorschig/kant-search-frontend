@@ -4,7 +4,7 @@ import { Volume } from '@frhorschig/kant-search-api';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { WorksGroupUtil } from '../../util/works-group-util';
-import { StringsUtil } from '../../util/strings-util';
+import { TitleUtil } from '../../util/title-util';
 
 @Component({
   selector: 'ks-basic-input',
@@ -36,7 +36,7 @@ export class BasicInputComponent implements OnInit {
     this.nodes = this.volumes.map((vol) => {
       const children = vol.works.map((work) => {
         return {
-          title: StringsUtil.truncate(work.title, 75),
+          title: TitleUtil.truncate(work.title, 75),
           key: work.code,
           isLeaf: true,
         };
