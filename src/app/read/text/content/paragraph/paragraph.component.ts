@@ -13,6 +13,9 @@ export class ParagraphComponent {
   @Input() summByRef: Map<string, Summary> | null = new Map();
 
   getFn(ref: string): Footnote | undefined {
+    if (this.paragraph.ordinal === 29) {
+      console.log('==============');
+    }
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
       console.error('no footnote found from reference ' + ref);
@@ -21,12 +24,12 @@ export class ParagraphComponent {
     return fn;
   }
 
-  getSummaryText(ref: string): string {
+  getSummary(ref: string): Summary | undefined {
     const summary = this.summByRef?.get(ref || '');
     if (!summary) {
       console.error('no summary found from reference ' + ref);
-      return '';
+      return undefined;
     }
-    return summary.text;
+    return summary;
   }
 }

@@ -19,6 +19,8 @@ import { FootnoteComponent } from './text/content/footnote/footnote.component';
 import { ContentComponent } from './text/content/content.component';
 import { ParagraphComponent } from './text/content/paragraph/paragraph.component';
 import { SelectionComponent } from './selection/selection.component';
+import { SummaryComponent } from './text/content/summary/summary.component';
+import { HeadingComponent } from './text/content/heading/heading.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,10 @@ import { SelectionComponent } from './selection/selection.component';
     TocComponent,
     TocSectionComponent,
     ContentComponent,
+    HeadingComponent,
     ParagraphComponent,
     FootnoteComponent,
+    SummaryComponent,
   ],
   imports: [
     FormsModule,

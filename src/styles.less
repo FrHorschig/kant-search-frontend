@@ -28,37 +28,34 @@ body {
 }
 
 // TODO (same for ks-meta-page): before and after chars are not usable in browser search
-ks-meta-fnref::before {
-  content: "(";
-}
-
+.ks-meta-fnref,
 ks-meta-fnref {
   font-size: 0.8rem;
   position: relative;
   top: -0.2em;
   color: var(--surface-500);
-}
-
-ks-meta-fnref::after {
-  content: ")";
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
 }
 
 ks-meta-line {
   display: none;
 }
 
-ks-meta-page::before {
-  content: "[";
-}
-
 ks-meta-page {
   font-size: 0.75rem;
   font-weight: normal;
   color: var(--surface-500);
-}
-
-ks-meta-page::after {
-  content: "]";
+  &::before {
+    content: "[";
+  }
+  &::after {
+    content: "]";
+  }
 }
 
 ks-meta-hit {

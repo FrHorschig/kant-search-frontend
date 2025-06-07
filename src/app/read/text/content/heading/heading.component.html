@@ -1,0 +1,7 @@
+<div id="content-{{ heading.ordinal }}">
+  <ks-text-block [text]="heading.text"></ks-text-block>
+
+  <ng-container *ngFor="let fnRef of heading.fnRefs">
+    <ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
+  </ng-container>
+</div>

@@ -1,13 +1,11 @@
 <ng-container *ngIf="paragraph.summaryRef">
-  <div class="ks-summary">
-    <ks-text-block
-      [text]="getSummaryText(paragraph.summaryRef)"
-    ></ks-text-block>
-  </div>
+  <ks-summary [summary]="getSummary(paragraph.summaryRef)"></ks-summary>
 </ng-container>
 
-<ks-text-block [text]="paragraph.text"></ks-text-block>
+<div id="content-{{ paragraph.ordinal }}">
+  <ks-text-block [text]="paragraph.text"></ks-text-block>
+</div>
 
-<ng-component *ngFor="let fnRef of paragraph.fnRefs">
+<ng-container *ngFor="let fnRef of paragraph.fnRefs">
   <ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
-</ng-component>
+</ng-container>

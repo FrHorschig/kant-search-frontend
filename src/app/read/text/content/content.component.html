@@ -1,23 +1,15 @@
-<div class="flex justify-content-center">
-  <div class="max-w-minus-1">
-    <ng-container *ngFor="let c of contents">
-      <div id="content-{{ c.ordinal }}">
-        <ng-container *ngIf="c.isHeading">
-          <ks-text-block [text]="c.text"></ks-text-block>
-
-          <ng-component *ngFor="let fnRef of c.fnRefs">
-            <ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
-          </ng-component>
-        </ng-container>
-
-        <ng-container *ngIf="!c.isHeading">
-          <ks-paragraph
-            [paragraph]="c"
-            [fnByRef]="fnByRef"
-            [summByRef]="summByRef"
-          ></ks-paragraph>
-        </ng-container>
-      </div>
+<div class="max-w-minus-1">
+  <ng-container *ngFor="let c of contents">
+    <ng-container *ngIf="c.isHeading">
+      <ks-heading [heading]="c" [fnByRef]="fnByRef"></ks-heading>
     </ng-container>
-  </div>
+
+    <ng-container *ngIf="!c.isHeading">
+      <ks-paragraph
+        [paragraph]="c"
+        [fnByRef]="fnByRef"
+        [summByRef]="summByRef"
+      ></ks-paragraph>
+    </ng-container>
+  </ng-container>
 </div>

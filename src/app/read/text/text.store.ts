@@ -99,6 +99,15 @@ function mapTextContents(
   parsByOrd: Map<number, Paragraph>
 ): TextContent[] {
   let textContents: TextContent[] = [];
+  for (const wOrd of work.paragraphs ?? []) {
+    const p = parsByOrd.get(wOrd);
+    if (!p) {
+      throw new Error('no paragraph object with ID ' + wOrd);
+    }
+    textContents.push(
+      new TextContent(false, p.ordinal, p.text, p.fnRefs, p.summaryRef)
+    );
+  }
   for (const s of work.sections) {
     textContents.push(...mapSection(s, headsByOrd, parsByOrd));
   }
