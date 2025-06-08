@@ -104,9 +104,13 @@ function mapTextContents(
     if (!p) {
       throw new Error('no paragraph object with ID ' + wOrd);
     }
-    textContents.push(
-      new TextContent(false, p.ordinal, p.text, p.fnRefs, p.summaryRef)
-    );
+    textContents.push({
+      isHeading: false,
+      ordinal: p.ordinal,
+      text: p.text,
+      fnRefs: p.fnRefs,
+      summaryRef: p.summaryRef,
+    });
   }
   for (const s of work.sections) {
     textContents.push(...mapSection(s, headsByOrd, parsByOrd));
@@ -124,18 +128,26 @@ function mapSection(
   if (!h) {
     throw new Error('no heading object with ordinal ' + sec.heading);
   }
-  textContents.push(
-    new TextContent(true, h.ordinal, h.text, h.fnRefs, undefined)
-  );
+  textContents.push({
+    isHeading: true,
+    ordinal: h.ordinal,
+    text: h.text,
+    fnRefs: h.fnRefs,
+    summaryRef: undefined,
+  });
 
   for (const wOrd of sec.paragraphs ?? []) {
     const p = parsByOrd.get(wOrd);
     if (!p) {
       throw new Error('no paragraph object with ID ' + wOrd);
     }
-    textContents.push(
-      new TextContent(false, p.ordinal, p.text, p.fnRefs, p.summaryRef)
-    );
+    textContents.push({
+      isHeading: false,
+      ordinal: p.ordinal,
+      text: p.text,
+      fnRefs: p.fnRefs,
+      summaryRef: p.summaryRef,
+    });
   }
 
   for (const s of sec.sections ?? []) {

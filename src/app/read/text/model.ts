@@ -1,9 +1,7 @@
-export class TextContent {
-  constructor(
-    public isHeading: boolean,
-    public ordinal: number,
-    public text: string,
-    public fnRefs: string[],
-    public summaryRef: string | undefined
-  ) {}
+export interface TextContent {
+  readonly isHeading: boolean;
+  readonly ordinal: number;
+  readonly text: string;
+  readonly fnRefs: string[];
+  readonly summaryRef: string | undefined;
 }

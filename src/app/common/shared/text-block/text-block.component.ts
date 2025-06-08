@@ -7,10 +7,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   standalone: false,
 })
 export class TextBlockComponent {
-  @Input() text: string = '';
   private sanitizer = inject(DomSanitizer);
 
-  trustText(text: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(text);
+  @Input()
+  set text(text: string) {
+    this.trustedText = this.sanitizer.bypassSecurityTrustHtml(text);
   }
+  trustedText: SafeHtml = '';
 }

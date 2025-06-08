@@ -8,14 +8,17 @@ import { TextContent } from '../../model';
   standalone: false,
 })
 export class ParagraphComponent {
-  @Input() paragraph: TextContent = new TextContent(false, 0, '', [], '');
+  @Input() paragraph: TextContent = {
+    isHeading: false,
+    ordinal: 0,
+    text: '',
+    fnRefs: [],
+    summaryRef: '',
+  };
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
   @Input() summByRef: Map<string, Summary> | null = new Map();
 
   getFn(ref: string): Footnote | undefined {
-    if (this.paragraph.ordinal === 29) {
-      console.log('==============');
-    }
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
       console.error('no footnote found from reference ' + ref);

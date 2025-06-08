@@ -8,7 +8,13 @@ import { TextContent } from '../../model';
   standalone: false,
 })
 export class HeadingComponent {
-  @Input() heading: TextContent = new TextContent(false, 0, '', [], '');
+  @Input() heading: TextContent = {
+    isHeading: true,
+    ordinal: 0,
+    text: '',
+    fnRefs: [],
+    summaryRef: '',
+  };
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
 
   getFn(ref: string): Footnote | undefined {
