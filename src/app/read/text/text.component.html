@@ -1,29 +1,23 @@
 <div nz-flex nzJustify="center">
-  <div>
-    <ng-container *ngIf="isLoaded$ | async">
-      <ks-read-toc
-        [work]="work$ | async"
-        [headByOrdinal]="headingByOrdinal$ | async"
-      >
-      </ks-read-toc>
+  <div *ngIf="isLoaded$ | async">
+    <h2 nz-typography>
+      <div class="cursor-pointer">
+        {{ (work$ | async)?.title ?? "" }}
+      </div>
+    </h2>
 
-      <nz-divider
-        [nzText]="
-          'COMMON.VOL_WORK_TITLE'
-            | translate
-              : {
-                  volumeNumber: (work$ | async)?.volumeNumber ?? 0,
-                  title: (work$ | async)?.title ?? ''
-                }
-        "
-      >
-      </nz-divider>
+    <ks-read-toc
+      [work]="work$ | async"
+      [headByOrdinal]="headingByOrdinal$ | async"
+      (onClickEmitter)="onSectionNavigation($event)"
+    >
+    </ks-read-toc>
 
-      <ks-content
-        [contents]="(textContents$ | async) || []"
-        [fnByRef]="footnoteByRef$ | async"
-        [summByRef]="summaryByRef$ | async"
-      ></ks-content>
-    </ng-container>
+    <ks-content
+      [contents]="(textContents$ | async) || []"
+      [fnByRef]="footnoteByRef$ | async"
+      [summByRef]="summaryByRef$ | async"
+    >
+    </ks-content>
   </div>
 </div>

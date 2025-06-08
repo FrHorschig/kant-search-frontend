@@ -16,10 +16,12 @@ import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { Work } from 'src/app/common/model/work';
+import { LanguageStore } from 'src/app/store/language/language.store';
+import { Router } from '@angular/router';
 
 interface ReadState {
   work: Work | undefined;
-  headingByOrdinal: Map<number, string>;
+  headingByOrdinal: Map<number, Heading>;
   textContents: TextContent[];
   footnoteByRef: Map<string, Footnote>;
   summaryByRef: Map<string, Summary>;
@@ -28,8 +30,10 @@ interface ReadState {
 @Injectable()
 export class TextStore extends ComponentStore<ReadState> {
   constructor(
+    private readonly router: Router,
     private readonly messageService: MessageService,
     private readonly errorService: ErrorService,
+    private readonly langStore: LanguageStore,
     private readonly readService: ReadService,
     private readonly volStore: VolumesStore
   ) {
@@ -71,9 +75,7 @@ export class TextStore extends ComponentStore<ReadState> {
               const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
               this.patchState({
                 work,
-                headingByOrdinal: new Map(
-                  headings.map((h) => [h.ordinal, h.tocText])
-                ),
+                headingByOrdinal: new Map(headings.map((h) => [h.ordinal, h])),
                 textContents: mapTextContents(work, headsByOrd, parsByOrd),
                 footnoteByRef: new Map(footnotes.map((f) => [f.ref, f])),
                 summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
@@ -90,6 +92,18 @@ export class TextStore extends ComponentStore<ReadState> {
           )
         )
       )
+    )
+  );
+  readonly navigateToSection = this.effect<number>((ordinal$) =>
+    ordinal$.pipe(
+      withLatestFrom(this.langStore.currentLanguage$),
+      tap(([ordinal, lang]) => {
+        this.router.navigate(
+          [`/${lang}/read/text`, this.get((state) => state.work?.code)],
+          { fragment: `content-${ordinal.toString()}` }
+        );
+        return EMPTY;
+      })
     )
   );
 }

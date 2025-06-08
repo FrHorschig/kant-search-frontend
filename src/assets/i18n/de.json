@@ -24,6 +24,14 @@
     "TEXT": "Die angeforderte Seite existiert nicht."
   },
 
+  "READ": {
+    "TOC": {
+      "TITLE": "Inhaltsverzeichnis",
+      "PAGE_REF": "S. {{page}}"
+    },
+    "CONTENT": "Text"
+  },
+
   "SEARCH": {
     "INPUT": {
       "TERMS": {

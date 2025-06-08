@@ -1,6 +1,21 @@
-<!-- TODO create anchor -->
-<div class="toc-item" [ngStyle]="{ 'padding-left.px': level * 20 }">
-  {{ getHeading(section?.heading) }}
+<div
+  [ngStyle]="{ 'padding-left.px': level * 30 }"
+  (click)="onClick(section?.heading ?? 0)"
+>
+  <div
+    class="cursor-pointer hover-background"
+    nz-flex
+    nzJustify="space-between"
+  >
+    <div>{{ getHeading(section?.heading).tocText }}</div>
+
+    <div style="white-space: nowrap">
+      {{
+        "READ.TOC.PAGE_REF"
+          | translate : { page: getHeading(section?.heading).pages[0] }
+      }}
+    </div>
+  </div>
 </div>
 
 <ng-container *ngFor="let sec of section?.sections">
@@ -8,5 +23,6 @@
     [level]="level + 1"
     [section]="sec"
     [headByOrdinal]="headByOrdinal"
+    (onClickEmitter)="onClick($event)"
   ></ks-toc-section>
 </ng-container>

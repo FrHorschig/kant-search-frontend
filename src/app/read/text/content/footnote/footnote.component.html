@@ -1,6 +1,6 @@
 <!-- TODO: add two-way anchors -->
 <div nz-flex nzJustify="center">
-  <div class="max-w-minus-2" id="content-{{ footnote?.ordinal }}">
+  <div class="max-w-footnote-text" id="content-{{ footnote?.ordinal }}">
     <span class="ks-meta-fnref">{{ footnote?.ref }}</span>
 
     <ks-text-block [text]="footnote?.text || ''"></ks-text-block>

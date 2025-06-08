@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -43,11 +45,13 @@ import { HeadingComponent } from './text/content/heading/heading.component';
     AppCommonModule,
     MessagesModule,
     NzFlexModule,
+    NzGridModule,
     NzSpaceModule,
-    NzDividerModule,
+    NzTypographyModule,
     NzListModule,
     NzTreeModule,
     NzCardModule,
+    NzDividerModule,
     TreeModule,
     CheckboxModule,
   ],

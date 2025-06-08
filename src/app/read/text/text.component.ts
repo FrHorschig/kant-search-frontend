@@ -38,4 +38,8 @@ export class TextComponent extends ContainerComponent implements OnInit {
         }
       });
   }
+
+  onSectionNavigation(ordinal: number) {
+    this.store.navigateToSection(ordinal);
+  }
 }

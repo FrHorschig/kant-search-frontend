@@ -1,15 +1,19 @@
-<div class="max-w-minus-1">
-  @for (c of contents; track c.ordinal) {
-  <ng-container *ngIf="c.isHeading">
-    <ks-heading [heading]="c" [fnByRef]="fnByRef"></ks-heading>
-  </ng-container>
+<nz-divider [nzText]="'READ.CONTENT' | translate"></nz-divider>
 
-  <ng-container *ngIf="!c.isHeading">
-    <ks-paragraph
-      [paragraph]="c"
-      [fnByRef]="fnByRef"
-      [summByRef]="summByRef"
-    ></ks-paragraph>
-  </ng-container>
-  }
+<div nz-flex nzJustify="center">
+  <div class="max-w-paragraph-text">
+    @for (c of contents; track c.ordinal) {
+    <ng-container *ngIf="c.isHeading">
+      <ks-heading [heading]="c" [fnByRef]="fnByRef"></ks-heading>
+    </ng-container>
+
+    <ng-container *ngIf="!c.isHeading">
+      <ks-paragraph
+        [paragraph]="c"
+        [fnByRef]="fnByRef"
+        [summByRef]="summByRef"
+      ></ks-paragraph>
+    </ng-container>
+    }
+  </div>
 </div>

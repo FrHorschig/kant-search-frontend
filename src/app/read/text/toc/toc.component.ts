@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Heading } from '@frhorschig/kant-search-api';
 import { Work } from 'src/app/common/model/work';
 
 @Component({
@@ -8,5 +9,11 @@ import { Work } from 'src/app/common/model/work';
 })
 export class TocComponent {
   @Input() work: Work | null | undefined = null;
-  @Input() headByOrdinal: Map<number, string> | null = null;
+  @Input() headByOrdinal: Map<number, Heading> | null = null;
+
+  @Output() onClickEmitter = new EventEmitter<number>();
+
+  onClick(ordinal: number) {
+    this.onClickEmitter.emit(ordinal);
+  }
 }
