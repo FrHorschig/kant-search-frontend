@@ -15,10 +15,7 @@ import { SearchResult } from '@frhorschig/kant-search-api';
   providers: [ResultsStore, ScrollService],
   standalone: false,
 })
-export class ResultsComponent
-  extends ContainerComponent
-  implements OnInit, AfterViewInit
-{
+export class ResultsComponent extends ContainerComponent implements OnInit {
   worksByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
@@ -45,9 +42,6 @@ export class ResultsComponent
 
   ngOnInit() {
     this.resultsStore.searchParagraphs();
-  }
-
-  ngAfterViewInit() {
     combineLatest([this.route.fragment, this.isLoaded$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, isLoaded]) => {

@@ -1,19 +1,18 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { take } from 'rxjs';
 
 @Injectable()
 export class ScrollService {
-  private renderer: Renderer2;
-
-  constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
-  }
+  constructor(private readonly ngZone: NgZone) {}
 
   scrollToAnchor(anchor: string): void {
-    setTimeout(() => {
-      const targetElement = document.getElementById(anchor);
-      if (targetElement) {
-        this.renderer.selectRootElement(targetElement).scrollIntoView();
-      }
-    }, 100);
+    this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+      requestAnimationFrame(() => {
+        const targetElement = document.getElementById(anchor);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'instant' });
+        }
+      });
+    });
   }
 }

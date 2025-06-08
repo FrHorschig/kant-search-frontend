@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
@@ -11,10 +11,7 @@ import { combineLatest } from 'rxjs';
   providers: [TextStore, ScrollService],
   standalone: false,
 })
-export class TextComponent
-  extends ContainerComponent
-  implements OnInit, AfterViewInit
-{
+export class TextComponent extends ContainerComponent implements OnInit {
   work$ = this.store.work$;
   textContents$ = this.store.textContents$;
   headingByOrdinal$ = this.store.headingByOrdinal$;
@@ -33,9 +30,6 @@ export class TextComponent
   ngOnInit(): void {
     const code = this.route.snapshot.params['workCode'];
     this.store.loadData(code);
-  }
-
-  ngAfterViewInit() {
     combineLatest([this.route.fragment, this.isLoaded$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, isLoaded]) => {
