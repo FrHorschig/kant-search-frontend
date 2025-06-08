@@ -8,6 +8,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResultItemComponent } from './result-item/result-item.component';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'ks-result-list',
@@ -17,6 +18,7 @@ import { ResultItemComponent } from './result-item/result-item.component';
     CommonModule,
     TranslateModule,
     NzFlexModule,
+    NzSpaceModule,
     NzDividerModule,
     ResultItemComponent,
   ],

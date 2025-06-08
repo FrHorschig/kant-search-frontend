@@ -1,4 +1,4 @@
-<!-- TODO move this to new result count component -->
+<!-- TODO move this to new result count component, there add navigation to id div below -->
 <ng-container *ngIf="results.length === 0">
   <div nz-flex nzJustify="center">
     <p>{{ "SEARCH.RESULTS.NONE_FOUND" | translate }}</p>
@@ -6,31 +6,36 @@
 </ng-container>
 
 <ng-container *ngIf="results.length > 0">
-  <ng-container *ngFor="let result of results">
-    <div id="results-{{ result.workCode }}"></div>
+  <nz-space nzDirection="vertical">
+    <ng-container *ngFor="let result of results">
+      <div *nzSpaceItem id="results-{{ result.workCode }}"></div>
 
-    <nz-divider
-      [nzText]="
-        'COMMON.VOL_WORK_TITLE'
-          | translate
-            : {
-                volumeNumber: getWorkVolume(result.workCode),
-                title: getWorkTitle(result.workCode)
-              }
-      "
-      nzOrientation="left"
-    ></nz-divider>
+      <nz-divider
+        *nzSpaceItem
+        [nzText]="
+          'COMMON.VOL_WORK_TITLE'
+            | translate
+              : {
+                  volumeNumber: getWorkVolume(result.workCode),
+                  title: getWorkTitle(result.workCode)
+                }
+        "
+        nzOrientation="left"
+      ></nz-divider>
 
-    <ng-container *ngFor="let hit of result.hits; let i = index">
-      <div id="{{ getAnchorId(result.workCode, hit.ordinal) }}">
-        <ks-result-item
-          [index]="i + 1"
-          [workCode]="result.workCode"
-          [workAbbrev]="getWorkAbbreviation(result.workCode)"
-          [hit]="hit"
-          (onClick)="onMatchClick(result.workCode, hit, i + 1)"
-        ></ks-result-item>
+      <div *nzSpaceItem>
+        <ng-container *ngFor="let hit of result.hits; let i = index">
+          <div id="{{ getAnchorId(result.workCode, hit.ordinal) }}">
+            <ks-result-item
+              [index]="i + 1"
+              [workCode]="result.workCode"
+              [workAbbrev]="getWorkAbbreviation(result.workCode)"
+              [hit]="hit"
+              (onClick)="onMatchClick(result.workCode, hit, i + 1)"
+            ></ks-result-item>
+          </div>
+        </ng-container>
       </div>
     </ng-container>
-  </ng-container>
+  </nz-space>
 </ng-container>
