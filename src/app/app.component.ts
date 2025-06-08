@@ -1,14 +1,25 @@
 import { Component, HostListener } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { VolumesStore } from './store/volumes/volumes.store';
+import { NavbarComponent } from './app/navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
-    selector: 'ks-root',
-    templateUrl: './app.component.html',
-    standalone: false
+  selector: 'ks-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    NavbarComponent,
+    NzButtonModule,
+  ],
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
-  showButton: boolean = false;
+  showButton = false;
 
   constructor(
     private readonly translateService: TranslateService,
@@ -20,11 +31,7 @@ export class AppComponent {
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    if (window.scrollY > 200) {
-      this.showButton = true;
-    } else {
-      this.showButton = false;
-    }
+    this.showButton = window.scrollY > 200;
   }
 
   scrollTop() {
