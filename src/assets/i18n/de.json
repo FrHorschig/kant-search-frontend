@@ -22,6 +22,9 @@
   },
 
   "READ": {
+    "SELECTION": {
+      "TITLE": "Werkauswahl"
+    },
     "TOC": {
       "TITLE": "Inhaltsverzeichnis",
       "PAGE_REF": "S. {{page}}"

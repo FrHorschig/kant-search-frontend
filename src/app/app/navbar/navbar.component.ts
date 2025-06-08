@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LanguageStore } from '../../store/language/language.store';
 import { ContainerComponent } from '../../common/base/container.component';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-navbar',
@@ -17,6 +18,7 @@ import { ContainerComponent } from '../../common/base/container.component';
     CommonModule,
     RouterLink,
     AsyncPipe,
+    NzFlexModule,
     NzMenuModule,
     NzIconModule,
     TranslateModule,

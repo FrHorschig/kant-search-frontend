@@ -1,18 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AdvancedOptions } from '../../model/search-options';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SearchScope } from '@frhorschig/kant-search-api';
 import { FormComponent } from 'src/app/common/base/form.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { RightLabeledInputComponent } from 'src/app/common/shared/right-labeled-input/right-labeled-input.component';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'ks-advanced-input',
@@ -22,7 +19,9 @@ import { RightLabeledInputComponent } from 'src/app/common/shared/right-labeled-
     ReactiveFormsModule,
     TranslateModule,
     NzSpaceModule,
+    NzTypographyModule,
     NzCardModule,
+    NzSwitchModule,
     NzDividerModule,
     RightLabeledInputComponent,
   ],

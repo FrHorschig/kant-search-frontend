@@ -2,11 +2,12 @@
   <nz-space nzDirection="vertical" class="w-full">
     <div *nzSpaceItem></div>
 
-    <nz-card *nzSpaceItem class="w-full">
-      <nz-tree
-        [nzData]="(nodes$ | async) ?? []"
-        (nzClick)="onNodeClick($event)"
-      ></nz-tree>
-    </nz-card>
+    <h2 *nzSpaceItem nz-typography>{{ "READ.SELECTION.TITLE" | translate }}</h2>
+
+    <nz-tree
+      *nzSpaceItem
+      [nzData]="(nodes$ | async) ?? []"
+      (nzClick)="onNodeClick($event)"
+    ></nz-tree>
   </nz-space>
 </ng-container>

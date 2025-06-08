@@ -12,12 +12,13 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ks-selection',
   templateUrl: './selection.component.html',
   standalone: true,
-  imports: [CommonModule, NzSpaceModule, NzTreeModule, NzCardModule],
+  imports: [CommonModule, TranslateModule, NzSpaceModule, NzTreeModule],
 })
 export class SelectionComponent extends ContainerComponent {
   volumes$ = this.volStore.volumes$;

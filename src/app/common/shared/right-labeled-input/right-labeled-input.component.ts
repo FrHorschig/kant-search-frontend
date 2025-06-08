@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NzFlexDirective, NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
@@ -13,6 +14,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     TranslateModule,
     NzFlexModule,
     NzGridModule,
+    NzSpaceModule,
     NzToolTipModule,
     NzIconModule,
   ],

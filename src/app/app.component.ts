@@ -5,6 +5,7 @@ import { NavbarComponent } from './app/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-root',
@@ -14,6 +15,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     RouterModule,
     TranslateModule,
     NavbarComponent,
+    NzFlexModule,
     NzButtonModule,
   ],
   templateUrl: './app.component.html',
