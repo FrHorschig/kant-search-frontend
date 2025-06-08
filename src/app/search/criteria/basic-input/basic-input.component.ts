@@ -1,15 +1,34 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WorksGroup } from '../../model/works-group';
 import { Volume } from '@frhorschig/kant-search-api';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { WorksGroupUtil } from '../../util/works-group-util';
 import { TitleUtil } from '../../util/title-util';
+import { CommonModule } from '@angular/common';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ks-basic-input',
   templateUrl: './basic-input.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    NzSpaceModule,
+    NzTreeModule,
+    NzCardModule,
+    NzSelectModule,
+    NzInputModule,
+    NzToolTipModule,
+  ],
 })
 export class BasicInputComponent implements OnInit {
   @Input() volumes: Volume[] = [];

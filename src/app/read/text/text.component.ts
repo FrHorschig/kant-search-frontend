@@ -4,12 +4,24 @@ import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { combineLatest } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { TocComponent } from './toc/toc.component';
+import { ContentComponent } from './content/content.component';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'ks-text',
   templateUrl: './text.component.html',
   providers: [TextStore, ScrollService],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    NzFlexModule,
+    NzTypographyModule,
+    TocComponent,
+    ContentComponent,
+  ],
 })
 export class TextComponent extends ContainerComponent implements OnInit {
   work$ = this.store.work$;

@@ -3,13 +3,21 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { map, Observable } from 'rxjs';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import {
+  NzFormatEmitEvent,
+  NzTreeModule,
+  NzTreeNodeOptions,
+} from 'ng-zorro-antd/tree';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'ks-selection',
   templateUrl: './selection.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, NzSpaceModule, NzTreeModule, NzCardModule],
 })
 export class SelectionComponent extends ContainerComponent {
   volumes$ = this.volStore.volumes$;

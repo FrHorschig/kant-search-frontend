@@ -9,11 +9,27 @@ import {
 import { HitData } from '../../model/hit-data';
 import { FullTextInfo } from '../../model/full-text-info';
 import { TitleUtil } from '../../util/title-util';
+import { NzFlexDirective } from 'ng-zorro-antd/flex';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ks-paragraph-dialog',
   templateUrl: './paragraph-dialog.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    TranslateModule,
+    NzFlexDirective,
+    NzButtonComponent,
+    NzModalModule,
+    NzToolTipModule,
+    NzIconModule,
+    TextBlockComponent,
+  ],
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;

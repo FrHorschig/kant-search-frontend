@@ -1,11 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Heading } from '@frhorschig/kant-search-api';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { Work } from 'src/app/common/model/work';
+import { TocSectionComponent } from './section/section.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ks-read-toc',
   templateUrl: './toc.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NzDividerModule,
+    TocSectionComponent,
+  ],
 })
 export class TocComponent {
   @Input() work: Work | null | undefined = null;

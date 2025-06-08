@@ -63,7 +63,6 @@
     [ngModel]="worksGroup"
     (ngModelChange)="onSelectChange($event)"
   >
-    <!-- *ngIf="option !== customGroup" -->
     @for (option of worksGroupOptions; track option) {
     <nz-option
       class="min-w-400"

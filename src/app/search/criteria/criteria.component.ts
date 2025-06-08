@@ -3,12 +3,22 @@ import { ContainerComponent } from 'src/app/common/base/container.component';
 import { AdvancedOptions } from '../model/search-options';
 import { CriteriaStore } from './criteria.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { BasicInputComponent } from './basic-input/basic-input.component';
+import { AdvancedInputComponent } from './advanced-input/advanced-input.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ks-criteria',
   templateUrl: './criteria.component.html',
   providers: [CriteriaStore],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    NzSpaceModule,
+    BasicInputComponent,
+    AdvancedInputComponent,
+  ],
 })
 export class CriteriaComponent extends ContainerComponent {
   volumes$ = this.volStore.volumes$;

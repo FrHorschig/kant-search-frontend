@@ -3,11 +3,23 @@ import { Hit, SearchResult } from '@frhorschig/kant-search-api';
 import { HitData } from '../../model/hit-data';
 import { TitleUtil } from '../../util/title-util';
 import { Work } from 'src/app/common/model/work';
+import { CommonModule } from '@angular/common';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { TranslateModule } from '@ngx-translate/core';
+import { ResultItemComponent } from './result-item/result-item.component';
 
 @Component({
   selector: 'ks-result-list',
   templateUrl: './result-list.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NzFlexModule,
+    NzDividerModule,
+    ResultItemComponent,
+  ],
 })
 export class ResultListComponent {
   @Input() workByCode: Map<string, Work> | null = null;

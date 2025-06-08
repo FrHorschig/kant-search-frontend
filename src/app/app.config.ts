@@ -14,8 +14,6 @@ import { ApiModule } from '@frhorschig/kant-search-api';
 import { UrlLoaderService } from './common/service/url-loader.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
-import { StartpageComponent } from './app/startpage/startpage.component';
-import { NotFoundComponent } from './app/not-found/not-found.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,21 +28,58 @@ const routes: Routes = [
   {
     path: ':lang',
     children: [
-      { path: 'start', component: StartpageComponent },
+      {
+        path: 'start',
+        loadComponent: () =>
+          import('./app/startpage/startpage.component').then(
+            (m) => m.StartpageComponent
+          ),
+      },
       {
         path: 'read',
-        loadChildren: () =>
-          import('./read/read.module').then((m) => m.ReadModule),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./read/selection/selection.component').then(
+                (m) => m.SelectionComponent
+              ),
+          },
+          {
+            path: 'text/:workCode',
+            loadComponent: () =>
+              import('./read/text/text.component').then((m) => m.TextComponent),
+          },
+        ],
       },
       {
         path: 'search',
-        loadChildren: () =>
-          import('./search/search.module').then((m) => m.SearchModule),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./search/criteria/criteria.component').then(
+                (m) => m.CriteriaComponent
+              ),
+          },
+          {
+            path: 'results',
+            loadComponent: () =>
+              import('./search/results/results.component').then(
+                (m) => m.ResultsComponent
+              ),
+          },
+        ],
       },
     ],
   },
-  { path: 'not-found', component: NotFoundComponent },
-  // TODO: NotFoundComponent is not showing
+  {
+    path: 'not-found',
+    loadComponent: () =>
+      import('./app/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent
+      ),
+  },
   { path: '**', redirectTo: '/not-found' },
 ];
 

@@ -1,13 +1,31 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AdvancedOptions } from '../../model/search-options';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { SearchScope } from '@frhorschig/kant-search-api';
 import { FormComponent } from 'src/app/common/base/form.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { RightLabeledInputComponent } from 'src/app/common/shared/right-labeled-input/right-labeled-input.component';
 
 @Component({
   selector: 'ks-advanced-input',
   templateUrl: './advanced-input.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    NzSpaceModule,
+    NzCardModule,
+    NzDividerModule,
+    RightLabeledInputComponent,
+  ],
 })
 export class AdvancedInputComponent extends FormComponent implements OnInit {
   @Input() options: AdvancedOptions | null = null;

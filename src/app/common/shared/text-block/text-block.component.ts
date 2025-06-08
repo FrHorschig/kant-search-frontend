@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'ks-text-block',
   templateUrl: './text-block.component.html',
-  standalone: false,
+  standalone: true,
 })
 export class TextBlockComponent {
   private sanitizer = inject(DomSanitizer);

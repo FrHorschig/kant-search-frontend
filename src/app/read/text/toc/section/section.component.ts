@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Heading, Section } from '@frhorschig/kant-search-api';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ks-toc-section',
   templateUrl: './section.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, TranslateModule, NzFlexModule],
 })
 export class TocSectionComponent {
   @Input() level: number = 0;

@@ -8,12 +8,22 @@ import { HitData } from '../model/hit-data';
 import { ResultsStore } from './results.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { SearchResult } from '@frhorschig/kant-search-api';
+import { CommonModule } from '@angular/common';
+import { ResultsInputComponent } from './results-input/results-input.component';
+import { ResultListComponent } from './result-list/result-list.component';
+import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.component';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   providers: [ResultsStore, ScrollService],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ResultsInputComponent,
+    ResultListComponent,
+    ParagraphDialogComponent,
+  ],
 })
 export class ResultsComponent extends ContainerComponent implements OnInit {
   worksByCode$ = this.volStore.workByCode$;

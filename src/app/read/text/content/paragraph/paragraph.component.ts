@@ -1,11 +1,27 @@
 import { Component, Input } from '@angular/core';
 import { Footnote, Summary } from '@frhorschig/kant-search-api';
 import { TextContent } from '../../model';
+import { CommonModule } from '@angular/common';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { FootnoteComponent } from '../footnote/footnote.component';
+import { SummaryComponent } from '../summary/summary.component';
+import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
 
 @Component({
   selector: 'ks-paragraph',
   templateUrl: './paragraph.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    NzSpaceModule,
+    NzTreeModule,
+    NzCardModule,
+    TextBlockComponent,
+    FootnoteComponent,
+    SummaryComponent,
+  ],
 })
 export class ParagraphComponent {
   @Input() paragraph: TextContent = {
