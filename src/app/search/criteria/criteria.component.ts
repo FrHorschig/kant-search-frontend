@@ -13,9 +13,10 @@ import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 })
 export class CriteriaComponent extends ContainerComponent {
   volumes$ = this.volStore.volumes$;
+  canSearch$ = this.criteriaStore.canSearch$;
   searchString$ = this.criteriaStore.searchTerms$;
   workCodes$ = this.criteriaStore.workCodes$;
-  canSearch$ = this.criteriaStore.canSearch$;
+  options$ = this.criteriaStore.options$;
 
   defaultCodeSet = new Set<string>();
   showWorksSelectDialog = false;

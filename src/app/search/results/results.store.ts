@@ -90,11 +90,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         const codes = params.get('workCodes')?.split(',') ?? [];
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
-            incHead: params.get('incHead') === 'true',
-            incFn: params.get('incFn') === 'true',
-            incSumm: params.get('incSumm') === 'true',
             searchTerms: this.get((state) => state.searchTerms),
             workCodes: codes.join(','),
+            incFn: params.get('incFn') === 'true',
+            incHead: params.get('incHead') === 'true',
+            incSumm: params.get('incSumm') === 'true',
           },
         });
       })
@@ -129,11 +129,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     const criteria: SearchCriteria = {
       searchTerms: params.get('searchTerms') ?? '',
       options: {
-        includeHeadings: params.get('incHead') === 'true',
-        includeFootnotes: params.get('incFn') === 'true',
-        includeSummaries: params.get('incSumm') === 'true',
-        scope: SearchScope.Paragraph,
         workCodes: Array.from(new Set(codes)),
+        scope: SearchScope.Paragraph,
+        includeFootnotes: params.get('incFn') === 'true',
+        includeHeadings: params.get('incHead') === 'true',
+        includeSummaries: params.get('incSumm') === 'true',
       },
     };
     return criteria;

@@ -21,9 +21,9 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       workCodes: [],
       searchTerms: '',
       options: {
-        includeHeadings: true,
         includeFootnotes: true,
-        includeSummaries: true,
+        includeHeadings: false,
+        includeSummaries: false,
       },
     });
   }
@@ -35,10 +35,10 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       tap(([_, lang]) => {
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: {
-            workCodes: this.get((state) => state.workCodes.join(',')),
             searchTerms: this.get((state) => state.searchTerms),
-            incHead: this.get((state) => state.options.includeHeadings),
+            workCodes: this.get((state) => state.workCodes.join(',')),
             incFn: this.get((state) => state.options.includeFootnotes),
+            incHead: this.get((state) => state.options.includeHeadings),
             incSumm: this.get((state) => state.options.includeSummaries),
           },
         });
@@ -62,6 +62,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
   readonly canSearch$ = this.select((state) => this.canSearch(state));
   readonly searchTerms$ = this.select((state) => state.searchTerms);
   readonly workCodes$ = this.select((state) => state.workCodes);
+  readonly options$ = this.select((state) => state.options);
 
   private canSearch(state: CriteriaState): boolean {
     return state.workCodes.length > 0 && state.searchTerms.length > 0;

@@ -2,7 +2,6 @@
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Nach oben",
     "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element",
-    "VOLUME": "Band",
     "SECTION_1": "Abschnitt 1: Werke",
     "SECTION_2": "Abschnitt 2: Briefe",
     "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass"
@@ -25,7 +24,7 @@
   },
 
   "READ": {
-    "VOLUME": "Band {{volumeNumber}}: {{title}}"
+    "WORK_TITLE": "Band {{volumeNumber}}: {{title}}"
   },
 
   "SEARCH": {
@@ -51,34 +50,33 @@
         }
       },
       "ADVANCED": {
-        "INCLUDE_HEADINGS": {
-          "LABEL": "Durchsuche Überschriften",
-          "TOOLTIP": "Überschriften werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
-        },
-        "INCLUDE_FOOTNOTES": {
-          "LABEL": "Durchsuche Fußnoten",
-          "TOOLTIP": "Fußnoten werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
-        },
-        "INCLUDE_SUMMARIES": {
-          "LABEL": "Durchsuche Zusammenfassungen",
-          "TOOLTIP": "Absatz-Zusammenfassungen werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+        "HEADER": "Erweiterte Optionen",
+        "SCOPE": {
+          "TITLE": "Suchbereich",
+          "LABEL": "Suchbereich",
+          "TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
+          "OPTIONS": {
+            "PARAGRAPH": "Absatz",
+            "SENTENCE": "Satz"
+          },
+          "INCLUDE_HEADINGS": {
+            "LABEL": "Durchsuche Überschriften",
+            "TOOLTIP": "Überschriften werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+          },
+          "INCLUDE_FOOTNOTES": {
+            "LABEL": "Durchsuche Fußnoten",
+            "TOOLTIP": "Fußnoten werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+          },
+          "INCLUDE_SUMMARIES": {
+            "LABEL": "Durchsuche Zusammenfassungen",
+            "TOOLTIP": "Absatz-Zusammenfassungen werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+          }
         },
         "SEARCH_TIPS": {
-          "HEADING": "Hinweise zur Kombination von Suchbegriffen",
+          "TITLE": "Hinweise zur Kombination von Suchbegriffen",
           "TEXT": "Es ist möglich, mehrere Suchbegriffe durch logische Operatoren zu kombinieren. Nutzen Sie '&' für UND, '|' für ODER, '!' für NICHT, '(...)' zum Gruppieren von Begriffen und Anführungszeichen für genaue Phrasen.",
           "EXAMPLE": "Beispiel: (Hund | \"weiße Mäuse\") & !Katze"
         }
-      },
-      "WORKS_ADVANCED_TOOLTIP": "Komplette Liste anzeigen",
-      "WORKS_ADVANCED_TOOLTIP_DISABLED": "Wähle 'Benutzerdefinierte Auswahl', um die vollständige Liste der Werke anzuzeigen",
-      "WORKS_ADVANCED_SELECT_ALL": "Alles auswählen",
-      "WORKS_ADVANCED_REMOVE_ALL": "Alles entfernen",
-      "ADVANCED_OPTIONS_HEADER": "Erweiterte Optionen",
-      "SCOPE_LABEL": "Suchbereich",
-      "SCOPE_TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
-      "SCOPE_OPTIONS": {
-        "PARAGRAPH": "Absatz",
-        "SENTENCE": "Satz"
       }
     },
     "RESULTS": {
@@ -115,11 +113,5 @@
     },
     "INTERNAL_SERVER_ERROR": "Interner Serverfehler.",
     "NOT_IMPLEMENTED": "Funktion nicht implementiert."
-  },
-
-  "SECTIONS": {
-    "SEC_1": "Abteilung I: Werke",
-    "SEC_2": "Abteilung II: Briefwechsel",
-    "SEC_3": "Abteilung III: Handschriftlicher Nachlass"
   }
 }

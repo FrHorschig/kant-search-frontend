@@ -12,6 +12,7 @@
 
   <ks-advanced-input
     *nzSpaceItem
+    [options]="options$ | async"
     (optionsChangeEmitter)="onOptionsChange($event)"
   ></ks-advanced-input>
 </nz-space>

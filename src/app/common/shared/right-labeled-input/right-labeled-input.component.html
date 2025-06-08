@@ -1,10 +1,8 @@
 <div nz-row>
-  <div nz-col nzFlex="3">
-    <ng-content></ng-content>
-  </div>
+  <div nz-col nzFlex="11" nz-space>
+    <ng-content *nzSpaceItem></ng-content>
 
-  <div nz-col nzFlex="8">
-    <label for="{{ idString }}">
+    <label for="{{ idString }}" *nzSpaceItem>
       {{ i18nString + ".LABEL" | translate }}
     </label>
   </div>

@@ -1,36 +1,40 @@
-<nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED_OPTIONS_HEADER' | translate">
+<nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED.HEADER' | translate">
+  <h5 nz-typography>
+    {{ "SEARCH.INPUT.ADVANCED.SCOPE.TITLE" | translate }}
+  </h5>
+
   <form [formGroup]="form">
     <nz-space class="w-full" nzDirection="vertical">
-      <ks-labeled-switch
-        *nzSpaceItem
-        idString="include-heading-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_HEADINGS"
-      >
-        <nz-switch formControlName="includeHeadings"></nz-switch>
-      </ks-labeled-switch>
-
-      <ks-labeled-switch
+      <ks-right-labeled-input
         *nzSpaceItem
         idString="include-footnotes-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_FOOTNOTES"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
       >
         <nz-switch formControlName="includeFootnotes"></nz-switch>
-      </ks-labeled-switch>
+      </ks-right-labeled-input>
 
-      <ks-labeled-switch
+      <ks-right-labeled-input
+        *nzSpaceItem
+        idString="include-heading-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_HEADINGS"
+      >
+        <nz-switch formControlName="includeHeadings"></nz-switch>
+      </ks-right-labeled-input>
+
+      <ks-right-labeled-input
         *nzSpaceItem
         idString="include-summaries-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.INCLUDE_SUMMARIES"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_SUMMARIES"
       >
         <nz-switch formControlName="includeSummaries"></nz-switch>
-      </ks-labeled-switch>
+      </ks-right-labeled-input>
     </nz-space>
   </form>
 
   <nz-divider></nz-divider>
 
   <h5 nz-typography>
-    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.HEADING" | translate }}
+    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE" | translate }}
   </h5>
 
   <p>
