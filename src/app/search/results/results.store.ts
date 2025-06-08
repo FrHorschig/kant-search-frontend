@@ -12,7 +12,7 @@ import {
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { MessageService } from 'primeng/api';
-import { EMPTY, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
@@ -174,7 +174,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private loadParagraphs = this.effect<{ code: string; ordinals: number[] }>(
     (params$) =>
       params$.pipe(
-        switchMap(({ code, ordinals }) =>
+        mergeMap(({ code, ordinals }) =>
           this.readService.getParagraphs(code, ordinals).pipe(
             tapResponse((pars) => {
               const ordAndText = pars.map(
@@ -189,7 +189,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private loadHeadings = this.effect<{ code: string; ordinals: number[] }>(
     (params$) =>
       params$.pipe(
-        switchMap(({ code, ordinals }) =>
+        mergeMap(({ code, ordinals }) =>
           this.readService.getHeadings(code, ordinals).pipe(
             tapResponse((heads) => {
               const ordAndText = heads.map(
@@ -204,7 +204,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private loadFootnotes = this.effect<{ code: string; ordinals: number[] }>(
     (params$) =>
       params$.pipe(
-        switchMap(({ code, ordinals }) =>
+        mergeMap(({ code, ordinals }) =>
           this.readService.getFootnotes(code, ordinals).pipe(
             tapResponse((fns) => {
               const ordAndText = fns.map(
@@ -219,7 +219,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private loadSummaries = this.effect<{ code: string; ordinals: number[] }>(
     (params$) =>
       params$.pipe(
-        switchMap(({ code, ordinals }) =>
+        mergeMap(({ code, ordinals }) =>
           this.readService.getSummaries(code, ordinals).pipe(
             tapResponse((summs) => {
               const ordAndText = summs.map(
