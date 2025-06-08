@@ -2,10 +2,7 @@
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Nach oben",
     "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element",
-    "VOL_WORK_TITLE": "Band {{volumeNumber}}: {{title}}",
-    "SECTION_1": "Abschnitt 1: Werke",
-    "SECTION_2": "Abschnitt 2: Briefe",
-    "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass"
+    "VOL_WORK_TITLE": "Band {{volumeNumber}}: {{title}}"
   },
 
   "NAVBAR": {
@@ -35,7 +32,7 @@
   "SEARCH": {
     "INPUT": {
       "TERMS": {
-        "PLACEHOLDER": "Suchbegriffe eingeben",
+        "PLACEHOLDER": "Suchbegriffe eingeben...",
         "BUTTON": {
           "LABEL": "Suchen",
           "TOOLTIP": "Sie müssen mindestens einen Suchbegriff eingeben und mindestens ein Werk auswählen"
@@ -46,7 +43,7 @@
         "SELECT": {
           "LABEL": "Werkauswahl",
           "OPTIONS": {
-            "EMPTY": "Leere Auswahl...",
+            "EMPTY": "Leere Auswahl",
             "ALL": "Alle Bände",
             "PRECRITICAL": "Vorkritische Schriften",
             "CRITIQUES": "Kritiken",
@@ -58,7 +55,6 @@
         "HEADER": "Erweiterte Optionen",
         "SCOPE": {
           "TITLE": "Suchbereich",
-          "LABEL": "Suchbereich",
           "TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
           "OPTIONS": {
             "PARAGRAPH": "Absatz",
@@ -86,10 +82,10 @@
     },
     "RESULTS": {
       "NONE_FOUND": "Keine Ergebnisse gefunden",
-      "UPDATE_SEARCH_INPUT": "Sucheingabe aktualisieren",
-      "MATCHES": "Treffer",
-      "GO_TO_TEXT_LABEL": "Volltext",
-      "GO_TO_TEXT_TOOLTIP": "Zum Absatz im Volltext springen"
+      "NAV_FULLTEXT_BTN": {
+        "TEXT": "Volltext",
+        "TOOLTIP": "Zum Absatz im Volltext springen"
+      }
     }
   },
 

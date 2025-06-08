@@ -2,10 +2,7 @@
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Scroll to top",
     "ANCHOR_BUTTON_TOOLTIP": "Create link to this element",
-    "VOLUME": "Volume",
-    "SECTION_1": "Section 1: Works",
-    "SECTION_2": "Section 2: Letters",
-    "SECTION_3": "Section 3: Handwritten Legacy"
+    "VOL_WORK_TITLE": "Volume {{volumeNumber}}: {{title}}"
   },
 
   "NAVBAR": {
@@ -25,17 +22,28 @@
   },
 
   "READ": {
-    "VOLUME": "Volume{{volumeNumber}}: {{title}}"
+    "TOC": {
+      "TITLE": "Table of Contents",
+      "PAGE_REF": "p. {{page}}"
+    },
+    "CONTENT": "Text"
   },
 
   "SEARCH": {
     "INPUT": {
+      "TERMS": {
+        "PLACEHOLDER": "Search terms...",
+        "BUTTON": {
+          "LABEL": "Search",
+          "TOOLTIP": "You must enter at least one search term and select at least one work"
+        }
+      },
       "WORKS": {
         "TITLE": "Works selection",
         "SELECT": {
           "LABEL": "Works selection",
-          "PLACEHOLDER": "Choose predefined collection...",
           "OPTIONS": {
+            "EMPTY": "Empty selection",
             "ALL": "All volumes",
             "PRECRITICAL": "Precritical works",
             "CRITIQUES": "Critiques",
@@ -43,39 +51,41 @@
           }
         }
       },
-      "WORKS_ADVANCED_TOOLTIP": "Show full list",
-      "WORKS_ADVANCED_TOOLTIP_DISABLED": "Select 'Custom selection' to show the full list of works",
-      "WORKS_ADVANCED_SELECT_ALL": "Select all",
-      "WORKS_ADVANCED_REMOVE_ALL": "Remove all",
-      "SEARCH_STRING": {
-        "LABEL": "Search terms",
-        "TOOLTIP": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
-        "PLACEHOLDER": "Search terms"
-      },
-      "ADVANCED_OPTIONS_HEADER": "Advanced options",
-      "SCOPE_LABEL": "Search scope",
-      "SCOPE_TOOLTIP": "Search scope: 'Paragraph' will consider your search criteria within the entire paragraph, while 'Sentence' will narrow the criteria to individual sentences.",
-      "SCOPE_OPTIONS": {
-        "PARAGRAPH": "Paragraph",
-        "SENTENCE": "Sentence"
-      },
       "ADVANCED": {
-        "INCLUDE_HEADINGS_LABEL": "Include headings",
-        "INCLUDE_HEADING_TOOLTIPS": "Headings are searched and included in the results if the switch is on.",
-        "INCLUDE_FOOTNOTES_LABEL": "Include footnotes",
-        "INCLUDE_FOOTNOTE_TOOLTIPS": "Footnotes are searched and included in the results if the switch is on.",
-        "INCLUDE_SUMMARIES_LABEL": "Include summaries",
-        "INCLUDE_SUMMARIES_TOOLTIPS": "Paragraph summaries are searched and included in the results if the switch is on."
-      },
-      "BUTTON_LABEL": "Search",
-      "BUTTON_TOOLTIP": "You must enter at least one search term and select at least one work"
+        "HEADER": "Advanced options",
+        "SCOPE": {
+          "TITLE": "Search scope",
+          "TOOLTIP": "",
+          "OPTIONS": {
+            "PARAGRAPH": "Paragraphs",
+            "SENTENCE": "Senctence"
+          },
+          "INCLUDE_FOOTNOTES": {
+            "LABEL": "Include footnotes",
+            "TOOLTIP": "Footnotes are searched and included in the results if the switch is on."
+          },
+          "INCLUDE_HEADINGS": {
+            "LABEL": "Include headings",
+            "TOOLTIP": "Headings are searched and included in the results if the switch is on."
+          },
+          "INCLUDE_SUMMARIES": {
+            "LABEL": "Include summaries",
+            "TOOLTIP": "Paragraph summaries are searched and included in the results if the switch is on."
+          }
+        },
+        "SEARCH_TIPS": {
+          "TITLE": "",
+          "TEXT": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
+          "EXAMPLE": ""
+        }
+      }
     },
     "RESULTS": {
       "NONE_FOUND": "No results found",
-      "UPDATE_SEARCH_INPUT": "Update search input",
-      "MATCHES": "Matches",
-      "GO_TO_TEXT_LABEL": "Full text",
-      "GO_TO_TEXT_TOOLTIP": "Jump to the paragraph in the full text"
+      "NAV_FULLTEXT_BTN": {
+        "TEXT": "Volltext",
+        "TOOLTIP": "Zum Absatz im Volltext springen"
+      }
     }
   },
 
@@ -104,11 +114,5 @@
     },
     "INTERNAL_SERVER_ERROR": "Internal server error.",
     "NOT_IMPLEMENTED": "Feature not implemented."
-  },
-
-  "SECTIONS": {
-    "SEC_1": "Section 1: Works",
-    "SEC_2": "Section 2: Letters",
-    "SEC_3": "Section 3: Handwritten Legacy"
   }
 }
