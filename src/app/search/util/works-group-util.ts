@@ -131,6 +131,8 @@ const critiques = [
 export class WorksGroupUtil {
   static getCodes(group: WorksGroup | null): string[] {
     switch (group) {
+      case WorksGroup.EMPTY:
+        return [];
       case WorksGroup.ALL:
         return all;
       case WorksGroup.PRECRITICAL:

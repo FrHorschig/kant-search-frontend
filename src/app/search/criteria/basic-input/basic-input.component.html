@@ -59,9 +59,7 @@
 <ng-template #worksSelectTitle>
   <nz-select
     class="min-w-400"
-    nzAllowClear
     nzPlacement="bottomRight"
-    [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
     [ngModel]="worksGroup"
     (ngModelChange)="onSelectChange($event)"
   >

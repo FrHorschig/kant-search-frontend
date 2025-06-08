@@ -40,8 +40,8 @@
         "TITLE": "Werkauswahl",
         "SELECT": {
           "LABEL": "Werkauswahl",
-          "PLACEHOLDER": "Wähle vordefinierte Sammlung...",
           "OPTIONS": {
+            "EMPTY": "Leere Auswahl...",
             "ALL": "Alle Bände",
             "PRECRITICAL": "Vorkritische Schriften",
             "CRITIQUES": "Kritiken",
