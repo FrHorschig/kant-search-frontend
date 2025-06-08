@@ -111,7 +111,7 @@ const precritical = [
   'NG', //
   'GSE', //
   'VKK', //
-  'REZ_SILBERSCHLAG_2', //
+  'REZ_SIL_2', //
   'UD', //
   'NEV', //
   'TG', //
