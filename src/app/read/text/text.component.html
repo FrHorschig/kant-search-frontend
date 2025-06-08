@@ -7,6 +7,18 @@
       >
       </ks-read-toc>
 
+      <nz-divider
+        [nzText]="
+          'COMMON.VOL_WORK_TITLE'
+            | translate
+              : {
+                  volumeNumber: (work$ | async)?.volumeNumber ?? 0,
+                  title: (work$ | async)?.title ?? ''
+                }
+        "
+      >
+      </nz-divider>
+
       <ks-content
         [contents]="(textContents$ | async) || []"
         [fnByRef]="footnoteByRef$ | async"

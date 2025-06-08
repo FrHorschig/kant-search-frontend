@@ -6,6 +6,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { MessagesModule } from 'primeng/messages';
 import { TreeModule } from 'primeng/tree';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -43,6 +44,7 @@ import { HeadingComponent } from './text/content/heading/heading.component';
     MessagesModule,
     NzFlexModule,
     NzSpaceModule,
+    NzDividerModule,
     NzListModule,
     NzTreeModule,
     NzCardModule,

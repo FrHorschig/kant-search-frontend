@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Work } from '@frhorschig/kant-search-api';
+import { Work } from 'src/app/common/model/work';
 
 @Component({
   selector: 'ks-read-toc',

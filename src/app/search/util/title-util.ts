@@ -1,10 +1,4 @@
-import { Work } from 'src/app/common/model/work';
-
 export class TitleUtil {
-  static getVolNoPlusTitle(work: Work): string {
-    return `${work.volumeNumber}: ${TitleUtil.truncate(work.title, 70)}`;
-  }
-
   static truncate(str: string, maxLen: number): string {
     // TODO make max len configurable
     if (str.length <= maxLen) {

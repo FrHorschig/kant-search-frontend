@@ -43,13 +43,22 @@ export class ResultListComponent {
     }
   }
 
-  getWorkDividerText(code: string): string {
+  getWorkVolume(code: string): number {
+    const work = this.workByCode?.get(code);
+    if (!work) {
+      console.error("no work with code '" + code + "' exists");
+      return 0;
+    }
+    return work.volumeNumber;
+  }
+
+  getWorkTitle(code: string): string {
     const work = this.workByCode?.get(code);
     if (!work) {
       console.error("no work with code '" + code + "' exists");
       return this.titleCase(code);
     }
-    return TitleUtil.getVolNoPlusTitle(work);
+    return TitleUtil.truncate(work.title, 70);
   }
 
   getWorkAbbreviation(code: string): string {

@@ -2,7 +2,9 @@
   [(nzVisible)]="isVisible"
   nzWidth="50rem"
   nzTitle="#{{ data.index }} {{
-    ('COMMON.VOLUME' | translate) + ' ' + getWorkTitle()
+    'COMMON.VOL_WORK_TITLE'
+      | translate
+        : { volumeNumber: data.work.volumeNumber, title: getWorkTitle() }
   }}"
   [nzFooter]="null"
   (nzOnCancel)="onHide()"

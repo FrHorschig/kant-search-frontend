@@ -2,6 +2,7 @@
   "COMMON": {
     "SCROLL_TOP_TOOLTIP": "Nach oben",
     "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element",
+    "VOL_WORK_TITLE": "Band {{volumeNumber}}: {{title}}",
     "SECTION_1": "Abschnitt 1: Werke",
     "SECTION_2": "Abschnitt 2: Briefe",
     "SECTION_3": "Abschnitt 3: Handschriftlicher Nachlass"
@@ -21,10 +22,6 @@
   },
   "NOT-FOUND": {
     "TEXT": "Die angeforderte Seite existiert nicht."
-  },
-
-  "READ": {
-    "WORK_TITLE": "Band {{volumeNumber}}: {{title}}"
   },
 
   "SEARCH": {

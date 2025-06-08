@@ -10,9 +10,12 @@
 
     <nz-divider
       [nzText]="
-        ('COMMON.VOLUME' | translate) +
-        ' ' +
-        getWorkDividerText(result.workCode)
+        'COMMON.VOL_WORK_TITLE'
+          | translate
+            : {
+                volumeNumber: getWorkVolume(result.workCode),
+                title: getWorkTitle(result.workCode)
+              }
       "
       nzOrientation="left"
     ></nz-divider>

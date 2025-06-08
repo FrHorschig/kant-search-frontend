@@ -9,13 +9,13 @@ import {
   ReadService,
   Section,
   Summary,
-  Work,
 } from '@frhorschig/kant-search-api';
 import { MessageService } from 'primeng/api';
 import { EMPTY, forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { Work } from 'src/app/common/model/work';
 
 interface ReadState {
   work: Work | undefined;
@@ -70,6 +70,7 @@ export class TextStore extends ComponentStore<ReadState> {
               const headsByOrd = new Map(headings.map((h) => [h.ordinal, h]));
               const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
               this.patchState({
+                work,
                 headingByOrdinal: new Map(
                   headings.map((h) => [h.ordinal, h.tocText])
                 ),

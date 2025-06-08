@@ -36,7 +36,7 @@ export class ParagraphDialogComponent implements OnChanges {
   }
 
   getWorkTitle(): string {
-    return TitleUtil.getVolNoPlusTitle(this.data.work);
+    return TitleUtil.truncate(this.data.work.title, 70);
   }
 
   getTextWithHighlights(): string {
