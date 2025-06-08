@@ -1,3 +1,4 @@
+// TODO make this configurable in backend and fetch via api
 export enum WorksGroup {
   EMPTY = 0,
   ALL = 1,

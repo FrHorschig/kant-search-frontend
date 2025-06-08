@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpError } from '@frhorschig/kant-search-api';
 import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from 'primeng/api';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable, forkJoin } from 'rxjs';
 
 @Injectable({
@@ -10,11 +10,10 @@ import { Observable, forkJoin } from 'rxjs';
 export class ErrorService {
   constructor(
     private readonly translateService: TranslateService,
-    private readonly messageService: MessageService,
+    private readonly messageService: NzNotificationService
   ) {}
 
   logError(err: HttpError) {
-    this.messageService.clear();
     const summary$ = this.translateService.get('ERROR.SUMMARY');
     const paramsObj = err.params
       ? err.params.reduce((acc: any, param, index) => {
@@ -25,26 +24,15 @@ export class ErrorService {
     const msg$ = err.code
       ? this.translateService.get('ERROR.' + err.message, paramsObj)
       : this.wrapInObservable(err.message);
-    forkJoin([summary$, msg$]).subscribe((translations) => {
-      this.messageService.add({
-        severity: 'error',
-        summary: translations[0],
-        detail: translations[1],
-      });
-    });
+    forkJoin([summary$, msg$]).subscribe((translations) =>
+      this.messageService.error(translations[0], translations[1])
+    );
   }
 
   logErrorString(msg: string) {
-    this.messageService.clear();
     const summary$ = this.translateService.get('ERROR.SUMMARY');
-    forkJoin([summary$, this.wrapInObservable(msg)]).subscribe(
-      (translations) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: translations[0],
-          detail: translations[1],
-        });
-      },
+    forkJoin([summary$, this.wrapInObservable(msg)]).subscribe((translations) =>
+      this.messageService.error(translations[0], translations[1])
     );
   }
 

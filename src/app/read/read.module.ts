@@ -9,9 +9,6 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { MessagesModule } from 'primeng/messages';
-import { TreeModule } from 'primeng/tree';
-import { CheckboxModule } from 'primeng/checkbox';
 import { ReadRoutingModule } from './read-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { TocSectionComponent } from './text/toc/section/section.component';
@@ -43,7 +40,6 @@ import { HeadingComponent } from './text/content/heading/heading.component';
     TranslateModule,
     ReadRoutingModule,
     AppCommonModule,
-    MessagesModule,
     NzFlexModule,
     NzGridModule,
     NzSpaceModule,
@@ -52,8 +48,6 @@ import { HeadingComponent } from './text/content/heading/heading.component';
     NzTreeModule,
     NzCardModule,
     NzDividerModule,
-    TreeModule,
-    CheckboxModule,
   ],
 })
 export class ReadModule {}

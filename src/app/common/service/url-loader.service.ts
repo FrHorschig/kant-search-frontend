@@ -9,7 +9,7 @@ export class UrlLoaderService {
   constructor(
     private readonly http: HttpClient,
     private readonly readService: ReadService,
-    private readonly searchService: SearchService,
+    private readonly searchService: SearchService
   ) {}
 
   adjustBasePath(): Promise<void> {
@@ -21,7 +21,7 @@ export class UrlLoaderService {
           resolve();
         },
         error: (err) => {
-          // TODO frhorschig
+          console.error('Failed to load config:', err);
           reject(err);
         },
       });

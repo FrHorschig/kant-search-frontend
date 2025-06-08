@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonModule } from 'primeng/button';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -18,14 +17,6 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { CardModule } from 'primeng/card';
-import { DialogModule } from 'primeng/dialog';
-import { DividerModule } from 'primeng/divider';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessagesModule } from 'primeng/messages';
-import { TooltipModule } from 'primeng/tooltip';
-import { DropdownModule } from 'primeng/dropdown';
-import { TreeModule } from 'primeng/tree';
 import { SearchRoutingModule } from './search-routing.module';
 import { CommonModule as AppCommonModule } from '../common/common.module';
 import { ResultListComponent } from './results/result-list/result-list.component';
@@ -57,7 +48,6 @@ import { ResultsComponent } from './results/results.component';
     TranslateModule,
     SearchRoutingModule,
     AppCommonModule,
-    ButtonModule,
     NzFlexModule,
     NzGridModule,
     NzSpaceModule,
@@ -73,14 +63,6 @@ import { ResultsComponent } from './results/results.component';
     NzCollapseModule,
     NzTypographyModule,
     NzIconModule,
-    CardModule,
-    DialogModule,
-    DividerModule,
-    InputTextModule,
-    MessagesModule,
-    TooltipModule,
-    DropdownModule,
-    TreeModule,
   ],
 })
 export class SearchModule {}

@@ -13,12 +13,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { MessagesModule } from 'primeng/messages';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { TooltipModule } from 'primeng/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
@@ -58,14 +52,8 @@ export function loadBackendUrl(urlLoader: UrlLoaderService) {
     NzFlexModule,
     NzIconModule,
     NzMenuModule,
-    ButtonModule,
-    MessagesModule,
-    TabMenuModule,
-    TooltipModule,
-    MenuModule,
   ],
   providers: [
-    MessageService,
     {
       provide: APP_INITIALIZER,
       useFactory: loadBackendUrl,

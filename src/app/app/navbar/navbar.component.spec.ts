@@ -1,11 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
-import { MenuItemCommandEvent, MessageService } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { Router, RouterModule } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -16,13 +14,10 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      providers: [{ provide: MessageService, useValue: mockMessageService }],
-      imports: [
-        RouterModule.forRoot([]),
-        TranslateModule.forRoot(),
-        TabMenuModule,
-        MenuModule,
+      providers: [
+        { provide: NzNotificationService, useValue: mockMessageService },
       ],
+      imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);

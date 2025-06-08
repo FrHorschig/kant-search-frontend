@@ -10,7 +10,6 @@ import {
   Section,
   Summary,
 } from '@frhorschig/kant-search-api';
-import { MessageService } from 'primeng/api';
 import { EMPTY, forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
@@ -31,7 +30,6 @@ interface ReadState {
 export class TextStore extends ComponentStore<ReadState> {
   constructor(
     private readonly router: Router,
-    private readonly messageService: MessageService,
     private readonly errorService: ErrorService,
     private readonly langStore: LanguageStore,
     private readonly readService: ReadService,
@@ -55,7 +53,6 @@ export class TextStore extends ComponentStore<ReadState> {
 
   readonly loadData = this.effect<string>((workCode) =>
     workCode.pipe(
-      tap(() => this.messageService.clear()),
       withLatestFrom(this.volStore.workByCode$),
       switchMap(([workCode, workByCode]) =>
         forkJoin({

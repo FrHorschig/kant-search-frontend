@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { ContainerComponent } from 'src/app/common/base/container.component';
 import { AdvancedOptions } from '../model/search-options';
 import { CriteriaStore } from './criteria.store';
@@ -22,7 +21,6 @@ export class CriteriaComponent extends ContainerComponent {
   showWorksSelectDialog = false;
 
   constructor(
-    private readonly messageService: MessageService,
     private readonly volStore: VolumesStore,
     private readonly criteriaStore: CriteriaStore
   ) {
@@ -38,7 +36,6 @@ export class CriteriaComponent extends ContainerComponent {
   }
 
   onSearch() {
-    this.messageService.clear();
     this.criteriaStore.navigateSearch();
   }
 
