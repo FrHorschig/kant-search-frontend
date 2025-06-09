@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
-import { ContainerComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -23,7 +23,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     ContentComponent,
   ],
 })
-export class TextComponent extends ContainerComponent implements OnInit {
+export class TextComponent extends SubscriptionComponent implements OnInit {
   work$ = this.store.work$;
   textContents$ = this.store.textContents$;
   headingByOrdinal$ = this.store.headingByOrdinal$;

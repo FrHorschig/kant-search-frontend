@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ContainerComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { LanguageStore } from 'src/app/store/language/language.store';
-import { map, Observable } from 'rxjs';
+import { combineLatest, filter, map, Observable } from 'rxjs';
 import {
   NzFormatEmitEvent,
   NzTreeModule,
@@ -11,8 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ks-selection',
@@ -20,12 +19,16 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, TranslateModule, NzSpaceModule, NzTreeModule],
 })
-export class SelectionComponent extends ContainerComponent {
+export class SelectionComponent extends SubscriptionComponent {
   volumes$ = this.volStore.volumes$;
   isLoaded$ = this.volStore.isLoaded$;
 
-  nodes$: Observable<NzTreeNodeOptions[]> = this.volumes$.pipe(
-    map((vols) =>
+  nodes$: Observable<NzTreeNodeOptions[]> = combineLatest([
+    this.volumes$,
+    this.langStore.ready$,
+  ]).pipe(
+    filter(([_, ready]) => ready),
+    map(([vols, _]) =>
       vols.map((vol) => {
         const children = vol.works.map((work) => {
           return {
@@ -35,8 +38,10 @@ export class SelectionComponent extends ContainerComponent {
           };
         });
         return {
-          title: vol.title,
-          // TODO add "Band X: " to this title, same for works selection tree
+          title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+            volumeNumber: vol.volumeNumber,
+            title: vol.title,
+          }),
           key: `volume-${vol.volumeNumber}`,
           children: children,
         };
@@ -46,6 +51,7 @@ export class SelectionComponent extends ContainerComponent {
 
   constructor(
     private readonly router: Router,
+    private readonly translateService: TranslateService,
     private readonly langStore: LanguageStore,
     private readonly volStore: VolumesStore
   ) {

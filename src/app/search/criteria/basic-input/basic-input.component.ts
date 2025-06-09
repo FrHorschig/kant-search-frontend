@@ -10,10 +10,13 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { LanguageStore } from 'src/app/store/language/language.store';
+import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'ks-basic-input',
@@ -32,7 +35,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzToolTipModule,
   ],
 })
-export class BasicInputComponent implements OnInit {
+export class BasicInputComponent
+  extends SubscriptionComponent
+  implements OnInit
+{
   @Input() volumes: Volume[] = [];
   @Input() canSearch: boolean = false;
 
@@ -42,7 +48,6 @@ export class BasicInputComponent implements OnInit {
 
   searchTerms: string = '';
 
-  // customGroup = WorksGroup.CUSTOM;
   worksGroupOptions = Object.values(WorksGroup).filter(
     (value) => typeof value === 'number' && value !== 99
   ) as WorksGroup[];
@@ -51,23 +56,20 @@ export class BasicInputComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   checkedKeys: string[] = [];
 
-  constructor() {}
+  constructor(
+    private readonly translateService: TranslateService,
+    private readonly langStore: LanguageStore
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.nodes = this.volumes.map((vol) => {
-      const children = vol.works.map((work) => {
-        return {
-          title: TitleUtil.truncate(work.title, 75),
-          key: work.code,
-          isLeaf: true,
-        };
-      });
-      return {
-        title: vol.title,
-        key: `volume-${vol.volumeNumber}`,
-        children: children,
-      };
-    });
+    this.langStore.ready$
+      .pipe(
+        filter((ready) => ready),
+        this.takeUntilDestroy()
+      )
+      .subscribe(() => this.buildNodes());
     this.worksGroup = WorksGroup.ALL;
     this.checkedKeys = WorksGroupUtil.getCodes(WorksGroup.ALL);
     this.workCodesEmitter.emit(this.checkedKeys);
@@ -115,5 +117,25 @@ export class BasicInputComponent implements OnInit {
 
   onSubmit() {
     this.doSearchEmitter.emit();
+  }
+
+  private buildNodes() {
+    this.nodes = this.volumes.map((vol) => {
+      const children = vol.works.map((work) => {
+        return {
+          title: TitleUtil.truncate(work.title, 75),
+          key: work.code,
+          isLeaf: true,
+        };
+      });
+      return {
+        title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+          volumeNumber: vol.volumeNumber,
+          title: vol.title,
+        }),
+        key: `volume-${vol.volumeNumber}`,
+        children: children,
+      };
+    });
   }
 }

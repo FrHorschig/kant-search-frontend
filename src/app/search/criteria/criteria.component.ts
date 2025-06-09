@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ContainerComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { AdvancedOptions } from '../model/search-options';
 import { CriteriaStore } from './criteria.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
     AdvancedInputComponent,
   ],
 })
-export class CriteriaComponent extends ContainerComponent {
+export class CriteriaComponent extends SubscriptionComponent {
   volumes$ = this.volStore.volumes$;
   canSearch$ = this.criteriaStore.canSearch$;
   searchString$ = this.criteriaStore.searchTerms$;

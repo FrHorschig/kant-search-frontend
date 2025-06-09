@@ -1,10 +1,8 @@
-import { Component, HostListener } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
 import { VolumesStore } from './store/volumes/volumes.store';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
@@ -14,7 +12,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   imports: [
     CommonModule,
     RouterModule,
-    TranslateModule,
     NavbarComponent,
     NzFlexModule,
     NzSpaceModule,
@@ -22,11 +19,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  constructor(
-    private readonly translateService: TranslateService,
-    private readonly volStore: VolumesStore
-  ) {
-    this.translateService.setDefaultLang('de');
+  constructor(private readonly volStore: VolumesStore) {
     this.volStore.loadData();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, take } from 'rxjs';
-import { ContainerComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { HitData } from '../model/hit-data';
@@ -33,7 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ParagraphDialogComponent,
   ],
 })
-export class ResultsComponent extends ContainerComponent implements OnInit {
+export class ResultsComponent extends SubscriptionComponent implements OnInit {
   worksByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;

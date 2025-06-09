@@ -14,14 +14,7 @@ import { ApiModule } from '@frhorschig/kant-search-api';
 import { UrlLoaderService } from './common/service/url-loader.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
-
-export function loadBackendUrl(urlLoader: UrlLoaderService) {
-  return urlLoader.adjustBasePath();
-}
+import { LanguageStore } from './store/language/language.store';
 
 const routes: Routes = [
   { path: '', redirectTo: '/de/start', pathMatch: 'full' },
@@ -92,13 +85,17 @@ export const appProviders = [
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
         deps: [HttpClient],
       },
     })
   ),
   provideAppInitializer(() => {
     const urlLoader = inject(UrlLoaderService);
-    return urlLoader.adjustBasePath();
+    const langStore = inject(LanguageStore);
+    return (async () => {
+      await urlLoader.adjustBasePath();
+      await langStore.init();
+    })();
   }),
 ];

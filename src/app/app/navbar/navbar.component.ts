@@ -7,7 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LanguageStore } from '../../store/language/language.store';
-import { ContainerComponent } from '../../common/base/container.component';
+import { SubscriptionComponent } from '../../common/base/container.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
@@ -24,7 +24,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     TranslateModule,
   ],
 })
-export class NavbarComponent extends ContainerComponent {
+export class NavbarComponent extends SubscriptionComponent {
   availableLanguages$ = this.langStore.availableLanguages$;
   currentLanguage$ = this.langStore.currentLanguage$;
 
