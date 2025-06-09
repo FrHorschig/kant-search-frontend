@@ -1,7 +1,9 @@
-<ks-navbar></ks-navbar>
+<nz-space class="w-full" nzDirection="vertical">
+  <ks-navbar *nzSpaceItem></ks-navbar>
 
-<div nz-flex nzJustify="center">
-  <div class="max-w-base">
-    <router-outlet></router-outlet>
+  <div *nzSpaceItem nz-flex nzJustify="center">
+    <div class="max-w-base">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</div>
+</nz-space>

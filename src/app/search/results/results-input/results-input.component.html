@@ -1,24 +1,14 @@
-<nz-space class="w-full" nzDirection="vertical">
-  <!-- TODO handle this space in a central place -->
-  <div *nzSpaceItem></div>
-
-  <nz-input-group
-    *nzSpaceItem
-    nzSearch
-    nzSize="large"
-    [nzAddOnAfter]="suffixButton"
-  >
-    <input
-      class="w-full"
-      nz-input
-      type="text"
-      [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
-      [ngModel]="searchTerms"
-      (ngModelChange)="onSearchTermsChange($event)"
-      (keyup.enter)="onSubmit()"
-    />
-  </nz-input-group>
-</nz-space>
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+  <input
+    class="w-full"
+    nz-input
+    type="text"
+    [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
+    [ngModel]="searchTerms"
+    (ngModelChange)="onSearchTermsChange($event)"
+    (keyup.enter)="onSubmit()"
+  />
+</nz-input-group>
 
 <ng-template #suffixButton>
   <button

@@ -1,6 +1,5 @@
 export class TitleUtil {
   static truncate(str: string, maxLen: number): string {
-    // TODO make max len configurable
     if (str.length <= maxLen) {
       return str;
     }

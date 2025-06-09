@@ -110,7 +110,7 @@ describe('ResultsStore', () => {
     });
   });
 
-  /* TODO frhorschig
+  /*
   it('should navigate when updateSearch is called', () => {
     testScheduler.run(({ flush }) => {
       const results = [{ workId: 1, matches: [Testdata.match] }];
