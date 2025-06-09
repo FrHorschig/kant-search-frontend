@@ -9,36 +9,33 @@
     [nzAddOnAfter]="suffixButton"
   >
     <input
-      nz-input
       class="w-full"
+      nz-input
+      type="text"
       [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
       [ngModel]="searchTerms"
       (ngModelChange)="onSearchTermsChange($event)"
       (keyup.enter)="onSubmit()"
-      type="text"
     />
   </nz-input-group>
 </nz-space>
 
 <ng-template #suffixButton>
-  <span
+  <button
+    nz-button
+    nzSearch
+    nzType="primary"
+    nzSize="large"
+    [disabled]="searchTerms === ''"
+    (click)="onSubmit()"
     nz-tooltip
     [nzTooltipTitle]="
       searchTerms === ''
-        ? ('SEARCH.INPUT.TERMS.BUTTON.TOOLTIP' | translate)
-        : ''
+        ? ('SEARCH.RESULTS.BUTTON.DISABLED' | translate)
+        : ('SEARCH.RESULTS.BUTTON.ENABLED' | translate)
     "
+    nzTooltipPlacement="bottomRight"
   >
-    <button
-      nz-button
-      nzSearch
-      nzType="primary"
-      nzSize="large"
-      [disabled]="searchTerms === ''"
-      (click)="onSubmit()"
-    >
-      <nz-icon nzType="reload" nzTheme="outline" />
-      {{ "SEARCH.INPUT.TERMS.BUTTON.LABEL" | translate }}
-    </button>
-  </span>
+    <nz-icon nzType="reload" nzTheme="outline" />
+  </button>
 </ng-template>

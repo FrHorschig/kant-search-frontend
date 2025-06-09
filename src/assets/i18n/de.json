@@ -84,6 +84,10 @@
       }
     },
     "RESULTS": {
+      "BUTTON": {
+        "ENABLED": "Suche aktualisieren",
+        "DISABLED": "Sie müssen mindestens einen Suchbegriff eingeben, um die Suche zu aktualisieren"
+      },
       "NONE_FOUND": "Keine Ergebnisse gefunden",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",

@@ -13,6 +13,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'ks-basic-input',
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     TranslateModule,
     NzSpaceModule,
+    NzButtonModule,
     NzTreeModule,
     NzCardModule,
     NzSelectModule,

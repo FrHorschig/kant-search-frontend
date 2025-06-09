@@ -9,8 +9,8 @@
     [nzAddOnAfter]="suffixButton"
   >
     <input
-      nz-input
       class="w-full"
+      nz-input
       [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
       [ngModel]="searchTerms"
       (ngModelChange)="onSearchTermsChange($event)"
@@ -37,23 +37,21 @@
 </nz-space>
 
 <ng-template #suffixButton>
-  <span
+  <button
+    nz-button
+    nzSearch
+    nzType="primary"
+    nzSize="large"
+    [disabled]="!canSearch"
+    (click)="onSubmit()"
     nz-tooltip
     [nzTooltipTitle]="
       !canSearch ? ('SEARCH.INPUT.TERMS.BUTTON.TOOLTIP' | translate) : ''
     "
+    nzTooltipPlacement="bottomRight"
   >
-    <button
-      nz-button
-      nzSearch
-      nzType="primary"
-      nzSize="large"
-      [disabled]="!canSearch"
-      (click)="onSubmit()"
-    >
-      {{ "SEARCH.INPUT.TERMS.BUTTON.LABEL" | translate }}
-    </button>
-  </span>
+    {{ "SEARCH.INPUT.TERMS.BUTTON.LABEL" | translate }}
+  </button>
 </ng-template>
 
 <ng-template #worksSelectTitle>
