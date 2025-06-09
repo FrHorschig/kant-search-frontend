@@ -42,7 +42,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     });
   }
 
-  readonly searchParagraphs = this.effect<void>(() =>
+  readonly search = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
       map((params) => this.criteriaFromParams(params)),
       tap((criteria) =>
@@ -58,6 +58,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           withLatestFrom(this.volStore.workByCode$),
           tapResponse(
             ([results, workByCode]) => {
+              results = results ? results : [];
               this.patchState({
                 results: this.sort(results, Array.from(workByCode.values())),
                 textByCodeByOrdinal: this.collectTexts(results),

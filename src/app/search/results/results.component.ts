@@ -66,7 +66,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resultsStore.searchParagraphs();
+    this.resultsStore.search();
     combineLatest([this.route.fragment, this.ready$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, isLoaded]) => {

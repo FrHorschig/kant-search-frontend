@@ -80,7 +80,7 @@ describe('ResultsStore', () => {
       // GIVEN
       (searchService.search as jasmine.Spy).and.returnValue(of(results));
       // WHEN
-      store.searchParagraphs();
+      store.search();
       flush();
       // THEN
       expect(messageService.clear).toHaveBeenCalled();
@@ -102,7 +102,7 @@ describe('ResultsStore', () => {
         throwError(() => new HttpErrorResponse({ error: err }))
       );
       // WHEN
-      store.searchParagraphs();
+      store.search();
       flush();
       // THEN
       expect(errorService.logError).toHaveBeenCalledWith(err);

@@ -68,7 +68,9 @@ export class TextStore extends ComponentStore<ReadState> {
               if (!work) {
                 throw new Error('no work with code ' + workCode + ' found');
               }
+              headings = headings ? headings : [];
               const headsByOrd = new Map(headings.map((h) => [h.ordinal, h]));
+              paragraphs = paragraphs ? paragraphs : [];
               const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
               this.patchState({
                 work,
