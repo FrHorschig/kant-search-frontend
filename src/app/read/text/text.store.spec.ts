@@ -44,7 +44,6 @@ describe('TextStore', () => {
   });
 
   it('should load data and update state on success', () => {
-    // TODO extend tests
     const mockWork: Work = {
       id: 'work1',
       code: 'code',

@@ -61,7 +61,7 @@ export class TextStore extends ComponentStore<ReadState> {
           paragraphs: this.readService.getParagraphs(workCode),
           summaries: this.readService.getSummaries(workCode),
         }).pipe(
-          // TODO: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
+          // TODO improve performance: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
             ({ headings, footnotes, paragraphs, summaries }) => {
               const work = workByCode.get(workCode);
