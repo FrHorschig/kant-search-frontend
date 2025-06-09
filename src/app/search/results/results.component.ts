@@ -16,6 +16,8 @@ import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { ResultsCountComponent } from './results-count/results-count.component';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'app-results',
@@ -25,16 +27,18 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     TranslateModule,
+    NzSpaceModule,
     NzFloatButtonModule,
     NzIconModule,
     NzToolTipModule,
     ResultsInputComponent,
+    ResultsCountComponent,
     ResultListComponent,
     ParagraphDialogComponent,
   ],
 })
 export class ResultsComponent extends SubscriptionComponent implements OnInit {
-  worksByCode$ = this.volStore.workByCode$;
+  workByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
   isLoaded$ = this.resultsStore.isLoaded$;

@@ -1,18 +1,25 @@
 <ng-container *ngIf="isLoaded$ | async">
-  <ks-results-input
-    [searchTerms]="(searchTerms$ | async) || ''"
-    (searchTermsEmitter)="onSearchTermsChange($event)"
-    (doUpdateEmitter)="onUpdate()"
-  ></ks-results-input>
+  <nz-space class="w-full" nzDirection="vertical">
+    <ks-results-input
+      *nzSpaceItem
+      [searchTerms]="(searchTerms$ | async) || ''"
+      (searchTermsEmitter)="onSearchTermsChange($event)"
+      (doUpdateEmitter)="onUpdate()"
+    ></ks-results-input>
 
-  <!-- TODO show number of results -->
-  {{ getResultCount((results$ | async) ?? []) }}
+    <ks-results-count
+      *nzSpaceItem
+      [workByCode]="workByCode$ | async"
+      [results]="(results$ | async) ?? []"
+    ></ks-results-count>
 
-  <ks-result-list
-    [workByCode]="worksByCode$ | async"
-    [results]="(results$ | async) || []"
-    (onClick)="onClick($event)"
-  ></ks-result-list>
+    <ks-result-list
+      *nzSpaceItem
+      [workByCode]="workByCode$ | async"
+      [results]="(results$ | async) || []"
+      (onClick)="onClick($event)"
+    ></ks-result-list>
+  </nz-space>
 </ng-container>
 
 <ks-paragraph-dialog

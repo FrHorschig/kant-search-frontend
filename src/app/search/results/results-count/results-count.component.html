@@ -1,0 +1,18 @@
+<nz-collapse>
+  <nz-collapse-panel
+    [nzHeader]="'SEARCH.RESULTS.COUNT.TOTAL' | translate"
+    [nzActive]="true"
+    [nzExtra]="totalCount"
+  >
+    @for (result of results; track result.workCode) {
+    <div nz-flex nzJustify="space-between">
+      <span>{{ getWorkTitle(result.workCode) }}</span>
+      <span>{{ result.hits.length }}</span>
+    </div>
+    }
+  </nz-collapse-panel>
+</nz-collapse>
+
+<ng-template #totalCount>
+  {{ getTotalCount() }}
+</ng-template>

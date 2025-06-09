@@ -11,4 +11,9 @@ export class TitleUtil {
     }
     return truncated.slice(0, lastSpaceIndex) + '...';
   }
+
+  static titleCase(text: string): string {
+    if (!text) return '';
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  }
 }

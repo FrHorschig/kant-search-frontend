@@ -89,7 +89,10 @@
         "ENABLED": "Update search",
         "DISABLED": "You must enter at least one search term to update the search"
       },
-      "NONE_FOUND": "No results found",
+      "COUNT": {
+        "TOTAL": "Total search results",
+        "VOLUME": "Volume"
+      },
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",
         "TOOLTIP": "Zum Absatz im Volltext springen"

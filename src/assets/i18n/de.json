@@ -89,7 +89,10 @@
         "ENABLED": "Suche aktualisieren",
         "DISABLED": "Sie müssen mindestens einen Suchbegriff eingeben, um die Suche zu aktualisieren"
       },
-      "NONE_FOUND": "Keine Ergebnisse gefunden",
+      "COUNT": {
+        "TOTAL": "Gesamtzahl Suchergebnisse",
+        "VOLUME": "Band"
+      },
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",
         "TOOLTIP": "Zum Absatz im Volltext springen"

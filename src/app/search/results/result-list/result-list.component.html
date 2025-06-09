@@ -1,16 +1,8 @@
-<!-- TODO move this to new result count component, there add navigation to id div below -->
-<ng-container *ngIf="results.length === 0">
-  <div nz-flex nzJustify="center">
-    <p>{{ "SEARCH.RESULTS.NONE_FOUND" | translate }}</p>
-  </div>
-</ng-container>
-
 <ng-container *ngIf="results.length > 0">
   <nz-space nzDirection="vertical">
     <ng-container *ngFor="let result of results">
-      <div *nzSpaceItem id="results-{{ result.workCode }}"></div>
-
       <nz-divider
+        id="results-{{ result.workCode }}"
         *nzSpaceItem
         [nzText]="
           'COMMON.VOL_WORK_TITLE'

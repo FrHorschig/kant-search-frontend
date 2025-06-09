@@ -70,7 +70,7 @@ export class ResultListComponent {
     const work = this.workByCode?.get(code);
     if (!work) {
       console.error("no work with code '" + code + "' exists");
-      return this.titleCase(code);
+      return TitleUtil.titleCase(code);
     }
     return TitleUtil.truncate(work.title, 70);
   }
@@ -79,17 +79,12 @@ export class ResultListComponent {
     const work = this.workByCode?.get(code);
     if (!work) {
       console.error("no work with code '" + code + "' exists");
-      return this.titleCase(code);
+      return TitleUtil.titleCase(code);
     }
-    return work.abbreviation ? work.abbreviation : this.titleCase(code);
+    return work.abbreviation ? work.abbreviation : TitleUtil.titleCase(code);
   }
 
   getAnchorId(workCode: string, hitOrdinal: number): string {
     return `match-${workCode}-${hitOrdinal}`;
-  }
-
-  private titleCase(text: string): string {
-    if (!text) return '';
-    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   }
 }
