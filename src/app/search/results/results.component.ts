@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, take } from 'rxjs';
 import { ContainerComponent } from 'src/app/common/base/container.component';
@@ -12,6 +12,10 @@ import { CommonModule } from '@angular/common';
 import { ResultsInputComponent } from './results-input/results-input.component';
 import { ResultListComponent } from './result-list/result-list.component';
 import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.component';
+import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-results',
@@ -20,6 +24,10 @@ import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.co
   standalone: true,
   imports: [
     CommonModule,
+    TranslateModule,
+    NzFloatButtonModule,
+    NzIconModule,
+    NzToolTipModule,
     ResultsInputComponent,
     ResultListComponent,
     ParagraphDialogComponent,
@@ -40,6 +48,7 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
     ordinal: 0,
     index: 0,
   };
+  showUpButton = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -83,5 +92,14 @@ export class ResultsComponent extends ContainerComponent implements OnInit {
 
   onFullTextNavigation(info: FullTextInfo) {
     this.resultsStore.navigateToFullText(info);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.showUpButton = window.scrollY > 200;
+  }
+
+  scrollTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

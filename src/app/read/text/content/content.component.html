@@ -17,3 +17,19 @@
     }
   </div>
 </div>
+
+<ng-container *ngIf="showUpButton">
+  <div class="ks-scroll-to-top">
+    <nz-float-button
+      nzType="default"
+      [nzIcon]="icon"
+      (click)="scrollTop()"
+      nz-tooltip
+      [nzTooltipTitle]="'COMMON.SCROLL_TOP_TOOLTIP' | translate"
+    ></nz-float-button>
+  </div>
+</ng-container>
+
+<ng-template #icon>
+  <nz-icon nzType="up" nzTheme="outline" />
+</ng-template>

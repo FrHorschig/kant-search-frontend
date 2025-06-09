@@ -16,27 +16,15 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     TranslateModule,
     NavbarComponent,
     NzFlexModule,
-    NzButtonModule,
   ],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  showButton = false;
-
   constructor(
     private readonly translateService: TranslateService,
     private readonly volStore: VolumesStore
   ) {
     this.translateService.setDefaultLang('de');
     this.volStore.loadData();
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    this.showButton = window.scrollY > 200;
-  }
-
-  scrollTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
