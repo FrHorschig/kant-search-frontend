@@ -16,18 +16,23 @@
     />
   </nz-input-group>
 
-  <!-- TODO write message if no volumes exist -->
   <nz-card
     *nzSpaceItem
     [nzTitle]="'SEARCH.INPUT.WORKS.TITLE' | translate"
     [nzExtra]="worksSelectTitle"
   >
-    <nz-tree
-      nzCheckable
-      [nzData]="nodes"
-      [nzCheckedKeys]="checkedKeys"
-      (nzCheckedKeysChange)="onCheckedKeysChange($event)"
-    ></nz-tree>
+    <ng-container *ngIf="nodes.length === 0">
+      {{ "SEARCH.INPUT.WORKS.NO_VOLUMES" | translate }}
+    </ng-container>
+
+    <ng-container *ngIf="nodes.length > 0">
+      <nz-tree
+        nzCheckable
+        [nzData]="nodes"
+        [nzCheckedKeys]="checkedKeys"
+        (nzCheckedKeysChange)="onCheckedKeysChange($event)"
+      ></nz-tree>
+    </ng-container>
   </nz-card>
 </nz-space>
 

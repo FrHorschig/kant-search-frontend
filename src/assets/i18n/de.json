@@ -43,6 +43,7 @@
       },
       "WORKS": {
         "TITLE": "Werkauswahl",
+        "NO_VOLUMES": "Es sind keine Werke zum Durchsuchen vorhanden",
         "SELECT": {
           "LABEL": "Werkauswahl",
           "OPTIONS": {
