@@ -9,6 +9,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { TocComponent } from './toc/toc.component';
 import { ContentComponent } from './content/content.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ks-text',
@@ -19,6 +20,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     CommonModule,
     NzFlexModule,
     NzTypographyModule,
+    NzIconModule,
     TocComponent,
     ContentComponent,
   ],
@@ -29,7 +31,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   headingByOrdinal$ = this.store.headingByOrdinal$;
   footnoteByRef$ = this.store.footnoteByRef$;
   summaryByRef$ = this.store.summaryByRef$;
-  isLoaded$ = this.store.isLoaded$;
+  ready$ = this.store.ready$;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -42,10 +44,10 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   ngOnInit(): void {
     const code = this.route.snapshot.params['workCode'];
     this.store.loadData(code);
-    combineLatest([this.route.fragment, this.isLoaded$])
+    combineLatest([this.route.fragment, this.ready$])
       .pipe(this.takeUntilDestroy())
-      .subscribe(([fragment, isLoaded]) => {
-        if (fragment && isLoaded) {
+      .subscribe(([fragment, ready]) => {
+        if (fragment && ready) {
           this.scrollService.scrollToAnchor(fragment);
         }
       });

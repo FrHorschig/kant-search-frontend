@@ -1,4 +1,10 @@
-<ng-container *ngIf="isLoaded$ | async">
+<ng-container *ngIf="!(ready$ | async)">
+  <div nz-flex nzJustify="center" nzAlign="center">
+    <nz-icon nzType="loading" nzTheme="outline" style="font-size: 48px" />
+  </div>
+</ng-container>
+
+<ng-container *ngIf="ready$ | async">
   <nz-space class="w-full" nzDirection="vertical">
     <ks-results-input
       *nzSpaceItem

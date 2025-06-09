@@ -49,7 +49,7 @@ export class TextStore extends ComponentStore<ReadState> {
   readonly headingByOrdinal$ = this.select((state) => state.headingByOrdinal);
   readonly footnoteByRef$ = this.select((state) => state.footnoteByRef);
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
-  readonly isLoaded$ = this.select((state) => state.textContents.length > 0);
+  readonly ready$ = this.select((state) => state.textContents.length > 0);
 
   readonly loadData = this.effect<string>((workCode) =>
     workCode.pipe(

@@ -1,5 +1,11 @@
+<ng-container *ngIf="!(ready$ | async)">
+  <div nz-flex nzJustify="center" nzAlign="center">
+    <nz-icon nzType="loading" nzTheme="outline" style="font-size: 48px" />
+  </div>
+</ng-container>
+
 <div nz-flex nzJustify="center">
-  <div *ngIf="isLoaded$ | async">
+  <div *ngIf="ready$ | async">
     <h2 nz-typography>
       <div class="cursor-pointer">
         {{ (work$ | async)?.title ?? "" }}

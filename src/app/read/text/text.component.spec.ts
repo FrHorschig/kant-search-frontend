@@ -55,7 +55,7 @@ describe('TextComponent', () => {
       expect(paras).toHaveSize(1);
       expect(paras).toContain(Testdata.paragraph);
     });
-    component.isLoaded$.subscribe((isLoaded) => {
+    component.ready$.subscribe((isLoaded) => {
       expect(isLoaded).toEqual(true);
     });
   });

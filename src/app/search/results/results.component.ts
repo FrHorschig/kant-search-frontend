@@ -18,6 +18,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResultsCountComponent } from './results-count/results-count.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'app-results',
@@ -27,6 +28,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   imports: [
     CommonModule,
     TranslateModule,
+    NzFlexModule,
     NzSpaceModule,
     NzFloatButtonModule,
     NzIconModule,
@@ -41,8 +43,8 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   workByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
-  isLoaded$ = this.resultsStore.isLoaded$;
-  resultTextByOrdinal$ = this.resultsStore.resultTextByOrdinal$;
+  ready$ = this.resultsStore.ready$;
+  textByCodeByOrdinal$ = this.resultsStore.textByCodeByOrdinal$;
 
   showParagraph = false;
   hitData: HitData = {
@@ -65,7 +67,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
 
   ngOnInit() {
     this.resultsStore.searchParagraphs();
-    combineLatest([this.route.fragment, this.isLoaded$])
+    combineLatest([this.route.fragment, this.ready$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, isLoaded]) => {
         if (fragment && isLoaded) {
@@ -88,8 +90,9 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
 
   onClick(hitData: HitData) {
     this.hitData = hitData;
-    this.resultTextByOrdinal$.pipe(take(1)).subscribe((textByOrdinal) => {
-      this.hitData.text = textByOrdinal.get(hitData.ordinal) ?? '';
+    this.textByCodeByOrdinal$.pipe(take(1)).subscribe((textByCodeByOrdinal) => {
+      this.hitData.text =
+        textByCodeByOrdinal.get(hitData.work.code)?.get(hitData.ordinal) ?? '';
       this.showParagraph = true;
     });
   }

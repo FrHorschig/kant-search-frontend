@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
   HttpError,
-  ReadService,
   SearchCriteria,
   SearchResult,
   SearchScope,
@@ -11,7 +10,7 @@ import {
 } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { EMPTY, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
@@ -21,8 +20,8 @@ import { Work } from 'src/app/common/model/work';
 interface ResultsState {
   searchTerms: string;
   results: SearchResult[];
-  isLoaded: boolean;
-  resultTextByOrdinal: Map<number, string>;
+  ready: boolean;
+  textByCodeByOrdinal: Map<string, Map<number, string>>;
 }
 
 @Injectable()
@@ -33,14 +32,13 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly errorService: ErrorService,
     private readonly langStore: LanguageStore,
     private readonly volStore: VolumesStore,
-    private readonly searchService: SearchService,
-    private readonly readService: ReadService
+    private readonly searchService: SearchService
   ) {
     super({
       searchTerms: '',
       results: [],
-      isLoaded: false,
-      resultTextByOrdinal: new Map(),
+      textByCodeByOrdinal: new Map(),
+      ready: false,
     });
   }
 
@@ -51,8 +49,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.patchState({
           searchTerms: criteria.searchTerms,
           results: [],
-          isLoaded: false,
-          resultTextByOrdinal: new Map(),
+          textByCodeByOrdinal: new Map(),
+          ready: false,
         })
       ),
       switchMap((criteria: SearchCriteria) =>
@@ -62,12 +60,12 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             ([results, workByCode]) => {
               this.patchState({
                 results: this.sort(results, Array.from(workByCode.values())),
-                isLoaded: true,
+                textByCodeByOrdinal: this.collectTexts(results),
+                ready: true,
               });
-              this.loadContents(criteria, results);
             },
             (err: HttpErrorResponse) => {
-              this.patchState({ isLoaded: true });
+              this.patchState({ ready: true });
               const e = err.error as HttpError;
               if (e.code !== 404) {
                 this.errorService.logError(err.error);
@@ -115,9 +113,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   readonly searchTerms$ = this.select((state) => state.searchTerms);
   readonly results$ = this.select((state) => state.results);
-  readonly isLoaded$ = this.select((state) => state.isLoaded);
-  readonly resultTextByOrdinal$ = this.select(
-    (state) => state.resultTextByOrdinal
+  readonly ready$ = this.select((state) => state.ready);
+  readonly textByCodeByOrdinal$ = this.select(
+    (state) => state.textByCodeByOrdinal
   );
 
   private criteriaFromParams(params: ParamMap): SearchCriteria {
@@ -150,99 +148,15 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return resultWorks.map((w) => resultByCode.get(w.code)!);
   }
 
-  private loadContents(criteria: SearchCriteria, results: SearchResult[]) {
+  private collectTexts(
+    results: SearchResult[]
+  ): Map<string, Map<number, string>> {
+    const result = new Map<string, Map<number, string>>();
     results.forEach((res) => {
-      const code = res.workCode;
-      const ordinals = res.hits.map((h) => h.ordinal);
-      this.loadParagraphs({ code, ordinals });
-      if (criteria.options.includeHeadings) {
-        this.loadHeadings({ code, ordinals });
-      }
-      if (criteria.options.includeFootnotes) {
-        this.loadFootnotes({ code, ordinals });
-      }
-      if (criteria.options.includeSummaries) {
-        this.loadSummaries({ code, ordinals });
-      }
+      const byOrdinal = new Map<number, string>();
+      result.set(res.workCode, byOrdinal);
+      res.hits.forEach((r) => byOrdinal.set(r.ordinal, r.text ?? ''));
     });
-  }
-
-  private loadParagraphs = this.effect<{ code: string; ordinals: number[] }>(
-    (params$) =>
-      params$.pipe(
-        mergeMap(({ code, ordinals }) =>
-          this.readService.getParagraphs(code, ordinals).pipe(
-            tapResponse((pars) => {
-              const ordAndText = pars.map(
-                (p) => [p.ordinal, p.text] as [number, string]
-              );
-              this.addToExistingResults(ordAndText);
-            }, this.handleLoadContentError)
-          )
-        )
-      )
-  );
-  private loadHeadings = this.effect<{ code: string; ordinals: number[] }>(
-    (params$) =>
-      params$.pipe(
-        mergeMap(({ code, ordinals }) =>
-          this.readService.getHeadings(code, ordinals).pipe(
-            tapResponse((heads) => {
-              const ordAndText = heads.map(
-                (h) => [h.ordinal, h.text] as [number, string]
-              );
-              this.addToExistingResults(ordAndText);
-            }, this.handleLoadContentError)
-          )
-        )
-      )
-  );
-  private loadFootnotes = this.effect<{ code: string; ordinals: number[] }>(
-    (params$) =>
-      params$.pipe(
-        mergeMap(({ code, ordinals }) =>
-          this.readService.getFootnotes(code, ordinals).pipe(
-            tapResponse((fns) => {
-              const ordAndText = fns.map(
-                (f) => [f.ordinal, f.text] as [number, string]
-              );
-              this.addToExistingResults(ordAndText);
-            }, this.handleLoadContentError)
-          )
-        )
-      )
-  );
-  private loadSummaries = this.effect<{ code: string; ordinals: number[] }>(
-    (params$) =>
-      params$.pipe(
-        mergeMap(({ code, ordinals }) =>
-          this.readService.getSummaries(code, ordinals).pipe(
-            tapResponse((summs) => {
-              const ordAndText = summs.map(
-                (s) => [s.ordinal, s.text] as [number, string]
-              );
-              this.addToExistingResults(ordAndText);
-            }, this.handleLoadContentError)
-          )
-        )
-      )
-  );
-
-  private addToExistingResults(ordAndText: [number, string][]) {
-    this.patchState((state) => {
-      const updatedMap = new Map(state.resultTextByOrdinal);
-      for (const [ordinal, text] of ordAndText) {
-        updatedMap.set(ordinal, text);
-      }
-      return {
-        ...state,
-        resultTextByOrdinal: updatedMap,
-      };
-    });
-  }
-
-  private handleLoadContentError(err: HttpErrorResponse) {
-    // if this happens, we just show a message when the user opens the paragraph-dialog, because if the user never uses the dialog, this error here is without consequence
-    console.error('error during content load: ' + err.message);
+    return result;
   }
 }

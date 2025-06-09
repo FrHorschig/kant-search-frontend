@@ -71,7 +71,7 @@ describe('ResultsStore', () => {
   it('should have initial state', () => {
     store.searchTer, s$.subscribe((str) => expect(str).toEqual(''));
     store.results$.subscribe((result) => expect(result).toEqual([]));
-    store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
+    store.ready$.subscribe((isLoaded) => expect(isLoaded).toBeFalse());
   });
 
   it('should update state correctly when search succeeds', () => {
@@ -85,7 +85,7 @@ describe('ResultsStore', () => {
       // THEN
       expect(messageService.clear).toHaveBeenCalled();
       expect(searchService.search).toHaveBeenCalled();
-      store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
+      store.ready$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
       store.results$.subscribe((res) => expect(res).toEqual(results));
     });
   });
@@ -106,7 +106,7 @@ describe('ResultsStore', () => {
       flush();
       // THEN
       expect(errorService.logError).toHaveBeenCalledWith(err);
-      store.isLoaded$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
+      store.ready$.subscribe((isLoaded) => expect(isLoaded).toBeTrue());
     });
   });
 
