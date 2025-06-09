@@ -3,6 +3,10 @@ body {
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+:root {
+  --color-dark-grey: #4e4e4e;
+}
+
 .w-full {
   width: 100%;
 }
@@ -23,8 +27,19 @@ body {
   max-width: 500px;
 }
 
-:root {
-  --surface-500: #4e4e4e;
+.paragraph-wrapper {
+  position: relative;
+}
+.floating-summary {
+  float: left;
+  font-style: italic;
+  width: 12em;
+  margin-right: 1em;
+}
+.paragraph-wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 // TODO (same for ks-meta-page): before and after chars are not usable in browser search
@@ -33,7 +48,7 @@ ks-meta-fnref {
   font-size: 0.8rem;
   position: relative;
   top: -0.2em;
-  color: var(--surface-500);
+  color: var(--color-dark-grey);
   &::before {
     content: "(";
   }
@@ -49,7 +64,7 @@ ks-meta-line {
 ks-meta-page {
   font-size: 0.75rem;
   font-weight: normal;
-  color: var(--surface-500);
+  color: var(--color-dark-grey);
   &::before {
     content: "[";
   }

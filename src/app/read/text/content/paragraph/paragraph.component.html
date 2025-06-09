@@ -1,8 +1,10 @@
-<ng-container *ngIf="paragraph.summaryRef">
-  <ks-summary [summary]="getSummary(paragraph.summaryRef)"></ks-summary>
-</ng-container>
+<div class="paragraph-wrapper" id="content-{{ paragraph.ordinal }}">
+  <ks-summary
+    class="floating-summary"
+    *ngIf="paragraph.summaryRef"
+    [summary]="getSummary(paragraph.summaryRef)"
+  ></ks-summary>
 
-<div id="content-{{ paragraph.ordinal }}">
   <ks-text-block [text]="paragraph.text"></ks-text-block>
 </div>
 
