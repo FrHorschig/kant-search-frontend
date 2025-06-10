@@ -7,6 +7,14 @@
     <nz-space class="w-full" nzDirection="vertical">
       <ks-right-labeled-input
         *nzSpaceItem
+        idString="with-stemming-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.WITH_STEMMING"
+      >
+        <nz-switch formControlName="withStemming"></nz-switch>
+      </ks-right-labeled-input>
+
+      <ks-right-labeled-input
+        *nzSpaceItem
         idString="include-footnotes-switch"
         i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
       >

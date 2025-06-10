@@ -87,6 +87,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           queryParams: {
             searchTerms: this.get((state) => state.searchTerms),
             workCodes: codes.join(','),
+            stems: params.get('stems') === 'true',
             incFn: params.get('incFn') === 'true',
             incHead: params.get('incHead') === 'true',
             incSumm: params.get('incSumm') === 'true',
@@ -126,6 +127,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       options: {
         workCodes: Array.from(new Set(codes)),
         scope: SearchScope.Paragraph,
+        withStemming: params.get('stems') === 'true',
         includeFootnotes: params.get('incFn') === 'true',
         includeHeadings: params.get('incHead') === 'true',
         includeSummaries: params.get('incSumm') === 'true',

@@ -64,17 +64,21 @@
             "PARAGRAPH": "Paragraphs",
             "SENTENCE": "Senctence"
           },
+          "WITH_STEMMING": {
+            "LABEL": "Search stemmed texts",
+            "TOOLTIP": "If the switch is on, the results do not only include exact matches, but also results where the stem of the word matches the stem of the search term. Example: Search term 'jumping' also finds matches with 'jump', 'jumps' and 'jumped'."
+          },
           "INCLUDE_FOOTNOTES": {
             "LABEL": "Include footnotes",
-            "TOOLTIP": "Footnotes are searched and included in the results if the switch is on."
+            "TOOLTIP": "Footnotes are included in the search if the switch is on."
           },
           "INCLUDE_HEADINGS": {
             "LABEL": "Include headings",
-            "TOOLTIP": "Headings are searched and included in the results if the switch is on."
+            "TOOLTIP": "Headings are included in the search if the switch is on."
           },
           "INCLUDE_SUMMARIES": {
             "LABEL": "Include summaries",
-            "TOOLTIP": "Paragraph summaries are searched and included in the results if the switch is on."
+            "TOOLTIP": "Paragraph summaries are included in the search if the switch is on."
           }
         },
         "SEARCH_TIPS": {

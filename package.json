@@ -1,6 +1,6 @@
 {
   "name": "kant-search-frontend",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,7 +21,7 @@
     "@angular/router": "^19.2.11",
     "@ant-design/icons": "^6.0.0",
     "@ant-design/icons-angular": "^19.0.0",
-    "@frhorschig/kant-search-api": "file:kant-search-api-generated/frhorschig-kant-search-api-0.20.0.tgz",
+    "@frhorschig/kant-search-api": "file:kant-search-api-generated/frhorschig-kant-search-api-0.50.0.tgz",
     "@ngrx/component-store": "^19.2.0",
     "@ngrx/operators": "^19.2.0",
     "@ngx-translate/core": "^15.0.0",
@@ -29,24 +29,23 @@
     "@types/snowball-stemmers": "^0.6.0",
     "jasmine-marbles": "^0.9.2",
     "ng-zorro-antd": "^19.2.2",
-    "rxjs": "^7.4.0",
-    "snowball-stemmers": "^0.6.0",
+    "rxjs": "^7.8.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.12",
-    "@angular/cli": "~19.2.12",
-    "@angular/compiler-cli": "^19.2.11",
-    "@types/jasmine": "~4.3.0",
-    "jasmine-core": "~4.5.0",
+    "@angular/cli": "^19.2.12",
+    "@angular/compiler-cli": "^19.2.0",
+    "@types/express": "^4.17.17",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^18.18.0",
+    "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
-    "karma-mocha-reporter": "^2.2.5",
-    "puppeteer": "^22.10.0",
-    "typescript": "~5.8.0"
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.7.2"
   }
 }

@@ -64,17 +64,21 @@
             "PARAGRAPH": "Absatz",
             "SENTENCE": "Satz"
           },
+          "WITH_STEMMING": {
+            "LABEL": "Durchsuche Wortstämme",
+            "TOOLTIP": "Wenn der Schalter an ist, enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sagte'"
+          },
           "INCLUDE_HEADINGS": {
             "LABEL": "Durchsuche Überschriften",
-            "TOOLTIP": "Überschriften werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+            "TOOLTIP": "Wenn der Schalter an ist, werden auch Überschriften durchsucht."
           },
           "INCLUDE_FOOTNOTES": {
             "LABEL": "Durchsuche Fußnoten",
-            "TOOLTIP": "Fußnoten werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+            "TOOLTIP": "Wenn der Schalter an ist, werden auch Fußnoten durchsucht."
           },
           "INCLUDE_SUMMARIES": {
             "LABEL": "Durchsuche Zusammenfassungen",
-            "TOOLTIP": "Absatz-Zusammenfassungen werden durchsucht und werden im Fall eines Treffers in den Ergebnissen aufgeführt, wenn der Schalter an ist."
+            "TOOLTIP": "Wenn der Schalter an ist, werden auch Absatz-Zusammenfassungen durchsucht."
           }
         },
         "SEARCH_TIPS": {

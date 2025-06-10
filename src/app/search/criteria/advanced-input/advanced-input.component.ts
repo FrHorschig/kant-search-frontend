@@ -46,6 +46,7 @@ export class AdvancedInputComponent
       includeFootnotes: [this.options?.includeFootnotes],
       includeHeadings: [this.options?.includeHeadings],
       includeSummaries: [this.options?.includeSummaries],
+      withStemming: [this.options?.withStemming],
     });
     this.form.valueChanges
       .pipe(this.takeUntilDestroy())

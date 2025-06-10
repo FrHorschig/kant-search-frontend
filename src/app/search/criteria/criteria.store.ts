@@ -21,6 +21,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       workCodes: [],
       searchTerms: '',
       options: {
+        withStemming: true,
         includeFootnotes: true,
         includeHeadings: false,
         includeSummaries: false,
@@ -37,6 +38,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
           queryParams: {
             searchTerms: this.get((state) => state.searchTerms),
             workCodes: this.get((state) => state.workCodes.join(',')),
+            stems: this.get((state) => state.options.withStemming),
             incFn: this.get((state) => state.options.includeFootnotes),
             incHead: this.get((state) => state.options.includeHeadings),
             incSumm: this.get((state) => state.options.includeSummaries),
