@@ -70,9 +70,6 @@ export class BasicInputComponent
         this.takeUntilDestroy()
       )
       .subscribe(() => this.buildNodes());
-    this.worksGroup = WorksGroup.ALL;
-    this.checkedKeys = WorksGroupUtil.getCodes(WorksGroup.ALL);
-    this.workCodesEmitter.emit(this.checkedKeys);
   }
 
   getWorksGroupString(value: WorksGroup): string {
@@ -137,5 +134,7 @@ export class BasicInputComponent
         children: children,
       };
     });
+    this.checkedKeys = WorksGroupUtil.getCodes(this.worksGroup);
+    this.workCodesEmitter.emit(this.checkedKeys);
   }
 }

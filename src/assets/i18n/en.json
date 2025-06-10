@@ -46,8 +46,8 @@
         "NO_VOLUMES": "There are no works available to search",
         "SELECT": {
           "LABEL": "Works selection",
+          "PLACEHOLDER": "Select works...",
           "OPTIONS": {
-            "EMPTY": "Empty selection",
             "ALL": "All volumes",
             "PRECRITICAL": "Precritical works",
             "CRITIQUES": "Critiques",
@@ -65,19 +65,19 @@
             "SENTENCE": "Senctence"
           },
           "WITH_STEMMING": {
-            "LABEL": "Search stemmed texts",
-            "TOOLTIP": "If the switch is on, the results do not only include exact matches, but also results where the stem of the word matches the stem of the search term. Example: Search term 'jumping' also finds matches with 'jump', 'jumps' and 'jumped'."
+            "LABEL": "Use stemmed texts",
+            "TOOLTIP": "If the switch is on, the results does not only include exact matches, but also results where the stem of the word matches the stem of the search term. Example: Search term 'jumping' also finds matches with 'jump', 'jumps' and 'jumped'."
           },
           "INCLUDE_FOOTNOTES": {
-            "LABEL": "Include footnotes",
+            "LABEL": "Search footnotes",
             "TOOLTIP": "Footnotes are included in the search if the switch is on."
           },
           "INCLUDE_HEADINGS": {
-            "LABEL": "Include headings",
+            "LABEL": "Search headings",
             "TOOLTIP": "Headings are included in the search if the switch is on."
           },
           "INCLUDE_SUMMARIES": {
-            "LABEL": "Include summaries",
+            "LABEL": "Search summaries",
             "TOOLTIP": "Paragraph summaries are included in the search if the switch is on."
           }
         },

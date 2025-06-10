@@ -46,8 +46,8 @@
         "NO_VOLUMES": "Es sind keine Werke zum Durchsuchen vorhanden",
         "SELECT": {
           "LABEL": "Werkauswahl",
+          "PLACEHOLDER": "Select works...",
           "OPTIONS": {
-            "EMPTY": "Leere Auswahl",
             "ALL": "Alle Bände",
             "PRECRITICAL": "Vorkritische Schriften",
             "CRITIQUES": "Kritiken",
@@ -65,7 +65,7 @@
             "SENTENCE": "Satz"
           },
           "WITH_STEMMING": {
-            "LABEL": "Durchsuche Wortstämme",
+            "LABEL": "Nutze Wortstämme",
             "TOOLTIP": "Wenn der Schalter an ist, enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sagte'"
           },
           "INCLUDE_HEADINGS": {

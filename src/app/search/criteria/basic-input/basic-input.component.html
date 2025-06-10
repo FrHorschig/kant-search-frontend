@@ -58,6 +58,8 @@
   <nz-select
     class="min-w-400"
     nzPlacement="bottomRight"
+    nzAllowClear="true"
+    [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
     [ngModel]="worksGroup"
     (ngModelChange)="onSelectChange($event)"
   >
