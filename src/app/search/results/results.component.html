@@ -15,13 +15,11 @@
 
     <ks-results-count
       *nzSpaceItem
-      [workByCode]="workByCode$ | async"
       [results]="(results$ | async) ?? []"
     ></ks-results-count>
 
     <ks-result-list
       *nzSpaceItem
-      [workByCode]="workByCode$ | async"
       [results]="(results$ | async) || []"
       (onClick)="onClick($event)"
     ></ks-result-list>
@@ -30,7 +28,7 @@
 
 <ks-paragraph-dialog
   [(isVisible)]="showParagraph"
-  [data]="hitData"
+  [data]="hit"
   (navigateEmitter)="onFullTextNavigation($event)"
 ></ks-paragraph-dialog>
 

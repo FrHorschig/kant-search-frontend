@@ -1,5 +1,5 @@
 import { Hit, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
-import { HitData } from 'src/app/search/model/hit-data';
+import { Hit } from 'src/app/search/model/search-result';
 
 // export class Testdata {
 //   static readonly volume: Volume = {

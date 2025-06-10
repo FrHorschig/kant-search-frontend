@@ -8,8 +8,8 @@
           'COMMON.VOL_WORK_TITLE'
             | translate
               : {
-                  volumeNumber: getWorkVolume(result.workCode),
-                  title: getWorkTitle(result.workCode)
+                  volumeNumber: result.hits[0].work.volumeNumber,
+                  title: getWorkTitle(result.hits[0].work.title)
                 }
         "
         nzOrientation="left"
@@ -17,13 +17,10 @@
 
       <div *nzSpaceItem>
         <ng-container *ngFor="let hit of result.hits; let i = index">
-          <div id="{{ getAnchorId(result.workCode, hit.ordinal) }}">
+          <div [id]="`match-${result.workCode}-${hit.ordinal}`">
             <ks-result-item
-              [index]="i + 1"
-              [workCode]="result.workCode"
-              [workAbbrev]="getWorkAbbreviation(result.workCode)"
               [hit]="hit"
-              (onClick)="onMatchClick(result.workCode, hit, i + 1)"
+              (onClick)="onMatchClick(hit)"
             ></ks-result-item>
           </div>
         </ng-container>

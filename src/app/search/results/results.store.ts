@@ -16,12 +16,12 @@ import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { Work } from 'src/app/common/model/work';
+import { SearchResult as ResultIntern } from '../model/search-result';
 
 interface ResultsState {
   searchTerms: string;
-  results: SearchResult[];
+  results: ResultIntern[];
   ready: boolean;
-  textByCodeByOrdinal: Map<string, Map<number, string>>;
 }
 
 @Injectable()
@@ -37,7 +37,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     super({
       searchTerms: '',
       results: [],
-      textByCodeByOrdinal: new Map(),
       ready: false,
     });
   }
@@ -49,7 +48,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.patchState({
           searchTerms: criteria.searchTerms,
           results: [],
-          textByCodeByOrdinal: new Map(),
           ready: false,
         })
       ),
@@ -60,8 +58,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             ([results, workByCode]) => {
               results = results ? results : [];
               this.patchState({
-                results: this.sort(results, Array.from(workByCode.values())),
-                textByCodeByOrdinal: this.collectTexts(results),
+                results: this.mapResults(results, workByCode),
                 ready: true,
               });
             },
@@ -117,9 +114,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   readonly searchTerms$ = this.select((state) => state.searchTerms);
   readonly results$ = this.select((state) => state.results);
   readonly ready$ = this.select((state) => state.ready);
-  readonly textByCodeByOrdinal$ = this.select(
-    (state) => state.textByCodeByOrdinal
-  );
 
   private criteriaFromParams(params: ParamMap): SearchCriteria {
     const codes = params.get('workCodes')?.split(',') ?? [];
@@ -137,11 +131,39 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return criteria;
   }
 
-  private sort(results: SearchResult[], allWorks: Work[]): SearchResult[] {
+  private mapResults(
+    results: SearchResult[],
+    workByCode: Map<string, Work>
+  ): ResultIntern[] {
+    const mapped = results.map((res) => {
+      return {
+        hits: res.hits.map((h, i) => {
+          return {
+            ordinal: h.ordinal,
+            pages: h.pages,
+            snippets: h.snippets,
+            text: h.text ?? '',
+            index: i,
+            work: workByCode.get(res.workCode) ?? {
+              code: '',
+              sections: [],
+              ordinal: 0,
+              title: '',
+              volumeNumber: 0,
+            },
+          };
+        }),
+        workCode: res.workCode,
+      };
+    });
+    return this.sort(mapped, Array.from(workByCode.values()));
+  }
+
+  private sort(results: ResultIntern[], allWorks: Work[]): ResultIntern[] {
     const resultByCode = results.reduce((map, r) => {
       map.set(r.workCode, r);
       return map;
-    }, new Map<string, SearchResult>());
+    }, new Map<string, ResultIntern>());
     const resultWorks = allWorks.filter((w) => resultByCode.has(w.code));
     resultWorks.sort((a, b) => {
       if (a.volumeNumber !== b.volumeNumber) {
@@ -150,17 +172,5 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       return a.ordinal - b.ordinal;
     });
     return resultWorks.map((w) => resultByCode.get(w.code)!);
-  }
-
-  private collectTexts(
-    results: SearchResult[]
-  ): Map<string, Map<number, string>> {
-    const result = new Map<string, Map<number, string>>();
-    results.forEach((res) => {
-      const byOrdinal = new Map<number, string>();
-      result.set(res.workCode, byOrdinal);
-      res.hits.forEach((r) => byOrdinal.set(r.ordinal, r.text ?? ''));
-    });
-    return result;
   }
 }

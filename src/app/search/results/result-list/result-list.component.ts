@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Hit, SearchResult } from '@frhorschig/kant-search-api';
-import { HitData } from '../../model/hit-data';
+import { Hit, SearchResult } from '../../model/search-result';
 import { TitleUtil } from '../../util/title-util';
 import { Work } from 'src/app/common/model/work';
 import { CommonModule } from '@angular/common';
@@ -24,67 +23,14 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   ],
 })
 export class ResultListComponent {
-  @Input() workByCode: Map<string, Work> | null = null;
   @Input() results: SearchResult[] = [];
+  @Output() onClick = new EventEmitter<Hit>();
 
-  @Output() onClick = new EventEmitter<HitData>();
-
-  onMatchClick(code: string, hit: Hit, index: number) {
-    const work = this.workByCode?.get(code);
-    if (work) {
-      this.onClick.emit({
-        work,
-        snippets: hit.snippets,
-        text: '',
-        ordinal: hit.ordinal,
-        index,
-      });
-    } else {
-      this.onClick.emit({
-        work: {
-          code: '',
-          sections: [],
-          ordinal: 0,
-          title: '',
-          volumeNumber: 0,
-        },
-        snippets: [],
-        text: '',
-        ordinal: hit.ordinal,
-        index,
-      });
-      console.error("no work with code '" + code + "' exists");
-    }
+  onMatchClick(hit: Hit) {
+    this.onClick.emit(hit);
   }
 
-  getWorkVolume(code: string): number {
-    const work = this.workByCode?.get(code);
-    if (!work) {
-      console.error("no work with code '" + code + "' exists");
-      return 0;
-    }
-    return work.volumeNumber;
-  }
-
-  getWorkTitle(code: string): string {
-    const work = this.workByCode?.get(code);
-    if (!work) {
-      console.error("no work with code '" + code + "' exists");
-      return TitleUtil.titleCase(code);
-    }
-    return TitleUtil.truncate(work.title, 70);
-  }
-
-  getWorkAbbreviation(code: string): string {
-    const work = this.workByCode?.get(code);
-    if (!work) {
-      console.error("no work with code '" + code + "' exists");
-      return TitleUtil.titleCase(code);
-    }
-    return work.abbreviation ? work.abbreviation : TitleUtil.titleCase(code);
-  }
-
-  getAnchorId(workCode: string, hitOrdinal: number): string {
-    return `match-${workCode}-${hitOrdinal}`;
+  getWorkTitle(title: string): string {
+    return TitleUtil.truncate(title, 70);
   }
 }

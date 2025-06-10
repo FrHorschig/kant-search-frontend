@@ -3,9 +3,11 @@
     <nz-space class="w-full" nzDirection="vertical">
       <div *nzSpaceItem nz-flex nzJustify="space-between">
         <span nz-typography nzType="secondary">
-          #{{ index }}
+          #{{ hit.index }}
           {{
-            workAbbrev !== "" ? workAbbrev : ("WORKS." + workCode | translate)
+            hit.work.abbreviation !== ""
+              ? hit.work.abbreviation
+              : ("WORKS." + hit.work.code | translate)
           }}
         </span>
 
@@ -16,7 +18,7 @@
 
       <div *nzSpaceItem>
         <ng-container *ngFor="let snippet of hit.snippets">
-          <ks-text-block [text]="snippet"></ks-text-block>
+          <ks-text-block [text]="'...' + snippet + '...'"></ks-text-block>
         </ng-container>
       </div>
     </nz-space>

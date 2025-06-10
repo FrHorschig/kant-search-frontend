@@ -6,7 +6,7 @@
   >
     @for (result of results; track result.workCode) {
     <div nz-flex nzJustify="space-between">
-      <span>{{ getWorkTitle(result.workCode) }}</span>
+      <span>{{ getWorkTitle(result.hits[0].work.title) }}</span>
       <span>{{ result.hits.length }}</span>
     </div>
     }

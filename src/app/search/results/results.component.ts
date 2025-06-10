@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, take } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
-import { HitData } from '../model/hit-data';
+import { Hit } from '../model/search-result';
 import { ResultsStore } from './results.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { SearchResult } from '@frhorschig/kant-search-api';
@@ -44,15 +44,15 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
   ready$ = this.resultsStore.ready$;
-  textByCodeByOrdinal$ = this.resultsStore.textByCodeByOrdinal$;
 
   showParagraph = false;
-  hitData: HitData = {
-    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+  hit: Hit = {
+    ordinal: 0,
+    pages: [],
     snippets: [],
     text: '',
-    ordinal: 0,
     index: 0,
+    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
   };
   showUpButton = false;
 
@@ -88,13 +88,9 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.updateSearch();
   }
 
-  onClick(hitData: HitData) {
-    this.hitData = hitData;
-    this.textByCodeByOrdinal$.pipe(take(1)).subscribe((textByCodeByOrdinal) => {
-      this.hitData.text =
-        textByCodeByOrdinal.get(hitData.work.code)?.get(hitData.ordinal) ?? '';
-      this.showParagraph = true;
-    });
+  onClick(hitData: Hit) {
+    this.hit = hitData;
+    this.showParagraph = true;
   }
 
   onFullTextNavigation(info: FullTextInfo) {

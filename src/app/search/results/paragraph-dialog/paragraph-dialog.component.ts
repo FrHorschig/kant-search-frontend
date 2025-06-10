@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { HitData } from '../../model/hit-data';
+import { Hit } from '../../model/search-result';
 import { FullTextInfo } from '../../model/full-text-info';
 import { TitleUtil } from '../../util/title-util';
 import { NzFlexDirective } from 'ng-zorro-antd/flex';
@@ -33,13 +33,14 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
-  @Input() data: HitData = {
-    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+  @Input() data: Hit = {
+    ordinal: 0,
+    pages: [],
     snippets: [],
     text: '',
-    ordinal: 0,
     index: 0,
-  } as HitData;
+    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+  } as Hit;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() navigateEmitter = new EventEmitter<FullTextInfo>();
