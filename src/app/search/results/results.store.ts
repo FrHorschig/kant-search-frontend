@@ -10,7 +10,7 @@ import {
 } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { EMPTY, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
@@ -80,6 +80,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   );
   readonly updateSearch = this.effect<void>((effect$) =>
     effect$.pipe(
+      filter(() => this.get((state) => state.searchTerms != '')),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
       tap(([_, params, lang]) => {
         const codes = params.get('workCodes')?.split(',') ?? [];
