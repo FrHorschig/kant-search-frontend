@@ -1,4 +1,10 @@
 export const createReadServiceSpy = () =>
-  jasmine.createSpyObj('ReadService', ['getVolumes', 'getWorks']);
-export const createErrorServiceSpy = () =>
-  jasmine.createSpyObj('ErrorService', ['logError']);
+  jasmine.createSpyObj('ReadService', [
+    'getFootnotes',
+    'getHeadings',
+    'getParagraphs',
+    'getSummaries',
+    'getVolumes',
+  ]);
+export const createSearchServiceSpy = () =>
+  jasmine.createSpyObj('SearchService', ['search']);
