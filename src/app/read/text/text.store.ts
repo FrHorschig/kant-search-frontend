@@ -75,7 +75,7 @@ export class TextStore extends ComponentStore<ReadState> {
               this.patchState({
                 work,
                 headingByOrdinal: new Map(headings.map((h) => [h.ordinal, h])),
-                textContents: mapTextContents(work, headsByOrd, parsByOrd),
+                textContents: this.mapTextContents(work, headsByOrd, parsByOrd),
                 footnoteByRef: new Map(footnotes.map((f) => [f.ref, f])),
                 summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
               });
@@ -101,71 +101,70 @@ export class TextStore extends ComponentStore<ReadState> {
           [`/${lang}/read/text`, this.get((state) => state.work?.code)],
           { fragment: `content-${ordinal.toString()}` }
         );
-        return EMPTY;
       })
     )
   );
-}
 
-function mapTextContents(
-  work: Work,
-  headsByOrd: Map<number, Heading>,
-  parsByOrd: Map<number, Paragraph>
-): TextContent[] {
-  let textContents: TextContent[] = [];
-  for (const wOrd of work.paragraphs ?? []) {
-    const p = parsByOrd.get(wOrd);
-    if (!p) {
-      throw new Error('no paragraph object with ID ' + wOrd);
+  private mapTextContents(
+    work: Work,
+    headsByOrd: Map<number, Heading>,
+    parsByOrd: Map<number, Paragraph>
+  ): TextContent[] {
+    let textContents: TextContent[] = [];
+    for (const wOrd of work.paragraphs ?? []) {
+      const p = parsByOrd.get(wOrd);
+      if (!p) {
+        throw new Error('no paragraph object with ID ' + wOrd);
+      }
+      textContents.push({
+        isHeading: false,
+        ordinal: p.ordinal,
+        text: p.text,
+        fnRefs: p.fnRefs,
+        summaryRef: p.summaryRef,
+      });
+    }
+    for (const s of work.sections) {
+      textContents.push(...this.mapSection(s, headsByOrd, parsByOrd));
+    }
+    return textContents;
+  }
+
+  private mapSection(
+    sec: Section,
+    headsByOrd: Map<number, Heading>,
+    parsByOrd: Map<number, Paragraph>
+  ): TextContent[] {
+    let textContents: TextContent[] = [];
+    const h = headsByOrd.get(sec.heading);
+    if (!h) {
+      throw new Error('no heading object with ordinal ' + sec.heading);
     }
     textContents.push({
-      isHeading: false,
-      ordinal: p.ordinal,
-      text: p.text,
-      fnRefs: p.fnRefs,
-      summaryRef: p.summaryRef,
+      isHeading: true,
+      ordinal: h.ordinal,
+      text: h.text,
+      fnRefs: h.fnRefs,
+      summaryRef: undefined,
     });
-  }
-  for (const s of work.sections) {
-    textContents.push(...mapSection(s, headsByOrd, parsByOrd));
-  }
-  return textContents;
-}
 
-function mapSection(
-  sec: Section,
-  headsByOrd: Map<number, Heading>,
-  parsByOrd: Map<number, Paragraph>
-): TextContent[] {
-  let textContents: TextContent[] = [];
-  const h = headsByOrd.get(sec.heading);
-  if (!h) {
-    throw new Error('no heading object with ordinal ' + sec.heading);
-  }
-  textContents.push({
-    isHeading: true,
-    ordinal: h.ordinal,
-    text: h.text,
-    fnRefs: h.fnRefs,
-    summaryRef: undefined,
-  });
-
-  for (const wOrd of sec.paragraphs ?? []) {
-    const p = parsByOrd.get(wOrd);
-    if (!p) {
-      throw new Error('no paragraph object with ID ' + wOrd);
+    for (const wOrd of sec.paragraphs ?? []) {
+      const p = parsByOrd.get(wOrd);
+      if (!p) {
+        throw new Error('no paragraph object with ID ' + wOrd);
+      }
+      textContents.push({
+        isHeading: false,
+        ordinal: p.ordinal,
+        text: p.text,
+        fnRefs: p.fnRefs,
+        summaryRef: p.summaryRef,
+      });
     }
-    textContents.push({
-      isHeading: false,
-      ordinal: p.ordinal,
-      text: p.text,
-      fnRefs: p.fnRefs,
-      summaryRef: p.summaryRef,
-    });
-  }
 
-  for (const s of sec.sections ?? []) {
-    textContents.push(...mapSection(s, headsByOrd, parsByOrd));
+    for (const s of sec.sections ?? []) {
+      textContents.push(...this.mapSection(s, headsByOrd, parsByOrd));
+    }
+    return textContents;
   }
-  return textContents;
 }

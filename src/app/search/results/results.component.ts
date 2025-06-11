@@ -95,6 +95,10 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.updateSearch();
   }
 
+  onResultNavigation(workCode: string) {
+    this.resultsStore.navigateToSection(workCode);
+  }
+
   onClick(hitData: Hit) {
     this.hit = hitData;
     this.showParagraph = true;

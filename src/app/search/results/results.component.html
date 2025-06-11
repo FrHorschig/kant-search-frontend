@@ -16,6 +16,7 @@
     <ks-results-count
       *nzSpaceItem
       [results]="(results$ | async) ?? []"
+      (onClickEmitter)="onResultNavigation($event)"
     ></ks-results-count>
 
     <ks-result-list

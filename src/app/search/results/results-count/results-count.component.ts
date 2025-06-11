@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { TitleUtil } from '../../util/title-util';
@@ -15,11 +15,17 @@ import { SearchResult } from '../../model/search-result';
 export class ResultsCountComponent {
   @Input() results: SearchResult[] = [];
 
+  @Output() onClickEmitter = new EventEmitter<string>();
+
   getTotalCount(): number {
     return this.results.reduce((acc, result) => acc + result.hits.length, 0);
   }
 
   getWorkTitle(title: string): string {
-    return TitleUtil.truncate(title, 75);
+    return TitleUtil.truncate(title, 80);
+  }
+
+  onClick(workCode: string) {
+    this.onClickEmitter.emit(workCode);
   }
 }

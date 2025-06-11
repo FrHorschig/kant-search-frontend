@@ -1,13 +1,18 @@
 <nz-collapse>
   <nz-collapse-panel
     [nzHeader]="'SEARCH.RESULTS.COUNT.TOTAL' | translate"
-    [nzActive]="true"
     [nzExtra]="totalCount"
+    [nzActive]="results.length > 1"
   >
     @for (result of results; track result.workCode) {
-    <div nz-flex nzJustify="space-between">
-      <span>{{ getWorkTitle(result.hits[0].work.title) }}</span>
-      <span>{{ result.hits.length }}</span>
+    <div
+      class="cursor-pointer hover-background"
+      (click)="onClick(result.hits[0].work.code)"
+    >
+      <span class="background-inside" nz-flex nzJustify="space-between">
+        <span>{{ getWorkTitle(result.hits[0].work.title) }}</span>
+        <span>{{ result.hits.length }}</span>
+      </span>
     </div>
     }
   </nz-collapse-panel>

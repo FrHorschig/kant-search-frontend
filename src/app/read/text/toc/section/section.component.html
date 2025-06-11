@@ -2,19 +2,15 @@
   [ngStyle]="{ 'padding-left.px': level * 25 }"
   (click)="onClick(section?.heading ?? 0)"
 >
-  <div
-    class="cursor-pointer hover-background"
-    nz-flex
-    nzJustify="space-between"
-  >
-    <div style="margin-left: 4px">
+  <div class="cursor-pointer hover-background">
+    <div class="background-inside" nz-flex nzJustify="space-between">
       {{ getHeading(section?.heading).tocText }}
-    </div>
 
-    <span style="width: 30px"></span>
+      <span style="width: 30px"></span>
 
-    <div style="margin-right: 4px; white-space: nowrap">
-      {{ getHeading(section?.heading).pages[0] }}
+      <div style="white-space: nowrap">
+        {{ getHeading(section?.heading).pages[0] }}
+      </div>
     </div>
   </div>
 </div>

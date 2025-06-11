@@ -3,16 +3,15 @@
     <nz-space class="w-full" nzDirection="vertical">
       <div *nzSpaceItem nz-flex nzJustify="space-between">
         <span nz-typography nzType="secondary">
-          #{{ hit.index }}
-          {{
-            hit.work.abbreviation !== ""
-              ? hit.work.abbreviation
-              : ("WORKS." + hit.work.code | translate)
-          }}
+          <i>#{{ hit.index }}</i>
         </span>
 
         <span nz-typography nzType="secondary">
-          [{{ hit.pages.join(", ") }}]
+          <i>{{
+            hit.work.abbreviation !== ""
+              ? hit.work.abbreviation
+              : ("WORKS." + hit.work.code | translate)
+          }}</i>
         </span>
       </div>
 

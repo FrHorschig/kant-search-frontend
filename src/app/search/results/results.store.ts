@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import {
   HttpError,
   SearchCriteria,
@@ -80,20 +80,24 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       filter(() => this.get((state) => state.searchTerms != '')),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
       tap(([_, params, lang]) => {
-        const codes = params.get('workCodes')?.split(',') ?? [];
         this.router.navigate([`/${lang}/search/results`], {
-          queryParams: {
-            searchTerms: this.get((state) => state.searchTerms),
-            workCodes: codes.join(','),
-            stems: params.get('stems') === 'true',
-            incFn: params.get('incFn') === 'true',
-            incHead: params.get('incHead') === 'true',
-            incSumm: params.get('incSumm') === 'true',
-          },
+          queryParams: this.buildQueryParams(params),
         });
       })
     )
   );
+  readonly navigateToSection = this.effect<string>((workCode$) =>
+    workCode$.pipe(
+      withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
+      tap(([workCode, params, lang]) => {
+        this.router.navigate([`/${lang}/search/results`], {
+          queryParams: this.buildQueryParams(params),
+          fragment: `results-${workCode}`,
+        });
+      })
+    )
+  );
+
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
@@ -129,6 +133,18 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       },
     };
     return criteria;
+  }
+
+  private buildQueryParams(paramsMap: ParamMap): Params {
+    const codes = paramsMap.get('workCodes')?.split(',') ?? [];
+    return {
+      searchTerms: this.get((state) => state.searchTerms),
+      workCodes: codes.join(','),
+      stems: paramsMap.get('stems') === 'true',
+      incFn: paramsMap.get('incFn') === 'true',
+      incHead: paramsMap.get('incHead') === 'true',
+      incSumm: paramsMap.get('incSumm') === 'true',
+    };
   }
 
   private mapResults(

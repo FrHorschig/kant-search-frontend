@@ -21,7 +21,7 @@
 
   <li style="flex-grow: 1; pointer-events: none"></li>
 
-  <li nz-submenu nzPlacement="bottomRight" nzIcon="setting">
+  <li nz-submenu nzPlacement="bottomRight" [nzTitle]="settingsIcon">
     <ul>
       <ng-container *ngFor="let lang of availableLanguages$ | async">
         <li nz-menu-item (click)="updateLang(lang)">
@@ -31,3 +31,7 @@
     </ul>
   </li>
 </ul>
+
+<ng-template #settingsIcon>
+  <nz-icon nzType="setting" nzTheme="outline" />
+</ng-template>

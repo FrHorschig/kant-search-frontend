@@ -3,15 +3,6 @@
 <nz-space class="w-full" nzDirection="vertical">
   <div *nzSpaceItem nz-row>
     <div nz-col nzSpan="4">
-      {{ "READ.INFO.TITLE" | translate }}
-    </div>
-    <div nz-col nzSpan="20">
-      {{ work.title }}
-    </div>
-  </div>
-
-  <div *nzSpaceItem nz-row>
-    <div nz-col nzSpan="4">
       {{ "READ.INFO.VOLUME" | translate }}
     </div>
     <div nz-col nzSpan="20">
@@ -23,8 +14,17 @@
     </div>
   </div>
 
-  <div *nzSpaceItem>
-    <div *ngIf="work.abbreviation" nz-row>
+  <div *nzSpaceItem nz-row>
+    <div nz-col nzSpan="4">
+      {{ "READ.INFO.TITLE" | translate }}
+    </div>
+    <div nz-col nzSpan="20">
+      {{ work.title }}
+    </div>
+  </div>
+
+  <ng-container *ngIf="work.abbreviation">
+    <div *nzSpaceItem nz-row>
       <div nz-col nzSpan="4">
         {{ "READ.INFO.ABBREV" | translate }}
       </div>
@@ -32,7 +32,7 @@
         {{ work.abbreviation }}
       </div>
     </div>
-  </div>
+  </ng-container>
 
   <div *nzSpaceItem nz-row>
     <div nz-col nzSpan="4">
