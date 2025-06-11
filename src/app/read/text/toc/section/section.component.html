@@ -1,5 +1,5 @@
 <div
-  [ngStyle]="{ 'padding-left.px': level * 30 }"
+  [ngStyle]="{ 'padding-left.px': level * 25 }"
   (click)="onClick(section?.heading ?? 0)"
 >
   <div
@@ -7,13 +7,14 @@
     nz-flex
     nzJustify="space-between"
   >
-    <div>{{ getHeading(section?.heading).tocText }}</div>
+    <div style="margin-left: 4px">
+      {{ getHeading(section?.heading).tocText }}
+    </div>
 
-    <div style="white-space: nowrap">
-      {{
-        "READ.TOC.PAGE_REF"
-          | translate : { page: getHeading(section?.heading).pages[0] }
-      }}
+    <span style="width: 30px"></span>
+
+    <div style="margin-right: 4px; white-space: nowrap">
+      {{ getHeading(section?.heading).pages[0] }}
     </div>
   </div>
 </div>

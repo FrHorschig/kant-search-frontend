@@ -1,5 +1,15 @@
 <nz-divider [nzText]="'READ.TOC.HEADER' | translate"></nz-divider>
 
+<div nz-flex nzJustify="space-between">
+  <div style="margin-left: 4px">
+    <b>{{ "READ.TOC.SECTION" | translate }}</b>
+  </div>
+
+  <div style="margin-right: 4px">
+    <b>{{ "READ.TOC.PAGE" | translate }}</b>
+  </div>
+</div>
+
 <ng-container *ngFor="let sec of work?.sections">
   <ks-toc-section
     [level]="0"

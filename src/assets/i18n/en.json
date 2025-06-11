@@ -27,14 +27,15 @@
       "TITLE": "Title",
       "VOLUME": "Volume",
       "ABBREV": "Siglum",
-      "YEAR": "Publication year"
+      "YEAR": "Year"
     },
     "SELECTION": {
       "HEADER": "Work selection"
     },
     "TOC": {
       "HEADER": "Table of Contents",
-      "PAGE_REF": "p. {{page}}"
+      "SECTION": "Section",
+      "PAGE": "Page"
     },
     "CONTENT": "Text"
   },

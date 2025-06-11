@@ -2,19 +2,19 @@
 
 <nz-space class="w-full" nzDirection="vertical">
   <div *nzSpaceItem nz-row>
-    <div nz-col nzSpan="6">
+    <div nz-col nzSpan="4">
       {{ "READ.INFO.TITLE" | translate }}
     </div>
-    <div nz-col nzSpan="18">
+    <div nz-col nzSpan="20">
       {{ work.title }}
     </div>
   </div>
 
   <div *nzSpaceItem nz-row>
-    <div nz-col nzSpan="6">
+    <div nz-col nzSpan="4">
       {{ "READ.INFO.VOLUME" | translate }}
     </div>
-    <div nz-col nzSpan="18">
+    <div nz-col nzSpan="20">
       {{
         "COMMON.VOL_WORK_TITLE"
           | translate
@@ -25,20 +25,20 @@
 
   <div *nzSpaceItem>
     <div *ngIf="work.abbreviation" nz-row>
-      <div nz-col nzSpan="6">
+      <div nz-col nzSpan="4">
         {{ "READ.INFO.ABBREV" | translate }}
       </div>
-      <div nz-col nzSpan="18">
+      <div nz-col nzSpan="20">
         {{ work.abbreviation }}
       </div>
     </div>
   </div>
 
   <div *nzSpaceItem nz-row>
-    <div nz-col nzSpan="6">
+    <div nz-col nzSpan="4">
       {{ "READ.INFO.YEAR" | translate }}
     </div>
-    <div nz-col nzSpan="18">
+    <div nz-col nzSpan="20">
       {{ work.year }}
     </div>
   </div>

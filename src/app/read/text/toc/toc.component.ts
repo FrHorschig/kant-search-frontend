@@ -5,6 +5,7 @@ import { Work } from 'src/app/store/volumes/model';
 import { TocSectionComponent } from './section/section.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-read-toc',
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     TranslateModule,
+    NzFlexModule,
     NzDividerModule,
     TocSectionComponent,
   ],

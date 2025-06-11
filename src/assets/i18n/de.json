@@ -27,12 +27,13 @@
       "TITLE": "Titel",
       "VOLUME": "Band",
       "ABBREV": "Siglum",
-      "YEAR": "Erscheinungsjahr"
+      "YEAR": "Jahr"
     },
     "SELECTION": "Werkauswahl",
     "TOC": {
       "HEADER": "Inhaltsverzeichnis",
-      "PAGE_REF": "S. {{page}}"
+      "SECTION": "Abschnitt",
+      "PAGE": "Seite"
     },
     "CONTENT": "Text"
   },
