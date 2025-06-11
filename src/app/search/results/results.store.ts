@@ -143,7 +143,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             pages: h.pages,
             snippets: h.snippets,
             text: h.text ?? '',
-            index: i,
+            index: i + 1,
             work: workByCode.get(res.workCode) ?? {
               code: '',
               sections: [],

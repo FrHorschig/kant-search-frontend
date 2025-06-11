@@ -134,6 +134,7 @@ export class BasicInputComponent
         children: children,
       };
     });
+    this.worksGroup = null;
     this.checkedKeys = WorksGroupUtil.getCodes(this.worksGroup);
     this.workCodesEmitter.emit(this.checkedKeys);
   }
