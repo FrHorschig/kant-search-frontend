@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit, SearchResult } from '../../model/search-result';
 import { TitleUtil } from '../../util/title-util';
-import { Work } from 'src/app/common/model/work';
+import { Work } from 'src/app/store/volumes/model';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';

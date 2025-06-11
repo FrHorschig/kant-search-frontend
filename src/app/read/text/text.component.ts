@@ -10,6 +10,8 @@ import { TocComponent } from './toc/toc.component';
 import { ContentComponent } from './content/content.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { TocSectionComponent } from './work-info/work-info.component';
+import { Work } from 'src/app/store/volumes/model';
 
 @Component({
   selector: 'ks-text',
@@ -23,6 +25,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzIconModule,
     TocComponent,
     ContentComponent,
+    TocSectionComponent,
   ],
 })
 export class TextComponent extends SubscriptionComponent implements OnInit {
@@ -32,6 +35,15 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   footnoteByRef$ = this.store.footnoteByRef$;
   summaryByRef$ = this.store.summaryByRef$;
   ready$ = this.store.ready$;
+
+  defaultWork: Work = {
+    code: '',
+    sections: [],
+    ordinal: 0,
+    title: '',
+    volumeNumber: 0,
+    volumeTitle: '',
+  };
 
   constructor(
     private readonly route: ActivatedRoute,

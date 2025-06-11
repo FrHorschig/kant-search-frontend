@@ -52,7 +52,14 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     snippets: [],
     text: '',
     index: 0,
-    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+    work: {
+      code: '',
+      sections: [],
+      ordinal: 0,
+      title: '',
+      volumeNumber: 0,
+      volumeTitle: '',
+    },
   };
   showUpButton = false;
 

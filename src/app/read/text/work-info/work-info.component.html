@@ -1,0 +1,45 @@
+<nz-divider [nzText]="'READ.INFO.HEADER' | translate"></nz-divider>
+
+<nz-space class="w-full" nzDirection="vertical">
+  <div *nzSpaceItem nz-row>
+    <div nz-col nzSpan="6">
+      {{ "READ.INFO.TITLE" | translate }}
+    </div>
+    <div nz-col nzSpan="18">
+      {{ work.title }}
+    </div>
+  </div>
+
+  <div *nzSpaceItem nz-row>
+    <div nz-col nzSpan="6">
+      {{ "READ.INFO.VOLUME" | translate }}
+    </div>
+    <div nz-col nzSpan="18">
+      {{
+        "COMMON.VOL_WORK_TITLE"
+          | translate
+            : { volumeNumber: work.volumeNumber, title: work.volumeTitle }
+      }}
+    </div>
+  </div>
+
+  <div *nzSpaceItem>
+    <div *ngIf="work.abbreviation" nz-row>
+      <div nz-col nzSpan="6">
+        {{ "READ.INFO.ABBREV" | translate }}
+      </div>
+      <div nz-col nzSpan="18">
+        {{ work.abbreviation }}
+      </div>
+    </div>
+  </div>
+
+  <div *nzSpaceItem nz-row>
+    <div nz-col nzSpan="6">
+      {{ "READ.INFO.YEAR" | translate }}
+    </div>
+    <div nz-col nzSpan="18">
+      {{ work.year }}
+    </div>
+  </div>
+</nz-space>

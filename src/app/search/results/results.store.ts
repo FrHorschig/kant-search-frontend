@@ -15,7 +15,7 @@ import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { Work } from 'src/app/common/model/work';
+import { Work } from 'src/app/store/volumes/model';
 import { SearchResult as ResultIntern } from '../model/search-result';
 
 interface ResultsState {
@@ -150,6 +150,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
               ordinal: 0,
               title: '',
               volumeNumber: 0,
+              volumeTitle: '',
             },
           };
         }),

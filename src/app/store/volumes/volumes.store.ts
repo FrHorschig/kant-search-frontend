@@ -5,7 +5,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Work } from 'src/app/common/model/work';
+import { Work } from 'src/app/store/volumes/model';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface VolumesState {
@@ -41,10 +41,16 @@ export class VolumesStore extends ComponentStore<VolumesState> {
                 volumes,
                 workByCode: new Map<string, Work>(
                   volumes.flatMap((v) =>
-                    v.works.map((w) => [
-                      w.code,
-                      { ...w, volumeNumber: v.volumeNumber },
-                    ])
+                    v.works.map((w) => {
+                      return [
+                        w.code,
+                        {
+                          ...w,
+                          volumeNumber: v.volumeNumber,
+                          volumeTitle: v.title,
+                        },
+                      ];
+                    })
                   )
                 ),
                 isLoaded: true,

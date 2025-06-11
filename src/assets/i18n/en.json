@@ -22,11 +22,18 @@
   },
 
   "READ": {
+    "INFO": {
+      "HEADER": "Work data",
+      "TITLE": "Title",
+      "VOLUME": "Volume",
+      "ABBREV": "Siglum",
+      "YEAR": "Publication year"
+    },
     "SELECTION": {
-      "TITLE": "Werkauswahl"
+      "HEADER": "Work selection"
     },
     "TOC": {
-      "TITLE": "Table of Contents",
+      "HEADER": "Table of Contents",
       "PAGE_REF": "p. {{page}}"
     },
     "CONTENT": "Text"

@@ -22,11 +22,16 @@
   },
 
   "READ": {
-    "SELECTION": {
-      "TITLE": "Werkauswahl"
+    "INFO": {
+      "HEADER": "Werk-Daten",
+      "TITLE": "Titel",
+      "VOLUME": "Band",
+      "ABBREV": "Siglum",
+      "YEAR": "Erscheinungsjahr"
     },
+    "SELECTION": "Werkauswahl",
     "TOC": {
-      "TITLE": "Inhaltsverzeichnis",
+      "HEADER": "Inhaltsverzeichnis",
       "PAGE_REF": "S. {{page}}"
     },
     "CONTENT": "Text"

@@ -9,4 +9,5 @@ export interface Work {
   title: string;
   year?: string;
   volumeNumber: number;
+  volumeTitle: string;
 }

@@ -6,14 +6,10 @@
 
 <div nz-flex nzJustify="center">
   <div *ngIf="ready$ | async">
-    <h2 nz-typography>
-      <div class="cursor-pointer">
-        {{ (work$ | async)?.title ?? "" }}
-      </div>
-    </h2>
+    <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
 
     <ks-read-toc
-      [work]="work$ | async"
+      [work]="(work$ | async) ?? defaultWork"
       [headByOrdinal]="headingByOrdinal$ | async"
       (onClickEmitter)="onSectionNavigation($event)"
     >

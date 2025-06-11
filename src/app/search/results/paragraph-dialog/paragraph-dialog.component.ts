@@ -39,7 +39,14 @@ export class ParagraphDialogComponent implements OnChanges {
     snippets: [],
     text: '',
     index: 0,
-    work: { code: '', sections: [], ordinal: 0, title: '', volumeNumber: 0 },
+    work: {
+      code: '',
+      sections: [],
+      ordinal: 0,
+      title: '',
+      volumeNumber: 0,
+      volumeTitle: '',
+    },
   } as Hit;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
