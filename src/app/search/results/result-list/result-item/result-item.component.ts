@@ -5,7 +5,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
-import { Hit } from 'src/app/search/model/search-result';
+import { emptyHit } from 'src/app/search/model/search-result';
 
 @Component({
   selector: 'ks-result-item',
@@ -22,21 +22,7 @@ import { Hit } from 'src/app/search/model/search-result';
   ],
 })
 export class ResultItemComponent {
-  @Input() hit: Hit = {
-    ordinal: 0,
-    pages: [],
-    snippets: [],
-    text: '',
-    index: 0,
-    work: {
-      code: '',
-      sections: [],
-      ordinal: 0,
-      title: '',
-      volumeNumber: 0,
-      volumeTitle: '',
-    },
-  };
+  @Input() hit = emptyHit;
 
   @Output() onClick = new EventEmitter<void>();
 

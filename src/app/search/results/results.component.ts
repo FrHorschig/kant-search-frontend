@@ -4,7 +4,7 @@ import { combineLatest } from 'rxjs';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
-import { Hit } from '../model/search-result';
+import { emptyHit, Hit } from '../model/search-result';
 import { ResultsStore } from './results.store';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { SearchResult } from '@frhorschig/kant-search-api';
@@ -46,21 +46,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   ready$ = this.resultsStore.ready$;
 
   showParagraph = false;
-  hit: Hit = {
-    ordinal: 0,
-    pages: [],
-    snippets: [],
-    text: '',
-    index: 0,
-    work: {
-      code: '',
-      sections: [],
-      ordinal: 0,
-      title: '',
-      volumeNumber: 0,
-      volumeTitle: '',
-    },
-  };
+  hit = emptyHit;
   showUpButton = false;
 
   constructor(

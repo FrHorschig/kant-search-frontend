@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit, SearchResult } from '../../model/search-result';
 import { TitleUtil } from '../../util/title-util';
-import { Work } from 'src/app/store/volumes/model';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -24,6 +23,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 })
 export class ResultListComponent {
   @Input() results: SearchResult[] = [];
+
   @Output() onClick = new EventEmitter<Hit>();
 
   onMatchClick(hit: Hit) {

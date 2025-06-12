@@ -158,7 +158,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             ordinal: h.ordinal,
             pages: h.pages,
             snippets: h.snippets,
-            text: h.text ?? '',
+            fmtText: h.fmtText,
+            rawText: h.rawText,
+            wordIndexMap: new Map<number, number>(
+              Object.entries(h.wordIndexMap).map(([k, v]) => [Number(k), v])
+            ),
             index: i + 1,
             work: workByCode.get(res.workCode) ?? {
               code: '',

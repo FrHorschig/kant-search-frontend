@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Hit } from '../../model/search-result';
+import { emptyHit } from '../../model/search-result';
 import { FullTextInfo } from '../../model/full-text-info';
 import { TitleUtil } from '../../util/title-util';
 import { NzFlexDirective } from 'ng-zorro-antd/flex';
@@ -33,21 +33,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
-  @Input() data: Hit = {
-    ordinal: 0,
-    pages: [],
-    snippets: [],
-    text: '',
-    index: 0,
-    work: {
-      code: '',
-      sections: [],
-      ordinal: 0,
-      title: '',
-      volumeNumber: 0,
-      volumeTitle: '',
-    },
-  } as Hit;
+  @Input() data = emptyHit;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() navigateEmitter = new EventEmitter<FullTextInfo>();
@@ -73,7 +59,7 @@ export class ParagraphDialogComponent implements OnChanges {
       }
     }
 
-    let highlighted = this.data.text;
+    let highlighted = this.data.rawText;
     for (const hl of highlights) {
       highlighted = highlighted.replaceAll(
         hl,
