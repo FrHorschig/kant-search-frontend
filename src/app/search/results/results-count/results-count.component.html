@@ -9,7 +9,7 @@
       class="cursor-pointer hover-background"
       (click)="onClick(result.hits[0].work.code)"
     >
-      <span class="background-inside" nz-flex nzJustify="space-between">
+      <span nz-flex nzJustify="space-between">
         <span>{{ getWorkTitle(result.hits[0].work.title) }}</span>
         <span>{{ result.hits.length }}</span>
       </span>
