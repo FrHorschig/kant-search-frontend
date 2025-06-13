@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import {
-  Hit,
   HttpError,
   IndexNumberPair,
   SearchCriteria,
@@ -19,8 +18,6 @@ import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { Work } from 'src/app/store/volumes/model';
 import { SearchResult as ResultIntern, Snippet } from '../model/search-result';
-import e, { raw } from 'express';
-import { mainModule } from 'process';
 
 interface ResultsState {
   searchTerms: string;
@@ -326,26 +323,27 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     pages: number[],
     pageByIndex: IndexNumberPair[]
   ): number {
-    // TODO optimize?
-    return (
-      pageByIndex
-        .slice()
-        .reverse()
-        .find((p) => wordIndex > p.i)?.num ?? pages[0]
-    );
+    if (pageByIndex.length == 0) {
+      return pages[0];
+    }
+    for (let i = pageByIndex.length - 1; i >= 0; i--) {
+      if (wordIndex > pageByIndex[i].i) {
+        return pageByIndex[i].num;
+      }
+    }
+    return pages[0];
   }
 
   private findLineNum(
     wordIndex: number,
     lineByIndex: IndexNumberPair[]
   ): number {
-    // TODO optimize?
-    return (
-      lineByIndex
-        .slice()
-        .reverse()
-        .find((l) => wordIndex > l.i)?.num ?? 1
-    );
+    for (let i = lineByIndex.length - 1; i >= 0; i--) {
+      if (wordIndex > lineByIndex[i].i) {
+        return lineByIndex[i].num;
+      }
+    }
+    return 1;
   }
 
   private sort(results: ResultIntern[], allWorks: Work[]): ResultIntern[] {
