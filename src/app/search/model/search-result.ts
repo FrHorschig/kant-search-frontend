@@ -6,23 +6,23 @@ export interface SearchResult {
 }
 
 export interface Hit {
+  snippets: Snippet[];
+  fmtTextWithHl: string;
   ordinal: number;
-  pages: number[];
-  snippets: string[];
-  fmtText: string;
-  rawText: string;
-  wordIndexMap: Map<number, number>;
   index: number;
   work: Work;
 }
 
+export interface Snippet {
+  page: number;
+  line: number;
+  text: string;
+}
+
 export const emptyHit: Hit = {
-  ordinal: 0,
-  pages: [],
   snippets: [],
-  fmtText: '',
-  rawText: '',
-  wordIndexMap: new Map(),
+  fmtTextWithHl: '',
+  ordinal: 0,
   index: 0,
   work: {
     code: '',

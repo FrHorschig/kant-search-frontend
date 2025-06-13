@@ -17,7 +17,16 @@
 
       <div *nzSpaceItem>
         <ng-container *ngFor="let snippet of hit.snippets">
-          <ks-text-block [text]="'...' + snippet + '...'"></ks-text-block>
+          <div nz-row>
+            <div class="page-line" nz-col nzSpan="2">
+              [{{ snippet.page }}:{{ snippet.line }}]
+            </div>
+            <div nz-col nzSpan="22">
+              <ks-text-block
+                [text]="'...' + snippet.text + '...'"
+              ></ks-text-block>
+            </div>
+          </div>
         </ng-container>
       </div>
     </nz-space>

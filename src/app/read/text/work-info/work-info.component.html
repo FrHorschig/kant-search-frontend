@@ -3,6 +3,15 @@
 <nz-space class="w-full" nzDirection="vertical">
   <div *nzSpaceItem nz-row>
     <div nz-col nzSpan="4">
+      <b>{{ "READ.INFO.TITLE" | translate }}</b>
+    </div>
+    <div nz-col nzSpan="20">
+      <b>{{ work.title }}</b>
+    </div>
+  </div>
+
+  <div *nzSpaceItem nz-row>
+    <div nz-col nzSpan="4">
       {{ "READ.INFO.VOLUME" | translate }}
     </div>
     <div nz-col nzSpan="20">
@@ -11,15 +20,6 @@
           | translate
             : { volumeNumber: work.volumeNumber, title: work.volumeTitle }
       }}
-    </div>
-  </div>
-
-  <div *nzSpaceItem nz-row>
-    <div nz-col nzSpan="4">
-      {{ "READ.INFO.TITLE" | translate }}
-    </div>
-    <div nz-col nzSpan="20">
-      {{ work.title }}
     </div>
   </div>
 

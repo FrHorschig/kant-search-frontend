@@ -49,26 +49,6 @@ export class ParagraphDialogComponent implements OnChanges {
     return TitleUtil.truncate(this.data.work.title, 70);
   }
 
-  getTextWithHighlights(): string {
-    const highlightRegex = /<ks-meta-hit>(.*?)<\/ks-meta-hit>/g;
-    const highlights = new Set<string>();
-    for (const snippet of this.data.snippets) {
-      let match: RegExpExecArray | null;
-      while ((match = highlightRegex.exec(snippet)) !== null) {
-        highlights.add(match[1]);
-      }
-    }
-
-    let highlighted = this.data.rawText;
-    for (const hl of highlights) {
-      highlighted = highlighted.replaceAll(
-        hl,
-        `<ks-meta-hit>${hl}</ks-meta-hit>`
-      );
-    }
-    return highlighted;
-  }
-
   onHide() {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible);
