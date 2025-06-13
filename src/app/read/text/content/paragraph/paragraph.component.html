@@ -8,6 +8,6 @@
   <ks-text-block [text]="paragraph.text"></ks-text-block>
 </div>
 
-<ng-container *ngFor="let fnRef of paragraph.fnRefs">
-  <ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
-</ng-container>
+@for (fnRef of paragraph.fnRefs; track fnRef) {
+<ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
+}

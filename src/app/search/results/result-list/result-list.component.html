@@ -1,29 +1,29 @@
 <ng-container *ngIf="results.length > 0">
   <nz-space nzDirection="vertical">
-    <ng-container *ngFor="let result of results">
-      <nz-divider
-        id="results-{{ result.workCode }}"
-        *nzSpaceItem
-        [nzText]="
-          'COMMON.VOL_WORK_TITLE'
-            | translate
-              : {
-                  volumeNumber: result.hits[0].work.volumeNumber,
-                  title: getWorkTitle(result.hits[0].work.title)
-                }
-        "
-      ></nz-divider>
+    @for (result of results; track result.workCode) {
+    <nz-divider
+      id="results-{{ result.workCode }}"
+      *nzSpaceItem
+      [nzText]="
+        'COMMON.VOL_WORK_TITLE'
+          | translate
+            : {
+                volumeNumber: result.hits[0].work.volumeNumber,
+                title: getWorkTitle(result.hits[0].work.title)
+              }
+      "
+    ></nz-divider>
 
-      <div *nzSpaceItem>
-        <ng-container *ngFor="let hit of result.hits; let i = index">
-          <div [id]="`match-${result.workCode}-${hit.ordinal}`">
-            <ks-result-item
-              [hit]="hit"
-              (onClick)="onMatchClick(hit)"
-            ></ks-result-item>
-          </div>
-        </ng-container>
+    <div *nzSpaceItem>
+      @for (hit of result.hits; track hit.work.code+hit.ordinal) {
+      <div [id]="`match-${result.workCode}-${hit.ordinal}`">
+        <ks-result-item
+          [hit]="hit"
+          (onClick)="onMatchClick(hit)"
+        ></ks-result-item>
       </div>
-    </ng-container>
+      }
+    </div>
+    }
   </nz-space>
 </ng-container>

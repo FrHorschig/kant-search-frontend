@@ -22,12 +22,12 @@
   <li style="flex-grow: 1; pointer-events: none"></li>
 
   <li nz-submenu nzPlacement="bottomRight" [nzTitle]="settingsIcon">
-    <ul>
-      <ng-container *ngFor="let lang of availableLanguages$ | async">
-        <li nz-menu-item (click)="updateLang(lang)">
-          {{ "NAVBAR.LANG." + lang.toUpperCase() | translate }}
-        </li>
-      </ng-container>
+    <ul *ngIf="availableLanguages$ | async as availableLanguages">
+      @for (lang of availableLanguages; track lang) {
+      <li nz-menu-item (click)="updateLang(lang)">
+        {{ "NAVBAR.LANG." + lang.toUpperCase() | translate }}
+      </li>
+      }
     </ul>
   </li>
 </ul>

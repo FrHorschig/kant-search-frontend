@@ -15,11 +15,11 @@
   </div>
 </div>
 
-<ng-container *ngFor="let sec of section?.sections">
-  <ks-toc-section
-    [level]="level + 1"
-    [section]="sec"
-    [headByOrdinal]="headByOrdinal"
-    (onClickEmitter)="onClick($event)"
-  ></ks-toc-section>
-</ng-container>
+@for (sec of section?.sections; track sec.heading) {
+<ks-toc-section
+  [level]="level + 1"
+  [section]="sec"
+  [headByOrdinal]="headByOrdinal"
+  (onClickEmitter)="onClick($event)"
+></ks-toc-section>
+}
