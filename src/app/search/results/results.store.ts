@@ -196,7 +196,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     let indexTotal = 1;
     return results.map((res) => {
       return {
-        hits: res.hits.map((h, i) => {
+        hits: res.hits.map((h) => {
           const matchIndices = this.findMatchIndices(h.highlightText);
           const fmtTextWithHl = this.insertHighlights(
             h.fmtText,
@@ -215,8 +215,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             snippets,
             fmtTextWithHl,
             ordinal: h.ordinal,
-            index: i + 1,
-            indexTotal: indexTotal++,
+            index: indexTotal++,
             work: workByCode.get(res.workCode) ?? {
               code: '',
               sections: [],

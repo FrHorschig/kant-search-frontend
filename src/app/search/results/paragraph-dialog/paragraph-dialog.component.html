@@ -1,24 +1,31 @@
 <nz-modal
   [(nzVisible)]="isVisible"
   nzWidth="40rem"
+  [nzBodyStyle]="{ 'max-height': '80vh', overflow: 'hidden' }"
   [nzTitle]="modalTitle"
   [nzFooter]="null"
   (nzOnCancel)="onHide()"
 >
   <ng-container *nzModalContent>
-    <ks-text-block [text]="hit.fmtTextWithHl"></ks-text-block>
+    <div nz-flex nzVertical="true" style="max-height: 75vh">
+      <div style="margin-bottom: 20px; overflow: auto">
+        <ks-text-block [text]="hit.fmtTextWithHl"></ks-text-block>
+      </div>
 
-    <div nz-flex nzJustify="flex-end">
-      <button
-        nz-button
-        nzType="primary"
-        nz-tooltip
-        [nzTooltipTitle]="'SEARCH.RESULTS.NAV_FULLTEXT_BTN.TOOLTIP' | translate"
-        (click)="onNavigate()"
-      >
-        {{ "SEARCH.RESULTS.NAV_FULLTEXT_BTN.TEXT" | translate }}
-        <nz-icon nzType="arrow-right" />
-      </button>
+      <div nz-flex nzJustify="flex-end" style="margin-top: auto">
+        <button
+          nz-button
+          nzType="primary"
+          nz-tooltip
+          [nzTooltipTitle]="
+            'SEARCH.RESULTS.NAV_FULLTEXT_BTN.TOOLTIP' | translate
+          "
+          (click)="onNavigate()"
+        >
+          {{ "SEARCH.RESULTS.NAV_FULLTEXT_BTN.TEXT" | translate }}
+          <nz-icon nzType="arrow-right" />
+        </button>
+      </div>
     </div>
   </ng-container>
 </nz-modal>
@@ -29,4 +36,5 @@
       | translate
         : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle() }
   }}
+  ({{ hit.work.year }})
 </ng-template>

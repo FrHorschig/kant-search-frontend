@@ -10,12 +10,13 @@ import { emptyHit } from '../../model/search-result';
 import { FullTextInfo } from '../../model/full-text-info';
 import { TitleUtil } from '../../util/title-util';
 import { NzFlexDirective } from 'ng-zorro-antd/flex';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'ks-paragraph-dialog',
@@ -24,8 +25,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   imports: [
     TranslateModule,
     NzFlexDirective,
-    NzButtonComponent,
+    NzSpaceModule,
     NzModalModule,
+    NzButtonModule,
     NzToolTipModule,
     NzIconModule,
     TextBlockComponent,
@@ -46,7 +48,7 @@ export class ParagraphDialogComponent implements OnChanges {
   }
 
   getWorkTitle(): string {
-    return TitleUtil.truncate(this.hit.work.title, 70);
+    return TitleUtil.truncate(this.hit.work.title, 60);
   }
 
   onHide() {
