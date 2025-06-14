@@ -1,7 +1,7 @@
 import { Section } from '@frhorschig/kant-search-api';
 
 export interface Work {
-  abbreviation?: string;
+  siglum?: string;
   code: string;
   paragraphs?: Array<number>;
   sections: Array<Section>;

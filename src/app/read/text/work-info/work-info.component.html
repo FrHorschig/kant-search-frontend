@@ -23,13 +23,13 @@
     </div>
   </div>
 
-  <ng-container *ngIf="work.abbreviation">
+  <ng-container *ngIf="work.siglum">
     <div *nzSpaceItem nz-row>
       <div nz-col nzSpan="4">
-        {{ "READ.INFO.ABBREV" | translate }}
+        {{ "READ.INFO.SIGLUM" | translate }}
       </div>
       <div nz-col nzSpan="20">
-        {{ work.abbreviation }}
+        {{ work.siglum }}
       </div>
     </div>
   </ng-container>

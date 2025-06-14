@@ -1,5 +1,5 @@
-import { Hit, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
-import { Hit } from 'src/app/search/model/search-result';
+// import { Hit, Paragraph, Volume, Work } from '@frhorschig/kant-search-api';
+// import { Hit } from 'src/app/search/model/search-result';
 
 // export class Testdata {
 //   static readonly volume: Volume = {
@@ -23,7 +23,7 @@ import { Hit } from 'src/app/search/model/search-result';
 //   static readonly work: Work = {
 //     id: 'workId',
 //     code: 'ABC',
-//     abbreviation: 'Abbrev 1',
+//     siglum: 'Sgl 1',
 //     year: '1234',
 //     title: 'Work',
 //     sections: [],
