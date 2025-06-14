@@ -12,9 +12,9 @@
 
         <span nz-typography nzType="secondary">
           <i>{{
-            hit.work.abbreviation !== ""
+            hit.work.abbreviation && hit.work.abbreviation !== ""
               ? hit.work.abbreviation
-              : ("WORKS." + hit.work.code | translate)
+              : ("SEARCH.RESULTS.WORKS." + hit.work.code | translate)
           }}</i>
         </span>
       </div>

@@ -102,7 +102,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       })
     )
   );
-  // TODO use ScrollPositionRestoration instead
   readonly navigateToHit = this.effect<string>((fragment$) =>
     fragment$.pipe(
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),

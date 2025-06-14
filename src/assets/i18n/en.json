@@ -109,6 +109,25 @@
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Full text",
         "TOOLTIP": "Zum Absatz im Volltext springen"
+      },
+      "WORKS": {
+        "REZ_SIL_2": "Rez. Silberschlag 2",
+        "LAMBERT_BRIEFWECHSEL": "Briefwechsel Lambert",
+        "NACHRICHT_AERZTE": "Nachricht an Ärzte",
+        "IDEE_GESCHICHTE": "Rez. Herder",
+        "FRAGE_AUFKLAERUNG": "Aufklärung",
+        "VULKANE": "Vulkane",
+        "MENSCHENRACE": "Menschenrace",
+        "MENSCHENGESCH": "Muthmaßlicher Anfang",
+        "BEM_MORGEN": "Morgenstunden",
+        "THEODICEE": "Theodicee",
+        "WITTERUNG": "Einfluß des Mondes",
+        "EAD": "Ende aller Dinge",
+        "AUSGLEICH": "Ausgleichung",
+        "BUCHMACHEREI": "Buchmacherei",
+        "VORREDE_PHIL": "Vorrede Jachmann",
+        "WOERTERBUCH": "Nachschrift Mielcke",
+        "REZ_SIL_8": "Rez. Silberschlag 8"
       }
     }
   },

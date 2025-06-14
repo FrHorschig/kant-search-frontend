@@ -76,7 +76,7 @@ const all = [
   'VNAEF', //
   'VRML', //
   'BUCHMACHEREI', //
-  'REL_PHIL', //
+  'VORREDE_PHIL', //
   'WOERTERBUCH', //
   // TODO how to handle this special case?
   // 'NACHTRAG_8', //
