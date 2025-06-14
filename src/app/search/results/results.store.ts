@@ -16,12 +16,13 @@ import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/store/volumes/model';
 import {
   Hit,
   SearchResult as ResultIntern,
   Snippet,
 } from '../model/search-result';
+import { ResultSort } from '../model/search-options';
 
 interface ResultsState {
   searchTerms: string;
@@ -54,8 +55,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   readonly search = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
-      map((params) => this.criteriaFromParams(params)),
-      tap((criteria) =>
+      map((params) => [params, this.criteriaFromParams(params)] as const),
+      tap(([_, criteria]) =>
         this.patchState({
           searchTerms: criteria.searchTerms,
           results: [],
@@ -64,14 +65,18 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           ready: false,
         })
       ),
-      switchMap((criteria: SearchCriteria) =>
+      switchMap(([params, criteria]) =>
         this.searchService.search(criteria).pipe(
           withLatestFrom(this.volStore.workByCode$, this.route.fragment),
           tapResponse(
             ([results, workByCode, fragment]) => {
               results = results ? results : [];
               const pageMatch = fragment?.match(/^page(\d+)$/);
-              const mapped = this.mapResults(results, workByCode);
+              const sort =
+                params.get('sort') === 'YEAR'
+                  ? ResultSort.YEAR
+                  : ResultSort.AA_ORDER;
+              const mapped = this.mapResults(sort, results, workByCode);
               this.patchState({
                 results: mapped,
                 hits: mapped.flatMap((r) => r.hits),
@@ -178,21 +183,34 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   private buildQueryParams(paramsMap: ParamMap): Params {
     const codes = paramsMap.get('workCodes')?.split(',') ?? [];
-    return {
+    const queryParams: Params = {
       searchTerms: this.get((state) => state.searchTerms),
       workCodes: codes.join(','),
-      stems: paramsMap.get('stems') === 'true',
-      incFn: paramsMap.get('incFn') === 'true',
-      incHead: paramsMap.get('incHead') === 'true',
-      incSumm: paramsMap.get('incSumm') === 'true',
     };
+    if (paramsMap.get('sort') === ResultSort.YEAR) {
+      queryParams['sort'] = ResultSort.YEAR;
+    }
+    if (paramsMap.get('stems') === 'true') {
+      queryParams['stems'] = true;
+    }
+    if (paramsMap.get('incFn') === 'true') {
+      queryParams['incFn'] = true;
+    }
+    if (paramsMap.get('incHead') === 'true') {
+      queryParams['incHead'] = true;
+    }
+    if (paramsMap.get('incSumm') === 'true') {
+      queryParams['incSumm'] = true;
+    }
+    return queryParams;
   }
 
   private mapResults(
+    sort: ResultSort,
     results: SearchResult[],
     workByCode: Map<string, Work>
   ): ResultIntern[] {
-    results = this.sort(results, Array.from(workByCode.values()));
+    results = this.sort(sort, results, Array.from(workByCode.values()));
     let indexTotal = 1;
     return results.map((res) => {
       return {
@@ -216,14 +234,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             fmtTextWithHl,
             ordinal: h.ordinal,
             index: indexTotal++,
-            work: workByCode.get(res.workCode) ?? {
-              code: '',
-              sections: [],
-              ordinal: 0,
-              title: '',
-              volumeNumber: 0,
-              volumeTitle: '',
-            },
+            work: workByCode.get(res.workCode) ?? emptyWork,
           };
         }),
         workCode: res.workCode,
@@ -383,18 +394,26 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return 1;
   }
 
-  private sort(results: SearchResult[], allWorks: Work[]): SearchResult[] {
+  private sort(
+    sort: ResultSort,
+    results: SearchResult[],
+    allWorks: Work[]
+  ): SearchResult[] {
     const resultByCode = results.reduce((map, r) => {
       map.set(r.workCode, r);
       return map;
     }, new Map<string, SearchResult>());
     const resultWorks = allWorks.filter((w) => resultByCode.has(w.code));
-    resultWorks.sort((a, b) => {
-      if (a.volumeNumber !== b.volumeNumber) {
-        return a.volumeNumber - b.volumeNumber;
-      }
-      return a.ordinal - b.ordinal;
-    });
+    if (sort === ResultSort.AA_ORDER) {
+      resultWorks.sort((a, b) => {
+        if (a.volumeNumber !== b.volumeNumber) {
+          return a.volumeNumber - b.volumeNumber;
+        }
+        return a.ordinal - b.ordinal;
+      });
+    } else {
+      resultWorks.sort((a, b) => a.year.localeCompare(b.year));
+    }
     return resultWorks.map((w) => resultByCode.get(w.code)!);
   }
 }

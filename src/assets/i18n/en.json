@@ -36,7 +36,7 @@
     "TOC": {
       "HEADER": "Table of Contents",
       "SECTION": "Section",
-      "PAGE": "Page"
+      "PAGE": "Page Akadmie edition"
     },
     "CONTENT": "Text"
   },
@@ -66,6 +66,14 @@
       },
       "ADVANCED": {
         "HEADER": "Advanced options",
+        "SORT": {
+          "TITLE": "Sorting",
+          "LABEL": "Sorting",
+          "OPTIONS": {
+            "AA_ORDER": "by the order of the Akademie edition",
+            "YEAR": "by publication year"
+          }
+        },
         "SCOPE": {
           "TITLE": "Search scope",
           "TOOLTIP": "",

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WorksGroup } from '../../model/works-group';
 import { Volume } from '@frhorschig/kant-search-api';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
@@ -17,6 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { filter } from 'rxjs';
+import { WorksGroup } from '../../model/search-options';
 
 @Component({
   selector: 'ks-basic-input',
@@ -49,7 +49,7 @@ export class BasicInputComponent
   searchTerms: string = '';
 
   worksGroupOptions = Object.values(WorksGroup).filter(
-    (value) => typeof value === 'number' && value !== 99
+    (value) => value !== 'CUSTOM'
   ) as WorksGroup[];
   worksGroup: WorksGroup | null = null;
 
@@ -70,10 +70,6 @@ export class BasicInputComponent
         this.takeUntilDestroy()
       )
       .subscribe(() => this.buildNodes());
-  }
-
-  getWorksGroupString(value: WorksGroup): string {
-    return WorksGroup[value];
   }
 
   onSearchTermsChange(terms: string) {

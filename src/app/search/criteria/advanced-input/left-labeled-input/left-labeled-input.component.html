@@ -1,13 +1,15 @@
 <div nz-row>
-  <div nz-col nzSpan="22" nz-space>
-    <ng-content *nzSpaceItem></ng-content>
-
-    <label for="{{ idString }}" *nzSpaceItem>
+  <div nz-col nzSpan="6">
+    <label for="{{ idString }}">
       {{ i18nString + ".LABEL" | translate }}
     </label>
   </div>
 
-  <div nz-flex nzJustify="center" nz-col nzSpan="2">
+  <div nz-col [nzSpan]="withTooltip ? '16' : '18'">
+    <ng-content></ng-content>
+  </div>
+
+  <div nz-flex nzJustify="center" nz-col nzSpan="2" [hidden]="!withTooltip">
     <span nz-tooltip [nzTooltipTitle]="i18nString + '.TOOLTIP' | translate">
       <nz-icon nzType="info-circle" nzTheme="outline" />
     </span>

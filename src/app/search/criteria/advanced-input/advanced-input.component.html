@@ -1,9 +1,31 @@
 <nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED.HEADER' | translate">
-  <h5 nz-typography>
-    {{ "SEARCH.INPUT.ADVANCED.SCOPE.TITLE" | translate }}
-  </h5>
-
   <form [formGroup]="form">
+    <h5 nz-typography>
+      {{ "SEARCH.INPUT.ADVANCED.SORT.TITLE" | translate }}
+    </h5>
+
+    <ks-left-labeled-input
+      idString="sort-select"
+      i18nString="SEARCH.INPUT.ADVANCED.SORT"
+      [withTooltip]="false"
+    >
+      <nz-select class="w-full" formControlName="sort">
+        @for (option of sortOptions; track option) {
+        <nz-option
+          class="min-w-400"
+          [nzLabel]="'SEARCH.INPUT.ADVANCED.SORT.OPTIONS.' + option | translate"
+          [nzValue]="option"
+        ></nz-option>
+        }
+      </nz-select>
+    </ks-left-labeled-input>
+
+    <nz-divider></nz-divider>
+
+    <h5 nz-typography>
+      {{ "SEARCH.INPUT.ADVANCED.SCOPE.TITLE" | translate }}
+    </h5>
+
     <nz-space class="w-full" nzDirection="vertical">
       <ks-right-labeled-input
         *nzSpaceItem
@@ -45,11 +67,7 @@
     {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE" | translate }}
   </h5>
 
-  <p>
-    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}
-  </p>
+  <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}</p>
 
-  <p>
-    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.EXAMPLE" | translate }}
-  </p>
+  <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.EXAMPLE" | translate }}</p>
 </nz-card>

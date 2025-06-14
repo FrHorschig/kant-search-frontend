@@ -1,6 +1,7 @@
-import { WorksGroup } from '../model/works-group';
-
 // keep this in sync with <backend-dir>/src/core/upload/internal/mapping/works.go
+
+import { WorksGroup } from '../model/search-options';
+
 // TODO fetch these arrays from a config file
 const all = [
   // --- volume 1 ------------------

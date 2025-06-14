@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { filter, tap, withLatestFrom } from 'rxjs';
 import { LanguageStore } from 'src/app/store/language/language.store';
-import { AdvancedOptions } from '../model/search-options';
+import { AdvancedOptions, ResultSort } from '../model/search-options';
 
 interface CriteriaState {
   workCodes: string[];
@@ -21,6 +21,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       workCodes: [],
       searchTerms: '',
       options: {
+        sort: ResultSort.AA_ORDER,
         withStemming: true,
         includeFootnotes: true,
         includeHeadings: false,
@@ -34,15 +35,28 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       filter(() => this.get((state) => this.canSearch(state))),
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([_, lang]) => {
+        const state = this.get();
+        const queryParams: Params = {
+          searchTerms: state.searchTerms,
+          workCodes: state.workCodes.join(','),
+        };
+        if (state.options.sort === ResultSort.YEAR) {
+          queryParams['sort'] = ResultSort.YEAR;
+        }
+        if (state.options.withStemming) {
+          queryParams['stems'] = true;
+        }
+        if (state.options.includeFootnotes) {
+          queryParams['incFn'] = true;
+        }
+        if (state.options.includeHeadings) {
+          queryParams['incHead'] = true;
+        }
+        if (state.options.includeSummaries) {
+          queryParams['incSumm'] = true;
+        }
         this.router.navigate([`/${lang}/search/results`], {
-          queryParams: {
-            searchTerms: this.get((state) => state.searchTerms),
-            workCodes: this.get((state) => state.workCodes.join(',')),
-            stems: this.get((state) => state.options.withStemming),
-            incFn: this.get((state) => state.options.includeFootnotes),
-            incHead: this.get((state) => state.options.includeHeadings),
-            incSumm: this.get((state) => state.options.includeSummaries),
-          },
+          queryParams,
         });
       })
     )

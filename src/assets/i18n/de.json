@@ -34,7 +34,7 @@
     "TOC": {
       "HEADER": "Inhaltsverzeichnis",
       "SECTION": "Abschnitt",
-      "PAGE": "Seite"
+      "PAGE": "Seite Akademie-Ausgabe"
     },
     "CONTENT": "Text"
   },
@@ -64,6 +64,14 @@
       },
       "ADVANCED": {
         "HEADER": "Erweiterte Optionen",
+        "SORT": {
+          "TITLE": "Sortierung",
+          "LABEL": "Sortierung",
+          "OPTIONS": {
+            "AA_ORDER": "nach Reihenfolge der Akademie-Ausgabe",
+            "YEAR": "nach Erscheinungsjahr"
+          }
+        },
         "SCOPE": {
           "TITLE": "Suchbereich",
           "TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",

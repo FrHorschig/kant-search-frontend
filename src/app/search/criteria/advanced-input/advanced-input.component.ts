@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AdvancedOptions } from '../../model/search-options';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SearchScope } from '@frhorschig/kant-search-api';
+import { AdvancedOptions, ResultSort } from '../../model/search-options';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -10,12 +14,15 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { RightLabeledInputComponent } from 'src/app/search/criteria/advanced-input/right-labeled-input/right-labeled-input.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { LeftLabeledInputComponent } from './left-labeled-input/left-labeled-input.component';
 
 @Component({
   selector: 'ks-advanced-input',
   templateUrl: './advanced-input.component.html',
   standalone: true,
   imports: [
+    FormsModule,
     ReactiveFormsModule,
     TranslateModule,
     NzSpaceModule,
@@ -23,7 +30,9 @@ import { SubscriptionComponent } from 'src/app/common/base/container.component';
     NzCardModule,
     NzSwitchModule,
     NzDividerModule,
+    NzSelectModule,
     RightLabeledInputComponent,
+    LeftLabeledInputComponent,
   ],
 })
 export class AdvancedInputComponent
@@ -34,7 +43,8 @@ export class AdvancedInputComponent
 
   @Output() optionsChangeEmitter = new EventEmitter<AdvancedOptions>();
 
-  scopes = Object.values(SearchScope);
+  sortOptions = Object.values(ResultSort);
+  sort: ResultSort = ResultSort.AA_ORDER;
   form!: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -43,13 +53,18 @@ export class AdvancedInputComponent
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      sort: [this.options?.sort],
+      withStemming: [this.options?.withStemming],
       includeFootnotes: [this.options?.includeFootnotes],
       includeHeadings: [this.options?.includeHeadings],
       includeSummaries: [this.options?.includeSummaries],
-      withStemming: [this.options?.withStemming],
     });
     this.form.valueChanges
       .pipe(this.takeUntilDestroy())
       .subscribe((options) => this.optionsChangeEmitter.emit(options));
+  }
+
+  getSortString(value: ResultSort): string {
+    return ResultSort[value];
   }
 }

@@ -66,10 +66,7 @@
     @for (option of worksGroupOptions; track option) {
     <nz-option
       class="min-w-400"
-      [nzLabel]="
-        'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + getWorksGroupString(option)
-          | translate
-      "
+      [nzLabel]="'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + option | translate"
       [nzValue]="option"
     ></nz-option>
     }

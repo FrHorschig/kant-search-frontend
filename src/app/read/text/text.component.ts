@@ -11,7 +11,7 @@ import { ContentComponent } from './content/content.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TocSectionComponent } from './work-info/work-info.component';
-import { Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/store/volumes/model';
 
 @Component({
   selector: 'ks-text',
@@ -36,14 +36,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   summaryByRef$ = this.store.summaryByRef$;
   ready$ = this.store.ready$;
 
-  defaultWork: Work = {
-    code: '',
-    sections: [],
-    ordinal: 0,
-    title: '',
-    volumeNumber: 0,
-    volumeTitle: '',
-  };
+  defaultWork = emptyWork;
 
   constructor(
     private readonly route: ActivatedRoute,

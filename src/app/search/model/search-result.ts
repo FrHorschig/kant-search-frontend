@@ -29,6 +29,7 @@ export const emptyHit: Hit = {
     sections: [],
     ordinal: 0,
     title: '',
+    year: '',
     volumeNumber: 0,
     volumeTitle: '',
   },

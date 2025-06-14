@@ -7,7 +7,17 @@ export interface Work {
   sections: Array<Section>;
   ordinal: number;
   title: string;
-  year?: string;
+  year: string;
   volumeNumber: number;
   volumeTitle: string;
 }
+
+export const emptyWork: Work = {
+  code: '',
+  sections: [],
+  ordinal: 0,
+  title: '',
+  year: '',
+  volumeNumber: 0,
+  volumeTitle: '',
+};
