@@ -71,8 +71,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
               const pageMatch = fragment?.match(/^page(\d+)$/);
               const sort =
                 params.get('sort') === 'YEAR'
-                  ? ResultSort.YEAR
-                  : ResultSort.AA_ORDER;
+                  ? ResultSort.Year
+                  : ResultSort.AaOrder;
               const mapped = this.mapResults(sort, results, workByCode);
               this.patchState({
                 results: mapped,
@@ -176,8 +176,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       searchTerms: this.get((state) => state.searchTerms),
       workCodes: codes.join(','),
     };
-    if (paramsMap.get('sort') === ResultSort.YEAR) {
-      queryParams['sort'] = ResultSort.YEAR;
+    if (paramsMap.get('sort') === ResultSort.Year) {
+      queryParams['sort'] = ResultSort.Year;
     }
     if (paramsMap.get('stems') === 'true') {
       queryParams['stems'] = true;
@@ -393,7 +393,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       return map;
     }, new Map<string, SearchResult>());
     const resultWorks = allWorks.filter((w) => resultByCode.has(w.code));
-    if (sort === ResultSort.AA_ORDER) {
+    if (sort === ResultSort.AaOrder) {
       resultWorks.sort((a, b) => {
         if (a.volumeNumber !== b.volumeNumber) {
           return a.volumeNumber - b.volumeNumber;

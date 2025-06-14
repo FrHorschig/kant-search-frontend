@@ -44,7 +44,7 @@ export class AdvancedInputComponent
   @Output() optionsChangeEmitter = new EventEmitter<AdvancedOptions>();
 
   sortOptions = Object.values(ResultSort);
-  sort: ResultSort = ResultSort.AA_ORDER;
+  sort: ResultSort = ResultSort.AaOrder;
   form!: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder) {

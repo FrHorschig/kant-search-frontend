@@ -81,11 +81,11 @@ export class BasicInputComponent
   onSelectChange(group: WorksGroup) {
     this.worksGroup = group;
     if (
-      group !== WorksGroup.CUSTOM &&
-      this.worksGroupOptions.includes(WorksGroup.CUSTOM)
+      group !== WorksGroup.Custom &&
+      this.worksGroupOptions.includes(WorksGroup.Custom)
     ) {
       this.worksGroupOptions = this.worksGroupOptions.filter(
-        (opt) => opt !== WorksGroup.CUSTOM
+        (opt) => opt !== WorksGroup.Custom
       );
     }
     this.checkedKeys = WorksGroupUtil.getCodes(group);
@@ -96,13 +96,13 @@ export class BasicInputComponent
     this.checkedKeys = keys.filter((k) => typeof k === 'string');
     const codes = this.checkedKeys.filter((key) => !key.startsWith('volume-'));
     const group = WorksGroupUtil.getGroup(codes);
-    if (group === WorksGroup.CUSTOM) {
-      if (!this.worksGroupOptions.includes(WorksGroup.CUSTOM)) {
-        this.worksGroupOptions = [...this.worksGroupOptions, WorksGroup.CUSTOM];
+    if (group === WorksGroup.Custom) {
+      if (!this.worksGroupOptions.includes(WorksGroup.Custom)) {
+        this.worksGroupOptions = [...this.worksGroupOptions, WorksGroup.Custom];
       }
     } else {
       this.worksGroupOptions = this.worksGroupOptions.filter(
-        (opt) => opt !== WorksGroup.CUSTOM
+        (opt) => opt !== WorksGroup.Custom
       );
     }
     this.worksGroup = group;

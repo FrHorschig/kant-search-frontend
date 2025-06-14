@@ -21,7 +21,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       workCodes: [],
       searchTerms: '',
       options: {
-        sort: ResultSort.AA_ORDER,
+        sort: ResultSort.AaOrder,
         withStemming: true,
         includeFootnotes: true,
         includeHeadings: false,
@@ -40,8 +40,8 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
           searchTerms: state.searchTerms,
           workCodes: state.workCodes.join(','),
         };
-        if (state.options.sort === ResultSort.YEAR) {
-          queryParams['sort'] = ResultSort.YEAR;
+        if (state.options.sort === ResultSort.Year) {
+          queryParams['sort'] = ResultSort.Year;
         }
         if (state.options.withStemming) {
           queryParams['stems'] = true;

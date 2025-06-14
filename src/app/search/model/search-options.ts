@@ -1,13 +1,13 @@
 export enum WorksGroup {
-  ALL = 'ALL',
-  PRECRITICAL = 'PRECRITICAL',
-  CRITIQUES = 'CRITIQUES',
-  CUSTOM = 'CUSTOM',
+  All = 'ALL',
+  Precritical = 'PRECRITICAL',
+  Critiques = 'CRITIQUES',
+  Custom = 'CUSTOM',
 }
 
 export enum ResultSort {
-  AA_ORDER = 'AA_ORDER',
-  YEAR = 'YEAR',
+  AaOrder = 'AA_ORDER',
+  Year = 'YEAR',
 }
 
 export interface AdvancedOptions {

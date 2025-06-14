@@ -132,13 +132,13 @@ const critiques = [
 export class WorksGroupUtil {
   static getCodes(group: WorksGroup | null): string[] {
     switch (group) {
-      case WorksGroup.ALL:
+      case WorksGroup.All:
         return all;
-      case WorksGroup.PRECRITICAL:
+      case WorksGroup.Precritical:
         return precritical;
-      case WorksGroup.CRITIQUES:
+      case WorksGroup.Critiques:
         return critiques;
-      case WorksGroup.CUSTOM:
+      case WorksGroup.Custom:
         throw new Error(
           'The work group value ' + group + ' is not allowed to be mapped!'
         );
@@ -152,7 +152,7 @@ export class WorksGroupUtil {
       return null;
     }
     if (codes.length === all.length) {
-      return WorksGroup.ALL;
+      return WorksGroup.All;
     }
 
     const inSorted = codes.sort();
@@ -160,15 +160,15 @@ export class WorksGroupUtil {
       codes.length === precritical.length &&
       inSorted.every((c, i) => c === precritical[i])
     ) {
-      return WorksGroup.PRECRITICAL;
+      return WorksGroup.Precritical;
     }
     if (
       codes.length === critiques.length &&
       inSorted.every((c, i) => c === critiques[i])
     ) {
-      return WorksGroup.CRITIQUES;
+      return WorksGroup.Critiques;
     }
 
-    return WorksGroup.CUSTOM;
+    return WorksGroup.Custom;
   }
 }
