@@ -24,15 +24,11 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzIconModule,
   ],
 })
-export class NavbarComponent extends SubscriptionComponent {
+export class NavbarComponent {
   availableLanguages$ = this.langStore.availableLanguages$;
   currentLanguage$ = this.langStore.currentLanguage$;
 
-  currentLang: string = '';
-
-  constructor(private readonly langStore: LanguageStore) {
-    super();
-  }
+  constructor(private readonly langStore: LanguageStore) {}
 
   updateLang(lang: string) {
     this.langStore.updateCurrentLanguage(lang);
