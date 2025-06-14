@@ -6,14 +6,16 @@
       {{ "READ.SELECTION.HEADER" | translate }}
     </h2>
 
-    <div *nzSpaceItem>
-      <ng-container *ngIf="((nodes$ | async) ?? []).length === 0">
+    <ng-container *ngIf="((nodes$ | async) ?? []).length === 0">
+      <div *nzSpaceItem>
         {{ "READ.SELECTION.NO_WORKS" | translate }}
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
 
     <nz-tree
+      *nzSpaceItem
       [nzData]="(nodes$ | async) ?? []"
+      [nzExpandedKeys]="expandedKeys"
       (nzClick)="onNodeClick($event)"
     ></nz-tree>
   </nz-space>

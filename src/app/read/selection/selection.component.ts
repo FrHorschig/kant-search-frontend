@@ -35,6 +35,7 @@ export class SelectionComponent extends SubscriptionComponent {
             title: work.title,
             key: work.code,
             isLeaf: true,
+            selectable: false,
           };
         });
         return {
@@ -44,10 +45,12 @@ export class SelectionComponent extends SubscriptionComponent {
           }),
           key: `volume-${vol.volumeNumber}`,
           children: children,
+          selectable: false,
         };
       })
     )
   );
+  expandedKeys: string[] = [];
 
   constructor(
     private readonly router: Router,
@@ -60,7 +63,18 @@ export class SelectionComponent extends SubscriptionComponent {
 
   onNodeClick(event: NzFormatEmitEvent) {
     const key = event.node?.key ?? '';
-    if (!key.startsWith('volume-')) {
+    if (key.startsWith('volume-')) {
+      const set = new Set(this.expandedKeys);
+      if (set.has(key)) {
+        set.delete(key);
+        this.expandedKeys = Array.from(set);
+        event.node?.setExpanded(false);
+      } else {
+        set.add(key);
+        this.expandedKeys = Array.from(set);
+        event.node?.setExpanded(true);
+      }
+    } else {
       this.langStore.currentLanguage$
         .pipe(this.takeUntilDestroy())
         .subscribe((lang) => this.router.navigate([`/${lang}/read/text`, key]));

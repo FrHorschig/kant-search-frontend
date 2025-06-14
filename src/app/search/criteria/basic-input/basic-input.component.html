@@ -31,6 +31,8 @@
         [nzData]="nodes"
         [nzCheckedKeys]="checkedKeys"
         (nzCheckedKeysChange)="onCheckedKeysChange($event)"
+        [nzExpandedKeys]="expandedKeys"
+        (nzClick)="onNodeClick($event)"
       ></nz-tree>
     </ng-container>
   </nz-card>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Volume } from '@frhorschig/kant-search-api';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
+import { NzFormatEmitEvent, NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { WorksGroupUtil } from '../../util/works-group-util';
 import { TitleUtil } from '../../util/title-util';
 import { CommonModule } from '@angular/common';
@@ -55,6 +55,7 @@ export class BasicInputComponent
 
   nodes: NzTreeNodeOptions[] = [];
   checkedKeys: string[] = [];
+  expandedKeys: string[] = [];
 
   constructor(
     private readonly translateService: TranslateService,
@@ -108,6 +109,22 @@ export class BasicInputComponent
     this.workCodesEmitter.emit(codes);
   }
 
+  onNodeClick(event: NzFormatEmitEvent) {
+    const key = event.node?.key ?? '';
+    if (key.startsWith('volume-')) {
+      const set = new Set(this.expandedKeys);
+      if (set.has(key)) {
+        set.delete(key);
+        this.expandedKeys = Array.from(set);
+        event.node?.setExpanded(false);
+      } else {
+        set.add(key);
+        this.expandedKeys = Array.from(set);
+        event.node?.setExpanded(true);
+      }
+    }
+  }
+
   onSubmit() {
     this.doSearchEmitter.emit();
   }
@@ -119,6 +136,7 @@ export class BasicInputComponent
           title: TitleUtil.truncate(work.title, 75),
           key: work.code,
           isLeaf: true,
+          selectable: false,
         };
       });
       return {
@@ -128,6 +146,7 @@ export class BasicInputComponent
         }),
         key: `volume-${vol.volumeNumber}`,
         children: children,
+        selectable: false,
       };
     });
     this.worksGroup = null;
