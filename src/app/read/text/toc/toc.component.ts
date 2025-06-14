@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Heading } from '@frhorschig/kant-search-api';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { emptyWork, Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/common/model/model';
 import { TocSectionComponent } from './section/section.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';

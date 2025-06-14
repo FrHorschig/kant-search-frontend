@@ -1,5 +1,6 @@
-export const createTranslateServiceSpy = () =>
-  jasmine.createSpyObj('TranslateService', ['get', 'instant']);
+export const createTranslateServiceSpy = () => {
+  return jasmine.createSpyObj('TranslateService', ['get', 'instant']);
+};
 
 export const createScrollServiceSpy = () =>
   jasmine.createSpyObj('ScrollService', ['scrollToAnchor']);

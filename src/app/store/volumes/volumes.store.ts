@@ -4,7 +4,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { Work } from 'src/app/store/volumes/model';
+import { Work } from 'src/app/common/model/model';
 import { ErrorService } from 'src/app/common/service/error.service';
 
 interface VolumesState {

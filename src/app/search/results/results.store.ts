@@ -13,7 +13,7 @@ import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { emptyWork, Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/common/model/model';
 import {
   Hit,
   SearchResult as ResultIntern,
@@ -49,6 +49,13 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       ready: false,
     });
   }
+
+  readonly searchTerms$ = this.select((state) => state.searchTerms);
+  readonly results$ = this.select((state) => state.results);
+  readonly hits$ = this.select((state) => state.hits);
+  readonly page$ = this.select((state) => state.page);
+  readonly pageSize$ = this.select((state) => state.pageSize);
+  readonly ready$ = this.select((state) => state.ready);
 
   readonly search = this.effect<void>(() =>
     this.route.queryParamMap.pipe(
@@ -147,13 +154,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     ...state,
     searchTerms,
   }));
-
-  readonly searchTerms$ = this.select((state) => state.searchTerms);
-  readonly results$ = this.select((state) => state.results);
-  readonly hits$ = this.select((state) => state.hits);
-  readonly page$ = this.select((state) => state.page);
-  readonly pageSize$ = this.select((state) => state.pageSize);
-  readonly ready$ = this.select((state) => state.ready);
 
   private criteriaFromParams(params: ParamMap): SearchCriteria {
     const codes = params.get('workCodes')?.split(',') ?? [];

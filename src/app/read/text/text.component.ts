@@ -11,7 +11,7 @@ import { ContentComponent } from './content/content.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TocSectionComponent } from './work-info/work-info.component';
-import { emptyWork, Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/common/model/model';
 
 @Component({
   selector: 'ks-text',

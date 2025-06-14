@@ -18,10 +18,10 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     CommonModule,
     RouterLink,
     AsyncPipe,
+    TranslateModule,
     NzFlexModule,
     NzMenuModule,
     NzIconModule,
-    TranslateModule,
   ],
 })
 export class NavbarComponent extends SubscriptionComponent {

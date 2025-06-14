@@ -30,6 +30,11 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     });
   }
 
+  readonly canSearch$ = this.select((state) => this.canSearch(state));
+  readonly searchTerms$ = this.select((state) => state.searchTerms);
+  readonly workCodes$ = this.select((state) => state.workCodes);
+  readonly options$ = this.select((state) => state.options);
+
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
       filter(() => this.get((state) => this.canSearch(state))),
@@ -74,11 +79,6 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     ...state,
     options,
   }));
-
-  readonly canSearch$ = this.select((state) => this.canSearch(state));
-  readonly searchTerms$ = this.select((state) => state.searchTerms);
-  readonly workCodes$ = this.select((state) => state.workCodes);
-  readonly options$ = this.select((state) => state.options);
 
   private canSearch(state: CriteriaState): boolean {
     return state.workCodes.length > 0 && state.searchTerms.length > 0;

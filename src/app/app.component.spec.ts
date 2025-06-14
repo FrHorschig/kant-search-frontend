@@ -2,35 +2,49 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { VolumesStore } from './store/volumes/volumes.store';
 import { RouterModule } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-
-class MockVolumesStore {
-  loadData = jasmine.createSpy('loadData');
-}
-
-export const createTranslateServiceSpy = () =>
-  jasmine.createSpyObj<TranslateService>('TranslateService', [
-    'get',
-    'instant',
-  ]);
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { MockNavbarComponent } from './app/navbar/navbar.component.spec';
+import { CommonModule } from '@angular/common';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { MockVolumesStore } from './store/volumes/volumes.store.spec';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let mockVolumesStore: MockVolumesStore;
-  let mockTranslateService: jasmine.SpyObj<TranslateService>;
+  let mockNavbarComponent: MockNavbarComponent;
 
   beforeEach(async () => {
     mockVolumesStore = new MockVolumesStore();
-    mockTranslateService = createTranslateServiceSpy();
+    mockNavbarComponent = new MockNavbarComponent();
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterModule.forRoot([])],
-      providers: [
-        { provide: VolumesStore, useValue: mockVolumesStore },
-        { provide: TranslateService, useValue: mockTranslateService },
+      imports: [
+        AppComponent,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
       ],
-    }).compileComponents();
+      providers: [{ provide: VolumesStore, useValue: mockVolumesStore }],
+    })
+      .overrideComponent(AppComponent, {
+        set: {
+          imports: [
+            CommonModule,
+            RouterModule,
+            NzFlexModule,
+            NzSpaceModule,
+            MockNavbarComponent,
+          ],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;

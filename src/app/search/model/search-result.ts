@@ -1,4 +1,4 @@
-import { Work } from 'src/app/store/volumes/model';
+import { Work } from 'src/app/common/model/model';
 
 export interface SearchResult {
   hits: Hit[];

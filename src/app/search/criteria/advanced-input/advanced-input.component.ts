@@ -63,8 +63,4 @@ export class AdvancedInputComponent
       .pipe(this.takeUntilDestroy())
       .subscribe((options) => this.optionsChangeEmitter.emit(options));
   }
-
-  getSortString(value: ResultSort): string {
-    return ResultSort[value];
-  }
 }

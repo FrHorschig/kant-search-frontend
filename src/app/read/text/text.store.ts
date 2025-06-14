@@ -13,7 +13,7 @@ import { EMPTY, forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { Work } from 'src/app/store/volumes/model';
+import { Work } from 'src/app/common/model/model';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { Router } from '@angular/router';
 

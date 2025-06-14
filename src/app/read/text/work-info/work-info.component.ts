@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { emptyWork, Work } from 'src/app/store/volumes/model';
+import { emptyWork, Work } from 'src/app/common/model/model';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
