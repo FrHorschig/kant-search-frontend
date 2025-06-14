@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TitleUtil } from 'src/app/search/util/title-util';
 
 @Component({
   selector: 'ks-selection',
@@ -22,7 +23,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class SelectionComponent extends SubscriptionComponent {
   volumes$ = this.volStore.volumes$;
   isLoaded$ = this.volStore.isLoaded$;
-
   nodes$: Observable<NzTreeNodeOptions[]> = combineLatest([
     this.volumes$,
     this.langStore.ready$,
@@ -32,7 +32,7 @@ export class SelectionComponent extends SubscriptionComponent {
       vols.map((vol) => {
         const children = vol.works.map((work) => {
           return {
-            title: work.title,
+            title: TitleUtil.truncate(work.title, 85),
             key: work.code,
             isLeaf: true,
             selectable: false,

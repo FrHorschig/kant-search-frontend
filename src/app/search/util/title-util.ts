@@ -9,7 +9,7 @@ export class TitleUtil {
     if (lastSpaceIndex === -1) {
       return truncated + ' ...';
     }
-    return truncated.slice(0, lastSpaceIndex) + '...';
+    return truncated.slice(0, lastSpaceIndex) + ' ...';
   }
 
   static titleCase(text: string): string {

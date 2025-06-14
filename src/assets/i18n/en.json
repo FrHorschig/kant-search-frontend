@@ -27,7 +27,7 @@
       "HEADER": "Work data",
       "TITLE": "Title",
       "VOLUME": "Volume",
-      "ABBREV": "Siglum",
+      "SIGLUM": "Siglum",
       "YEAR": "Year"
     },
     "SELECTION": {

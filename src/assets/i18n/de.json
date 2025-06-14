@@ -27,7 +27,7 @@
       "HEADER": "Werkdaten",
       "TITLE": "Titel",
       "VOLUME": "Band",
-      "ABBREV": "Siglum",
+      "SIGLUM": "Siglum",
       "YEAR": "Jahr"
     },
     "SELECTION": {
