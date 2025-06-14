@@ -10,7 +10,6 @@
 //   ErrorMessage,
 //   HttpError,
 //   SearchResult,
-//   SearchScope,
 //   SearchService,
 // } from '@frhorschig/kant-search-api';
 // import { TranslateModule } from '@ngx-translate/core';
@@ -39,7 +38,6 @@
 //         a: convertToParamMap({
 //           workIds: '1,2',
 //           searchString: 'term',
-//           scope: SearchScope.Paragraph,
 //         }),
 //       }),
 //     };
@@ -122,7 +120,6 @@
 //         queryParams: {
 //           workIds: '1,2',
 //           searchString: 'test',
-//           scope: SearchScope.Paragraph,
 //         },
 //       });
 //     });

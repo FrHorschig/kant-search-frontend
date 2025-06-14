@@ -4,7 +4,6 @@ import {
   IndexNumberPair,
   SearchCriteria,
   SearchResult,
-  SearchScope,
   SearchService,
 } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
@@ -162,7 +161,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       searchTerms: params.get('searchTerms') ?? '',
       options: {
         workCodes: Array.from(new Set(codes)),
-        scope: SearchScope.Paragraph,
         withStemming: params.get('stems') === 'true',
         includeFootnotes: params.get('incFn') === 'true',
         includeHeadings: params.get('incHead') === 'true',
