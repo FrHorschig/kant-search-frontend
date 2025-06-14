@@ -28,8 +28,9 @@
 </ng-container>
 
 <ks-paragraph-dialog
-  [(isVisible)]="showParagraph"
-  [data]="hit"
+  [isVisible]="showParagraph"
+  (isVisibleChange)="onDialogHide($event)"
+  [hit]="hit"
   (navigateEmitter)="onFullTextNavigation($event)"
 ></ks-paragraph-dialog>
 

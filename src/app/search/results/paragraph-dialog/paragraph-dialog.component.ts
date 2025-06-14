@@ -33,7 +33,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class ParagraphDialogComponent implements OnChanges {
   @Input() isVisible = false;
-  @Input() data = emptyHit;
+  @Input() hit = emptyHit;
 
   @Output() isVisibleChange = new EventEmitter<boolean>();
   @Output() navigateEmitter = new EventEmitter<FullTextInfo>();
@@ -46,7 +46,7 @@ export class ParagraphDialogComponent implements OnChanges {
   }
 
   getWorkTitle(): string {
-    return TitleUtil.truncate(this.data.work.title, 70);
+    return TitleUtil.truncate(this.hit.work.title, 70);
   }
 
   onHide() {
@@ -56,8 +56,8 @@ export class ParagraphDialogComponent implements OnChanges {
 
   onNavigate() {
     this.navigateEmitter.emit({
-      workCode: this.data.work.code,
-      fragment: `content-${this.data.ordinal}`,
+      workCode: this.hit.work.code,
+      fragment: `content-${this.hit.ordinal}`,
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, take } from 'rxjs';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
@@ -48,6 +48,8 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   showParagraph = false;
   hit = emptyHit;
   showUpButton = false;
+  isInit = true;
+  previousAnchor = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -85,9 +87,26 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.navigateToSection(workCode);
   }
 
-  onClick(hitData: Hit) {
-    this.hit = hitData;
-    this.showParagraph = true;
+  onClick(hit: Hit) {
+    this.hit = hit;
+    this.route.fragment.pipe(take(1)).subscribe((fragment) => {
+      this.previousAnchor = fragment ?? '';
+      this.resultsStore.navigateToHit(
+        `hit-${this.hit.work.code}-${this.hit.ordinal}`
+      );
+      this.showParagraph = true;
+    });
+  }
+
+  onDialogHide(isVisible: boolean) {
+    if (this.isInit) {
+      this.isInit = false;
+      return;
+    }
+    if (!isVisible) {
+      this.resultsStore.navigateToHit(this.previousAnchor);
+      this.showParagraph = false;
+    }
   }
 
   onFullTextNavigation(info: FullTextInfo) {

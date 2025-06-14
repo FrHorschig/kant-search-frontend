@@ -6,7 +6,7 @@
   (nzOnCancel)="onHide()"
 >
   <ng-container *nzModalContent>
-    <ks-text-block [text]="data.fmtTextWithHl"></ks-text-block>
+    <ks-text-block [text]="hit.fmtTextWithHl"></ks-text-block>
 
     <div nz-flex nzJustify="flex-end">
       <button
@@ -24,11 +24,11 @@
 </nz-modal>
 
 <ng-template #modalTitle>
-  <i>#{{ data.index }}</i>
+  <i>#{{ hit.index }}</i>
 
   {{
     "COMMON.VOL_WORK_TITLE"
       | translate
-        : { volumeNumber: data.work.volumeNumber, title: getWorkTitle() }
+        : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle() }
   }}
 </ng-template>

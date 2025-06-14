@@ -102,7 +102,18 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       })
     )
   );
-
+  // TODO use ScrollPositionRestoration instead
+  readonly navigateToHit = this.effect<string>((fragment$) =>
+    fragment$.pipe(
+      withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
+      tap(([fragment, params, lang]) => {
+        this.router.navigate([`/${lang}/search/results`], {
+          queryParams: this.buildQueryParams(params),
+          fragment: fragment,
+        });
+      })
+    )
+  );
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),

@@ -1,4 +1,8 @@
-<div class="cursor-pointer" (click)="onCardClick()">
+<div
+  id="hit-{{ hit.work.code }}-{{ hit.ordinal }}"
+  class="cursor-pointer"
+  (click)="onCardClick()"
+>
   <nz-card>
     <nz-space class="w-full" nzDirection="vertical">
       <div *nzSpaceItem nz-flex nzJustify="space-between">
