@@ -17,6 +17,8 @@ export class ResultsCountComponent {
 
   @Output() onClickEmitter = new EventEmitter<string>();
 
+  isCollapseActive = false;
+
   getTotalCount(): number {
     return this.results.reduce((acc, result) => acc + result.hits.length, 0);
   }
@@ -26,6 +28,7 @@ export class ResultsCountComponent {
   }
 
   onClick(workCode: string) {
+    this.isCollapseActive = false;
     this.onClickEmitter.emit(workCode);
   }
 }

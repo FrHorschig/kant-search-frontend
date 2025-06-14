@@ -2,7 +2,7 @@
   <nz-collapse-panel
     [nzHeader]="'SEARCH.RESULTS.COUNT.TOTAL' | translate"
     [nzExtra]="totalCount"
-    [nzActive]="results.length > 1"
+    [(nzActive)]="isCollapseActive"
   >
     @for (result of results; track result.workCode) {
     <div

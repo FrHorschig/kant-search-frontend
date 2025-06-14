@@ -43,6 +43,9 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   workByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
+  hits$ = this.resultsStore.hits$;
+  page$ = this.resultsStore.page$;
+  pageSize$ = this.resultsStore.pageSize$;
   ready$ = this.resultsStore.ready$;
 
   showParagraph = false;
@@ -87,26 +90,13 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.navigateToSection(workCode);
   }
 
-  onClick(hit: Hit) {
-    this.hit = hit;
-    this.route.fragment.pipe(take(1)).subscribe((fragment) => {
-      this.previousAnchor = fragment ?? '';
-      this.resultsStore.navigateToHit(
-        `hit-${this.hit.work.code}-${this.hit.ordinal}`
-      );
-      this.showParagraph = true;
-    });
+  onPageChange(page: number) {
+    this.resultsStore.navigateToPage(page);
   }
 
-  onDialogHide(isVisible: boolean) {
-    if (this.isInit) {
-      this.isInit = false;
-      return;
-    }
-    if (!isVisible) {
-      this.resultsStore.navigateToHit(this.previousAnchor);
-      this.showParagraph = false;
-    }
+  onClick(hit: Hit) {
+    this.hit = hit;
+    this.showParagraph = true;
   }
 
   onFullTextNavigation(info: FullTextInfo) {

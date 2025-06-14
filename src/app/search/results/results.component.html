@@ -8,7 +8,7 @@
   <nz-space class="w-full" nzDirection="vertical">
     <ks-results-input
       *nzSpaceItem
-      [searchTerms]="(searchTerms$ | async) || ''"
+      [searchTerms]="(searchTerms$ | async) ?? ''"
       (searchTermsEmitter)="onSearchTermsChange($event)"
       (doUpdateEmitter)="onUpdate()"
     ></ks-results-input>
@@ -21,15 +21,17 @@
 
     <ks-result-list
       *nzSpaceItem
-      [results]="(results$ | async) || []"
+      [hits]="(hits$ | async) ?? []"
+      [page]="(page$ | async) ?? 1"
+      [pageSize]="(pageSize$ | async) ?? 5"
+      (pageChange)="onPageChange($event)"
       (onClick)="onClick($event)"
     ></ks-result-list>
   </nz-space>
 </ng-container>
 
 <ks-paragraph-dialog
-  [isVisible]="showParagraph"
-  (isVisibleChange)="onDialogHide($event)"
+  [(isVisible)]="showParagraph"
   [hit]="hit"
   (navigateEmitter)="onFullTextNavigation($event)"
 ></ks-paragraph-dialog>

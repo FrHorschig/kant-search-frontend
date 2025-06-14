@@ -17,11 +17,18 @@ import { LanguageStore } from 'src/app/store/language/language.store';
 import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { Work } from 'src/app/store/volumes/model';
-import { SearchResult as ResultIntern, Snippet } from '../model/search-result';
+import {
+  Hit,
+  SearchResult as ResultIntern,
+  Snippet,
+} from '../model/search-result';
 
 interface ResultsState {
   searchTerms: string;
   results: ResultIntern[];
+  hits: Hit[];
+  page: number;
+  pageSize: number;
   ready: boolean;
 }
 
@@ -38,6 +45,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     super({
       searchTerms: '',
       results: [],
+      hits: [],
+      page: 1,
+      pageSize: 5,
       ready: false,
     });
   }
@@ -49,17 +59,23 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.patchState({
           searchTerms: criteria.searchTerms,
           results: [],
+          hits: [],
+          page: 1,
           ready: false,
         })
       ),
       switchMap((criteria: SearchCriteria) =>
         this.searchService.search(criteria).pipe(
-          withLatestFrom(this.volStore.workByCode$),
+          withLatestFrom(this.volStore.workByCode$, this.route.fragment),
           tapResponse(
-            ([results, workByCode]) => {
+            ([results, workByCode, fragment]) => {
               results = results ? results : [];
+              const pageMatch = fragment?.match(/^page(\d+)$/);
+              const mapped = this.mapResults(results, workByCode);
               this.patchState({
-                results: this.mapResults(results, workByCode),
+                results: mapped,
+                hits: mapped.flatMap((r) => r.hits),
+                page: pageMatch ? +pageMatch[1] : 1,
                 ready: true,
               });
             },
@@ -91,25 +107,32 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       })
     )
   );
-  readonly navigateToSection = this.effect<string>((workCode$) =>
-    workCode$.pipe(
+  readonly navigateToPage = this.effect<number>((page$) =>
+    page$.pipe(
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
-      tap(([workCode, params, lang]) => {
+      tap(([page, params, lang]) => {
+        this.patchState({ page });
         this.router.navigate([`/${lang}/search/results`], {
           queryParams: this.buildQueryParams(params),
-          fragment: `results-${workCode}`,
+          fragment: `page${page}`,
         });
       })
     )
   );
-  readonly navigateToHit = this.effect<string>((fragment$) =>
-    fragment$.pipe(
-      withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
-      tap(([fragment, params, lang]) => {
-        this.router.navigate([`/${lang}/search/results`], {
-          queryParams: this.buildQueryParams(params),
-          fragment: fragment,
-        });
+  readonly navigateToSection = this.effect<string>((workCode$) =>
+    workCode$.pipe(
+      tap((workCode) => {
+        const pageSize = this.get((s) => s.pageSize);
+        let hitCount = 0;
+        for (const r of this.get((s) => s.results)) {
+          if (r.workCode === workCode) {
+            const page = Math.floor(hitCount / pageSize) + 1;
+            this.navigateToPage(page);
+            break;
+          } else {
+            hitCount += r.hits.length;
+          }
+        }
       })
     )
   );
@@ -132,6 +155,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   readonly searchTerms$ = this.select((state) => state.searchTerms);
   readonly results$ = this.select((state) => state.results);
+  readonly hits$ = this.select((state) => state.hits);
+  readonly page$ = this.select((state) => state.page);
+  readonly pageSize$ = this.select((state) => state.pageSize);
   readonly ready$ = this.select((state) => state.ready);
 
   private criteriaFromParams(params: ParamMap): SearchCriteria {
@@ -166,7 +192,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     results: SearchResult[],
     workByCode: Map<string, Work>
   ): ResultIntern[] {
-    const mapped = results.map((res) => {
+    results = this.sort(results, Array.from(workByCode.values()));
+    let indexTotal = 1;
+    return results.map((res) => {
       return {
         hits: res.hits.map((h, i) => {
           const matchIndices = this.findMatchIndices(h.highlightText);
@@ -188,6 +216,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             fmtTextWithHl,
             ordinal: h.ordinal,
             index: i + 1,
+            indexTotal: indexTotal++,
             work: workByCode.get(res.workCode) ?? {
               code: '',
               sections: [],
@@ -201,7 +230,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         workCode: res.workCode,
       };
     });
-    return this.sort(mapped, Array.from(workByCode.values()));
   }
 
   /**
@@ -356,11 +384,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return 1;
   }
 
-  private sort(results: ResultIntern[], allWorks: Work[]): ResultIntern[] {
+  private sort(results: SearchResult[], allWorks: Work[]): SearchResult[] {
     const resultByCode = results.reduce((map, r) => {
       map.set(r.workCode, r);
       return map;
-    }, new Map<string, ResultIntern>());
+    }, new Map<string, SearchResult>());
     const resultWorks = allWorks.filter((w) => resultByCode.has(w.code));
     resultWorks.sort((a, b) => {
       if (a.volumeNumber !== b.volumeNumber) {

@@ -7,15 +7,19 @@
     <nz-space class="w-full" nzDirection="vertical">
       <div *nzSpaceItem nz-flex nzJustify="space-between">
         <span nz-typography nzType="secondary">
-          <i>#{{ hit.index }}</i>
+          <i>#{{ hit.indexTotal }}</i>
         </span>
 
         <span nz-typography nzType="secondary">
-          <i>{{
-            hit.work.abbreviation && hit.work.abbreviation !== ""
-              ? hit.work.abbreviation
-              : ("SEARCH.RESULTS.WORKS." + hit.work.code | translate)
-          }}</i>
+          <i>
+            #{{ hit.index }}
+
+            {{
+              hit.work.abbreviation && hit.work.abbreviation !== ""
+                ? hit.work.abbreviation
+                : ("SEARCH.RESULTS.WORKS." + hit.work.code | translate)
+            }}
+          </i>
         </span>
       </div>
 

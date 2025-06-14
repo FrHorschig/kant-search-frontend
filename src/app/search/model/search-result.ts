@@ -10,6 +10,7 @@ export interface Hit {
   fmtTextWithHl: string;
   ordinal: number;
   index: number;
+  indexTotal: number;
   work: Work;
 }
 
@@ -24,6 +25,7 @@ export const emptyHit: Hit = {
   fmtTextWithHl: '',
   ordinal: 0,
   index: 0,
+  indexTotal: 0,
   work: {
     code: '',
     sections: [],

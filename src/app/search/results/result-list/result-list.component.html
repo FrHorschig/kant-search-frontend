@@ -1,22 +1,19 @@
-<ng-container *ngIf="results.length > 0">
-  <nz-space nzDirection="vertical">
-    @for (result of results; track result.workCode) {
-    <nz-divider
-      id="results-{{ result.workCode }}"
-      *nzSpaceItem
-      [nzText]="
-        'COMMON.VOL_WORK_TITLE'
-          | translate
-            : {
-                volumeNumber: result.hits[0].work.volumeNumber,
-                title: getWorkTitle(result.hits[0].work.title)
-              }
-      "
-    ></nz-divider>
+<ng-container *ngIf="hits.length > 0">
+  <nz-space #spaceContainer nzDirection="vertical">
+    <div *nzSpaceItem nz-flex nzJustify="center">
+      <nz-pagination
+        nzSimple
+        [nzPageIndex]="page"
+        [nzTotal]="hits.length"
+        [nzPageSize]="pageSize"
+        [nzHideOnSinglePage]="true"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
 
     <div *nzSpaceItem>
-      @for (hit of result.hits; track hit.work.code+hit.ordinal) {
-      <div [id]="`match-${result.workCode}-${hit.ordinal}`">
+      @for (hit of paginatedHits; track hit.work.code+hit.ordinal) {
+      <div [id]="`match-${hit.work.code}-${hit.ordinal}`">
         <ks-result-item
           [hit]="hit"
           (onClick)="onMatchClick(hit)"
@@ -24,6 +21,16 @@
       </div>
       }
     </div>
-    }
+
+    <div *nzSpaceItem nz-flex nzJustify="center">
+      <nz-pagination
+        nzSimple
+        [nzPageIndex]="page"
+        [nzTotal]="hits.length"
+        [nzPageSize]="pageSize"
+        [nzHideOnSinglePage]="true"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
   </nz-space>
 </ng-container>
