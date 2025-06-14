@@ -12,6 +12,7 @@ import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.
 @Component({
   selector: 'ks-paragraph',
   templateUrl: './paragraph.component.html',
+  styleUrl: './paragraph.component.less',
   standalone: true,
   imports: [
     CommonModule,

@@ -37,15 +37,13 @@
 ></ks-paragraph-dialog>
 
 <ng-container *ngIf="showUpButton">
-  <div class="ks-scroll-to-top">
-    <nz-float-button
-      nzType="default"
-      [nzIcon]="icon"
-      (click)="scrollTop()"
-      nz-tooltip
-      [nzTooltipTitle]="'COMMON.SCROLL_TOP_TOOLTIP' | translate"
-    ></nz-float-button>
-  </div>
+  <nz-float-button
+    nzType="default"
+    [nzIcon]="icon"
+    (click)="scrollTop()"
+    nz-tooltip
+    [nzTooltipTitle]="'COMMON.SCROLL_TOP_TOOLTIP' | translate"
+  ></nz-float-button>
 </ng-container>
 
 <ng-template #icon>

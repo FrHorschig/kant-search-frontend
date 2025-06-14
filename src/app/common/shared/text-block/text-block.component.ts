@@ -11,6 +11,11 @@ export class TextBlockComponent {
 
   @Input()
   set text(text: string) {
+    text = text.replace(/(<ks-meta-page\b[^>]*>.*?<\/ks-meta-page>)/gi, '[$1]');
+    text = text.replace(
+      /(<ks-meta-fnref\b[^>]*>.*?<\/ks-meta-fnref>)/gi,
+      '($1)'
+    );
     this.trustedText = this.sanitizer.bypassSecurityTrustHtml(text);
   }
   trustedText: SafeHtml = '';

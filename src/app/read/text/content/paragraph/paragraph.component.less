@@ -1,0 +1,14 @@
+.paragraph-wrapper {
+  position: relative;
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+.floating-summary {
+  float: left;
+  font-style: italic;
+  max-width: 10em;
+  margin-right: 1em;
+}
