@@ -5,4 +5,4 @@ export const createScrollServiceSpy = () =>
   jasmine.createSpyObj('ScrollService', ['scrollToAnchor']);
 
 export const createErrorServiceSpy = () =>
-  jasmine.createSpyObj('ErrorService', ['logError', 'logErrorString']);
+  jasmine.createSpyObj('ErrorService', ['logError']);

@@ -2,10 +2,17 @@
   <nz-space nzDirection="vertical" class="w-full">
     <div *nzSpaceItem></div>
 
-    <h2 *nzSpaceItem nz-typography>{{ "READ.SELECTION" | translate }}</h2>
+    <h2 *nzSpaceItem nz-typography>
+      {{ "READ.SELECTION.HEADER" | translate }}
+    </h2>
+
+    <div *nzSpaceItem>
+      <ng-container *ngIf="((nodes$ | async) ?? []).length === 0">
+        {{ "READ.SELECTION.NO_WORKS" | translate }}
+      </ng-container>
+    </div>
 
     <nz-tree
-      *nzSpaceItem
       [nzData]="(nodes$ | async) ?? []"
       (nzClick)="onNodeClick($event)"
     ></nz-tree>

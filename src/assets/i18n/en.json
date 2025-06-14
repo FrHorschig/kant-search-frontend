@@ -31,7 +31,8 @@
       "YEAR": "Year"
     },
     "SELECTION": {
-      "HEADER": "Work selection"
+      "HEADER": "Work selection",
+      "NO_WORKS": "Es sind keine Werke zum Lesen vorhanden."
     },
     "TOC": {
       "HEADER": "Table of Contents",
@@ -142,28 +143,19 @@
 
   "ERROR": {
     "SUMMARY": "Error",
+    "GENERIC": "A technical error occured.",
     "BAD_REQUEST": {
       "GENERIC": "Bad request.",
       "INVALID_WORK_SELECTION": "Invalid work selection.",
       "INVALID_SEARCH_CRITERIA": "Invalid search criteria.",
       "EMPTY_WORKS_SELECTION": "You must select at least one work.",
       "EMPTY_SEARCH_TERMS": "Search terms cannot be empty.",
-      "EMPTY_WORK_TEXT": "Text cannot be empty.",
       "SYNTAX.UNEXPECTED_TOKEN": "Syntax error: unexpected token '{{ param0 }}'.",
       "SYNTAX.UNEXPECTED_END_OF_INPUT": "Syntax error: unexpected end of input.",
       "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntax error: missing closing parenthesis.",
       "SYNTAX.WRONG_STARTING_CHAR": "Syntax error: wrong starting character '{{ param0 }}'.",
       "SYNTAX.WRONG_ENDING_CHAR": "Syntax error: wrong ending character '{{ param0 }}'.",
       "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntax error: unterminated double quote."
-    },
-    "NOT_FOUND": {
-      "GENERIC": "Not found.",
-      "VOLUMES": "No volumes found.",
-      "WORKS": "No works found.",
-      "PARAGRAPHS": "No text found.",
-      "MATCHES": "No matches found."
-    },
-    "INTERNAL_SERVER_ERROR": "Internal server error.",
-    "NOT_IMPLEMENTED": "Feature not implemented."
+    }
   }
 }

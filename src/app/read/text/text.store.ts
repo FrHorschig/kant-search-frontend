@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
@@ -80,12 +79,8 @@ export class TextStore extends ComponentStore<ReadState> {
                 summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
               });
             },
-            (err) => {
-              if (err instanceof HttpErrorResponse) {
-                this.errorService.logError(err.error);
-              } else if (err instanceof Error) {
-                this.errorService.logErrorString(err.message);
-              }
+            (err: Error) => {
+              this.errorService.logError(err);
               return EMPTY;
             }
           )

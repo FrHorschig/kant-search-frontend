@@ -30,7 +30,10 @@
       "ABBREV": "Siglum",
       "YEAR": "Jahr"
     },
-    "SELECTION": "Werkauswahl",
+    "SELECTION": {
+      "HEADER": "Werkauswahl",
+      "NO_WORKS": "Es sind keine Werke zum Lesen vorhanden."
+    },
     "TOC": {
       "HEADER": "Inhaltsverzeichnis",
       "SECTION": "Abschnitt",
@@ -140,28 +143,19 @@
 
   "ERROR": {
     "SUMMARY": "Fehler",
+    "GENERIC": "Ein technischer Fehler ist aufgretreten.",
     "BAD_REQUEST": {
       "GENERIC": "Ungültige Anfrage.",
       "INVALID_WORK_SELECTION": "Ungültige Werkauswahl.",
-      "INVALID_SEARCH_CRITERIA": "Ungültige Suchkriterien.",
+      "INVALID_SEARCH_CRITERIA": "Fehlerhafte Suchkriterien.",
       "EMPTY_WORKS_SELECTION": "Sie müssen mindestens ein Werk auswählen.",
       "EMPTY_SEARCH_TERMS": "Suchbegriffe dürfen nicht leer sein.",
-      "EMPTY_WORK_TEXT": "Der Text darf nicht leer sein.",
       "SYNTAX.UNEXPECTED_TOKEN": "Syntaxfehler: unerwartetes Token '{{ param0 }}'.",
       "SYNTAX.UNEXPECTED_END_OF_INPUT": "Syntaxfehler: unerwartetes Ende der Eingabe.",
       "SYNTAX.MISSING_CLOSING_PARENTHESIS": "Syntaxfehler: fehlende schließende Klammer.",
       "SYNTAX.WRONG_STARTING_CHAR": "Syntaxfehler: falsches erstes Zeichen '{{ param0 }}'.",
       "SYNTAX.WRONG_ENDING_CHAR": "Syntaxfehler: falsches letztes Zeichen '{{ param0 }}'.",
       "SYNTAX.UNTERMINATED_DOUBLE_QUOTE": "Syntaxfehler: nicht abgeschlossenes Anführungszeichen."
-    },
-    "NOT_FOUND": {
-      "GENERIC": "Nicht gefunden.",
-      "VOLUMES": "Keine Bände gefunden.",
-      "WORKS": "Keine Werke gefunden.",
-      "PARAGRAPHS": "Kein Text gefunden.",
-      "MATCHES": "Keine Übereinstimmungen gefunden."
-    },
-    "INTERNAL_SERVER_ERROR": "Interner Serverfehler.",
-    "NOT_IMPLEMENTED": "Funktion nicht implementiert."
+    }
   }
 }

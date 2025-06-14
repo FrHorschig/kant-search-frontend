@@ -1,8 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import {
-  HttpError,
   IndexNumberPair,
   SearchCriteria,
   SearchResult,
@@ -86,14 +84,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             },
             (err: Error) => {
               this.patchState({ ready: true });
-              if (err instanceof HttpErrorResponse) {
-                const e = err.error as HttpError;
-                if (e.code !== 404) {
-                  this.errorService.logError(err.error);
-                }
-              } else {
-                this.errorService.logErrorString(err.message);
-              }
+              this.errorService.logError(err);
               return EMPTY;
             }
           )

@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReadService, Volume } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { Work } from 'src/app/store/volumes/model';
 import { ErrorService } from 'src/app/common/service/error.service';
 
@@ -33,6 +32,9 @@ export class VolumesStore extends ComponentStore<VolumesState> {
 
   readonly loadData = this.effect<void>((dummy$) =>
     dummy$.pipe(
+      tap(() =>
+        this.patchState({ volumes: [], workByCode: new Map(), isLoaded: false })
+      ),
       mergeMap(() =>
         this.readService.getVolumes().pipe(
           tapResponse(
@@ -56,17 +58,9 @@ export class VolumesStore extends ComponentStore<VolumesState> {
                 isLoaded: true,
               });
             },
-            (err: HttpErrorResponse) => {
-              if (
-                typeof err.error === 'object' &&
-                ('code' in err.error ||
-                  'message' in err.error ||
-                  'params' in err.error)
-              ) {
-                this.errorService.logError(err.error);
-              } else {
-                this.errorService.logErrorString(err.message);
-              }
+            (err: Error) => {
+              this.patchState({ isLoaded: true });
+              this.errorService.logError(err);
               return EMPTY;
             }
           )

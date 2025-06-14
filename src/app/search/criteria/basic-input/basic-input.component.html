@@ -62,6 +62,7 @@
     [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
     [ngModel]="worksGroup"
     (ngModelChange)="onSelectChange($event)"
+    [disabled]="nodes.length === 0"
   >
     @for (option of worksGroupOptions; track option) {
     <nz-option
