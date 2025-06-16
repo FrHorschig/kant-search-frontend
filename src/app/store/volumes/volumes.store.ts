@@ -30,8 +30,8 @@ export class VolumesStore extends ComponentStore<VolumesState> {
   readonly workByCode$ = this.select((state) => state.workByCode);
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
-  readonly loadData = this.effect<void>((dummy$) =>
-    dummy$.pipe(
+  readonly loadData = this.effect<void>((trigger) =>
+    trigger.pipe(
       tap(() =>
         this.patchState({ volumes: [], workByCode: new Map(), isLoaded: false })
       ),

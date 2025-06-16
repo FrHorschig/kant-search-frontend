@@ -17,7 +17,7 @@ import { Work } from 'src/app/common/model/model';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { Router } from '@angular/router';
 
-interface ReadState {
+interface TextState {
   work: Work | undefined;
   headingByOrdinal: Map<number, Heading>;
   textContents: TextContent[];
@@ -26,7 +26,7 @@ interface ReadState {
 }
 
 @Injectable()
-export class TextStore extends ComponentStore<ReadState> {
+export class TextStore extends ComponentStore<TextState> {
   constructor(
     private readonly router: Router,
     private readonly errorService: ErrorService,

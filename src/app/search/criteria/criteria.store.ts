@@ -60,7 +60,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
         if (state.options.includeSummaries) {
           queryParams['incSumm'] = true;
         }
-        this.router.navigate([`/${lang}/search/results`], {
+        this.router.navigate([lang, 'search', 'results'], {
           queryParams,
         });
       })

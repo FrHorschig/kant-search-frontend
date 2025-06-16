@@ -1,64 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
-import { VolumesStore } from 'src/app/store/volumes/volumes.store';
 import { LanguageStore } from 'src/app/store/language/language.store';
-import { combineLatest, filter, map, Observable } from 'rxjs';
-import {
-  NzFormatEmitEvent,
-  NzTreeModule,
-  NzTreeNodeOptions,
-} from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TitleUtil } from 'src/app/search/util/title-util';
+import { TranslateModule } from '@ngx-translate/core';
+import { SelectionStore } from './selection.store';
 
 @Component({
   selector: 'ks-selection',
   templateUrl: './selection.component.html',
   standalone: true,
+  providers: [SelectionStore],
   imports: [CommonModule, TranslateModule, NzSpaceModule, NzTreeModule],
 })
-export class SelectionComponent extends SubscriptionComponent {
-  volumes$ = this.volStore.volumes$;
-  isLoaded$ = this.volStore.isLoaded$;
-  nodes$: Observable<NzTreeNodeOptions[]> = combineLatest([
-    this.volumes$,
-    this.langStore.ready$,
-  ]).pipe(
-    filter(([_, ready]) => ready),
-    map(([vols, _]) =>
-      vols.map((vol) => {
-        const children = vol.works.map((work) => {
-          return {
-            title: TitleUtil.truncate(work.title, 85),
-            key: work.code,
-            isLeaf: true,
-            selectable: false,
-          };
-        });
-        return {
-          title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
-            volumeNumber: vol.volumeNumber,
-            title: vol.title,
-          }),
-          key: `volume-${vol.volumeNumber}`,
-          children: children,
-          selectable: false,
-        };
-      })
-    )
-  );
+export class SelectionComponent
+  extends SubscriptionComponent
+  implements OnInit
+{
+  nodes$ = this.store.nodes$;
+  ready$ = this.store.ready$;
   expandedKeys: string[] = [];
 
   constructor(
     private readonly router: Router,
-    private readonly translateService: TranslateService,
     private readonly langStore: LanguageStore,
-    private readonly volStore: VolumesStore
+    private readonly store: SelectionStore
   ) {
     super();
+  }
+
+  ngOnInit() {
+    this.store.init();
   }
 
   onNodeClick(event: NzFormatEmitEvent) {
@@ -77,7 +51,7 @@ export class SelectionComponent extends SubscriptionComponent {
     } else {
       this.langStore.currentLanguage$
         .pipe(this.takeUntilDestroy())
-        .subscribe((lang) => this.router.navigate([`/${lang}/read/text`, key]));
+        .subscribe((lang) => this.router.navigate([lang, 'read', 'text', key]));
     }
   }
 }

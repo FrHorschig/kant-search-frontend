@@ -103,7 +103,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       filter(() => this.get((state) => state.searchTerms != '')),
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
       tap(([_, params, lang]) => {
-        this.router.navigate([`/${lang}/search/results`], {
+        this.router.navigate([lang, 'search', 'results'], {
           queryParams: this.buildQueryParams(params),
         });
       })
@@ -114,7 +114,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       withLatestFrom(this.route.queryParamMap, this.langStore.currentLanguage$),
       tap(([page, params, lang]) => {
         this.patchState({ page });
-        this.router.navigate([`/${lang}/search/results`], {
+        this.router.navigate([lang, 'search', 'results'], {
           queryParams: this.buildQueryParams(params),
           fragment: `page${page}`,
         });
@@ -142,7 +142,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([info, lang]) => {
-        this.router.navigate([`/${lang}/read/text`, info.workCode], {
+        this.router.navigate([lang, 'read', 'text', info.workCode], {
           fragment: info.fragment,
         });
         return EMPTY;
