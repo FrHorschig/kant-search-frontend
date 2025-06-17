@@ -38,6 +38,7 @@ export class ParagraphComponent {
   getFn(ref: string): Footnote | undefined {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
+      // TODO use error service
       console.error('no footnote found from reference ' + ref);
       return undefined;
     }
@@ -47,6 +48,7 @@ export class ParagraphComponent {
   getSummary(ref: string): Summary | undefined {
     const summary = this.summByRef?.get(ref || '');
     if (!summary) {
+      // TODO use error service
       console.error('no summary found from reference ' + ref);
       return undefined;
     }

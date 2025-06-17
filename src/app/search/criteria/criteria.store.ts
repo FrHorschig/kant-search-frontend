@@ -4,10 +4,15 @@ import { ComponentStore } from '@ngrx/component-store';
 import { filter, tap, withLatestFrom } from 'rxjs';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { AdvancedOptions, ResultSort } from '../model/search-options';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { TranslateService } from '@ngx-translate/core';
+import { TitleUtil } from '../util/title-util';
 
 interface CriteriaState {
-  workCodes: string[];
+  nodes: NzTreeNodeOptions[];
   searchTerms: string;
+  workCodes: string[];
   options: AdvancedOptions;
 }
 
@@ -15,11 +20,14 @@ interface CriteriaState {
 export class CriteriaStore extends ComponentStore<CriteriaState> {
   constructor(
     private readonly router: Router,
+    private readonly translateService: TranslateService,
+    private readonly volStore: VolumesStore,
     private readonly langStore: LanguageStore
   ) {
     super({
-      workCodes: [],
+      nodes: [],
       searchTerms: '',
+      workCodes: [],
       options: {
         sort: ResultSort.AaOrder,
         withStemming: true,
@@ -30,16 +38,45 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     });
   }
 
-  readonly canSearch$ = this.select((state) => this.canSearch(state));
-  readonly searchTerms$ = this.select((state) => state.searchTerms);
-  readonly workCodes$ = this.select((state) => state.workCodes);
+  readonly nodes$ = this.select((state) => state.nodes);
   readonly options$ = this.select((state) => state.options);
+  readonly canSearch$ = this.select(
+    (state) => state.workCodes.length > 0 && state.searchTerms.length > 0
+  );
 
+  readonly init = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      withLatestFrom(this.volStore.volumes$, this.langStore.ready$),
+      filter(([, , ready]) => ready),
+      tap(([, vols]) => {
+        const nodes = vols.map((vol) => {
+          const children = vol.works.map((work) => {
+            return {
+              title: TitleUtil.truncate(work.title, 75),
+              key: work.code,
+              isLeaf: true,
+              selectable: false,
+            };
+          });
+          return {
+            title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+              volumeNumber: vol.volumeNumber,
+              title: vol.title,
+            }),
+            key: `volume-${vol.volumeNumber}`,
+            children: children,
+            selectable: false,
+          };
+        });
+        this.patchState({ nodes });
+      })
+    )
+  );
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
-      filter(() => this.get((state) => this.canSearch(state))),
-      withLatestFrom(this.langStore.currentLanguage$),
-      tap(([_, lang]) => {
+      withLatestFrom(this.langStore.currentLanguage$, this.canSearch$),
+      filter(([, , canSearch]) => canSearch),
+      tap(([, lang]) => {
         const state = this.get();
         const queryParams: Params = {
           searchTerms: state.searchTerms,
@@ -67,20 +104,16 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     )
   );
 
-  readonly putWorkCodes = this.updater((state, workCodes: string[]) => ({
-    ...state,
-    workCodes,
-  }));
   readonly putSearchTerms = this.updater((state, searchTerms: string) => ({
     ...state,
     searchTerms,
+  }));
+  readonly putWorkCodes = this.updater((state, workCodes: string[]) => ({
+    ...state,
+    workCodes,
   }));
   readonly putOptions = this.updater((state, options: AdvancedOptions) => ({
     ...state,
     options,
   }));
-
-  private canSearch(state: CriteriaState): boolean {
-    return state.workCodes.length > 0 && state.searchTerms.length > 0;
-  }
 }

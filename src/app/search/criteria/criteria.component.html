@@ -1,7 +1,7 @@
 <nz-space class="w-full" nzDirection="vertical">
   <ks-basic-input
     *nzSpaceItem
-    [volumes]="(volumes$ | async) ?? []"
+    [nodes]="(nodes$ | async) ?? []"
     [canSearch]="(canSearch$ | async) ?? false"
     (searchTermsEmitter)="onSearchTermsChange($event)"
     (workCodesEmitter)="onWorkCodesChange($event)"

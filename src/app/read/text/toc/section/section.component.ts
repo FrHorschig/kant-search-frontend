@@ -17,17 +17,12 @@ export class TocSectionComponent {
 
   @Output() onClickEmitter = new EventEmitter<number>();
 
-  getHeading(ordinal: number | undefined): Heading {
+  getHeading(ordinal: number | undefined): Heading | undefined {
     const heading = this.headByOrdinal?.get(ordinal || 0);
     if (!heading) {
+      // TODO use error service
       console.error('heading with ordinal ' + ordinal + ' not found');
-      return {
-        ordinal: 0,
-        text: '',
-        tocText: '',
-        pages: [],
-        fnRefs: [],
-      };
+      return undefined;
     }
     return heading;
   }

@@ -35,11 +35,8 @@ import { WorksGroup } from '../../model/search-options';
     NzToolTipModule,
   ],
 })
-export class BasicInputComponent
-  extends SubscriptionComponent
-  implements OnInit
-{
-  @Input() volumes: Volume[] = [];
+export class BasicInputComponent {
+  @Input() nodes: NzTreeNodeOptions[] = [];
   @Input() canSearch: boolean = false;
 
   @Output() searchTermsEmitter = new EventEmitter<string>();
@@ -53,25 +50,8 @@ export class BasicInputComponent
   ) as WorksGroup[];
   worksGroup: WorksGroup | null = null;
 
-  nodes: NzTreeNodeOptions[] = [];
   checkedKeys: string[] = [];
   expandedKeys: string[] = [];
-
-  constructor(
-    private readonly translateService: TranslateService,
-    private readonly langStore: LanguageStore
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.langStore.ready$
-      .pipe(
-        filter((ready) => ready),
-        this.takeUntilDestroy()
-      )
-      .subscribe(() => this.buildNodes());
-  }
 
   onSearchTermsChange(terms: string) {
     this.searchTerms = terms;
@@ -127,30 +107,5 @@ export class BasicInputComponent
 
   onSubmit() {
     this.doSearchEmitter.emit();
-  }
-
-  private buildNodes() {
-    this.nodes = this.volumes.map((vol) => {
-      const children = vol.works.map((work) => {
-        return {
-          title: TitleUtil.truncate(work.title, 75),
-          key: work.code,
-          isLeaf: true,
-          selectable: false,
-        };
-      });
-      return {
-        title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
-          volumeNumber: vol.volumeNumber,
-          title: vol.title,
-        }),
-        key: `volume-${vol.volumeNumber}`,
-        children: children,
-        selectable: false,
-      };
-    });
-    this.worksGroup = null;
-    this.checkedKeys = WorksGroupUtil.getCodes(this.worksGroup);
-    this.workCodesEmitter.emit(this.checkedKeys);
   }
 }

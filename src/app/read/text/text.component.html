@@ -4,8 +4,8 @@
   </div>
 </ng-container>
 
-<div nz-flex nzJustify="center">
-  <div *ngIf="ready$ | async">
+<div *ngIf="ready$ | async">
+  <div nz-flex nzJustify="center">
     <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
 
     <ks-read-toc

@@ -50,8 +50,8 @@ export class TextStore extends ComponentStore<TextState> {
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
   readonly ready$ = this.select((state) => state.textContents.length > 0);
 
-  readonly loadData = this.effect<string>((workCode) =>
-    workCode.pipe(
+  readonly loadData = this.effect<string>((workCode$) =>
+    workCode$.pipe(
       withLatestFrom(this.volStore.workByCode$),
       switchMap(([workCode, workByCode]) =>
         forkJoin({
@@ -60,7 +60,6 @@ export class TextStore extends ComponentStore<TextState> {
           paragraphs: this.readService.getParagraphs(workCode),
           summaries: this.readService.getSummaries(workCode),
         }).pipe(
-          // TODO improve performance: load work first, and the rest in the background, while loading the paragraphs of the first section of the section of the linked paragraph first
           tapResponse(
             ({ headings, footnotes, paragraphs, summaries }) => {
               const work = workByCode.get(workCode);

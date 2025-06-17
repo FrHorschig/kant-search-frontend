@@ -10,15 +10,13 @@ interface LanguageState {
   ready: boolean;
 }
 
-const defaultLang = 'de';
-
 @Injectable({ providedIn: 'root' })
 export class LanguageStore extends ComponentStore<LanguageState> {
   constructor(
     private readonly router: Router,
     private readonly translateService: TranslateService
   ) {
-    super({ available: ['de', 'en'], current: defaultLang, ready: false });
+    super({ available: ['de', 'en'], current: 'de', ready: false });
     this.subscribeRouterEvents();
   }
 
@@ -36,7 +34,7 @@ export class LanguageStore extends ComponentStore<LanguageState> {
     const langFromUrl = this.router.url.split('/').filter((p) => p)[0];
     const lang = this.get((state) => state.available).includes(langFromUrl)
       ? langFromUrl
-      : defaultLang;
+      : this.get((state) => state.current);
     return firstValueFrom(this.setLanguage(lang));
   }
 

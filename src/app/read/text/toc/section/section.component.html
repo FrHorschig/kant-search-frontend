@@ -7,12 +7,12 @@
     nz-flex
     nzJustify="space-between"
   >
-    {{ getHeading(section?.heading).tocText }}
+    {{ getHeading(section?.heading)?.tocText }}
 
     <span style="width: 30px"></span>
 
     <div style="white-space: nowrap">
-      {{ getHeading(section?.heading).pages[0] }}
+      {{ getHeading(section?.heading)?.pages?.at(0) }}
     </div>
   </div>
 </div>

@@ -34,6 +34,7 @@ export class HeadingComponent {
   getFn(ref: string): Footnote | undefined {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
+      // TODO use error service
       console.error('no footnote found from reference ' + ref);
       return undefined;
     }
