@@ -1,107 +1,86 @@
 // import { TestBed } from '@angular/core/testing';
-// import { of, throwError } from 'rxjs';
 // import { TextStore } from './text.store';
-// import {
-//   ErrorMessage,
-//   Footnote,
-//   Heading,
-//   HttpError,
-//   Paragraph,
-//   ReadService,
-//   Work,
-// } from '@frhorschig/kant-search-api';
+// import { ReadService } from '@frhorschig/kant-search-api';
 // import { ErrorService } from 'src/app/common/service/error.service';
-// import { HttpErrorResponse } from '@angular/common/http';
-// import { createErrorServiceSpy } from 'src/app/common/test/serivces';
+// import { createErrorServiceSpy } from 'src/app/common/test/services';
+// import { createReadServiceSpy } from 'src/app/common/test/api-services';
+// import { MockVolumesStore } from 'src/app/store/volumes/volumes.store.spec';
+// import { MockLanguageStore } from 'src/app/store/language/language.store.spec';
+// import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+// import { LanguageStore } from 'src/app/store/language/language.store';
 
 // describe('TextStore', () => {
 //   let store: TextStore;
 //   let readService: jasmine.SpyObj<ReadService>;
 //   let errorService: jasmine.SpyObj<ErrorService>;
+//   let mockVolumesStore: MockVolumesStore;
+//   let mockLanguageStore: MockLanguageStore;
 
 //   beforeEach(() => {
-//     readService = jasmine.createSpyObj('ReadService', [
-//       'getWork',
-//       'getHeadings',
-//       'getFootnotes',
-//       'getParagraphs',
-//       'getSummaries',
-//     ]);
+//     readService = createReadServiceSpy();
 //     errorService = createErrorServiceSpy();
+//     mockVolumesStore = new MockVolumesStore();
+//     mockLanguageStore = new MockLanguageStore();
 
 //     TestBed.configureTestingModule({
 //       providers: [
 //         TextStore,
 //         { provide: ReadService, useValue: readService },
 //         { provide: ErrorService, useValue: errorService },
+//         { provide: VolumesStore, useValue: mockVolumesStore },
+//         { provide: LanguageStore, useValue: mockLanguageStore },
 //       ],
 //     });
 
 //     store = TestBed.inject(TextStore);
 //   });
 
-//   // it('should load data and update state on success', () => {
-//   //   const mockWork: Work = {
-//   //     id: 'work1',
-//   //     code: 'code',
-//   //     sections: [],
-//   //     title: 'title',
-//   //   };
-//   //   const mockHeadings: Heading[] = [
-//   //     { id: 'heading1', text: 'text', tocText: 'Heading 1', fnRefs: [] },
-//   //   ];
-//   //   const mockFootnotes: Footnote[] = [
-//   //     { id: 'footnote1', ref: 'fn1', text: 'Footnote 1' },
-//   //   ];
-//   //   const mockParagraphs: Paragraph[] = [
-//   //     { id: 'p1', text: 'Paragraph 1', fnRefs: ['fn1'], summaryRef: 's1' },
-//   //   ];
-//   //   const mockSummaries = [{ ref: 's1', text: 'Summary 1' }];
+//   it('should load data and update state on success', () => {
+//     const headings: Heading[] = [
+//       { ordinal: 1, text: 'text', tocText: 'Heading 1', pages: [], fnRefs: [] },
+//     ];
+//     const footnotes: Footnote[] = [
+//       { ordinal: 2, ref: 'fn1', text: 'Footnote 1' },
+//     ];
+//     const paragraphs: Paragraph[] = [
+//       { ordinal: 3, text: 'Paragraph 1', fnRefs: ['fn1'], summaryRef: 's1' },
+//     ];
+//     const summaries = [{ ref: 's1', text: 'Summary 1' }];
 
-//   //   // GIVEN
-//   //   (readService.getWork as jasmine.Spy).and.returnValue(of(mockWork));
-//   //   (readService.getHeadings as jasmine.Spy).and.returnValue(of(mockHeadings));
-//   //   (readService.getFootnotes as jasmine.Spy).and.returnValue(
-//   //     of(mockFootnotes)
-//   //   );
-//   //   (readService.getParagraphs as jasmine.Spy).and.returnValue(
-//   //     of(mockParagraphs)
-//   //   );
-//   //   (readService.getSummaries as jasmine.Spy).and.returnValue(
-//   //     of(mockSummaries)
-//   //   );
+//     (readService.getHeadings as jasmine.Spy).and.returnValue(of(headings));
+//     (readService.getFootnotes as jasmine.Spy).and.returnValue(of(footnotes));
+//     (readService.getParagraphs as jasmine.Spy).and.returnValue(of(paragraphs));
+//     (readService.getSummaries as jasmine.Spy).and.returnValue(of(summaries));
 
-//   //   // WHEN
-//   //   store.loadData('work1');
+//     store.loadData('code');
 
-//   //   // THEN
-//   //   store.textContents$.subscribe((textContents) => {
-//   //     expect(textContents.length).toBe(2); // One heading + one paragraph
-//   //     expect(textContents[0].isHeading).toBeTrue();
-//   //     expect(textContents[1].isHeading).toBeFalse();
-//   //   });
+//     store.textContents$.subscribe((textContents) => {
+//       expect(textContents.length).toBe(2);
+//       expect(textContents[0].isHeading).toBeTrue();
+//       expect(textContents[1].isHeading).toBeFalse();
+//     });
+//     store.ready$.subscribe((ready) => {
+//       expect(ready).toBeTrue();
+//     });
+//   });
 
-//   //   store.isLoaded$.subscribe((isLoaded) => {
-//   //     expect(isLoaded).toBeTrue();
-//   //   });
-//   // });
+//   it('should handle error and log it', () => {
+//     const headings: Heading[] = [
+//       { ordinal: 1, text: 'ht', tocText: 'htt', pages: [], fnRefs: [] },
+//     ];
+//     const footnotes: Footnote[] = [{ ordinal: 2, ref: 'fn1', text: 'ft' }];
+//     const err: Error = { name: 'err', message: 'msg' };
+//     const summaries = [{ ref: 's1', text: 'st' }];
 
-//   // it('should handle error and log it', () => {
-//   //   const err: HttpError = {
-//   //     code: 404,
-//   //     message: ErrorMessage.NotFoundGeneric,
-//   //     params: ['param'],
-//   //   };
+//     (readService.getHeadings as jasmine.Spy).and.returnValue(of(headings));
+//     (readService.getFootnotes as jasmine.Spy).and.returnValue(of(footnotes));
+//     readService.getParagraphs.and.returnValue(
+//       throwError(() => new HttpErrorResponse({ error: err }))
+//     );
+//     (readService.getSummaries as jasmine.Spy).and.returnValue(of(summaries));
 
-//   //   // GIVEN
-//   //   readService.getWork.and.returnValue(
-//   //     throwError(() => new HttpErrorResponse({ error: err }))
-//   //   );
+//     store.loadData('code');
 
-//   //   // WHEN
-//   //   store.loadData('work1');
-
-//   //   // THEN
-//   //   expect(errorService.logError).toHaveBeenCalledWith(err);
-//   // });
+//     expect(errorService.logError).toHaveBeenCalledWith(err);
+//   });
 // });
