@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
@@ -15,10 +15,7 @@ import { SelectionStore } from './selection.store';
   providers: [SelectionStore],
   imports: [CommonModule, TranslateModule, NzSpaceModule, NzTreeModule],
 })
-export class SelectionComponent
-  extends SubscriptionComponent
-  implements OnInit
-{
+export class SelectionComponent extends SubscriptionComponent {
   nodes$ = this.store.nodes$;
   ready$ = this.store.ready$;
   expandedKeys: string[] = [];
@@ -29,10 +26,6 @@ export class SelectionComponent
     private readonly store: SelectionStore
   ) {
     super();
-  }
-
-  ngOnInit() {
-    this.store.init();
   }
 
   onNodeClick(event: NzFormatEmitEvent) {

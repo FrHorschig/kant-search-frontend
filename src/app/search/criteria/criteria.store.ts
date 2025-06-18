@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { filter, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, filter, tap, withLatestFrom } from 'rxjs';
 import { LanguageStore } from 'src/app/store/language/language.store';
 import { AdvancedOptions, ResultSort } from '../model/search-options';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -36,6 +36,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
         includeSummaries: false,
       },
     });
+    this.init();
   }
 
   readonly nodes$ = this.select((state) => state.nodes);
@@ -44,34 +45,6 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     (state) => state.workCodes.length > 0 && state.searchTerms.length > 0
   );
 
-  readonly init = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      withLatestFrom(this.volStore.volumes$, this.langStore.ready$),
-      filter(([, , ready]) => ready),
-      tap(([, vols]) => {
-        const nodes = vols.map((vol) => {
-          const children = vol.works.map((work) => {
-            return {
-              title: TitleUtil.truncate(work.title, 75),
-              key: work.code,
-              isLeaf: true,
-              selectable: false,
-            };
-          });
-          return {
-            title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
-              volumeNumber: vol.volumeNumber,
-              title: vol.title,
-            }),
-            key: `volume-${vol.volumeNumber}`,
-            children: children,
-            selectable: false,
-          };
-        });
-        this.patchState({ nodes });
-      })
-    )
-  );
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
       withLatestFrom(this.langStore.currentLanguage$, this.canSearch$),
@@ -116,4 +89,36 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
     ...state,
     options,
   }));
+
+  private readonly init = this.effect<void>((trigger$) =>
+    combineLatest([
+      trigger$,
+      this.volStore.volumes$,
+      this.langStore.ready$,
+    ]).pipe(
+      filter(([, , ready]) => ready),
+      tap(([, vols]) => {
+        const nodes = vols.map((vol) => {
+          const children = vol.works.map((work) => {
+            return {
+              title: TitleUtil.truncate(work.title, 75),
+              key: work.code,
+              isLeaf: true,
+              selectable: false,
+            };
+          });
+          return {
+            title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+              volumeNumber: vol.volumeNumber,
+              title: vol.title,
+            }),
+            key: `volume-${vol.volumeNumber}`,
+            children: children,
+            selectable: false,
+          };
+        });
+        this.patchState({ nodes });
+      })
+    )
+  );
 }

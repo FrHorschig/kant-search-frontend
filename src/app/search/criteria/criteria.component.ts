@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdvancedOptions } from '../model/search-options';
 import { CriteriaStore } from './criteria.store';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
     AdvancedInputComponent,
   ],
 })
-export class CriteriaComponent implements OnInit {
+export class CriteriaComponent {
   nodes$ = this.store.nodes$;
   canSearch$ = this.store.canSearch$;
   options$ = this.store.options$;
@@ -27,10 +27,6 @@ export class CriteriaComponent implements OnInit {
   showWorksSelectDialog = false;
 
   constructor(private readonly store: CriteriaStore) {}
-
-  ngOnInit(): void {
-    this.store.init();
-  }
 
   onSearchTermsChange(searchTerms: string) {
     this.store.putSearchTerms(searchTerms);

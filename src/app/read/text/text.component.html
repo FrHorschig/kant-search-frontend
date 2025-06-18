@@ -3,9 +3,8 @@
     <nz-icon nzType="loading" nzTheme="outline" style="font-size: 48px" />
   </div>
 </ng-container>
-
-<div *ngIf="ready$ | async">
-  <div nz-flex nzJustify="center">
+<div nz-flex nzJustify="center">
+  <div *ngIf="ready$ | async">
     <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
 
     <ks-read-toc

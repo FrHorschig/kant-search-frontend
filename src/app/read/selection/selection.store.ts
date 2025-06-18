@@ -19,40 +19,40 @@ export class SelectionStore extends ComponentStore<SelectionState> {
     private readonly volStore: VolumesStore
   ) {
     super({ nodes: [] });
+    this.init();
   }
 
   readonly nodes$ = this.select((state) => state.nodes);
   readonly ready$ = this.select((state) => state.nodes.length > 0);
 
-  readonly init = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      tap(() => this.patchState({ nodes: [] })),
-      switchMap(() =>
-        combineLatest([this.volStore.volumes$, this.langStore.ready$]).pipe(
-          filter(([_, langReady]) => langReady),
-          map(([vols, _]) => {
-            const nodes = vols.map((vol) => {
-              const children = vol.works.map((work) => ({
-                title: TitleUtil.truncate(work.title, 85),
-                key: work.code,
-                isLeaf: true,
-                selectable: false,
-              }));
-              return {
-                title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
-                  volumeNumber: vol.volumeNumber,
-                  title: vol.title,
-                }),
-                key: `volume-${vol.volumeNumber}`,
-                children: children,
-                selectable: false,
-              };
-            });
-            return nodes;
-          }),
-          tap((nodes) => this.patchState({ nodes }))
-        )
-      )
+  private readonly init = this.effect<void>((trigger$) =>
+    combineLatest([
+      trigger$,
+      this.volStore.volumes$,
+      this.langStore.ready$,
+    ]).pipe(
+      filter(([, , langReady]) => langReady),
+      map(([, vols]) => {
+        const nodes = vols.map((vol) => {
+          const children = vol.works.map((work) => ({
+            title: TitleUtil.truncate(work.title, 85),
+            key: work.code,
+            isLeaf: true,
+            selectable: false,
+          }));
+          return {
+            title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+              volumeNumber: vol.volumeNumber,
+              title: vol.title,
+            }),
+            key: `volume-${vol.volumeNumber}`,
+            children: children,
+            selectable: false,
+          };
+        });
+        return nodes;
+      }),
+      tap((nodes) => this.patchState({ nodes }))
     )
   );
 }
