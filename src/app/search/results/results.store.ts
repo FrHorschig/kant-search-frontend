@@ -16,14 +16,14 @@ import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
 import { emptyWork, Work } from 'src/app/common/model/model';
 import {
   Hit,
-  SearchResult as ResultIntern,
+  SearchResult as ResultInternal,
   Snippet,
 } from '../model/search-result';
 import { ResultSort } from '../model/search-options';
 
 interface ResultsState {
   searchTerms: string;
-  results: ResultIntern[];
+  results: ResultInternal[];
   hits: Hit[];
   page: number;
   pageSize: number;
@@ -74,25 +74,23 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           withLatestFrom(this.volStore.workByCode$, this.route.fragment),
           tapResponse(
             ([results, workByCode, fragment]) => {
-              results = results ? results : [];
               const pageMatch = fragment?.match(/^page(\d+)$/);
-              const sort =
-                params.get('sort') === 'YEAR'
-                  ? ResultSort.Year
-                  : ResultSort.AaOrder;
-              const mapped = this.mapResults(sort, results, workByCode);
+              const [mapped, hits] = this.mapResults(
+                params.get('sort'),
+                results ?? [],
+                workByCode
+              );
               this.patchState({
                 results: mapped,
-                hits: mapped.flatMap((r) => r.hits),
+                hits: hits,
                 page: pageMatch ? +pageMatch[1] : 1,
-                ready: true,
               });
             },
             (err: Error) => {
-              this.patchState({ ready: true });
               this.errorService.logError(err);
               return EMPTY;
-            }
+            },
+            () => this.patchState({ ready: true })
           )
         )
       )
@@ -195,13 +193,14 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   }
 
   private mapResults(
-    sort: ResultSort,
+    sortParam: string | null,
     results: SearchResult[],
     workByCode: Map<string, Work>
-  ): ResultIntern[] {
-    results = this.sort(sort, results, Array.from(workByCode.values()));
+  ): [ResultInternal[], Hit[]] {
+    const sort = sortParam === 'YEAR' ? ResultSort.Year : ResultSort.AaOrder;
+    results = this.sort(sort, results ?? [], Array.from(workByCode.values()));
     let indexTotal = 1;
-    return results.map((res) => {
+    const mapped = results.map((res) => {
       return {
         hits: res.hits.map((h) => {
           const matchIndices = this.findMatchIndices(h.highlightText);
@@ -229,6 +228,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         workCode: res.workCode,
       };
     });
+    return [mapped, mapped.flatMap((r) => r.hits)];
   }
 
   /**
