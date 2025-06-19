@@ -50,3 +50,6 @@ This Angular project makes heavy use of the NgRx [component-store](https://ngrx.
 A component store is a Redux store that is bound to one specific component. This store takes the responsibility of state management from the associated container component, so that the only concern of this component is the arrangement of presentational components.
 
 Local stores are annotated with the `@Injectable()` decorator, they are injected into specific components and are bound to the components lifetime. Global stores on the other hand are not associated with one specific component but are responsible for one specific type of data, e.g. there is a store for the selected language. These global stores are annotated with `@Injectable({ providedIn: 'root' })` decorator, they exist as long as the application exists. They are usually accessed by other local or global stores.
+
+### Testing
+Components are tested as usual. In the component store tests however we only test synchronous code, because setting up asynchronous tests is complicated. To achieve this, have as much code as possible in synchronous private methods and only test this synchronous code. The asynchronous code is tested through e2e tests.
