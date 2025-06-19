@@ -325,7 +325,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
       let textEnd = hld.hlEnd + maxCharsAround;
       if (textEnd > highlighted.length - 1) {
-        textEnd = highlighted.length - 1;
+        textEnd = highlighted.length;
       } else {
         textEnd =
           i < merged.length - 1 && textEnd > merged[i + 1].hlStart
@@ -364,11 +364,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       return pages[0];
     }
     for (let i = pageByIndex.length - 1; i >= 0; i--) {
-      if (wordIndex > pageByIndex[i].i) {
+      if (pageByIndex[i].i < wordIndex) {
         return pageByIndex[i].num;
       }
     }
-    return pages[0];
+    return pages[0] - 1;
   }
 
   private findLineNum(

@@ -18,7 +18,7 @@ export class Testdata {
     sections: [],
     ordinal: 1,
     title: 'Work',
-    year: '1787',
+    year: '1789',
     volumeNumber: 1,
     volumeTitle: 'Volume',
   };
@@ -36,7 +36,7 @@ export class Testdata {
     sections: [],
     ordinal: 1,
     title: 'Work 3',
-    year: '1789',
+    year: '1787',
     volumeNumber: 2,
     volumeTitle: 'Volume 2',
   };
