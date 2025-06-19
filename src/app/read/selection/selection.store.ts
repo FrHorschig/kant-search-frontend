@@ -9,6 +9,7 @@ import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
 
 interface SelectionState {
   nodes: NzTreeNodeOptions[];
+  ready: boolean;
 }
 
 @Injectable()
@@ -18,12 +19,12 @@ export class SelectionStore extends ComponentStore<SelectionState> {
     private readonly langStore: LanguageStore,
     private readonly volStore: VolumesStore
   ) {
-    super({ nodes: [] });
+    super({ nodes: [], ready: false });
     this.init();
   }
 
   readonly nodes$ = this.select((state) => state.nodes);
-  readonly ready$ = this.select((state) => state.nodes.length > 0);
+  readonly ready$ = this.select((state) => state.ready);
 
   private readonly init = this.effect<void>((trigger$) =>
     combineLatest([
@@ -40,6 +41,7 @@ export class SelectionStore extends ComponentStore<SelectionState> {
               title: volTitle,
             })
           ),
+          ready: true,
         })
       )
     )

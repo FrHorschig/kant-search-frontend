@@ -1,16 +1,18 @@
-<nz-space class="w-full" nzDirection="vertical">
-  <ks-basic-input
-    *nzSpaceItem
-    [nodes]="(nodes$ | async) ?? []"
-    [canSearch]="(canSearch$ | async) ?? false"
-    (searchTermsEmitter)="onSearchTermsChange($event)"
-    (workCodesEmitter)="onWorkCodesChange($event)"
-    (doSearchEmitter)="onSearch()"
-  ></ks-basic-input>
+<div *ngIf="ready$ | async">
+  <nz-space class="w-full" nzDirection="vertical">
+    <ks-basic-input
+      *nzSpaceItem
+      [nodes]="(nodes$ | async) ?? []"
+      [canSearch]="(canSearch$ | async) ?? false"
+      (searchTermsEmitter)="onSearchTermsChange($event)"
+      (workCodesEmitter)="onWorkCodesChange($event)"
+      (doSearchEmitter)="onSearch()"
+    ></ks-basic-input>
 
-  <ks-advanced-input
-    *nzSpaceItem
-    [options]="options$ | async"
-    (optionsChangeEmitter)="onOptionsChange($event)"
-  ></ks-advanced-input>
-</nz-space>
+    <ks-advanced-input
+      *nzSpaceItem
+      [options]="options$ | async"
+      (optionsChangeEmitter)="onOptionsChange($event)"
+    ></ks-advanced-input>
+  </nz-space>
+</div>

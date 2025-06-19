@@ -15,6 +15,7 @@ interface CriteriaState {
   searchTerms: string;
   workCodes: string[];
   options: AdvancedOptions;
+  ready: boolean;
 }
 
 @Injectable()
@@ -36,6 +37,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
         includeHeadings: false,
         includeSummaries: false,
       },
+      ready: false,
     });
     this.init();
   }
@@ -45,6 +47,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
   readonly canSearch$ = this.select(
     (state) => state.workCodes.length > 0 && state.searchTerms.length > 0
   );
+  readonly ready$ = this.select((state) => state.ready);
 
   readonly navigateSearch = this.effect<void>((trigger$) =>
     trigger$.pipe(
@@ -106,6 +109,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
               title: volTitle,
             })
           ),
+          ready: true,
         });
       })
     )
