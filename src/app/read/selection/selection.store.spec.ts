@@ -1,12 +1,12 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { SelectionStore } from './selection.store';
 import { of } from 'rxjs';
-import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { LanguageStore } from 'src/app/store/language/language.store';
+import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
+import { LanguageStore } from 'src/app/common/store/language/language.store';
 import { TranslateService } from '@ngx-translate/core';
-import { MockVolumesStore } from 'src/app/store/volumes/volumes.store.spec';
+import { MockVolumesStore } from 'src/app/common/store/volumes/volumes.store.spec';
 import { createTranslateServiceSpy } from 'src/app/common/test/services';
-import { MockLanguageStore } from 'src/app/store/language/language.store.spec';
+import { MockLanguageStore } from 'src/app/common/store/language/language.store.spec';
 import { Testdata } from 'src/app/common/test/testdata';
 import { Volume } from '@frhorschig/kant-search-api';
 

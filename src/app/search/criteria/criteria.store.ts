@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { combineLatest, filter, tap, withLatestFrom } from 'rxjs';
-import { LanguageStore } from 'src/app/store/language/language.store';
+import { LanguageStore } from 'src/app/common/store/language/language.store';
 import { AdvancedOptions, ResultSort } from '../model/search-options';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
 import { TranslateService } from '@ngx-translate/core';
-import { TitleUtil } from '../util/title-util';
+import { TitleUtil } from '../../common/util/title-util';
 
 interface CriteriaState {
   nodes: NzTreeNodeOptions[];

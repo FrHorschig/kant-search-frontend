@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Hit } from '../../model/search-result';
-import { TitleUtil } from '../../util/title-util';
+import { TitleUtil } from '../../../common/util/title-util';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';

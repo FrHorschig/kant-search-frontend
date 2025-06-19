@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-import { TitleUtil } from '../../util/title-util';
+import { TitleUtil } from '../../../common/util/title-util';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { SearchResult } from '../../model/search-result';
 

@@ -13,7 +13,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ApiModule } from '@frhorschig/kant-search-api';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { LanguageStore } from './store/language/language.store';
+import { LanguageStore } from './common/store/language/language.store';
 import { UrlLoaderService } from './app/config/url-loader.service';
 import { routes } from './app/config/routes';
 

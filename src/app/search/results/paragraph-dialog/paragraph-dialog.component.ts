@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { emptyHit } from '../../model/search-result';
 import { FullTextInfo } from '../../model/full-text-info';
-import { TitleUtil } from '../../util/title-util';
+import { TitleUtil } from '../../../common/util/title-util';
 import { NzFlexDirective } from 'ng-zorro-antd/flex';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';

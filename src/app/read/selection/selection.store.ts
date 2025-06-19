@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { combineLatest, filter, tap } from 'rxjs';
-import { VolumesStore } from 'src/app/store/volumes/volumes.store';
-import { LanguageStore } from 'src/app/store/language/language.store';
+import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
+import { LanguageStore } from 'src/app/common/store/language/language.store';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { TranslateService } from '@ngx-translate/core';
-import { TitleUtil } from 'src/app/search/util/title-util';
+import { TitleUtil } from 'src/app/common/util/title-util';
 import { Volume } from '@frhorschig/kant-search-api';
 
 interface SelectionState {

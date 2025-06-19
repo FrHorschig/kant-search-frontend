@@ -6,7 +6,7 @@ import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { emptyHit, Hit } from '../model/search-result';
 import { ResultsStore } from './results.store';
-import { VolumesStore } from 'src/app/store/volumes/volumes.store';
+import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
 import { SearchResult } from '@frhorschig/kant-search-api';
 import { CommonModule } from '@angular/common';
 import { ResultsInputComponent } from './results-input/results-input.component';
