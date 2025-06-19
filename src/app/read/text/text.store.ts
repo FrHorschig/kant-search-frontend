@@ -23,6 +23,7 @@ interface TextState {
   textContents: TextContent[];
   footnoteByRef: Map<string, Footnote>;
   summaryByRef: Map<string, Summary>;
+  ready: boolean;
 }
 
 @Injectable()
@@ -40,6 +41,7 @@ export class TextStore extends ComponentStore<TextState> {
       textContents: [],
       footnoteByRef: new Map(),
       summaryByRef: new Map(),
+      ready: false,
     });
   }
 
@@ -48,10 +50,20 @@ export class TextStore extends ComponentStore<TextState> {
   readonly headingByOrdinal$ = this.select((state) => state.headingByOrdinal);
   readonly footnoteByRef$ = this.select((state) => state.footnoteByRef);
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
-  readonly ready$ = this.select((state) => state.textContents.length > 0);
+  readonly ready$ = this.select((state) => state.ready);
 
   readonly loadData = this.effect<string>((workCode$) =>
     workCode$.pipe(
+      tap(() =>
+        this.patchState({
+          work: undefined,
+          headingByOrdinal: new Map(),
+          textContents: [],
+          footnoteByRef: new Map(),
+          summaryByRef: new Map(),
+          ready: false,
+        })
+      ),
       withLatestFrom(this.volStore.workByCode$),
       switchMap(([workCode, workByCode]) =>
         forkJoin({
@@ -101,7 +113,8 @@ export class TextStore extends ComponentStore<TextState> {
             (err: Error) => {
               this.errorService.logError(err);
               return EMPTY;
-            }
+            },
+            () => this.patchState({ ready: true })
           )
         )
       )
