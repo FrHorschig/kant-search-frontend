@@ -10,10 +10,10 @@ import {
 import { ErrorService } from 'src/app/common/service/error.service';
 import { createErrorServiceSpy } from 'src/app/common/test/services';
 import { createReadServiceSpy } from 'src/app/common/test/api-services';
-import { MockVolumesStore } from 'src/app/common/store/volumes/volumes.store.spec';
-import { MockLanguageStore } from 'src/app/common/store/language/language.store.spec';
-import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
+import { MockVolumesStore } from 'src/app/common/store/volumes.store.spec';
+import { MockLanguageStore } from 'src/app/common/store/language.store.spec';
+import { VolumesStore } from 'src/app/common/store/volumes.store';
+import { LanguageStore } from 'src/app/common/store/language.store';
 import { Testdata } from 'src/app/common/test/testdata';
 
 describe('TextStore', () => {

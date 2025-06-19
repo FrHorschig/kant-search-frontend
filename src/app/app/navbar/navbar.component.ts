@@ -6,7 +6,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LanguageStore } from '../../common/store/language/language.store';
+import { LanguageStore } from '../../common/store/language.store';
 import { SubscriptionComponent } from '../../common/base/container.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 

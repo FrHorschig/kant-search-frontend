@@ -10,9 +10,9 @@ import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
+import { LanguageStore } from 'src/app/common/store/language.store';
 import { FullTextInfo } from '../model/full-text-info';
-import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
+import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { emptyWork, Work } from 'src/app/common/model/model';
 import {
   Hit,

@@ -9,10 +9,10 @@ import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
 import { SelectionComponent } from './selection.component';
-import { MockLanguageStore } from 'src/app/common/store/language/language.store.spec';
-import { MockVolumesStore } from 'src/app/common/store/volumes/volumes.store.spec';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
-import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
+import { MockLanguageStore } from 'src/app/common/store/language.store.spec';
+import { MockVolumesStore } from 'src/app/common/store/volumes.store.spec';
+import { LanguageStore } from 'src/app/common/store/language.store';
+import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { createRouterSpy } from 'src/app/common/test/services';
 import { of } from 'rxjs';
 

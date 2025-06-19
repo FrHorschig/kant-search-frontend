@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { VolumesStore } from './common/store/volumes/volumes.store';
+import { VolumesStore } from './common/store/volumes.store';
 import { RouterModule } from '@angular/router';
 import {
   TranslateFakeLoader,
@@ -11,7 +11,7 @@ import { MockNavbarComponent } from './app/navbar/navbar.component.spec';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { MockVolumesStore } from './common/store/volumes/volumes.store.spec';
+import { MockVolumesStore } from './common/store/volumes.store.spec';
 
 describe('AppComponent', () => {
   let component: AppComponent;

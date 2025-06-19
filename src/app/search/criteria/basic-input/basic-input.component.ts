@@ -13,7 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
+import { LanguageStore } from 'src/app/common/store/language.store';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { filter } from 'rxjs';
 import { WorksGroup } from '../../model/search-options';

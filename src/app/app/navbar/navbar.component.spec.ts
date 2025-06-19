@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
-import { LanguageStore } from '../../common/store/language/language.store';
+import { LanguageStore } from '../../common/store/language.store';
 import {
   TranslateFakeLoader,
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { MockLanguageStore } from '../../common/store/language/language.store.spec';
+import { MockLanguageStore } from '../../common/store/language.store.spec';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';

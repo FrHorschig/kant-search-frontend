@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VolumesStore } from './common/store/volumes/volumes.store';
+import { VolumesStore } from './common/store/volumes.store';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

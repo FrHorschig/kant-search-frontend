@@ -4,8 +4,8 @@ import { combineLatest, filter, tap } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { TranslateService } from '@ngx-translate/core';
 import { NzTreeUtil } from 'src/app/common/util/nz-tree-util';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
-import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
+import { LanguageStore } from 'src/app/common/store/language.store';
+import { VolumesStore } from 'src/app/common/store/volumes.store';
 
 interface SelectionState {
   nodes: NzTreeNodeOptions[];
