@@ -64,19 +64,39 @@ export class TextStore extends ComponentStore<TextState> {
             ({ headings, footnotes, paragraphs, summaries }) => {
               const work = workByCode.get(workCode);
               if (!work) {
+                // TODO use translatable message code
                 throw new Error('no work with code ' + workCode + ' found');
               }
-              headings = headings ? headings : [];
-              const headsByOrd = new Map(headings.map((h) => [h.ordinal, h]));
-              paragraphs = paragraphs ? paragraphs : [];
-              const parsByOrd = new Map(paragraphs.map((p) => [p.ordinal, p]));
+              const [
+                headingByOrdinal,
+                textContents,
+                footnoteByRef,
+                summaryByRef,
+              ] = this.mapContents(
+                work,
+                headings,
+                paragraphs,
+                footnotes,
+                summaries
+              );
               this.patchState({
                 work,
-                headingByOrdinal: new Map(headings.map((h) => [h.ordinal, h])),
-                textContents: this.mapTextContents(work, headsByOrd, parsByOrd),
-                footnoteByRef: new Map(footnotes.map((f) => [f.ref, f])),
-                summaryByRef: new Map(summaries.map((s) => [s.ref, s])),
+                headingByOrdinal,
+                textContents,
+                footnoteByRef,
+                summaryByRef,
               });
+              // TODO would this work?
+              // this.patchState({
+              //   work,
+              //   ...this.mapContents(
+              //     work,
+              //     headings,
+              //     paragraphs,
+              //     footnotes,
+              //     summaries
+              //   ),
+              // });
             },
             (err: Error) => {
               this.errorService.logError(err);
@@ -99,6 +119,26 @@ export class TextStore extends ComponentStore<TextState> {
     )
   );
 
+  private mapContents(
+    work: Work,
+    heads: Heading[],
+    pars: Paragraph[],
+    fns: Footnote[],
+    summs: Summary[]
+  ): [
+    Map<number, Heading>,
+    TextContent[],
+    Map<string, Footnote>,
+    Map<string, Summary>
+  ] {
+    const headByOrd = new Map(heads.map((h) => [h.ordinal, h]));
+    const parsByOrd = new Map(pars.map((p) => [p.ordinal, p]));
+    const resultPars = this.mapTextContents(work, headByOrd, parsByOrd);
+    const fnByRef = new Map(fns.map((f) => [f.ref, f]));
+    const summByRef = new Map(summs.map((s) => [s.ref, s]));
+    return [headByOrd, resultPars, fnByRef, summByRef];
+  }
+
   private mapTextContents(
     work: Work,
     headsByOrd: Map<number, Heading>,
@@ -114,7 +154,7 @@ export class TextStore extends ComponentStore<TextState> {
         isHeading: false,
         ordinal: p.ordinal,
         text: p.text,
-        fnRefs: p.fnRefs,
+        fnRefs: p.fnRefs ?? [],
         summaryRef: p.summaryRef,
       });
     }
@@ -138,7 +178,7 @@ export class TextStore extends ComponentStore<TextState> {
       isHeading: true,
       ordinal: h.ordinal,
       text: h.text,
-      fnRefs: h.fnRefs,
+      fnRefs: h.fnRefs ?? [],
       summaryRef: undefined,
     });
 
@@ -151,7 +191,7 @@ export class TextStore extends ComponentStore<TextState> {
         isHeading: false,
         ordinal: p.ordinal,
         text: p.text,
-        fnRefs: p.fnRefs,
+        fnRefs: p.fnRefs ?? [],
         summaryRef: p.summaryRef,
       });
     }
