@@ -1,9 +1,5 @@
 <nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED.HEADER' | translate">
   <form [formGroup]="form">
-    <h5 nz-typography>
-      {{ "SEARCH.INPUT.ADVANCED.SORT.TITLE" | translate }}
-    </h5>
-
     <ks-left-labeled-input
       idString="sort-select"
       i18nString="SEARCH.INPUT.ADVANCED.SORT"
@@ -20,11 +16,10 @@
       </nz-select>
     </ks-left-labeled-input>
 
-    <nz-divider></nz-divider>
-
-    <h5 nz-typography>
-      {{ "SEARCH.INPUT.ADVANCED.SCOPE.TITLE" | translate }}
-    </h5>
+    <nz-divider
+      nzOrientation="left"
+      [nzText]="'SEARCH.INPUT.ADVANCED.SCOPE.TITLE' | translate"
+    ></nz-divider>
 
     <nz-space class="w-full" nzDirection="vertical">
       <ks-right-labeled-input
@@ -61,11 +56,10 @@
     </nz-space>
   </form>
 
-  <nz-divider></nz-divider>
-
-  <h5 nz-typography>
-    {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE" | translate }}
-  </h5>
+  <nz-divider
+    nzOrientation="left"
+    [nzText]="'SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE' | translate"
+  ></nz-divider>
 
   <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}</p>
 

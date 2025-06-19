@@ -1,11 +1,11 @@
 <div nz-row>
-  <div nz-col nzSpan="6">
+  <div nz-col nzSpan="4">
     <label for="{{ idString }}">
       {{ i18nString + ".LABEL" | translate }}
     </label>
   </div>
 
-  <div nz-col [nzSpan]="withTooltip ? '16' : '18'">
+  <div nz-col [nzSpan]="withTooltip ? '18' : '20'">
     <ng-content></ng-content>
   </div>
 
