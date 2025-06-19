@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { combineLatest, filter, tap } from 'rxjs';
-import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
-import { LanguageStore } from 'src/app/common/store/language/language.store';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { TranslateService } from '@ngx-translate/core';
-import { TitleUtil } from 'src/app/common/util/title-util';
-import { Volume } from '@frhorschig/kant-search-api';
+import { NzTreeUtil } from 'src/app/common/util/nz-tree-util';
+import { LanguageStore } from 'src/app/common/store/language/language.store';
+import { VolumesStore } from 'src/app/common/store/volumes/volumes.store';
 
 interface SelectionState {
   nodes: NzTreeNodeOptions[];
@@ -33,27 +32,16 @@ export class SelectionStore extends ComponentStore<SelectionState> {
       this.langStore.ready$,
     ]).pipe(
       filter(([, , langReady]) => langReady),
-      tap(([, vols]) => this.patchState({ nodes: this.createNodes(vols) }))
+      tap(([, vols]) =>
+        this.patchState({
+          nodes: NzTreeUtil.createNodes(vols, 85, (volNum, volTitle) =>
+            this.translateService.instant('COMMON.VOL_WORK_TITLE', {
+              volumeNumber: volNum,
+              title: volTitle,
+            })
+          ),
+        })
+      )
     )
   );
-
-  private createNodes(vols: Volume[]): NzTreeNodeOptions[] {
-    return vols.map((vol) => {
-      const children = vol.works.map((work) => ({
-        title: TitleUtil.truncate(work.title, 85),
-        key: work.code,
-        isLeaf: true,
-        selectable: false,
-      }));
-      return {
-        title: this.translateService.instant('COMMON.VOL_WORK_TITLE', {
-          volumeNumber: vol.volumeNumber,
-          title: vol.title,
-        }),
-        key: `volume-${vol.volumeNumber}`,
-        children: children,
-        selectable: false,
-      };
-    });
-  }
 }
