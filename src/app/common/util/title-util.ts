@@ -7,7 +7,7 @@ export class TitleUtil {
     const truncated = str.slice(0, maxLen - 4);
     const lastSpaceIndex = truncated.lastIndexOf(' ');
     if (lastSpaceIndex === -1) {
-      return truncated + ' ...';
+      return str.slice(0, maxLen - 3) + '...';
     }
     return truncated.slice(0, lastSpaceIndex) + ' ...';
   }
