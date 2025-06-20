@@ -17,8 +17,8 @@ export class TocSectionComponent {
 
   @Output() onClickEmitter = new EventEmitter<number>();
 
-  getHeading(ordinal: number | undefined): Heading | undefined {
-    const heading = this.headByOrdinal?.get(ordinal || 0);
+  getHeading(ordinal: number): Heading | undefined {
+    const heading = this.headByOrdinal?.get(ordinal);
     if (!heading) {
       // TODO use error service
       console.error('heading with ordinal ' + ordinal + ' not found');

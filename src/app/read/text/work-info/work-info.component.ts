@@ -20,6 +20,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
     NzTypographyModule,
   ],
 })
-export class TocSectionComponent {
+export class WorkInfoComponent {
   @Input() work: Work = emptyWork;
 }

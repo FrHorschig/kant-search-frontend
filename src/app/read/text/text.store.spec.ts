@@ -15,6 +15,21 @@ import { MockLanguageStore } from 'src/app/common/store/language.store.spec';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { Testdata } from 'src/app/common/test/testdata';
+import { EMPTY, Observable } from 'rxjs';
+import { Work } from 'src/app/common/model/model';
+import { TextContent } from './model';
+
+export class MockTextStore {
+  work$: Observable<Work> = EMPTY;
+  textContents$: Observable<TextContent[]> = EMPTY;
+  headingByOrdinal$: Observable<Map<number, Heading>> = EMPTY;
+  footnoteByRef$: Observable<Map<string, Footnote>> = EMPTY;
+  summaryByRef$: Observable<Map<string, Summary>> = EMPTY;
+  ready$: Observable<boolean> = EMPTY;
+
+  loadData = jasmine.createSpy('loadData');
+  navigateToSection = jasmine.createSpy('navigateToSection');
+}
 
 describe('TextStore', () => {
   let store: TextStore;

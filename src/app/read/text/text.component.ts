@@ -3,14 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
-import { combineLatest } from 'rxjs';
+import { combineLatest, filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { TocComponent } from './toc/toc.component';
 import { ContentComponent } from './content/content.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { TocSectionComponent } from './work-info/work-info.component';
+import { WorkInfoComponent } from './work-info/work-info.component';
 import { emptyWork } from 'src/app/common/model/model';
 
 @Component({
@@ -25,7 +25,7 @@ import { emptyWork } from 'src/app/common/model/model';
     NzIconModule,
     TocComponent,
     ContentComponent,
-    TocSectionComponent,
+    WorkInfoComponent,
   ],
 })
 export class TextComponent extends SubscriptionComponent implements OnInit {
@@ -52,6 +52,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
     combineLatest([this.route.fragment, this.ready$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, ready]) => {
+        // TODO use filter
         if (fragment && ready) {
           this.scrollService.scrollToAnchor(fragment);
         }

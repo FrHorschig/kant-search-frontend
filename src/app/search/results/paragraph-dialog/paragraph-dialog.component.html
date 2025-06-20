@@ -34,7 +34,7 @@
   {{
     "COMMON.VOL_WORK_TITLE"
       | translate
-        : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle() }
+        : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle(60) }
   }}
   ({{ hit.work.year }})
 </ng-template>

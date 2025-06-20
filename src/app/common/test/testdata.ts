@@ -1,4 +1,9 @@
-import { Volume } from '@frhorschig/kant-search-api';
+import {
+  Footnote,
+  Heading,
+  Summary,
+  Volume,
+} from '@frhorschig/kant-search-api';
 import { Work } from '../model/model';
 
 export class Testdata {
@@ -39,5 +44,24 @@ export class Testdata {
     year: '1787',
     volumeNumber: 2,
     volumeTitle: 'Volume 2',
+  };
+
+  static readonly heading: Heading = {
+    fnRefs: ['fn'],
+    ordinal: 1,
+    pages: [28],
+    text: 'heading',
+    tocText: 'heading',
+  };
+  static readonly footnote: Footnote = {
+    ordinal: 1,
+    ref: 'fn',
+    text: 'footnote',
+  };
+  static readonly summary: Summary = {
+    fnRefs: ['fn'],
+    ordinal: 1,
+    ref: 'sm',
+    text: 'summary',
   };
 }

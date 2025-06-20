@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SearchResult, SearchService } from '@frhorschig/kant-search-api';
 import { TranslateModule } from '@ngx-translate/core';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { ResultsStore } from './results.store';
 import { LanguageStore } from 'src/app/common/store/language.store';
@@ -13,6 +13,21 @@ import { createErrorServiceSpy } from 'src/app/common/test/services';
 import { createSearchServiceSpy } from 'src/app/common/test/api-services';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { MockVolumesStore } from 'src/app/common/store/volumes.store.spec';
+
+export class MockResultsStore {
+  searchTerms$: Observable<string> = EMPTY;
+  results$: Observable<ResultInternal[]> = EMPTY;
+  hits$: Observable<Hit[]> = EMPTY;
+  page$: Observable<number> = EMPTY;
+  pageSize$: Observable<number> = EMPTY;
+  ready$: Observable<boolean> = EMPTY;
+
+  search = jasmine.createSpy('search');
+  updateSearch = jasmine.createSpy('updateSearch');
+  navigateToPage = jasmine.createSpy('navigateToPge ');
+  navigateToSection = jasmine.createSpy('navigateToSection ');
+  navigateToFullText = jasmine.createSpy('navigateToFullTxt ');
+}
 
 const workByCode = new Map(
   [Testdata.work, Testdata.work2].map((w) => [w.code, w])

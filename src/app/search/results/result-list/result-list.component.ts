@@ -72,10 +72,6 @@ export class ResultListComponent {
     this.onClick.emit(hit);
   }
 
-  getWorkTitle(title: string): string {
-    return TitleUtil.truncate(title, 70);
-  }
-
   onPageChange(page: number) {
     this.pageChange.emit(page);
   }

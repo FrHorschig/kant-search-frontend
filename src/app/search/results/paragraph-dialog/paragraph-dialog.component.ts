@@ -9,7 +9,7 @@ import {
 import { emptyHit } from '../../model/search-result';
 import { FullTextInfo } from '../../model/full-text-info';
 import { TitleUtil } from '../../../common/util/title-util';
-import { NzFlexDirective } from 'ng-zorro-antd/flex';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
@@ -24,7 +24,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   standalone: true,
   imports: [
     TranslateModule,
-    NzFlexDirective,
+    NzFlexModule,
     NzSpaceModule,
     NzModalModule,
     NzButtonModule,
@@ -47,8 +47,8 @@ export class ParagraphDialogComponent implements OnChanges {
     }
   }
 
-  getWorkTitle(): string {
-    return TitleUtil.truncate(this.hit.work.title, 60);
+  getWorkTitle(maxLen: number): string {
+    return TitleUtil.truncate(this.hit.work.title, maxLen);
   }
 
   onHide() {
