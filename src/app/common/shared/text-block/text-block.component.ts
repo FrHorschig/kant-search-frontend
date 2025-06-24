@@ -11,10 +11,13 @@ export class TextBlockComponent {
 
   @Input()
   set text(text: string) {
-    text = text.replace(/(<ks-meta-page\b[^>]*>.*?<\/ks-meta-page>)/gi, '[$1]');
     text = text.replace(
-      /(<ks-meta-fnref\b[^>]*>.*?<\/ks-meta-fnref>)/gi,
-      '($1)'
+      /(<ks-meta-page\b[^>]*>)(.*?)(<\/ks-meta-page>)/gi,
+      (_, openTag, innerText, closeTag) => `${openTag}[${innerText}]${closeTag}`
+    );
+    text = text.replace(
+      /(<ks-meta-fnref\b[^>]*>)(.*?)(<\/ks-meta-fnref>)/gi,
+      (_, openTag, innerText, closeTag) => `${openTag}(${innerText})${closeTag}`
     );
     this.trustedText = this.sanitizer.bypassSecurityTrustHtml(text);
   }
