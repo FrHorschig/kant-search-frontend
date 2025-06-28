@@ -6,10 +6,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { BasicInputComponent } from './basic-input.component';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -20,7 +17,15 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { WorksGroup } from '../../model/search-options';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { NzFormatEmitEvent, NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/core/tree';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ks-basic-input',
+  template: '',
+  standalone: true,
+})
+export class MockBasicInputComponent {}
 
 describe('BasicInputComponent', () => {
   let component: BasicInputComponent;

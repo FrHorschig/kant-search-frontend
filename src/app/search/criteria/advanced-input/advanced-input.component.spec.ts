@@ -16,6 +16,14 @@ import { RightLabeledInputComponent } from './right-labeled-input/right-labeled-
 import { LeftLabeledInputComponent } from './left-labeled-input/left-labeled-input.component';
 import { AdvancedInputComponent } from './advanced-input.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ks-advanced-input',
+  template: '',
+  standalone: true,
+})
+export class MockAdvancedInputComponent {}
 
 describe('AdvancedInputComponent', () => {
   let component: AdvancedInputComponent;
