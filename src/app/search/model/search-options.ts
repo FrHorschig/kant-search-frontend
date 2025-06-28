@@ -1,5 +1,6 @@
 export enum WorksGroup {
   All = 'ALL',
+  AllGerman = 'ALL_GERMAN',
   Precritical = 'PRECRITICAL',
   Critiques = 'CRITIQUES',
   Custom = 'CUSTOM',

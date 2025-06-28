@@ -59,6 +59,7 @@
           "PLACEHOLDER": "Select works...",
           "OPTIONS": {
             "ALL": "Alle Bände",
+            "ALL_GERMAN": "Deutschsprachige Schriften",
             "PRECRITICAL": "Vorkritische Schriften",
             "CRITIQUES": "Kritiken",
             "CUSTOM": "Benutzerdefinierte Auswahl..."

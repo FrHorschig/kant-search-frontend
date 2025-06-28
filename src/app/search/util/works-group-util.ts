@@ -2,7 +2,6 @@
 
 import { WorksGroup } from '../model/search-options';
 
-// TODO fetch these arrays from a config file
 const all = [
   // --- volume 1 ------------------
   'GSK', //
@@ -79,15 +78,84 @@ const all = [
   'BUCHMACHEREI', //
   'VORREDE_PHIL', //
   'WOERTERBUCH', //
-  // TODO how to handle this special case?
-  // 'NACHTRAG_8', //
   'REZ_SIL_8', //
-  // 'ANHANG_8', //
   'REZ_ULRICH', //
   // --- volume 9 ------------------
   'LOG', //
   'PG', //
   'PAED', //
+];
+
+const allGerman = [
+  // all minus three in vol 1 and one in vol 2
+  'ANTH', //
+  'AP', //
+  'AUSGLEICH', //
+  'BDG', //
+  'BEM_MORGEN', //
+  'BUCHMACHEREI', //
+  'DFS', //
+  'EACG', //
+  'EAD', //
+  'FBZE', //
+  'FE', //
+  'FRAGE_AUFKLAERUNG', //
+  'GAJFF', //
+  'GMS', //
+  'GNVE', //
+  'GSE', //
+  'GSK', //
+  'GUGR', //
+  'IDEE_GESCHICHTE', //
+  'KPV', //
+  'KRV_A', //
+  'KRV_B', //
+  'KU', //
+  'LAMBERT_BRIEFWECHSEL', //
+  'LOG', //
+  'MAN', //
+  'MENSCHENGESCH', //
+  'MENSCHENRACE', //
+  'MS', //
+  'NACHRICHT_AERZTE', //
+  'NEV', //
+  'NG', //
+  'NLBR', //
+  'NTH', //
+  'PAED', //
+  'PG', //
+  'PROL', //
+  'REZ_HERDER', //
+  'REZ_HUFELAND', //
+  'REZ_MOSCATI', //
+  'REZ_SCHULZ', //
+  'REZ_SIL_2', //
+  'REZ_SIL_8', //
+  'REZ_ULRICH', //
+  'RGV', //
+  'SF', //
+  'TG', //
+  'THEODICEE', //
+  'TP', //
+  'TW', //
+  'UD', //
+  'UEE', //
+  'UEGTP', //
+  'UFE', //
+  'VBO', //
+  'VKK', //
+  'VNAEF', //
+  'VORREDE_PHIL', //
+  'VRML', //
+  'VT', //
+  'VUB', //
+  'VUE', //
+  'VULKANE', //
+  'VVRM', //
+  'WDO', //
+  'WITTERUNG', //
+  'WOERTERBUCH', //
+  'ZEF', //
 ];
 
 const precritical = [
@@ -134,6 +202,8 @@ export class WorksGroupUtil {
     switch (group) {
       case WorksGroup.All:
         return all;
+      case WorksGroup.AllGerman:
+        return allGerman;
       case WorksGroup.Precritical:
         return precritical;
       case WorksGroup.Critiques:
@@ -156,6 +226,12 @@ export class WorksGroupUtil {
     }
 
     codes.sort();
+    if (
+      codes.length === allGerman.length &&
+      codes.every((c, i) => c === allGerman[i])
+    ) {
+      return WorksGroup.AllGerman;
+    }
     if (
       codes.length === precritical.length &&
       codes.every((c, i) => c === precritical[i])

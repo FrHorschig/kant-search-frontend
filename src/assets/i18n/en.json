@@ -59,6 +59,7 @@
           "PLACEHOLDER": "Select works...",
           "OPTIONS": {
             "ALL": "All volumes",
+            "ALL_GERMAN": "German texts",
             "PRECRITICAL": "Precritical works",
             "CRITIQUES": "Critiques",
             "CUSTOM": "Custom selection..."
