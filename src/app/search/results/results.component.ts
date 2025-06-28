@@ -74,10 +74,6 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
       });
   }
 
-  getResultCount(results: SearchResult[]): number {
-    return results.flatMap((r) => r.hits).length;
-  }
-
   onSearchTermsChange(searchTerms: string) {
     this.resultsStore.putSearchTerms(searchTerms);
   }

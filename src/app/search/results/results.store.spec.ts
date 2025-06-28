@@ -27,6 +27,7 @@ export class MockResultsStore {
   navigateToPage = jasmine.createSpy('navigateToPge ');
   navigateToSection = jasmine.createSpy('navigateToSection ');
   navigateToFullText = jasmine.createSpy('navigateToFullTxt ');
+  putSearchTerms = jasmine.createSpy('putSearchTerms');
 }
 
 const workByCode = new Map(
@@ -182,7 +183,6 @@ const expectedResults: ResultInternal[] = [
 
 describe('ResultsStore', () => {
   let store: ResultsStore;
-  // TODO try without these useless variables
   let router: jasmine.SpyObj<Router>;
   let route: any = { queryParamMap: EMPTY };
   let errorService: jasmine.SpyObj<ErrorService>;

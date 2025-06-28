@@ -23,6 +23,9 @@ import { ResultsStore } from './results.store';
 import { MockResultsStore } from './results.store.spec';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { Subject } from 'rxjs';
+import { emptyHit, Hit } from '../model/search-result';
+import { Testdata } from 'src/app/common/test/testdata';
+import { FullTextInfo } from '../model/full-text-info';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -94,8 +97,47 @@ describe('ResultsComponent', () => {
     expect(mockResultsStore.search).toHaveBeenCalled();
   });
 
-  it('should write more tests', () => {
-    // TODO
-    expect(component).toBeTruthy();
+  it('should emit search terms', () => {
+    const input = 'search terms';
+    component.onSearchTermsChange(input);
+    expect(mockResultsStore.putSearchTerms).toHaveBeenCalledWith(input);
+  });
+
+  it('should emit update', () => {
+    component.onUpdate();
+    expect(mockResultsStore.updateSearch).toHaveBeenCalled();
+  });
+
+  it('should navigate to section', () => {
+    const input = 'workCode';
+    component.onResultNavigation(input);
+    expect(mockResultsStore.navigateToSection).toHaveBeenCalledWith(input);
+  });
+
+  it('should navigate to page', () => {
+    const input = 8;
+    component.onPageChange(input);
+    expect(mockResultsStore.navigateToPage).toHaveBeenCalledWith(input);
+  });
+
+  it('should update hit and dialog switch', () => {
+    const input: Hit = {
+      snippets: [],
+      fmtTextWithHl: 'txt',
+      ordinal: 2,
+      index: 1,
+      work: Testdata.work,
+    };
+    expect(component.hit).toEqual(emptyHit);
+    expect(component.showParagraph).toBeFalse();
+    component.onClick(input);
+    expect(component.hit).toEqual(input);
+    expect(component.showParagraph).toBeTrue();
+  });
+
+  it('should navigate to full text', () => {
+    const input: FullTextInfo = { workCode: 'code', fragment: 'frag' };
+    component.onFullTextNavigation(input);
+    expect(mockResultsStore.navigateToFullText).toHaveBeenCalledWith(input);
   });
 });
