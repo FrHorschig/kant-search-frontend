@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import {
+  Hit,
   IndexNumberPair,
   SearchCriteria,
   SearchResult,
@@ -15,7 +16,7 @@ import { FullTextInfo } from '../model/full-text-info';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { emptyWork, Work } from 'src/app/common/model/model';
 import {
-  Hit,
+  Hit as HitInternal,
   SearchResult as ResultInternal,
   Snippet,
 } from '../model/search-result';
@@ -24,7 +25,7 @@ import { ResultSort } from '../model/search-options';
 interface ResultsState {
   searchTerms: string;
   results: ResultInternal[];
-  hits: Hit[];
+  hits: HitInternal[];
   page: number;
   pageSize: number;
   ready: boolean;
@@ -196,7 +197,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     sortParam: string | null,
     results: SearchResult[],
     workByCode: Map<string, Work>
-  ): [ResultInternal[], Hit[]] {
+  ): [ResultInternal[], HitInternal[]] {
     const sort = sortParam === 'YEAR' ? ResultSort.Year : ResultSort.AaOrder;
     results = this.sort(sort, results ?? [], Array.from(workByCode.values()));
     let indexTotal = 1;
@@ -206,17 +207,10 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           const matchIndices = this.findMatchIndices(h.highlightText);
           const fmtTextWithHl = this.insertHighlights(
             h.fmtText,
-            matchIndices,
-            h.wordIndexMap
+            h.wordIndexMap,
+            matchIndices
           );
-          const snippets = this.buildSnippets(
-            h.highlightText,
-            matchIndices,
-            h.pages,
-            h.pageByIndex,
-            h.lineByIndex,
-            h.wordIndexMap
-          );
+          const snippets = this.buildSnippets(matchIndices, h);
           return {
             snippets,
             fmtTextWithHl,
@@ -264,8 +258,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   private insertHighlights(
     formatted: string,
-    hlData: HighlightData[],
-    wordIndexMap: { [key: string]: number }
+    wordIndexMap: { [key: string]: number },
+    hlData: HighlightData[]
   ): string {
     const [hlStart, hlEnd] = ['<ks-meta-hit>', '</ks-meta-hit>'];
     for (let i = hlData.length - 1; i >= 0; i--) {
@@ -282,14 +276,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return formatted;
   }
 
-  private buildSnippets(
-    highlighted: string,
-    hlData: HighlightData[],
-    pages: number[],
-    pageByIndex: IndexNumberPair[],
-    lineByIndex: IndexNumberPair[],
-    wordIndexMap: { [key: string]: number }
-  ): Snippet[] {
+  private buildSnippets(hlData: HighlightData[], hit: Hit): Snippet[] {
     const maxCharsBetween = 100;
     const merged: HighlightData[] = [hlData[0]];
     for (let i = 1; i < hlData.length; i++) {
@@ -306,59 +293,78 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     const snippets: Snippet[] = [];
     for (let i = 0; i < merged.length; i++) {
       const hld = merged[i];
-
-      let textStart = hld.hlStart - maxCharsAround;
-      if (textStart < 0) {
-        textStart = 0;
-      } else {
-        textStart =
-          i > 0 && textStart < merged[i - 1].hlEnd
-            ? merged[i - 1].hlEnd
-            : textStart;
-        for (let j = textStart; j < hld.hlStart; j++) {
-          if (highlighted[j] === ' ') {
-            textStart = j + 1;
-            break;
-          }
-        }
-      }
-
-      let textEnd = hld.hlEnd + maxCharsAround;
-      if (textEnd > highlighted.length - 1) {
-        textEnd = highlighted.length;
-      } else {
-        textEnd =
-          i < merged.length - 1 && textEnd > merged[i + 1].hlStart
-            ? merged[i + 1].hlStart
-            : textEnd;
-        for (let j = textEnd; j > hld.hlEnd; j--) {
-          if (highlighted[j] === ' ') {
-            textEnd = j;
-            break;
-          }
-        }
-      }
-
+      const hlText = hit.highlightText;
+      const textStart = this.findTextStart(i, merged, maxCharsAround, hlText);
+      const textEnd = this.findTextEnd(i, merged, maxCharsAround, hlText);
       snippets.push({
         page: this.findPageNum(
-          wordIndexMap[hld.startWord.toString()],
-          pages,
-          pageByIndex
+          hit.wordIndexMap[hld.startWord.toString()],
+          hit.pageByIndex,
+          hit.pages
         ),
         line: this.findLineNum(
-          wordIndexMap[hld.startWord.toString()],
-          lineByIndex
+          hit.wordIndexMap[hld.startWord.toString()],
+          hit.lineByIndex
         ),
-        text: highlighted.substring(textStart, textEnd),
+        text: hlText.substring(textStart, textEnd),
       });
     }
     return snippets;
   }
+  findTextEnd(
+    i: number,
+    merged: HighlightData[],
+    maxCharsAround: number,
+    hlText: string
+  ): number {
+    const hld = merged[i];
+    let textEnd = hld.hlEnd + maxCharsAround;
+    if (textEnd > hlText.length - 1) {
+      textEnd = hlText.length;
+    } else {
+      textEnd =
+        i < merged.length - 1 && textEnd > merged[i + 1].hlStart
+          ? merged[i + 1].hlStart
+          : textEnd;
+      for (let j = textEnd; j > hld.hlEnd; j--) {
+        if (hlText[j] === ' ') {
+          textEnd = j;
+          break;
+        }
+      }
+    }
+    return textEnd;
+  }
+
+  private findTextStart(
+    i: number,
+    merged: HighlightData[],
+    maxCharsAround: number,
+    hlText: string
+  ): number {
+    const hld = merged[i];
+    let textStart = hld.hlStart - maxCharsAround;
+    if (textStart < 0) {
+      textStart = 0;
+    } else {
+      textStart =
+        i > 0 && textStart < merged[i - 1].hlEnd
+          ? merged[i - 1].hlEnd
+          : textStart;
+      for (let j = textStart; j < hld.hlStart; j++) {
+        if (hlText[j] === ' ') {
+          textStart = j + 1;
+          break;
+        }
+      }
+    }
+    return textStart;
+  }
 
   private findPageNum(
     wordIndex: number,
-    pages: number[],
-    pageByIndex: IndexNumberPair[]
+    pageByIndex: IndexNumberPair[],
+    pages: number[]
   ): number {
     if (pageByIndex.length == 0) {
       return pages[0];

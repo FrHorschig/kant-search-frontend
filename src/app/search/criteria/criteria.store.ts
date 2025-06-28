@@ -7,7 +7,6 @@ import { AdvancedOptions, ResultSort } from '../model/search-options';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { TranslateService } from '@ngx-translate/core';
-import { TitleUtil } from '../../common/util/title-util';
 import { NzTreeUtil } from 'src/app/common/util/nz-tree-util';
 
 interface CriteriaState {
@@ -103,7 +102,7 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       filter(([, , ready]) => ready),
       tap(([, vols]) => {
         this.patchState({
-          nodes: NzTreeUtil.createNodes(vols, 85, (volNum, volTitle) =>
+          nodes: NzTreeUtil.createNodes(vols, 75, (volNum, volTitle) =>
             this.translateService.instant('COMMON.VOL_WORK_TITLE', {
               volumeNumber: volNum,
               title: volTitle,

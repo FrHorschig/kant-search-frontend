@@ -1,15 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit } from '../../model/search-result';
-import { TitleUtil } from '../../../common/util/title-util';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';

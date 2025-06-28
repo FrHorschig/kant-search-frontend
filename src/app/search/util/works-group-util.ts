@@ -155,16 +155,16 @@ export class WorksGroupUtil {
       return WorksGroup.All;
     }
 
-    const inSorted = codes.sort();
+    codes.sort();
     if (
       codes.length === precritical.length &&
-      inSorted.every((c, i) => c === precritical[i])
+      codes.every((c, i) => c === precritical[i])
     ) {
       return WorksGroup.Precritical;
     }
     if (
       codes.length === critiques.length &&
-      inSorted.every((c, i) => c === critiques[i])
+      codes.every((c, i) => c === critiques[i])
     ) {
       return WorksGroup.Critiques;
     }

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, take } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
-import { combineLatest, filter } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { TocComponent } from './toc/toc.component';
