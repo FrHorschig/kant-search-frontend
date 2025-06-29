@@ -1,10 +1,10 @@
 # KantSearchFrontend
 
-This is the Angular frontend for the kant-search project. The Angular application displays pages for reading, searching and uploading the works of Immanuel Kant.
+This is the Angular frontend of the kant-search project for reading and searching the works of Immanuel Kant.
 
 ## Contributing
 
-If you want to improve this codebase or add a feature, feel free to open a pull request. Make sure to explain any deviation from existing code conventions.
+If you want to improve this codebase or add a feature, feel free to open a pull request.
 
 ## Installation
 
@@ -22,12 +22,12 @@ docker run -d \
   frhorschig/kant-search-frontend
 ```
 
-The `/etc/nginx/ssl` directory inside the Docker container is used by the Nginx server, so make sure to use this path or adjust the Nginx configuration to match your own path.
+The `/etc/nginx/ssl` directory inside the Docker container is used by the Nginx server, so make sure to use this path or adjust the Nginx configuration in `deployment/ksgui.conf` to match your own path.
 
 ### Using Nginx
 
 - ensure that Nginx is installed on your system
-- download the zipped dist files and unzip the dist files to a directory of your choice
+- download the zipped dist files and unzip them to a directory of your choice
 - download the Nginx configuration file and adjust it if necessary
 - start the Nginx server
 
@@ -41,15 +41,15 @@ Refer to the [parent project](https://github.com/FrHorschig/kant-search) for a g
 
 #### Container and presentational components
 
-We differentiate between presentational components and container components. Presenational components are concerned with the presenation of the data, they communicate with other parts of the application only through `@Input()` and `@Output()` decorators. Container components on the other hand arrange the presentational components and pass data on to them. See [here](https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/) for a more detailed explanation of this topic.
+We differentiate between presentational components and container components. Presentational components are concerned with the presentation of the data, they communicate with other parts of the application only through `@Input()` and `@Output()` decorators. Container components on the other hand arrange the presentational components and pass data to them. See [this blog entry](https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/) for a more detailed explanation of this topic.
 
 #### NgRx component-store
 
-This Angular project makes heavy use of the NgRx [component-store](https://ngrx.io/guide/component-store) which in turn implements a variation of the [Redux pattern](https://redux.js.org/tutorials/fundamentals/part-7-standard-patterns).
+This project makes heavy use of the NgRx [component-store](https://ngrx.io/guide/component-store) which in turn implements the [Redux pattern](https://redux.js.org/tutorials/fundamentals/part-7-standard-patterns).
 
-A component store is a Redux store that is bound to one specific component. This store takes the responsibility of state management from the associated container component, so that the only concern of this component is the arrangement of presentational components.
+A component store is a Redux store that is responsible for one specific purpose, often the fetching of data for a container component. It takes the responsibility of state management from the associated component, so that the container component is only concerned with the arrangement of presentational components.
 
 Local stores are annotated with the `@Injectable()` decorator, they are injected into specific components and are bound to the components lifetime. Global stores on the other hand are not associated with one specific component but are responsible for one specific type of data, e.g. there is a store for the selected language. These global stores are annotated with `@Injectable({ providedIn: 'root' })` decorator, they exist as long as the application exists. They are usually accessed by other local or global stores.
 
 ### Testing
-Components are tested as usual. In the component store tests however we only test synchronous code, because setting up asynchronous tests is complicated. To achieve this, have as much code as possible in synchronous private methods and only test this synchronous code. The asynchronous code is tested through e2e tests.
+Components are tested as usual. In the component store tests however we only test synchronous code, because setting up asynchronous tests is complicated. To achieve this, have as much code as possible in synchronous private methods and only test this synchronous code. The asynchronous code is tested through (currently manual) e2e tests. To help with this you can use the text xml files in the [parent repository](https://github.com/FrHorschig/kant-search/e2e-tests).
