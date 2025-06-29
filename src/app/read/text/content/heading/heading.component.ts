@@ -7,6 +7,7 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { FootnoteComponent } from '../footnote/footnote.component';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
+import { ErrorService } from 'src/app/common/service/error.service';
 
 @Component({
   selector: 'ks-heading',
@@ -31,11 +32,14 @@ export class HeadingComponent {
   };
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
 
+  constructor(private readonly errService: ErrorService) {}
+
   getFn(ref: string): Footnote | undefined {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
-      // TODO use error service
-      console.error('no footnote found from reference ' + ref);
+      this.errService.logError(
+        new Error('no footnote found from reference ' + ref)
+      );
       return undefined;
     }
     return fn;

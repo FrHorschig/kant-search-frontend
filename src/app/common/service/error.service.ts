@@ -46,11 +46,4 @@ export class ErrorService {
       });
     }
   }
-
-  private wrapInObservable(msg: string): Observable<string> {
-    return new Observable<string>((subscriber) => {
-      subscriber.next(msg);
-      subscriber.complete();
-    });
-  }
 }

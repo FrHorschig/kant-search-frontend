@@ -8,6 +8,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { FootnoteComponent } from '../footnote/footnote.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
+import { ErrorService } from 'src/app/common/service/error.service';
 
 @Component({
   selector: 'ks-paragraph',
@@ -35,11 +36,14 @@ export class ParagraphComponent {
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
   @Input() summByRef: Map<string, Summary> | null = new Map();
 
+  constructor(private readonly errService: ErrorService) {}
+
   getFn(ref: string): Footnote | undefined {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
-      // TODO use error service
-      console.error('no footnote found from reference ' + ref);
+      this.errService.logError(
+        new Error('no footnote found from reference ' + ref)
+      );
       return undefined;
     }
     return fn;
@@ -48,8 +52,9 @@ export class ParagraphComponent {
   getSummary(ref: string): Summary | undefined {
     const summary = this.summByRef?.get(ref || '');
     if (!summary) {
-      // TODO use error service
-      console.error('no summary found from reference ' + ref);
+      this.errService.logError(
+        new Error('no summary found from reference ' + ref)
+      );
       return undefined;
     }
     return summary;

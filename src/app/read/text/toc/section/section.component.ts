@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Heading, Section } from '@frhorschig/kant-search-api';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { TranslateModule } from '@ngx-translate/core';
+import { ErrorService } from 'src/app/common/service/error.service';
 
 @Component({
   selector: 'ks-toc-section',
@@ -17,11 +18,14 @@ export class TocSectionComponent {
 
   @Output() onClickEmitter = new EventEmitter<number>();
 
+  constructor(private readonly errService: ErrorService) {}
+
   getHeading(ordinal: number): Heading | undefined {
     const heading = this.headByOrdinal?.get(ordinal);
     if (!heading) {
-      // TODO use error service
-      console.error('heading with ordinal ' + ordinal + ' not found');
+      this.errService.logError(
+        new Error('heading with ordinal ' + ordinal + ' not found')
+      );
       return undefined;
     }
     return heading;

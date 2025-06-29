@@ -8,14 +8,18 @@ import {
 import { CommonModule } from '@angular/common';
 import { TocSectionComponent } from './section.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
-import { Heading } from '@frhorschig/kant-search-api';
 import { Testdata } from 'src/app/common/test/testdata';
+import { createErrorServiceSpy } from 'src/app/common/test/services';
+import { ErrorService } from 'src/app/common/service/error.service';
 
 describe('TocSectionComponent', () => {
   let component: TocSectionComponent;
   let fixture: ComponentFixture<TocSectionComponent>;
+  let errService: jasmine.SpyObj<ErrorService>;
 
   beforeEach(async () => {
+    errService = createErrorServiceSpy();
+
     await TestBed.configureTestingModule({
       imports: [
         TocSectionComponent,
@@ -30,6 +34,7 @@ describe('TocSectionComponent', () => {
           imports: [CommonModule, TranslateModule, NzFlexModule],
         },
       })
+      .overrideProvider(ErrorService, { useValue: errService })
       .compileComponents();
 
     fixture = TestBed.createComponent(TocSectionComponent);
@@ -50,6 +55,7 @@ describe('TocSectionComponent', () => {
   it('should handle unknown heading', () => {
     component.headByOrdinal = new Map([1].map((n) => [n, Testdata.heading]));
     const h = component.getHeading(0);
+    expect(errService.logError).toHaveBeenCalled();
     expect(h).toBeUndefined();
   });
 

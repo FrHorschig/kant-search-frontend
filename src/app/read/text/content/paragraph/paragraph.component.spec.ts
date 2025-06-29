@@ -14,12 +14,17 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { FootnoteComponent } from '../footnote/footnote.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { Testdata } from 'src/app/common/test/testdata';
+import { ErrorService } from 'src/app/common/service/error.service';
+import { createErrorServiceSpy } from 'src/app/common/test/services';
 
 describe('ParagraphComponent', () => {
   let component: ParagraphComponent;
   let fixture: ComponentFixture<ParagraphComponent>;
+  let errService: jasmine.SpyObj<ErrorService>;
 
   beforeEach(async () => {
+    errService = createErrorServiceSpy();
+
     await TestBed.configureTestingModule({
       imports: [
         ParagraphComponent,
@@ -42,6 +47,7 @@ describe('ParagraphComponent', () => {
           ],
         },
       })
+      .overrideProvider(ErrorService, { useValue: errService })
       .compileComponents();
 
     fixture = TestBed.createComponent(ParagraphComponent);
@@ -62,6 +68,7 @@ describe('ParagraphComponent', () => {
   it('should handle unknown footnote', () => {
     component.fnByRef = new Map(['fn'].map((s) => [s, Testdata.footnote]));
     const result = component.getFn('other');
+    expect(errService.logError).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
 
@@ -74,6 +81,7 @@ describe('ParagraphComponent', () => {
   it('should handle unknown summary', () => {
     component.summByRef = new Map(['sm'].map((s) => [s, Testdata.summary]));
     const result = component.getSummary('other');
+    expect(errService.logError).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
 });
