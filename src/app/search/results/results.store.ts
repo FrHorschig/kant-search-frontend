@@ -311,30 +311,6 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     }
     return snippets;
   }
-  findTextEnd(
-    i: number,
-    merged: HighlightData[],
-    maxCharsAround: number,
-    hlText: string
-  ): number {
-    const hld = merged[i];
-    let textEnd = hld.hlEnd + maxCharsAround;
-    if (textEnd > hlText.length - 1) {
-      textEnd = hlText.length;
-    } else {
-      textEnd =
-        i < merged.length - 1 && textEnd > merged[i + 1].hlStart
-          ? merged[i + 1].hlStart
-          : textEnd;
-      for (let j = textEnd; j > hld.hlEnd; j--) {
-        if (hlText[j] === ' ') {
-          textEnd = j;
-          break;
-        }
-      }
-    }
-    return textEnd;
-  }
 
   private findTextStart(
     i: number,
@@ -359,6 +335,31 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       }
     }
     return textStart;
+  }
+
+  findTextEnd(
+    i: number,
+    merged: HighlightData[],
+    maxCharsAround: number,
+    hlText: string
+  ): number {
+    const hld = merged[i];
+    let textEnd = hld.hlEnd + maxCharsAround;
+    if (textEnd > hlText.length - 1) {
+      textEnd = hlText.length;
+    } else {
+      textEnd =
+        i < merged.length - 1 && textEnd > merged[i + 1].hlStart
+          ? merged[i + 1].hlStart
+          : textEnd;
+      for (let j = textEnd; j > hld.hlEnd; j--) {
+        if (hlText[j] === ' ') {
+          textEnd = j;
+          break;
+        }
+      }
+    }
+    return textEnd;
   }
 
   private findPageNum(

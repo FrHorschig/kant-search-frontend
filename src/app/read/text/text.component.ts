@@ -52,7 +52,6 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
     combineLatest([this.route.fragment, this.ready$])
       .pipe(this.takeUntilDestroy())
       .subscribe(([fragment, ready]) => {
-        // TODO use filter
         if (fragment && ready) {
           this.scrollService.scrollToAnchor(fragment);
         }

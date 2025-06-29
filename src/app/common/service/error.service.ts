@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpError } from '@frhorschig/kant-search-api';
 import { TranslateService } from '@ngx-translate/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

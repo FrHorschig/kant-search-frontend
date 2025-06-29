@@ -76,7 +76,6 @@ export class TextStore extends ComponentStore<TextState> {
             ({ headings, footnotes, paragraphs, summaries }) => {
               const work = workByCode.get(workCode);
               if (!work) {
-                // TODO use translatable message code
                 throw new Error('no work with code ' + workCode + ' found');
               }
               const [
@@ -98,17 +97,6 @@ export class TextStore extends ComponentStore<TextState> {
                 footnoteByRef,
                 summaryByRef,
               });
-              // TODO would this work?
-              // this.patchState({
-              //   work,
-              //   ...this.mapContents(
-              //     work,
-              //     headings,
-              //     paragraphs,
-              //     footnotes,
-              //     summaries
-              //   ),
-              // });
             },
             (err: Error) => {
               this.errorService.logError(err);
