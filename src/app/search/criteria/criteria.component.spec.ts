@@ -75,8 +75,8 @@ describe('CriteriaComponent', () => {
       sort: ResultSort.Year,
       withStemming: true,
       includeFootnotes: true,
+      includeParagraphs: true,
       includeHeadings: true,
-      includeSummaries: true,
     };
     component.onOptionsChange(input);
     expect(mockCriteriaStore.putOptions).toHaveBeenCalledWith(input);

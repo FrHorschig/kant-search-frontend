@@ -14,7 +14,7 @@ export enum ResultSort {
 export interface AdvancedOptions {
   sort: ResultSort;
   withStemming: boolean;
-  includeFootnotes: boolean;
   includeHeadings: boolean;
-  includeSummaries: boolean;
+  includeParagraphs: boolean;
+  includeFootnotes: boolean;
 }

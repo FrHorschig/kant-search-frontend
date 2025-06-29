@@ -55,9 +55,9 @@ export class AdvancedInputComponent
     this.form = this.formBuilder.group({
       sort: [this.options?.sort],
       withStemming: [this.options?.withStemming],
-      includeFootnotes: [this.options?.includeFootnotes],
       includeHeadings: [this.options?.includeHeadings],
-      includeSummaries: [this.options?.includeSummaries],
+      includeParagraphs: [this.options?.includeParagraphs],
+      includeFootnotes: [this.options?.includeFootnotes],
     });
     this.form.valueChanges
       .pipe(this.takeUntilDestroy())

@@ -79,25 +79,21 @@
         "SCOPE": {
           "TITLE": "Search scope",
           "TOOLTIP": "",
-          "OPTIONS": {
-            "PARAGRAPH": "Paragraphs",
-            "SENTENCE": "Senctence"
-          },
           "WITH_STEMMING": {
             "LABEL": "Use stemmed texts",
-            "TOOLTIP": "If the switch is on, the results does not only include exact matches, but also results where the stem of the word matches the stem of the search term. Example: Search term 'jumping' also finds matches with 'jump', 'jumps' and 'jumped'."
+            "TOOLTIP": "If this switch is activated, the results do not only contain exact hits, but also hits where the stem of the word matches the stem of the search term. Example: Search term 'sagen' (german for 'say') also finds matches with 'sag' and 'sage' (both imperative forms of 'say'). Because the stemms are determined algorithmically and the german language is rather complex, this methods does not work perfectly; 'sagen' for example does not match 'sagte' (past tense, 'said')."
           },
           "INCLUDE_FOOTNOTES": {
             "LABEL": "Search footnotes",
             "TOOLTIP": "Footnotes are included in the search if the switch is on."
           },
+          "INCLUDE_PARAGRAPHS": {
+            "LABEL": "Search paragraphs",
+            "TOOLTIP": "Paragraph are included in the search if the switch is on. By disabling this option, you can search headings for footnotes onnly."
+          },
           "INCLUDE_HEADINGS": {
             "LABEL": "Search headings",
             "TOOLTIP": "Headings are included in the search if the switch is on."
-          },
-          "INCLUDE_SUMMARIES": {
-            "LABEL": "Search summaries",
-            "TOOLTIP": "Paragraph summaries are included in the search if the switch is on."
           }
         },
         "SEARCH_TIPS": {

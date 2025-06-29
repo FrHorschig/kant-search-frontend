@@ -79,25 +79,21 @@
         "SCOPE": {
           "TITLE": "Suchbereich",
           "TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
-          "OPTIONS": {
-            "PARAGRAPH": "Absatz",
-            "SENTENCE": "Satz"
-          },
           "WITH_STEMMING": {
             "LABEL": "Nutze Wortstämme",
-            "TOOLTIP": "Wenn der Schalter an ist, enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sagte'"
+            "TOOLTIP": "Bei aktiviertem Schalter enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sage'. Da die Wortstämme durch einen Algorithmus ermittelt werden, und die deutsche Sprache recht komplex ist, funktioniert dieser Algorithmus nicht völlig fehlerfrei; 'sagte' beispielsweise wird beim Suchbegriff 'sagen' nicht gefunden."
           },
           "INCLUDE_HEADINGS": {
             "LABEL": "Durchsuche Überschriften",
             "TOOLTIP": "Wenn der Schalter an ist, werden auch Überschriften durchsucht."
           },
+          "INCLUDE_PARAGRAPHS": {
+            "LABEL": "Durchsuche Absätze",
+            "TOOLTIP": "Wenn der Schalter an ist, werden auch Absatz durchsucht. Schaltet man diese Option aus, kann man allein Überschriften oder allein Fußnoten suchen."
+          },
           "INCLUDE_FOOTNOTES": {
             "LABEL": "Durchsuche Fußnoten",
             "TOOLTIP": "Wenn der Schalter an ist, werden auch Fußnoten durchsucht."
-          },
-          "INCLUDE_SUMMARIES": {
-            "LABEL": "Durchsuche Zusammenfassungen",
-            "TOOLTIP": "Wenn der Schalter an ist, werden auch Absatz-Zusammenfassungen durchsucht."
           }
         },
         "SEARCH_TIPS": {

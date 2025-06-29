@@ -32,14 +32,6 @@
 
       <ks-right-labeled-input
         *nzSpaceItem
-        idString="include-footnotes-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
-      >
-        <nz-switch formControlName="includeFootnotes"></nz-switch>
-      </ks-right-labeled-input>
-
-      <ks-right-labeled-input
-        *nzSpaceItem
         idString="include-heading-switch"
         i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_HEADINGS"
       >
@@ -48,10 +40,18 @@
 
       <ks-right-labeled-input
         *nzSpaceItem
-        idString="include-summaries-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_SUMMARIES"
+        idString="include-paragraphs-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_PARAGRAPHS"
       >
-        <nz-switch formControlName="includeSummaries"></nz-switch>
+        <nz-switch formControlName="includeParagraphs"></nz-switch>
+      </ks-right-labeled-input>
+
+      <ks-right-labeled-input
+        *nzSpaceItem
+        idString="include-footnotes-switch"
+        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
+      >
+        <nz-switch formControlName="includeFootnotes"></nz-switch>
       </ks-right-labeled-input>
     </nz-space>
   </form>

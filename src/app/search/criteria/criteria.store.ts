@@ -32,9 +32,9 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
       options: {
         sort: ResultSort.AaOrder,
         withStemming: true,
-        includeFootnotes: true,
         includeHeadings: false,
-        includeSummaries: false,
+        includeParagraphs: true,
+        includeFootnotes: true,
       },
       ready: false,
     });
@@ -64,14 +64,14 @@ export class CriteriaStore extends ComponentStore<CriteriaState> {
         if (state.options.withStemming) {
           queryParams['stems'] = true;
         }
-        if (state.options.includeFootnotes) {
-          queryParams['incFn'] = true;
-        }
         if (state.options.includeHeadings) {
           queryParams['incHead'] = true;
         }
-        if (state.options.includeSummaries) {
-          queryParams['incSumm'] = true;
+        if (state.options.includeParagraphs) {
+          queryParams['incPars'] = true;
+        }
+        if (state.options.includeFootnotes) {
+          queryParams['incFn'] = true;
         }
         this.router.navigate([lang, 'search', 'results'], {
           queryParams,

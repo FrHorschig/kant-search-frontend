@@ -161,9 +161,9 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       options: {
         workCodes: Array.from(new Set(codes)),
         withStemming: params.get('stems') === 'true',
-        includeFootnotes: params.get('incFn') === 'true',
         includeHeadings: params.get('incHead') === 'true',
-        includeSummaries: params.get('incSumm') === 'true',
+        includeParagraphs: params.get('incPars') === 'true',
+        includeFootnotes: params.get('incFn') === 'true',
       },
     };
     return criteria;
@@ -187,8 +187,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     if (paramsMap.get('incHead') === 'true') {
       queryParams['incHead'] = true;
     }
-    if (paramsMap.get('incSumm') === 'true') {
-      queryParams['incSumm'] = true;
+    if (paramsMap.get('incPars') === 'true') {
+      queryParams['incPars'] = true;
     }
     return queryParams;
   }
