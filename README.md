@@ -8,28 +8,7 @@ If you want to improve this codebase or add a feature, feel free to open a pull 
 
 ## Installation
 
-### Using Docker
-
-- pull the newest container with `docker pull ghcr.io/frhorschig/kant-search-frontend`
-- run the docker container with the appropriate environment variables:
-
-```bash
-docker run -d \
-  -v /path/to/local/ssl/certificate:/etc/nginx/ssl/server.crt \
-  -v /path/to/local/ssl/key:/etc/nginx/ssl/server.key \
-  -p 4200:4200
-  --name ks-gui \
-  frhorschig/kant-search-frontend
-```
-
-The `/etc/nginx/ssl` directory inside the Docker container is used by the Nginx server, so make sure to use this path or adjust the Nginx configuration in `deployment/ksgui.conf` to match your own path.
-
-### Using Nginx
-
-- ensure that Nginx is installed on your system
-- download the zipped dist files and unzip them to a directory of your choice
-- download the Nginx configuration file and adjust it if necessary
-- start the Nginx server
+Please refer to the [parent project](https://github.com/FrHorschig/kant-search).
 
 ## Development
 
