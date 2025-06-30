@@ -8,7 +8,12 @@ If you want to improve this codebase or add a feature, feel free to open a pull 
 
 ## Installation
 
-Please refer to the [parent project](https://github.com/FrHorschig/kant-search).
+Please refer to the [parent project](https://github.com/FrHorschig/kant-search) to find out how to deploy this application.
+
+### Configuration
+
+The configuration file can be found at `src/assets/config.json`, it has these entries:
+- `apiUrl`: the URL of the API endpoints in the backend
 
 ## Development
 

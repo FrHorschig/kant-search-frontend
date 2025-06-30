@@ -88,26 +88,17 @@ jobs:
           docker push $img:$version
           docker push $img:latest
 
-  publish-js:
-    name: publish JavaScript files
+  publish-config:
+    name: publish the configuration files
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: download the build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: kant-search-frontend
-          path: kant-search-frontend
-      - name: zip Angular files
-        run: |
-          zip -r kant-search-frontend.zip kant-search-frontend
       - name: create release
         uses: softprops/action-gh-release@v2.0.4
         with:
           tag_name: ${{ github.ref_name }}
           files: |
-            kant-search-frontend.zip
-            deployment/ksgui.conf
+            src/assets/config.json
           token: ${{ secrets.GITHUB_TOKEN }}
