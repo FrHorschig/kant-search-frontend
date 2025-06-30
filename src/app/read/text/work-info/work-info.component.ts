@@ -22,4 +22,9 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 })
 export class WorkInfoComponent {
   @Input() work: Work = emptyWork;
+  @Input() firstPage: number = 0;
+
+  geWithLeadingZeros(num: number, stringLen: number) {
+    return num.toString().padStart(stringLen, '0');
+  }
 }

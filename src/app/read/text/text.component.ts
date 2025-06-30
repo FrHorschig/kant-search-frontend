@@ -12,6 +12,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { WorkInfoComponent } from './work-info/work-info.component';
 import { emptyWork } from 'src/app/common/model/model';
+import { TextContent } from './model';
 
 @Component({
   selector: 'ks-text',

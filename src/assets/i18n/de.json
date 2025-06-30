@@ -28,7 +28,8 @@
       "TITLE": "Titel",
       "VOLUME": "Band",
       "SIGLUM": "Siglum",
-      "YEAR": "Jahr"
+      "YEAR": "Jahr",
+      "KORPORA_LINK": "Link zum Band in druckähnlicher Darstellung"
     },
     "SELECTION": {
       "HEADER": "Werkauswahl",

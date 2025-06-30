@@ -42,4 +42,16 @@
       {{ work.year }}
     </div>
   </div>
+
+  <div *nzSpaceItem nz-row>
+    {{ "READ.INFO.KORPORA_LINK" | translate }}:&nbsp;
+    <a
+      href="https://korpora.org/kant/aa{{
+        geWithLeadingZeros(work.volumeNumber, 2)
+      }}/"
+      target="_blank"
+    >
+      korpora.org &#x29c9;
+    </a>
+  </div>
 </nz-space>

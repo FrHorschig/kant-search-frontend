@@ -28,7 +28,8 @@
       "TITLE": "Title",
       "VOLUME": "Volume",
       "SIGLUM": "Siglum",
-      "YEAR": "Year"
+      "YEAR": "Year",
+      "KORPORA_LINK": "Link to volume in print-like representation"
     },
     "SELECTION": {
       "HEADER": "Work selection",
