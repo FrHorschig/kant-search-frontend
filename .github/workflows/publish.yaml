@@ -39,10 +39,10 @@ jobs:
           cache: "npm"
       - name: install packages
         run: npm ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_PKG_PAT }}
       - name: build application
         run: npm run build-prod
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_PKG_PAT }}
       - name: upload the build artifact
         uses: actions/upload-artifact@v4
         with:
