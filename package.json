@@ -21,7 +21,7 @@
     "@angular/router": "^19.2.11",
     "@ant-design/icons": "^6.0.0",
     "@ant-design/icons-angular": "^19.0.0",
-    "@frhorschig/kant-search-api": "file:kant-search-api-generated/frhorschig-kant-search-api-0.50.0.tgz",
+    "@frhorschig/kant-search-api": "0.80.0",
     "@ngrx/component-store": "^19.2.0",
     "@ngrx/operators": "^19.2.0",
     "@ngx-translate/core": "^15.0.0",
