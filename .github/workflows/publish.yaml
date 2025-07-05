@@ -46,7 +46,7 @@ jobs:
       - name: upload the build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kant-search-frontend
+          name: dist
           path: dist/kant-search-frontend
 
   publish-docker:
@@ -65,8 +65,8 @@ jobs:
       - name: download the build artifact
         uses: actions/download-artifact@v4
         with:
-          name: kant-search-frontend
-          path: kant-search-frontend
+          name: dist
+          path: dist
       - name: build Docker image
         run: |
           docker build \
@@ -101,4 +101,5 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             src/assets/config.json
+            dist/3rdpartylicenses.txt
           token: ${{ secrets.GITHUB_TOKEN }}
