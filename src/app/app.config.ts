@@ -14,8 +14,8 @@ import { ApiModule } from '@frhorschig/kant-search-api';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { LanguageStore } from './common/store/language.store';
-import { UrlLoaderService } from './app/config/url-loader.service';
 import { routes } from './app/config/routes';
+import { ConfigStore } from './app/config/config.store';
 
 export const appProviders = [
   provideRouter(routes),
@@ -32,10 +32,10 @@ export const appProviders = [
     })
   ),
   provideAppInitializer(() => {
-    const urlLoader = inject(UrlLoaderService);
+    const configStore = inject(ConfigStore);
     const langStore = inject(LanguageStore);
     return (async () => {
-      await urlLoader.adjustBasePath();
+      await configStore.init();
       await langStore.init();
     })();
   }),

@@ -4,7 +4,10 @@
   </ng-container>
 
   <div *ngIf="ready$ | async">
-    <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
+    <ks-work-info
+      [work]="(work$ | async) ?? defaultWork"
+      [config]="(config$ | async) ?? {korporaUrl: ''}"
+    ></ks-work-info>
 
     <ks-read-toc
       [work]="(work$ | async) ?? defaultWork"

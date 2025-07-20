@@ -14,6 +14,7 @@ Please refer to the [parent project](https://github.com/FrHorschig/kant-search) 
 
 The configuration file can be found at `src/assets/config.json`, it has these entries:
 - `apiUrl`: the URL of the API endpoints in the backend
+- `korporaUrl`: the URL of the korpora website (`https://korpora.org/kant/` at the time of writing)
 
 ## Development
 

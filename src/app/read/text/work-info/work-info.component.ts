@@ -6,6 +6,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { Config } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-work-info',
@@ -23,8 +24,9 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 export class WorkInfoComponent {
   @Input() work: Work = emptyWork;
   @Input() firstPage: number = 0;
+  @Input() config: Config = {korporaUrl: ''}
 
-  geWithLeadingZeros(num: number, stringLen: number) {
-    return num.toString().padStart(stringLen, '0');
+  geWithLeadingZeros(num: number) {
+    return num.toString().padStart(2, '0');
   }
 }

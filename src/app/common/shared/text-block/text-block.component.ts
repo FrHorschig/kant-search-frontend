@@ -11,12 +11,6 @@ export class TextBlockComponent {
 
   @Input()
   set text(text: string) {
-    text = text.replaceAll('<ks-meta-page>', '<ks-meta-page>[');
-    text = text.replaceAll('</ks-meta-page>', ']</ks-meta-page>');
-    text = text.replaceAll('<ks-meta-fnref>', '<ks-meta-fnref>(');
-    text = text.replaceAll('</ks-meta-fnref>', ')</ks-meta-fnref>');
-    text = text.replaceAll('<ks-fmt-table>', '<table>');
-    text = text.replaceAll('</ks-fmt-table>', '</table>');
     this.trustedText = this.sanitizer.bypassSecurityTrustHtml(text);
   }
   trustedText: SafeHtml = '';
