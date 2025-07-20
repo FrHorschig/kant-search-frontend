@@ -6,7 +6,7 @@
   <div *ngIf="ready$ | async">
     <ks-work-info
       [work]="(work$ | async) ?? defaultWork"
-      [config]="(config$ | async) ?? {korporaUrl: ''}"
+      [config]="(config$ | async) ?? { korporaUrl: '', workGroups: [] }"
     ></ks-work-info>
 
     <ks-read-toc

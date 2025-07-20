@@ -14,7 +14,8 @@ Please refer to the [parent project](https://github.com/FrHorschig/kant-search) 
 
 The configuration file can be found at `src/assets/config.json`, it has these entries:
 - `apiUrl`: the URL of the API endpoints in the backend
-- `korporaUrl`: the URL of the korpora website (`https://korpora.org/kant/` at the time of writing)
+- `korporaUrl`: the URL of the korpora Kant-Korpus website (`https://korpora.org/kant/` at the time of writing)
+- `workGroups`: the groups of works you can select in the search input; every group has a name called `translateString` which has to have a corresponding entry in the translate files at the path `SEARCH.INPUT.WORKS.SELECT.OPTIONS.*`, and a list of codes of the works that constitute the work group (you can see all possible codes at `<kant-search-backend>/src/core/upload/internal/mapping/works.go`)
 
 ## Development
 
