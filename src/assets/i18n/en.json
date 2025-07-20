@@ -16,9 +16,6 @@
       "EN": "English"
     }
   },
-  "STARTPAGE": {
-    "TEXT": "This website is intended to be a web application for reading and searching the texts of the Bonner Kant-Korpus. It is currently under development."
-  },
   "NOT-FOUND": {
     "TEXT": "The requested page does not exist."
   },
@@ -142,7 +139,7 @@
 
   "ERROR": {
     "SUMMARY": "Error",
-    "GENERIC": "A technical error occurred, please contact us at kant-search@mailbox.org. If possible, include the time of the error and what was done before the error occurred (e.g. URL, search parameters, ...).",
+    "GENERIC": "A technical error occurred, please contact us at kant-search@mailbox.org. If possible, include the time of the error and what was done before the error occurred (e.g. URL, search parameters, ...): ",
     "BAD_REQUEST": {
       "GENERIC": "Bad request.",
       "INVALID_WORK_SELECTION": "Invalid work selection.",

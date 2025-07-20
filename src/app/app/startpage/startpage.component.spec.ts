@@ -6,6 +6,9 @@ import {
 } from '@ngx-translate/core';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { StartpageComponent } from './startpage.component';
+import { MockStartpageStore } from './startpage.store.spec';
+import { CommonModule } from '@angular/common';
+import { StartpageStore } from './startpage.store';
 
 describe('StartpageComponent', () => {
   let component: StartpageComponent;
@@ -19,11 +22,13 @@ describe('StartpageComponent', () => {
           loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
         }),
       ],
-      providers: [],
+      providers: [
+        { provide: StartpageStore, useValue: new MockStartpageStore() },
+      ],
     })
       .overrideComponent(StartpageComponent, {
         set: {
-          imports: [TranslateModule, NzFlexModule],
+          imports: [TranslateModule, CommonModule, NzFlexModule],
         },
       })
       .compileComponents();
