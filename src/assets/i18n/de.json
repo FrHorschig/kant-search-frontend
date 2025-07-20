@@ -3,7 +3,8 @@
     "SCROLL_TOP_TOOLTIP": "Nach oben",
     "ANCHOR_BUTTON_TOOLTIP": "Erstelle Link zu diesem Element",
     "VOL_WORK_TITLE": "Band {{volumeNumber}}: {{title}}",
-    "VOL_WORK_TITLE_ALT": "{{title}} (Band {{volumeNumber}})"
+    "VOL_WORK_TITLE_ALT": "{{title}} (Band {{volumeNumber}})",
+    "IMAGE": "Bild"
   },
 
   "NAVBAR": {

@@ -12,7 +12,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { WorkInfoComponent } from './work-info/work-info.component';
 import { emptyWork } from 'src/app/common/model/model';
-import { TextContent } from './model';
+import { ConfigStore } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-text',
@@ -36,11 +36,14 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   footnoteByRef$ = this.store.footnoteByRef$;
   summaryByRef$ = this.store.summaryByRef$;
   ready$ = this.store.ready$;
+  config$ = this.configStore.config$;
 
   defaultWork = emptyWork;
+  korporaUrl = '';
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly configStore: ConfigStore,
     private readonly store: TextStore,
     private readonly scrollService: ScrollService
   ) {

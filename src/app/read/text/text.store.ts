@@ -9,13 +9,15 @@ import {
   Section,
   Summary,
 } from '@frhorschig/kant-search-api';
-import { EMPTY, forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, forkJoin, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { TextContent } from './model';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { Work } from 'src/app/common/model/model';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { Router } from '@angular/router';
+import { ConfigStore } from 'src/app/app/config/config.store';
+import { TranslateService } from '@ngx-translate/core';
 
 interface TextState {
   work: Work | undefined;
@@ -31,6 +33,8 @@ export class TextStore extends ComponentStore<TextState> {
   constructor(
     private readonly router: Router,
     private readonly errorService: ErrorService,
+    private readonly translateService: TranslateService,
+    private readonly configStore: ConfigStore,
     private readonly langStore: LanguageStore,
     private readonly readService: ReadService,
     private readonly volStore: VolumesStore
@@ -71,9 +75,11 @@ export class TextStore extends ComponentStore<TextState> {
           footnotes: this.readService.getFootnotes(workCode),
           paragraphs: this.readService.getParagraphs(workCode),
           summaries: this.readService.getSummaries(workCode),
+          config: this.configStore.config$.pipe(take(1)),
+          _: this.langStore.ready$.pipe(take(1)),
         }).pipe(
           tapResponse(
-            ({ headings, footnotes, paragraphs, summaries }) => {
+            ({ headings, footnotes, paragraphs, summaries, config }) => {
               const work = workByCode.get(workCode);
               if (!work) {
                 throw new Error('no work with code ' + workCode + ' found');
@@ -88,7 +94,8 @@ export class TextStore extends ComponentStore<TextState> {
                 headings,
                 paragraphs,
                 footnotes,
-                summaries
+                summaries,
+                config.korporaUrl
               );
               this.patchState({
                 work,
@@ -125,17 +132,50 @@ export class TextStore extends ComponentStore<TextState> {
     heads: Heading[],
     pars: Paragraph[],
     fns: Footnote[],
-    summs: Summary[]
+    summs: Summary[],
+    korporaUrl: string
   ): [
     Map<number, Heading>,
     TextContent[],
     Map<string, Footnote>,
     Map<string, Summary>
   ] {
+    heads.forEach(
+      (h) =>
+        (h.text = this.makeTextReplacements(
+          h.text,
+          work.volumeNumber,
+          korporaUrl
+        ))
+    );
     const headByOrd = new Map(heads.map((h) => [h.ordinal, h]));
+    pars.forEach(
+      (p) =>
+        (p.text = this.makeTextReplacements(
+          p.text,
+          work.volumeNumber,
+          korporaUrl
+        ))
+    );
     const parsByOrd = new Map(pars.map((p) => [p.ordinal, p]));
     const resultPars = this.mapTextContents(work, headByOrd, parsByOrd);
+    fns.forEach(
+      (f) =>
+        (f.text = this.makeTextReplacements(
+          f.text,
+          work.volumeNumber,
+          korporaUrl
+        ))
+    );
     const fnByRef = new Map(fns.map((f) => [f.ref, f]));
+    summs.forEach(
+      (s) =>
+        (s.text = this.makeTextReplacements(
+          s.text,
+          work.volumeNumber,
+          korporaUrl
+        ))
+    );
     const summByRef = new Map(summs.map((s) => [s.ref, s]));
     return [headByOrd, resultPars, fnByRef, summByRef];
   }
@@ -146,10 +186,10 @@ export class TextStore extends ComponentStore<TextState> {
     parsByOrd: Map<number, Paragraph>
   ): TextContent[] {
     let textContents: TextContent[] = [];
-    for (const wOrd of work.paragraphs ?? []) {
-      const p = parsByOrd.get(wOrd);
+    for (const word of work.paragraphs ?? []) {
+      const p = parsByOrd.get(word);
       if (!p) {
-        throw new Error('no paragraph object with ID ' + wOrd);
+        throw new Error('no paragraph object with ID ' + word);
       }
       textContents.push({
         isHeading: false,
@@ -163,6 +203,28 @@ export class TextStore extends ComponentStore<TextState> {
       textContents.push(...this.mapSection(s, headsByOrd, parsByOrd));
     }
     return textContents;
+  }
+
+  private makeTextReplacements(
+    text: string,
+    volNum: number,
+    korporaUrl: string
+  ): string {
+    text = text.replaceAll('<ks-meta-page>', '<ks-meta-page>[');
+    text = text.replaceAll('</ks-meta-page>', ']</ks-meta-page>');
+    text = text.replaceAll('<ks-meta-fnref>', '<ks-meta-fnref>(');
+    text = text.replaceAll('</ks-meta-fnref>', ')</ks-meta-fnref>');
+    text = text.replaceAll('<ks-fmt-table>', '<table>');
+    text = text.replaceAll('</ks-fmt-table>', '</table>');
+    const name = this.translateService.instant('COMMON.IMAGE');
+    return text.replace(
+      /<ks-meta-imgref\s+[^>]*src=["']([^"']+)["'][^>]*desc=["']([^"']*)["'][^>]*\/>/g,
+      (_match, src, _desc) => {
+        const vol = volNum.toString().padStart(2, '0');
+        const fullUrl = `${korporaUrl}/aa${vol}/Bilder/${src}`;
+        return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">${name} &#x29c9;</a>`;
+      }
+    );
   }
 
   private mapSection(
