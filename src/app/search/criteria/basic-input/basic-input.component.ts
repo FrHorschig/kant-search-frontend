@@ -33,16 +33,13 @@ import { WorkGroup } from 'src/app/app/config/config.store';
 export class BasicInputComponent {
   @Input() nodes: NzTreeNodeOptions[] = [];
   @Input() canSearch: boolean = false;
-  @Input() set workGroups(groups: WorkGroup[]) {
-    this.groups = [all, ...groups];
-  }
+  @Input() workGroups: WorkGroup[] = [];
 
   @Output() searchTermsEmitter = new EventEmitter<string>();
   @Output() workCodesEmitter = new EventEmitter<string[]>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
   searchTerms: string = '';
-  groups: WorkGroup[] = [];
   group: WorkGroup | null = null;
 
   checkedKeys: string[] = [];
@@ -55,8 +52,8 @@ export class BasicInputComponent {
 
   onSelectChange(group: WorkGroup | null) {
     this.group = group;
-    if (group !== custom && this.groups.includes(custom)) {
-      this.groups = this.groups.filter((wg) => wg !== custom);
+    if (group !== custom && this.workGroups.includes(custom)) {
+      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
     }
     this.checkedKeys = group?.codes ?? [];
     this.workCodesEmitter.emit(this.checkedKeys);
@@ -67,11 +64,11 @@ export class BasicInputComponent {
     const codes = this.checkedKeys.filter((key) => !key.startsWith('volume-'));
     const group = this.getGroup(codes);
     if (group === custom) {
-      if (!this.groups.includes(custom)) {
-        this.groups = [...this.groups, custom];
+      if (!this.workGroups.includes(custom)) {
+        this.workGroups = [...this.workGroups, custom];
       }
     } else {
-      this.groups = this.groups.filter((wg) => wg !== custom);
+      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
     }
     this.group = group;
     this.workCodesEmitter.emit(codes);
@@ -106,12 +103,12 @@ export class BasicInputComponent {
     }
 
     codes.sort();
-    for (const g of this.groups) {
+    for (const wg of this.workGroups) {
       if (
-        codes.length === g.codes.length &&
-        codes.every((c, i) => c === g.codes[i])
+        codes.length === wg.codes.length &&
+        codes.every((c, i) => c === wg.codes[i])
       ) {
-        return g;
+        return wg;
       }
     }
     return custom;

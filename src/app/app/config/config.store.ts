@@ -7,6 +7,7 @@ import {
   Startpage,
   UtilService,
 } from '@frhorschig/kant-search-api';
+import { all } from 'src/app/search/model/search-options';
 
 export interface WorkGroup {
   translateString: string;
@@ -46,7 +47,7 @@ export class ConfigStore extends ComponentStore<ConfigState> {
           config.workGroups.forEach((wg: WorkGroup) => wg.codes.sort());
           this.patchState({
             korporaUrl: config.korporaUrl,
-            workGroups: config.workGroups,
+            workGroups: [all, ...config.workGroups],
           });
 
           if (!config.apiUrl) {
