@@ -36,7 +36,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   footnoteByRef$ = this.store.footnoteByRef$;
   summaryByRef$ = this.store.summaryByRef$;
   ready$ = this.store.ready$;
-  config$ = this.configStore.config$;
+  korporaUrl$ = this.configStore.korporaUrl$;
 
   defaultWork = emptyWork;
   korporaUrl = '';

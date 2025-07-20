@@ -11,7 +11,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { all, custom } from '../../model/search-options';
-import { Config, WorkGroup } from 'src/app/app/config/config.store';
+import { WorkGroup } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-basic-input',
@@ -33,8 +33,8 @@ import { Config, WorkGroup } from 'src/app/app/config/config.store';
 export class BasicInputComponent {
   @Input() nodes: NzTreeNodeOptions[] = [];
   @Input() canSearch: boolean = false;
-  @Input() set config(config: Config) {
-    this.workGroups = [all, ...config.workGroups];
+  @Input() set workGroups(groups: WorkGroup[]) {
+    this.groups = [all, ...groups];
   }
 
   @Output() searchTermsEmitter = new EventEmitter<string>();
@@ -42,8 +42,8 @@ export class BasicInputComponent {
   @Output() doSearchEmitter = new EventEmitter<void>();
 
   searchTerms: string = '';
-  workGroups: WorkGroup[] = [];
-  workGroup: WorkGroup | null = null;
+  groups: WorkGroup[] = [];
+  group: WorkGroup | null = null;
 
   checkedKeys: string[] = [];
   expandedKeys: string[] = [];
@@ -54,9 +54,9 @@ export class BasicInputComponent {
   }
 
   onSelectChange(group: WorkGroup | null) {
-    this.workGroup = group;
-    if (group !== custom && this.workGroups.includes(custom)) {
-      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
+    this.group = group;
+    if (group !== custom && this.groups.includes(custom)) {
+      this.groups = this.groups.filter((wg) => wg !== custom);
     }
     this.checkedKeys = group?.codes ?? [];
     this.workCodesEmitter.emit(this.checkedKeys);
@@ -67,13 +67,13 @@ export class BasicInputComponent {
     const codes = this.checkedKeys.filter((key) => !key.startsWith('volume-'));
     const group = this.getGroup(codes);
     if (group === custom) {
-      if (!this.workGroups.includes(custom)) {
-        this.workGroups = [...this.workGroups, custom];
+      if (!this.groups.includes(custom)) {
+        this.groups = [...this.groups, custom];
       }
     } else {
-      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
+      this.groups = this.groups.filter((wg) => wg !== custom);
     }
-    this.workGroup = group;
+    this.group = group;
     this.workCodesEmitter.emit(codes);
   }
 
@@ -106,7 +106,7 @@ export class BasicInputComponent {
     }
 
     codes.sort();
-    for (const g of this.workGroups) {
+    for (const g of this.groups) {
       if (
         codes.length === g.codes.length &&
         codes.every((c, i) => c === g.codes[i])

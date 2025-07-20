@@ -75,11 +75,11 @@ export class TextStore extends ComponentStore<TextState> {
           footnotes: this.readService.getFootnotes(workCode),
           paragraphs: this.readService.getParagraphs(workCode),
           summaries: this.readService.getSummaries(workCode),
-          config: this.configStore.config$.pipe(take(1)),
+          korporaUrl: this.configStore.korporaUrl$.pipe(take(1)),
           _: this.langStore.ready$.pipe(take(1)),
         }).pipe(
           tapResponse(
-            ({ headings, footnotes, paragraphs, summaries, config }) => {
+            ({ headings, footnotes, paragraphs, summaries, korporaUrl }) => {
               const work = workByCode.get(workCode);
               if (!work) {
                 throw new Error('no work with code ' + workCode + ' found');
@@ -95,7 +95,7 @@ export class TextStore extends ComponentStore<TextState> {
                 paragraphs,
                 footnotes,
                 summaries,
-                config.korporaUrl
+                korporaUrl
               );
               this.patchState({
                 work,

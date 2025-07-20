@@ -4,7 +4,7 @@
       *nzSpaceItem
       [nodes]="(nodes$ | async) ?? []"
       [canSearch]="(canSearch$ | async) ?? false"
-      [config]="(config$ | async) ?? { korporaUrl: '', workGroups: [] }"
+      [workGroups]="(workGroups$ | async) ?? []"
       (searchTermsEmitter)="onSearchTermsChange($event)"
       (workCodesEmitter)="onWorkCodesChange($event)"
       (doSearchEmitter)="onSearch()"
