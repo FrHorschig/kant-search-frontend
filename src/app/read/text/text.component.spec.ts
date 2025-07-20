@@ -6,12 +6,15 @@ import { Subject, of } from 'rxjs';
 import { ScrollService } from '../../common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/services';
 import { MockTextStore } from './text.store.spec';
+import { MockConfigStore } from 'src/app/app/config/config.store.spec';
+import { ConfigStore } from 'src/app/app/config/config.store';
 
 describe('TextComponent', () => {
   let component: TextComponent;
   let fixture: ComponentFixture<TextComponent>;
   let fragmentSubject: Subject<string>;
   let mockRoute: any;
+  let mockConfigStore: MockConfigStore;
   let mockTextStore: MockTextStore;
   let mockScrollService: jasmine.SpyObj<ScrollService>;
 
@@ -23,6 +26,7 @@ describe('TextComponent', () => {
       },
       fragment: fragmentSubject.asObservable(),
     };
+    mockConfigStore = new MockConfigStore();
     mockTextStore = new MockTextStore();
     mockScrollService = createScrollServiceSpy();
 
@@ -30,6 +34,7 @@ describe('TextComponent', () => {
       imports: [TextComponent],
       providers: [{ provide: ActivatedRoute, useValue: mockRoute }],
     })
+      .overrideProvider(ConfigStore, { useValue: mockConfigStore })
       .overrideProvider(TextStore, { useValue: mockTextStore })
       .overrideProvider(ScrollService, { useValue: mockScrollService });
 

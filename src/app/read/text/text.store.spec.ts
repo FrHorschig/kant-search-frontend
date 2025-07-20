@@ -8,7 +8,10 @@ import {
   Summary,
 } from '@frhorschig/kant-search-api';
 import { ErrorService } from 'src/app/common/service/error.service';
-import { createErrorServiceSpy } from 'src/app/common/test/services';
+import {
+  createErrorServiceSpy,
+  createTranslateServiceSpy,
+} from 'src/app/common/test/services';
 import { createReadServiceSpy } from 'src/app/common/test/api-services';
 import { MockVolumesStore } from 'src/app/common/store/volumes.store.spec';
 import { MockLanguageStore } from 'src/app/common/store/language.store.spec';
@@ -18,6 +21,9 @@ import { Testdata } from 'src/app/common/test/testdata';
 import { EMPTY, Observable } from 'rxjs';
 import { Work } from 'src/app/common/model/model';
 import { TextContent } from './model';
+import { MockConfigStore } from 'src/app/app/config/config.store.spec';
+import { ConfigStore } from 'src/app/app/config/config.store';
+import { TranslateService } from '@ngx-translate/core';
 
 export class MockTextStore {
   work$: Observable<Work> = EMPTY;
@@ -35,12 +41,16 @@ describe('TextStore', () => {
   let store: TextStore;
   let readService: jasmine.SpyObj<ReadService>;
   let errorService: jasmine.SpyObj<ErrorService>;
+  let translateService: jasmine.SpyObj<TranslateService>;
+  let mockConfigStore: MockConfigStore;
   let mockVolumesStore: MockVolumesStore;
   let mockLanguageStore: MockLanguageStore;
 
   beforeEach(() => {
     readService = createReadServiceSpy();
     errorService = createErrorServiceSpy();
+    translateService = createTranslateServiceSpy();
+    mockConfigStore = new MockConfigStore();
     mockVolumesStore = new MockVolumesStore();
     mockLanguageStore = new MockLanguageStore();
 
@@ -49,6 +59,8 @@ describe('TextStore', () => {
         TextStore,
         { provide: ReadService, useValue: readService },
         { provide: ErrorService, useValue: errorService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: ConfigStore, useValue: mockConfigStore },
         { provide: VolumesStore, useValue: mockVolumesStore },
         { provide: LanguageStore, useValue: mockLanguageStore },
       ],
@@ -87,7 +99,8 @@ describe('TextStore', () => {
       headings,
       paragraphs,
       footnotes,
-      summaries
+      summaries,
+      'korporaUrl'
     );
 
     expect(headByOrd).toHaveSize(2);
