@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { all, custom } from '../../model/search-options';
 import { WorkGroup } from 'src/app/app/config/config.store';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @Component({
   selector: 'ks-basic-input',
@@ -25,6 +26,7 @@ import { WorkGroup } from 'src/app/app/config/config.store';
     NzButtonModule,
     NzTreeModule,
     NzCardModule,
+    NzDividerModule,
     NzSelectModule,
     NzInputModule,
     NzToolTipModule,

@@ -58,7 +58,7 @@
 
 <ng-template #worksSelectTitle>
   <nz-select
-    class="min-w-400"
+    class="min-w-250"
     nzPlacement="bottomRight"
     nzAllowClear="true"
     [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
@@ -68,7 +68,6 @@
   >
     @for (wg of workGroups; track wg.translateString) {
     <nz-option
-      class="min-w-400"
       [nzLabel]="
         'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + wg.translateString | translate
       "
