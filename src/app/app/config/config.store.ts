@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { HttpClient } from '@angular/common/http';
-import { ReadService, SearchService } from '@frhorschig/kant-search-api';
+import {
+  ReadService,
+  SearchService,
+  Startpage,
+  UtilService,
+} from '@frhorschig/kant-search-api';
 
 export interface WorkGroup {
   translateString: string;
@@ -11,6 +16,7 @@ export interface WorkGroup {
 interface ConfigState {
   korporaUrl: string;
   workGroups: WorkGroup[];
+  startpage: Startpage;
 }
 
 @Injectable({
@@ -20,9 +26,10 @@ export class ConfigStore extends ComponentStore<ConfigState> {
   constructor(
     private readonly http: HttpClient,
     private readonly readService: ReadService,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
+    private readonly utilService: UtilService
   ) {
-    super({ korporaUrl: '', workGroups: [] });
+    super({ korporaUrl: '', workGroups: [], startpage: { de: '', en: '' } });
   }
 
   readonly korporaUrl$ = this.select((state) => state.korporaUrl);
@@ -48,6 +55,7 @@ export class ConfigStore extends ComponentStore<ConfigState> {
           }
           this.readService.configuration.basePath = config.apiUrl;
           this.searchService.configuration.basePath = config.apiUrl;
+          this.utilService.configuration.basePath = config.apiUrl;
           resolve();
         },
 

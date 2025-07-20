@@ -1,5 +1,5 @@
 <div nz-flex nzJustify="center">
-  <div class="max-w-base">
-    <p>{{ "STARTPAGE.TEXT" | translate }}</p>
+  <div class="max-w-base" *ngIf="ready$()">
+    {{ page$() }}
   </div>
 </div>
