@@ -35,6 +35,7 @@ export class ErrorService {
       forkJoin([summary$, msg$]).subscribe(([summary, msg]) =>
         this.notificationService.error(summary, msg)
       );
+
     } else {
       const msg = err.message;
       console.error('error: ', msg);

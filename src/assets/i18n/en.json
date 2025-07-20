@@ -142,7 +142,7 @@
 
   "ERROR": {
     "SUMMARY": "Error",
-    "GENERIC": "A technical error occured.",
+    "GENERIC": "A technical error occurred, please contact us at kant-search@mailbox.org. If possible, include the time of the error and what was done before the error occurred (e.g. URL, search parameters, ...).",
     "BAD_REQUEST": {
       "GENERIC": "Bad request.",
       "INVALID_WORK_SELECTION": "Invalid work selection.",
