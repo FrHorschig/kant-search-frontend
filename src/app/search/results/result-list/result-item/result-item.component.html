@@ -24,11 +24,12 @@
       <div *nzSpaceItem>
         @for (snippet of hit.snippets; track `${snippet.page}:${snippet.line}`)
         {
-        <div nz-row>
-          <div class="page-line" nz-col nzSpan="2">
+        <div nz-flex nz-space>
+          <div class="page-line" *nzSpaceItem>
             [{{ snippet.page }}:{{ snippet.line }}]
           </div>
-          <div nz-col nzSpan="22">
+
+          <div *nzSpaceItem>
             <ks-text-block
               [text]="'...' + snippet.text + '...'"
             ></ks-text-block>
