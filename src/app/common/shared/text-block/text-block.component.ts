@@ -11,14 +11,12 @@ export class TextBlockComponent {
 
   @Input()
   set text(text: string) {
-    text = text.replace(
-      /(<ks-meta-page\b[^>]*>)(.*?)(<\/ks-meta-page>)/gi,
-      (_, openTag, innerText, closeTag) => `${openTag}[${innerText}]${closeTag}`
-    );
-    text = text.replace(
-      /(<ks-meta-fnref\b[^>]*>)(.*?)(<\/ks-meta-fnref>)/gi,
-      (_, openTag, innerText, closeTag) => `${openTag}(${innerText})${closeTag}`
-    );
+    text = text.replaceAll('<ks-meta-page>', '<ks-meta-page>[');
+    text = text.replaceAll('</ks-meta-page>', ']</ks-meta-page>');
+    text = text.replaceAll('<ks-meta-fnref>', '<ks-meta-fnref>(');
+    text = text.replaceAll('</ks-meta-fnref>', ')</ks-meta-fnref>');
+    text = text.replaceAll('<ks-fmt-table>', '<table>');
+    text = text.replaceAll('</ks-fmt-table>', '</table>');
     this.trustedText = this.sanitizer.bypassSecurityTrustHtml(text);
   }
   trustedText: SafeHtml = '';
