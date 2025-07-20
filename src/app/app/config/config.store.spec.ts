@@ -1,10 +1,10 @@
-import { EMPTY, Observable } from "rxjs";
-import { Config } from "./config.store";
+import { EMPTY, Observable } from 'rxjs';
+import { WorkGroup } from './config.store';
 
 export class MockConfigStore {
-  config$: Observable<Config> = EMPTY;
+  korporaUrl$: Observable<string> = EMPTY;
+  workGroups$: Observable<WorkGroup[]> = EMPTY;
 
   init = jasmine.createSpy('init');
   navigateToSection = jasmine.createSpy('navigateToSection');
 }
-

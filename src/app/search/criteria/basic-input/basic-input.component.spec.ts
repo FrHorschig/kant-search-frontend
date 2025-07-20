@@ -15,10 +15,11 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { WorksGroup } from '../../model/search-options';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/core/tree';
 import { Component } from '@angular/core';
+import { custom } from '../../model/search-options';
+import { WorkGroup } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-basic-input',
@@ -26,6 +27,8 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class MockBasicInputComponent {}
+
+const krvsGroup = { translateString: 'KRVS', codes: ['KRV_A', 'KRV_B'] };
 
 describe('BasicInputComponent', () => {
   let component: BasicInputComponent;
@@ -70,7 +73,7 @@ describe('BasicInputComponent', () => {
   });
 
   it('should not include "Custom" in initial work group options', () => {
-    expect(component.worksGroupOptions).not.toContain(WorksGroup.Custom);
+    expect(component.groups).not.toContain(custom);
   });
 
   it('should handle changed search terms', () => {
@@ -84,28 +87,26 @@ describe('BasicInputComponent', () => {
 
   it('should handle changed work group select', () => {
     spyOn(component.workCodesEmitter, 'emit');
-    const input = WorksGroup.Critiques;
+    const input: WorkGroup = krvsGroup;
 
     component.onSelectChange(input);
 
-    expect(component.worksGroup).toEqual(input);
-    expect(component.checkedKeys).toHaveSize(3);
-    // TODO should critiques contain both A and B or only one of them? also see below
+    expect(component.group).toEqual(input);
+    expect(component.checkedKeys).toHaveSize(2);
+    expect(component.checkedKeys).toContain('KRV_A');
     expect(component.checkedKeys).toContain('KRV_B');
-    expect(component.checkedKeys).toContain('KPV');
-    expect(component.checkedKeys).toContain('KU');
     expect(component.workCodesEmitter.emit).toHaveBeenCalledWith(
       component.checkedKeys
     );
   });
 
   it('should handle work group change from Custom', () => {
-    component.worksGroup = WorksGroup.Custom;
-    component.worksGroupOptions.push(WorksGroup.Custom);
+    component.group = custom;
+    component.groups.push(custom);
 
-    component.onSelectChange(WorksGroup.Critiques);
+    component.onSelectChange(krvsGroup);
 
-    expect(component.worksGroupOptions).not.toContain(WorksGroup.Custom);
+    expect(component.groups).not.toContain(custom);
   });
 
   it('should handle custom checked keys group', () => {
@@ -117,19 +118,18 @@ describe('BasicInputComponent', () => {
     expect(component.checkedKeys).toHaveSize(2);
     expect(component.checkedKeys).toContain('GMS');
     expect(component.checkedKeys).toContain('volume-4');
-    expect(component.worksGroupOptions).toContain(WorksGroup.Custom);
+    expect(component.groups).toContain(custom);
     expect(component.workCodesEmitter.emit).toHaveBeenCalledWith(['GMS']);
   });
 
   it('should handle predefined checked keys group', () => {
-    // TODO see above
-    const input = ['KRV_B', 'KPV', 'KU'];
-    component.worksGroupOptions.push(WorksGroup.Custom);
+    component.groups = [krvsGroup, custom];
+    component.checkedKeys = ['KRV_A'];
 
-    component.onCheckedKeysChange(input);
+    component.onCheckedKeysChange(krvsGroup.codes);
 
-    expect(component.checkedKeys).toHaveSize(3);
-    expect(component.worksGroupOptions).not.toContain(WorksGroup.Custom);
+    expect(component.checkedKeys).toHaveSize(2);
+    expect(component.groups).not.toContain(custom);
   });
 
   it('should expand node', () => {

@@ -13,13 +13,17 @@ import { MockBasicInputComponent } from './basic-input/basic-input.component.spe
 import { MockCriteriaStore } from './criteria.store.spec';
 import { CriteriaStore } from './criteria.store';
 import { AdvancedOptions, ResultSort } from '../model/search-options';
+import { ConfigStore } from 'src/app/app/config/config.store';
+import { MockConfigStore } from 'src/app/app/config/config.store.spec';
 
 describe('CriteriaComponent', () => {
   let component: CriteriaComponent;
   let fixture: ComponentFixture<CriteriaComponent>;
+  let mockConfigStore: MockConfigStore;
   let mockCriteriaStore: MockCriteriaStore;
 
   beforeEach(async () => {
+    mockConfigStore = new MockConfigStore();
     mockCriteriaStore = new MockCriteriaStore();
 
     await TestBed.configureTestingModule({
@@ -41,6 +45,7 @@ describe('CriteriaComponent', () => {
           ],
         },
       })
+      .overrideProvider(ConfigStore, { useValue: mockConfigStore })
       .overrideProvider(CriteriaStore, { useValue: mockCriteriaStore })
       .compileComponents();
 
