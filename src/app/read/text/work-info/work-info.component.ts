@@ -24,7 +24,7 @@ import { Config } from 'src/app/app/config/config.store';
 export class WorkInfoComponent {
   @Input() work: Work = emptyWork;
   @Input() firstPage: number = 0;
-  @Input() config: Config = {korporaUrl: ''}
+  @Input() config: Config = {korporaUrl: '', workGroups: []}
 
   geWithLeadingZeros(num: number) {
     return num.toString().padStart(2, '0');

@@ -62,14 +62,17 @@
     nzPlacement="bottomRight"
     nzAllowClear="true"
     [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
-    [ngModel]="worksGroup"
+    [ngModel]="workGroup"
     (ngModelChange)="onSelectChange($event)"
     [disabled]="nodes.length === 0"
   >
-    @for (option of worksGroupOptions; track option) {
+    @for (option of workGroups; track option.translateString) {
     <nz-option
       class="min-w-400"
-      [nzLabel]="'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + option | translate"
+      [nzLabel]="
+        'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + option.translateString
+          | translate
+      "
       [nzValue]="option"
     ></nz-option>
     }

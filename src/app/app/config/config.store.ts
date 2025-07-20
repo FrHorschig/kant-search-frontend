@@ -3,8 +3,14 @@ import { ComponentStore } from '@ngrx/component-store';
 import { HttpClient } from '@angular/common/http';
 import { ReadService, SearchService } from '@frhorschig/kant-search-api';
 
+export interface WorkGroup {
+  translateString: string;
+  codes: string[];
+}
+
 export interface Config {
   korporaUrl: string;
+  workGroups: WorkGroup[];
 }
 
 interface ConfigState {
@@ -20,7 +26,7 @@ export class ConfigStore extends ComponentStore<ConfigState> {
     private readonly readService: ReadService,
     private readonly searchService: SearchService
   ) {
-    super({ config: { korporaUrl: '' } });
+    super({ config: { korporaUrl: '', workGroups: [] } });
   }
 
   readonly config$ = this.select((state) => state.config);
@@ -33,7 +39,13 @@ export class ConfigStore extends ComponentStore<ConfigState> {
             reject('Invalid configuration: korporaUrl is missing');
             return;
           }
-          this.patchState({ config: { korporaUrl: config.korporaUrl } });
+          config.workGroups.forEach((wg: WorkGroup) => wg.codes.sort());
+          this.patchState({
+            config: {
+              korporaUrl: config.korporaUrl,
+              workGroups: config.workGroups,
+            },
+          });
 
           if (!config.apiUrl) {
             reject('Invalid configuration: apiUrl is missing');

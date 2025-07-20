@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent, NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
-import { WorksGroupUtil } from '../../util/works-group-util';
 import { CommonModule } from '@angular/common';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -11,7 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { WorksGroup } from '../../model/search-options';
+import { all, custom } from '../../model/search-options';
+import { Config, WorkGroup } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-basic-input',
@@ -33,17 +33,17 @@ import { WorksGroup } from '../../model/search-options';
 export class BasicInputComponent {
   @Input() nodes: NzTreeNodeOptions[] = [];
   @Input() canSearch: boolean = false;
+  @Input() set config(config: Config) {
+    this.workGroups = [all, ...config.workGroups];
+  }
 
   @Output() searchTermsEmitter = new EventEmitter<string>();
   @Output() workCodesEmitter = new EventEmitter<string[]>();
   @Output() doSearchEmitter = new EventEmitter<void>();
 
   searchTerms: string = '';
-
-  worksGroupOptions = Object.values(WorksGroup).filter(
-    (value) => value !== 'CUSTOM'
-  ) as WorksGroup[];
-  worksGroup: WorksGroup | null = null;
+  workGroups: WorkGroup[] = [];
+  workGroup: WorkGroup | null = null;
 
   checkedKeys: string[] = [];
   expandedKeys: string[] = [];
@@ -53,34 +53,27 @@ export class BasicInputComponent {
     this.searchTermsEmitter.emit(this.searchTerms);
   }
 
-  onSelectChange(group: WorksGroup) {
-    this.worksGroup = group;
-    if (
-      group !== WorksGroup.Custom &&
-      this.worksGroupOptions.includes(WorksGroup.Custom)
-    ) {
-      this.worksGroupOptions = this.worksGroupOptions.filter(
-        (opt) => opt !== WorksGroup.Custom
-      );
+  onSelectChange(group: WorkGroup | null) {
+    this.workGroup = group;
+    if (group !== custom && this.workGroups.includes(custom)) {
+      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
     }
-    this.checkedKeys = WorksGroupUtil.getCodes(group);
+    this.checkedKeys = group?.codes ?? [];
     this.workCodesEmitter.emit(this.checkedKeys);
   }
 
   onCheckedKeysChange(keys: NzTreeNodeKey[]) {
     this.checkedKeys = keys.filter((k) => typeof k === 'string');
     const codes = this.checkedKeys.filter((key) => !key.startsWith('volume-'));
-    const group = WorksGroupUtil.getGroup(codes);
-    if (group === WorksGroup.Custom) {
-      if (!this.worksGroupOptions.includes(WorksGroup.Custom)) {
-        this.worksGroupOptions = [...this.worksGroupOptions, WorksGroup.Custom];
+    const group = this.getGroup(codes);
+    if (group === custom) {
+      if (!this.workGroups.includes(custom)) {
+        this.workGroups = [...this.workGroups, custom];
       }
     } else {
-      this.worksGroupOptions = this.worksGroupOptions.filter(
-        (opt) => opt !== WorksGroup.Custom
-      );
+      this.workGroups = this.workGroups.filter((wg) => wg !== custom);
     }
-    this.worksGroup = group;
+    this.workGroup = group;
     this.workCodesEmitter.emit(codes);
   }
 
@@ -102,5 +95,25 @@ export class BasicInputComponent {
 
   onSubmit() {
     this.doSearchEmitter.emit();
+  }
+
+  private getGroup(codes: string[]): WorkGroup | null {
+    if (codes.length === 0) {
+      return null;
+    }
+    if (codes.length === all.codes.length) {
+      return all;
+    }
+
+    codes.sort();
+    for (const g of this.workGroups) {
+      if (
+        codes.length === g.codes.length &&
+        codes.every((c, i) => c === g.codes[i])
+      ) {
+        return g;
+      }
+    }
+    return custom;
   }
 }

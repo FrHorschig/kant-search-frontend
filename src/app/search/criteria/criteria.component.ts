@@ -5,6 +5,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { BasicInputComponent } from './basic-input/basic-input.component';
 import { AdvancedInputComponent } from './advanced-input/advanced-input.component';
 import { CommonModule } from '@angular/common';
+import { ConfigStore } from 'src/app/app/config/config.store';
 
 @Component({
   selector: 'ks-criteria',
@@ -23,11 +24,15 @@ export class CriteriaComponent {
   canSearch$ = this.store.canSearch$;
   options$ = this.store.options$;
   ready$ = this.store.ready$;
+  config$ = this.configStore.config$;
 
   defaultCodeSet = new Set<string>();
   showWorksSelectDialog = false;
 
-  constructor(private readonly store: CriteriaStore) {}
+  constructor(
+    private readonly configStore: ConfigStore,
+    private readonly store: CriteriaStore
+  ) {}
 
   onSearchTermsChange(searchTerms: string) {
     this.store.putSearchTerms(searchTerms);
