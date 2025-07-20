@@ -138,18 +138,31 @@ ks-fmt-name {
   font-family: "Georgia", serif;
   letter-spacing: 0.03em;
 }
+ks-fmt-tracked {
+  letter-spacing: 0.1em;
+}
+
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 tr {
   display: table-row;
-  border: 1px solid gray;
 }
 td {
   text-align: center;
   vertical-align: middle;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
 }
-ks-fmt-tracked {
-  letter-spacing: 0.1em;
+tr:first-child td {
+  border-top: none;
+}
+tr:last-child td {
+  border-bottom: none;
+}
+tr td:first-child {
+  border-left: none;
+}
+tr td:last-child {
+  border-right: none;
 }
