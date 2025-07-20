@@ -1,20 +1,19 @@
 <nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED.HEADER' | translate">
   <form [formGroup]="form">
-    <ks-left-labeled-input
-      idString="sort-select"
-      i18nString="SEARCH.INPUT.ADVANCED.SORT"
-      [withTooltip]="false"
-    >
-      <nz-select class="w-full" formControlName="sort">
+    <div nz-flex nzJustify="space-between">
+      <label for="sort-select" style="margin-top: 0.35em; margin-right: 0.5em">
+        {{ "SEARCH.INPUT.ADVANCED.SORT.LABEL" | translate }}
+      </label>
+
+      <nz-select class="max-w-400" formControlName="sort">
         @for (option of sortOptions; track option) {
         <nz-option
-          class="min-w-400"
           [nzLabel]="'SEARCH.INPUT.ADVANCED.SORT.OPTIONS.' + option | translate"
           [nzValue]="option"
         ></nz-option>
         }
       </nz-select>
-    </ks-left-labeled-input>
+    </div>
 
     <nz-divider
       nzOrientation="left"

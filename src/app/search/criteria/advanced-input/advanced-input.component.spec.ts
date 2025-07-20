@@ -13,7 +13,6 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { RightLabeledInputComponent } from './right-labeled-input/right-labeled-input.component';
-import { LeftLabeledInputComponent } from './left-labeled-input/left-labeled-input.component';
 import { AdvancedInputComponent } from './advanced-input.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
@@ -53,7 +52,6 @@ describe('AdvancedInputComponent', () => {
             NzDividerModule,
             NzSelectModule,
             RightLabeledInputComponent,
-            LeftLabeledInputComponent,
           ],
         },
       })

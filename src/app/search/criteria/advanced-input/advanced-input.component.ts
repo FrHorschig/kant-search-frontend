@@ -15,7 +15,8 @@ import { RightLabeledInputComponent } from 'src/app/search/criteria/advanced-inp
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { LeftLabeledInputComponent } from './left-labeled-input/left-labeled-input.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-advanced-input',
@@ -26,13 +27,13 @@ import { LeftLabeledInputComponent } from './left-labeled-input/left-labeled-inp
     ReactiveFormsModule,
     TranslateModule,
     NzSpaceModule,
+    NzFlexModule,
     NzTypographyModule,
     NzCardModule,
     NzSwitchModule,
     NzDividerModule,
     NzSelectModule,
     RightLabeledInputComponent,
-    LeftLabeledInputComponent,
   ],
 })
 export class AdvancedInputComponent

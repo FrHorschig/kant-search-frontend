@@ -55,7 +55,7 @@
         "NO_VOLUMES": "Es sind keine Werke zum Durchsuchen vorhanden",
         "SELECT": {
           "LABEL": "Werkauswahl",
-          "PLACEHOLDER": "Select works...",
+          "PLACEHOLDER": "Wähle Werke aus...",
           "OPTIONS": {
             "ALL": "Alle Bände",
             "ALL_GERMAN": "Deutschsprachige Schriften",

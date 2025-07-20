@@ -71,7 +71,7 @@
           "TITLE": "Sorting",
           "LABEL": "Sorting",
           "OPTIONS": {
-            "AA_ORDER": "by the order of the Akademie edition",
+            "AA_ORDER": "by order of the Akademie edition",
             "YEAR": "by publication year"
           }
         },
