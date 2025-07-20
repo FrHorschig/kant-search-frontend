@@ -73,7 +73,7 @@ describe('BasicInputComponent', () => {
   });
 
   it('should not include "Custom" in initial work group options', () => {
-    expect(component.groups).not.toContain(custom);
+    expect(component.workGroups).not.toContain(custom);
   });
 
   it('should handle changed search terms', () => {
@@ -102,11 +102,11 @@ describe('BasicInputComponent', () => {
 
   it('should handle work group change from Custom', () => {
     component.group = custom;
-    component.groups.push(custom);
+    component.workGroups.push(custom);
 
     component.onSelectChange(krvsGroup);
 
-    expect(component.groups).not.toContain(custom);
+    expect(component.workGroups).not.toContain(custom);
   });
 
   it('should handle custom checked keys group', () => {
@@ -118,18 +118,18 @@ describe('BasicInputComponent', () => {
     expect(component.checkedKeys).toHaveSize(2);
     expect(component.checkedKeys).toContain('GMS');
     expect(component.checkedKeys).toContain('volume-4');
-    expect(component.groups).toContain(custom);
+    expect(component.workGroups).toContain(custom);
     expect(component.workCodesEmitter.emit).toHaveBeenCalledWith(['GMS']);
   });
 
   it('should handle predefined checked keys group', () => {
-    component.groups = [krvsGroup, custom];
+    component.workGroups = [krvsGroup, custom];
     component.checkedKeys = ['KRV_A'];
 
     component.onCheckedKeysChange(krvsGroup.codes);
 
     expect(component.checkedKeys).toHaveSize(2);
-    expect(component.groups).not.toContain(custom);
+    expect(component.workGroups).not.toContain(custom);
   });
 
   it('should expand node', () => {

@@ -66,14 +66,13 @@
     (ngModelChange)="onSelectChange($event)"
     [disabled]="nodes.length === 0"
   >
-    @for (option of workGroups; track option.translateString) {
+    @for (wg of workGroups; track wg.translateString) {
     <nz-option
       class="min-w-400"
       [nzLabel]="
-        'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + option.translateString
-          | translate
+        'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + wg.translateString | translate
       "
-      [nzValue]="option"
+      [nzValue]="wg"
     ></nz-option>
     }
   </nz-select>
