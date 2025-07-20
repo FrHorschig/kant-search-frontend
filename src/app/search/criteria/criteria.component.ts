@@ -24,7 +24,7 @@ export class CriteriaComponent {
   canSearch$ = this.store.canSearch$;
   options$ = this.store.options$;
   ready$ = this.store.ready$;
-  config$ = this.configStore.config$;
+  workGroups$ = this.configStore.workGroups$;
 
   defaultCodeSet = new Set<string>();
   showWorksSelectDialog = false;

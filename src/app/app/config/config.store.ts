@@ -8,13 +8,9 @@ export interface WorkGroup {
   codes: string[];
 }
 
-export interface Config {
+interface ConfigState {
   korporaUrl: string;
   workGroups: WorkGroup[];
-}
-
-interface ConfigState {
-  config: Config;
 }
 
 @Injectable({
@@ -26,10 +22,11 @@ export class ConfigStore extends ComponentStore<ConfigState> {
     private readonly readService: ReadService,
     private readonly searchService: SearchService
   ) {
-    super({ config: { korporaUrl: '', workGroups: [] } });
+    super({ korporaUrl: '', workGroups: [] });
   }
 
-  readonly config$ = this.select((state) => state.config);
+  readonly korporaUrl$ = this.select((state) => state.korporaUrl);
+  readonly workGroups$ = this.select((state) => state.workGroups);
 
   init(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -41,10 +38,8 @@ export class ConfigStore extends ComponentStore<ConfigState> {
           }
           config.workGroups.forEach((wg: WorkGroup) => wg.codes.sort());
           this.patchState({
-            config: {
-              korporaUrl: config.korporaUrl,
-              workGroups: config.workGroups,
-            },
+            korporaUrl: config.korporaUrl,
+            workGroups: config.workGroups,
           });
 
           if (!config.apiUrl) {
