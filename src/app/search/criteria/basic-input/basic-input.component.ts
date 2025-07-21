@@ -13,7 +13,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { all, custom } from '../../model/search-options';
 import { WorkGroup } from 'src/app/app/config/config.store';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-basic-input',

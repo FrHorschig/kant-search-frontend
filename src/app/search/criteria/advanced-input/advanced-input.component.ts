@@ -15,7 +15,6 @@ import { RightLabeledInputComponent } from 'src/app/search/criteria/advanced-inp
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 
