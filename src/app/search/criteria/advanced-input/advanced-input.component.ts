@@ -16,6 +16,8 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @Component({
   selector: 'ks-advanced-input',
@@ -26,12 +28,13 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     ReactiveFormsModule,
     TranslateModule,
     NzSpaceModule,
-    NzFlexModule,
+    NzGridModule,
     NzTypographyModule,
     NzCardModule,
     NzSwitchModule,
     NzDividerModule,
     NzSelectModule,
+    NzRadioModule,
     RightLabeledInputComponent,
   ],
 })

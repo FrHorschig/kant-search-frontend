@@ -8,22 +8,17 @@
       <nz-divider
         *nzSpaceItem
         nzOrientation="left"
-        [nzText]="'SEARCH.INPUT.ADVANCED.SORT.LABEL' | translate"
+        [nzText]="'SEARCH.INPUT.ADVANCED.SORT.TITLE' | translate"
       ></nz-divider>
 
-      <nz-select
-        *nzSpaceItem
-        id="sort-select"
-        class="w-full"
-        formControlName="sort"
-      >
-        @for (option of sortOptions; track option) {
-        <nz-option
-          [nzLabel]="'SEARCH.INPUT.ADVANCED.SORT.OPTIONS.' + option | translate"
-          [nzValue]="option"
-        ></nz-option>
+      <nz-radio-group *nzSpaceItem formControlName="sort">
+        @for (opt of sortOptions; track opt) {
+        <label nz-radio [nzValue]="opt">{{
+          "SEARCH.INPUT.ADVANCED.SORT.OPTIONS." + opt | translate
+        }}</label>
+        <br />
         }
-      </nz-select>
+      </nz-radio-group>
 
       <nz-divider
         *nzSpaceItem
