@@ -15,12 +15,12 @@ import { RightLabeledInputComponent } from 'src/app/search/criteria/advanced-inp
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { SubscriptionComponent } from 'src/app/common/base/container.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'ks-advanced-input',
   templateUrl: './advanced-input.component.html',
+  styleUrl: './advanced-input.component.less',
   standalone: true,
   imports: [
     FormsModule,
