@@ -8,7 +8,7 @@
 >
   <ng-container *nzModalContent>
     <div nz-flex nzVertical="true" style="max-height: 75vh">
-      <div style="margin-bottom: 20px; overflow: auto">
+      <div style="margin-bottom: 20px; padding-right: 0.6em; overflow: auto">
         <ks-text-block [text]="hit.fmtTextWithHl"></ks-text-block>
       </div>
 
@@ -31,10 +31,12 @@
 </nz-modal>
 
 <ng-template #modalTitle>
-  {{
-    "COMMON.VOL_WORK_TITLE"
-      | translate
-        : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle(60) }
-  }}
-  ({{ hit.work.year }})
+  <div style="padding-right: 0.7em">
+    {{
+      "COMMON.VOL_WORK_TITLE"
+        | translate
+          : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle(60) }
+    }}
+    ({{ hit.work.year }})
+  </div>
 </ng-template>
