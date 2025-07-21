@@ -6,6 +6,7 @@ import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.
 @Component({
   selector: 'ks-footnote',
   templateUrl: './footnote.component.html',
+  styleUrl: './footnote.component.less',
   standalone: true,
   imports: [NzFlexModule, TextBlockComponent],
 })
