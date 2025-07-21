@@ -16,11 +16,34 @@
     />
   </nz-input-group>
 
-  <nz-card
-    *nzSpaceItem
-    [nzTitle]="'SEARCH.INPUT.WORKS.TITLE' | translate"
-    [nzExtra]="worksSelectTitle"
-  >
+  <nz-card *nzSpaceItem>
+    <div class="works-select-wrapper">
+      <label for="works-select" class="works-select-label">
+        {{ "SEARCH.INPUT.WORKS.TITLE" | translate }}
+      </label>
+
+      <nz-select
+        id="works-select"
+        class="works-select"
+        nzPlacement="bottomRight"
+        nzAllowClear="true"
+        [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
+        [ngModel]="group"
+        (ngModelChange)="onSelectChange($event)"
+        [disabled]="nodes.length === 0"
+      >
+        @for (wg of workGroups; track wg.translateString) {
+        <nz-option
+          [nzLabel]="
+            'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + wg.translateString
+              | translate
+          "
+          [nzValue]="wg"
+        ></nz-option>
+        }
+      </nz-select>
+    </div>
+
     <ng-container *ngIf="nodes.length === 0">
       {{ "SEARCH.INPUT.WORKS.NO_VOLUMES" | translate }}
     </ng-container>
@@ -56,23 +79,4 @@
   </button>
 </ng-template>
 
-<ng-template #worksSelectTitle>
-  <nz-select
-    class="min-w-250"
-    nzPlacement="bottomRight"
-    nzAllowClear="true"
-    [nzPlaceHolder]="'SEARCH.INPUT.WORKS.SELECT.PLACEHOLDER' | translate"
-    [ngModel]="group"
-    (ngModelChange)="onSelectChange($event)"
-    [disabled]="nodes.length === 0"
-  >
-    @for (wg of workGroups; track wg.translateString) {
-    <nz-option
-      [nzLabel]="
-        'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + wg.translateString | translate
-      "
-      [nzValue]="wg"
-    ></nz-option>
-    }
-  </nz-select>
-</ng-template>
+<ng-template #worksSelectTitle> </ng-template>
