@@ -8,6 +8,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'ks-root',
+  styleUrl: './app.component.less',
   standalone: true,
   imports: [
     CommonModule,
