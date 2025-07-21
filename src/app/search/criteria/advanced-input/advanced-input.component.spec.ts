@@ -16,6 +16,8 @@ import { RightLabeledInputComponent } from './right-labeled-input/right-labeled-
 import { AdvancedInputComponent } from './advanced-input.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'ks-advanced-input',
@@ -46,11 +48,13 @@ describe('AdvancedInputComponent', () => {
             ReactiveFormsModule,
             TranslateModule,
             NzSpaceModule,
+            NzGridModule,
             NzTypographyModule,
             NzCardModule,
             NzSwitchModule,
             NzDividerModule,
             NzSelectModule,
+            NzRadioModule,
             RightLabeledInputComponent,
           ],
         },
