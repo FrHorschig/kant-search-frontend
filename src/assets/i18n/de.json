@@ -69,7 +69,6 @@
         "HEADER": "Erweiterte Optionen",
         "SORT": {
           "TITLE": "Sortierung",
-          "LABEL": "Sortierung",
           "OPTIONS": {
             "AA_ORDER": "nach Reihenfolge der Akademie-Ausgabe",
             "YEAR": "nach Erscheinungsjahr"
