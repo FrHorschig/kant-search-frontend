@@ -75,13 +75,14 @@
             "YEAR": "nach Erscheinungsjahr"
           }
         },
+        "STEMMING": {
+          "TITLE": "Stemming",
+          "LABEL": "Suche mit Wortstämmen",
+          "TOOLTIP": "Bei aktiviertem Schalter enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sage'. Da die Wortstämme durch einen Algorithmus ermittelt werden, und die deutsche Sprache recht komplex ist, funktioniert dieser Algorithmus nicht völlig fehlerfrei; 'sagte' beispielsweise wird beim Suchbegriff 'sagen' nicht gefunden."
+        },
         "SCOPE": {
           "TITLE": "Suchbereich",
           "TOOLTIP": "Suchbereich: 'Absatz' berücksichtigt Ihre Suchkriterien im gesamten Absatz, während 'Satz' die Kriterien auf einzelne Sätze einschränkt.",
-          "WITH_STEMMING": {
-            "LABEL": "Nutze Wortstämme",
-            "TOOLTIP": "Bei aktiviertem Schalter enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sage'. Da die Wortstämme durch einen Algorithmus ermittelt werden, und die deutsche Sprache recht komplex ist, funktioniert dieser Algorithmus nicht völlig fehlerfrei; 'sagte' beispielsweise wird beim Suchbegriff 'sagen' nicht gefunden."
-          },
           "INCLUDE_HEADINGS": {
             "LABEL": "Durchsuche Überschriften",
             "TOOLTIP": "Wenn der Schalter an ist, werden auch Überschriften durchsucht."
@@ -96,8 +97,8 @@
           }
         },
         "SEARCH_TIPS": {
-          "TITLE": "Hinweise zur Kombination von Suchbegriffen",
-          "TEXT": "Es ist möglich, mehrere Suchbegriffe durch logische Operatoren zu kombinieren. Nutzen Sie '&' für UND, '|' für ODER, '!' für NICHT, '(...)' zum Gruppieren von Begriffen und Anführungszeichen für genaue Phrasen.",
+          "TITLE": "Kombination von Suchbegriffen",
+          "TEXT": "Es ist möglich, mehrere Suchbegriffe durch logische Operatoren zu kombinieren. Nutzen Sie & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen.",
           "EXAMPLE": "Beispiel: (Hund | \"weiße Mäuse\") & !Katze"
         }
       }

@@ -1,11 +1,22 @@
-<nz-card [nzTitle]="'SEARCH.INPUT.ADVANCED.HEADER' | translate">
-  <form [formGroup]="form">
-    <div nz-flex nzJustify="space-between">
-      <label for="sort-select" style="margin-top: 0.35em; margin-right: 0.5em">
-        {{ "SEARCH.INPUT.ADVANCED.SORT.LABEL" | translate }}
-      </label>
+<nz-card>
+  <div style="font-size: large">
+    {{ "SEARCH.INPUT.ADVANCED.HEADER" | translate }}
+  </div>
 
-      <nz-select class="max-w-400" formControlName="sort">
+  <form [formGroup]="form">
+    <nz-space class="w-full" nzDirection="vertical">
+      <nz-divider
+        *nzSpaceItem
+        nzOrientation="left"
+        [nzText]="'SEARCH.INPUT.ADVANCED.SORT.LABEL' | translate"
+      ></nz-divider>
+
+      <nz-select
+        *nzSpaceItem
+        id="sort-select"
+        class="w-full"
+        formControlName="sort"
+      >
         @for (option of sortOptions; track option) {
         <nz-option
           [nzLabel]="'SEARCH.INPUT.ADVANCED.SORT.OPTIONS.' + option | translate"
@@ -13,21 +24,26 @@
         ></nz-option>
         }
       </nz-select>
-    </div>
 
-    <nz-divider
-      nzOrientation="left"
-      [nzText]="'SEARCH.INPUT.ADVANCED.SCOPE.TITLE' | translate"
-    ></nz-divider>
+      <nz-divider
+        *nzSpaceItem
+        nzOrientation="left"
+        [nzText]="'SEARCH.INPUT.ADVANCED.STEMMING.TITLE' | translate"
+      ></nz-divider>
 
-    <nz-space class="w-full" nzDirection="vertical">
       <ks-right-labeled-input
         *nzSpaceItem
         idString="with-stemming-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.WITH_STEMMING"
+        i18nString="SEARCH.INPUT.ADVANCED.STEMMING"
       >
         <nz-switch formControlName="withStemming"></nz-switch>
       </ks-right-labeled-input>
+
+      <nz-divider
+        *nzSpaceItem
+        nzOrientation="left"
+        [nzText]="'SEARCH.INPUT.ADVANCED.SCOPE.TITLE' | translate"
+      ></nz-divider>
 
       <ks-right-labeled-input
         *nzSpaceItem
