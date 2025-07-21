@@ -88,7 +88,7 @@
           },
           "INCLUDE_PARAGRAPHS": {
             "LABEL": "Durchsuche Absätze",
-            "TOOLTIP": "Wenn der Schalter an ist, werden auch Absatz durchsucht. Schaltet man diese Option aus, kann man allein Überschriften oder allein Fußnoten suchen."
+            "TOOLTIP": "Wenn der Schalter an ist, werden auch Absatz durchsucht. Schaltet man diese Option aus, kann man allein Überschriften oder allein Fußnoten durchsuchen."
           },
           "INCLUDE_FOOTNOTES": {
             "LABEL": "Durchsuche Fußnoten",
