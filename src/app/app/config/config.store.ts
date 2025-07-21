@@ -44,7 +44,9 @@ export class ConfigStore extends ComponentStore<ConfigState> {
             reject('Invalid configuration: korporaUrl is missing');
             return;
           }
-          config.workGroups.forEach((wg: WorkGroup) => wg.codes.sort());
+          for (let wg of config.workGroups) {
+            wg.codes.sort();
+          }
           this.patchState({
             korporaUrl: config.korporaUrl,
             workGroups: [all, ...config.workGroups],
