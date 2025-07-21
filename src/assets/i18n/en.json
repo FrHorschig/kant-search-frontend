@@ -89,7 +89,7 @@
           },
           "INCLUDE_PARAGRAPHS": {
             "LABEL": "Search paragraphs",
-            "TOOLTIP": "Paragraph are included in the search if the switch is on. By disabling this option, you can search headings for footnotes onnly."
+            "TOOLTIP": "Paragraph are included in the search if the switch is on. By disabling this option, you can search in headings or footnotes only."
           },
           "INCLUDE_HEADINGS": {
             "LABEL": "Search headings",

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -11,6 +12,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   templateUrl: './right-labeled-input.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     TranslateModule,
     NzFlexModule,
     NzGridModule,
@@ -22,4 +24,5 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 export class RightLabeledInputComponent {
   @Input() idString = '';
   @Input() i18nString = '';
+  @Input() withLabel: boolean = true;
 }

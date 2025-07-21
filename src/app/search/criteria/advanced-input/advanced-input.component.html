@@ -1,77 +1,88 @@
 <nz-card>
-  <div style="font-size: large">
-    {{ "SEARCH.INPUT.ADVANCED.HEADER" | translate }}
-  </div>
+  <nz-space class="w-full" nzDirection="vertical" nzSize="middle">
+    <div *nzSpaceItem style="font-size: large">
+      {{ "SEARCH.INPUT.ADVANCED.HEADER" | translate }}
+    </div>
 
-  <form [formGroup]="form">
-    <nz-space class="w-full" nzDirection="vertical">
-      <nz-divider
-        *nzSpaceItem
-        nzOrientation="left"
-        [nzText]="'SEARCH.INPUT.ADVANCED.SORT.TITLE' | translate"
-      ></nz-divider>
+    <form *nzSpaceItem [formGroup]="form">
+      <nz-space class="w-full" nzDirection="vertical" nzSize="middle">
+        <div *nzSpaceItem nz-row>
+          <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+            {{ "SEARCH.INPUT.ADVANCED.SORT.TITLE" | translate }}
+          </div>
 
-      <nz-radio-group *nzSpaceItem formControlName="sort">
-        @for (opt of sortOptions; track opt) {
-        <label nz-radio [nzValue]="opt">{{
-          "SEARCH.INPUT.ADVANCED.SORT.OPTIONS." + opt | translate
-        }}</label>
-        <br />
-        }
-      </nz-radio-group>
+          <div nz-col [nzXs]="24" [nzSm]="18">
+            <nz-radio-group formControlName="sort">
+              @for (opt of sortOptions; track opt) {
+              <label nz-radio [nzValue]="opt">{{
+                "SEARCH.INPUT.ADVANCED.SORT.OPTIONS." + opt | translate
+              }}</label>
+              <br />
+              }
+            </nz-radio-group>
+          </div>
+        </div>
 
-      <nz-divider
-        *nzSpaceItem
-        nzOrientation="left"
-        [nzText]="'SEARCH.INPUT.ADVANCED.STEMMING.TITLE' | translate"
-      ></nz-divider>
+        <div *nzSpaceItem nz-row class="option-row">
+          <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+            {{ "SEARCH.INPUT.ADVANCED.STEMMING.TITLE" | translate }}
+          </div>
 
-      <ks-right-labeled-input
-        *nzSpaceItem
-        idString="with-stemming-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.STEMMING"
-      >
-        <nz-switch formControlName="withStemming"></nz-switch>
-      </ks-right-labeled-input>
+          <div nz-col [nzXs]="24" [nzSm]="18">
+            <ks-right-labeled-input
+              idString="with-stemming-switch"
+              i18nString="SEARCH.INPUT.ADVANCED.STEMMING"
+            >
+              <nz-switch formControlName="withStemming"></nz-switch>
+            </ks-right-labeled-input>
+          </div>
+        </div>
 
-      <nz-divider
-        *nzSpaceItem
-        nzOrientation="left"
-        [nzText]="'SEARCH.INPUT.ADVANCED.SCOPE.TITLE' | translate"
-      ></nz-divider>
+        <div *nzSpaceItem nz-row class="option-row">
+          <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+            {{ "SEARCH.INPUT.ADVANCED.SCOPE.TITLE" | translate }}
+          </div>
 
-      <ks-right-labeled-input
-        *nzSpaceItem
-        idString="include-heading-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_HEADINGS"
-      >
-        <nz-switch formControlName="includeHeadings"></nz-switch>
-      </ks-right-labeled-input>
+          <div nz-col [nzXs]="24" [nzSm]="18">
+            <nz-space nzDirection="vertical" class="w-full">
+              <ks-right-labeled-input
+                *nzSpaceItem
+                idString="include-heading-switch"
+                i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_HEADINGS"
+              >
+                <nz-switch formControlName="includeHeadings"></nz-switch>
+              </ks-right-labeled-input>
 
-      <ks-right-labeled-input
-        *nzSpaceItem
-        idString="include-paragraphs-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_PARAGRAPHS"
-      >
-        <nz-switch formControlName="includeParagraphs"></nz-switch>
-      </ks-right-labeled-input>
+              <ks-right-labeled-input
+                *nzSpaceItem
+                idString="include-paragraphs-switch"
+                i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_PARAGRAPHS"
+              >
+                <nz-switch formControlName="includeParagraphs"></nz-switch>
+              </ks-right-labeled-input>
 
-      <ks-right-labeled-input
-        *nzSpaceItem
-        idString="include-footnotes-switch"
-        i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
-      >
-        <nz-switch formControlName="includeFootnotes"></nz-switch>
-      </ks-right-labeled-input>
-    </nz-space>
-  </form>
+              <ks-right-labeled-input
+                *nzSpaceItem
+                idString="include-footnotes-switch"
+                i18nString="SEARCH.INPUT.ADVANCED.SCOPE.INCLUDE_FOOTNOTES"
+              >
+                <nz-switch formControlName="includeFootnotes"></nz-switch>
+              </ks-right-labeled-input>
+            </nz-space>
+          </div>
+        </div>
+      </nz-space>
+    </form>
 
-  <nz-divider
-    nzOrientation="left"
-    [nzText]="'SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE' | translate"
-  ></nz-divider>
+    <div *nzSpaceItem nz-row class="option-row">
+      <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+        {{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TITLE" | translate }}
+      </div>
 
-  <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}</p>
-
-  <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.EXAMPLE" | translate }}</p>
+      <div nz-col [nzXs]="24" [nzSm]="18">
+        <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.TEXT" | translate }}</p>
+        <p>{{ "SEARCH.INPUT.ADVANCED.SEARCH_TIPS.EXAMPLE" | translate }}</p>
+      </div>
+    </div>
+  </nz-space>
 </nz-card>
