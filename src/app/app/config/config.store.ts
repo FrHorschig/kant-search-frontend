@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import {
   ReadService,
   SearchService,
-  Startpage,
   UtilService,
 } from '@frhorschig/kant-search-api';
 import { all } from 'src/app/search/model/search-options';
@@ -14,10 +13,14 @@ export interface WorkGroup {
   codes: string[];
 }
 
+export interface Startpage {
+  de: string;
+  en: string;
+}
+
 interface ConfigState {
   korporaUrl: string;
   workGroups: WorkGroup[];
-  startpage: Startpage;
 }
 
 @Injectable({
@@ -30,7 +33,7 @@ export class ConfigStore extends ComponentStore<ConfigState> {
     private readonly searchService: SearchService,
     private readonly utilService: UtilService
   ) {
-    super({ korporaUrl: '', workGroups: [], startpage: { de: '', en: '' } });
+    super({ korporaUrl: '', workGroups: [] });
   }
 
   readonly korporaUrl$ = this.select((state) => state.korporaUrl);
