@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 
+const options = { nzDuration: 10000, nzPauseOnHover: true };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -33,17 +35,15 @@ export class ErrorService {
           ? this.translateService.get('ERROR.' + e.message, paramsObj)
           : this.translateService.get('ERROR.GENERIC');
       forkJoin([summary$, msg$]).subscribe(([summary, msg]) =>
-        this.notificationService.error(summary, msg)
+        this.notificationService.error(summary, msg, options)
       );
-
     } else {
-      const msg = err.message;
-      console.error('error: ', msg);
+      console.error('error: ', err.stack);
       forkJoin([
         summary$,
         this.translateService.get('ERROR.GENERIC'),
       ]).subscribe(([summary, msg]) => {
-        this.notificationService.error(summary, msg);
+        this.notificationService.error(summary, msg, options);
       });
     }
   }
