@@ -85,13 +85,14 @@ export class ResultsStore extends ComponentStore<ResultsState> {
                 results: mapped,
                 hits: hits,
                 page: pageMatch ? +pageMatch[1] : 1,
+                ready: true,
               });
             },
             (err: Error) => {
               this.errorService.logError(err);
+              this.patchState({ ready: true });
               return EMPTY;
-            },
-            () => this.patchState({ ready: true })
+            }
           )
         )
       )

@@ -55,13 +55,14 @@ export class VolumesStore extends ComponentStore<VolumesState> {
                     })
                   )
                 ),
+                isLoaded: true,
               });
             },
             (err: Error) => {
               this.errorService.logError(err);
+              this.patchState({ isLoaded: true });
               return EMPTY;
-            },
-            () => this.patchState({ isLoaded: true })
+            }
           )
         )
       )
