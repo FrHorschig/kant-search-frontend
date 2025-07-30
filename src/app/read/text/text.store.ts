@@ -103,13 +103,14 @@ export class TextStore extends ComponentStore<TextState> {
                 textContents,
                 footnoteByRef,
                 summaryByRef,
+                ready: true,
               });
             },
             (err: Error) => {
               this.errorService.logError(err);
+              this.patchState({ ready: true });
               return EMPTY;
-            },
-            () => this.patchState({ ready: true })
+            }
           )
         )
       )
