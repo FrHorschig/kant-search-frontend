@@ -139,7 +139,7 @@
 
   "ERROR": {
     "SUMMARY": "Fehler",
-    "GENERIC": "Ein technischer Fehler ist aufgetreten, bitte kontaktieren Sie uns unter kant-search@mailbox.org. Wenn möglich, teilen Sie uns den Zeitpunkt des Fehlers mit und eine Beschreibung dessen, was vor dem Auftreten des Fehlers getan wurde (z.B. aufgerufene URL, Suchparameter, ...): ",
+    "GENERIC": "Ein technischer Fehler ist aufgetreten, bitte kontaktieren Sie uns unter kant-search@mailbox.org. Wenn möglich, teilen Sie uns den Zeitpunkt des Fehlers mit und eine Beschreibung dessen, was vor dem Auftreten des Fehlers getan wurde (z.B. aufgerufene URL, Suchparameter, ...).",
     "BAD_REQUEST": {
       "GENERIC": "Ungültige Anfrage.",
       "INVALID_WORK_SELECTION": "Ungültige Werkauswahl.",
