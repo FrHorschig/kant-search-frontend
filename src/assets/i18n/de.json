@@ -115,6 +115,7 @@
         "TOTAL": "Gesamtzahl Suchergebnisse",
         "VOLUME": "Band"
       },
+      "PAGINATION_NOTE": "[Seite:Zeile] in der Akademie-Ausgabe",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",
         "TOOLTIP": "Zum Absatz im Volltext springen"

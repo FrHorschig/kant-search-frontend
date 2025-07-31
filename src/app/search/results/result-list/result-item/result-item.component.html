@@ -10,7 +10,12 @@
           <i>#{{ hit.index }}</i>
         </span>
 
-        <span nz-typography nzType="secondary">
+        <span
+          nz-typography
+          nzType="secondary"
+          nz-tooltip
+          [nzTooltipTitle]="hit.work.title"
+        >
           <i>
             {{
               hit.work.siglum && hit.work.siglum !== ""
@@ -25,7 +30,12 @@
         @for (snippet of hit.snippets; track `${snippet.page}:${snippet.line}`)
         {
         <div nz-flex nz-space>
-          <div class="page-line" *nzSpaceItem>
+          <div
+            class="page-line"
+            *nzSpaceItem
+            nz-tooltip
+            [nzTooltipTitle]="'SEARCH.RESULTS.PAGINATION_NOTE' | translate"
+          >
             [{{ snippet.page }}:{{ snippet.line }}]
           </div>
 

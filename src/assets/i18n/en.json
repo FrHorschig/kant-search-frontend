@@ -116,6 +116,7 @@
         "TOTAL": "Total search results",
         "VOLUME": "Volume"
       },
+      "PAGINATION_NOTE": "[page:line] in the Akademie edition",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Full text",
         "TOOLTIP": "Zum Absatz im Volltext springen"
