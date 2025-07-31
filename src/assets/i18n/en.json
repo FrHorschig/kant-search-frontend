@@ -4,7 +4,7 @@
     "ANCHOR_BUTTON_TOOLTIP": "Create link to this element",
     "VOL_WORK_TITLE": "Volume {{volumeNumber}}: {{title}}",
     "VOL_WORK_TITLE_ALT": "{{title}} (Volume {{volumeNumber}})",
-    "IMAGE": "Image"
+    "IMAGE": "Fig."
   },
 
   "NAVBAR": {
