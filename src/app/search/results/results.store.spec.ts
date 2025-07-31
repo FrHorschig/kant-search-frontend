@@ -136,6 +136,7 @@ const expectedResults: ResultInternal[] = [
             page: 44,
             line: 32,
             text: 'This is a text of a <ks-meta-hit>paragraph</ks-meta-hit>. A test <ks-meta-hit>paragraph</ks-meta-hit>.',
+            hasHighlights: true,
           },
         ],
         fmtTextWithHl:
@@ -150,11 +151,13 @@ const expectedResults: ResultInternal[] = [
             page: 87,
             line: 1,
             text: 'Immanuel Kant was a prussian <ks-meta-hit>philosopher</ks-meta-hit> of the 18th century from Königsberg. His main work is the "Critic of',
+            hasHighlights: true,
           },
           {
             page: 87,
             line: 1,
             text: 'Reason" from 1783/1787. His philosophy had a very large influence on <ks-meta-hit>philosophers</ks-meta-hit> after him.',
+            hasHighlights: true,
           },
         ],
         fmtTextWithHl:
@@ -170,7 +173,12 @@ const expectedResults: ResultInternal[] = [
     hits: [
       {
         snippets: [
-          { page: 104, line: 1, text: '<ks-meta-hit>text</ks-meta-hit>' },
+          {
+            page: 104,
+            line: 1,
+            text: '<ks-meta-hit>text</ks-meta-hit>',
+            hasHighlights: true,
+          },
         ],
         fmtTextWithHl: '<ks-meta-hit>text</ks-meta-hit>',
         ordinal: 9,

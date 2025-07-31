@@ -206,12 +206,13 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       return {
         hits: res.hits.map((h) => {
           const matchIndices = this.findMatchIndices(h.highlightText);
-          const fmtTextWithHl = this.insertHighlights(
-            h.fmtText,
-            h.wordIndexMap,
-            matchIndices
-          );
-          const snippets = this.buildSnippets(matchIndices, h);
+          const hasHl = h.highlightText.includes('<ks-meta-hit>');
+          const fmtTextWithHl = hasHl
+            ? this.insertHighlights(h.fmtText, h.wordIndexMap, matchIndices)
+            : h.fmtText;
+          const snippets = hasHl
+            ? this.buildHlSnippets(matchIndices, h)
+            : this.buildStartSnippet(h);
           return {
             snippets,
             fmtTextWithHl,
@@ -224,6 +225,24 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       };
     });
     return [mapped, mapped.flatMap((r) => r.hits)];
+  }
+
+  private buildStartSnippet(h: Hit): Snippet[] {
+    const snippetLen = 100;
+    let textSnippet = h.highlightText;
+    if (h.highlightText.length > snippetLen) {
+      const cutoffIndex = h.highlightText.lastIndexOf(' ', snippetLen);
+      const safeIndex = cutoffIndex > -1 ? cutoffIndex : snippetLen;
+      textSnippet = h.highlightText.substring(0, safeIndex);
+    }
+    return [
+      {
+        page: this.findPageNum(h.wordIndexMap[0], h.pageByIndex, h.pages),
+        line: this.findLineNum(h.wordIndexMap[0], h.lineByIndex),
+        text: textSnippet,
+        hasHighlights: false,
+      },
+    ];
   }
 
   /**
@@ -277,7 +296,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     return formatted;
   }
 
-  private buildSnippets(hlData: HighlightData[], hit: Hit): Snippet[] {
+  private buildHlSnippets(hlData: HighlightData[], hit: Hit): Snippet[] {
     const maxCharsBetween = 100;
     const merged: HighlightData[] = [hlData[0]];
     for (let i = 1; i < hlData.length; i++) {
@@ -308,6 +327,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           hit.lineByIndex
         ),
         text: hlText.substring(textStart, textEnd),
+        hasHighlights: true,
       });
     }
     return snippets;

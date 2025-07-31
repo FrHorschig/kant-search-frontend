@@ -41,7 +41,9 @@
 
           <div *nzSpaceItem>
             <ks-text-block
-              [text]="'...' + snippet.text + '...'"
+              [text]="
+                (snippet.hasHighlights ? '...' : '') + snippet.text + '...'
+              "
             ></ks-text-block>
           </div>
         </div>

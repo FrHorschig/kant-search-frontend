@@ -17,6 +17,7 @@ export interface Snippet {
   page: number;
   line: number;
   text: string;
+  hasHighlights: boolean;
 }
 
 export const emptyHit: Hit = {

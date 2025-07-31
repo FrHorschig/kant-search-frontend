@@ -101,7 +101,7 @@ describe('ParagraphDialogComponent', () => {
 
   it('should emit hit data on navigation', () => {
     const hit: Hit = {
-      snippets: [{ page: 3, line: 3, text: '' }],
+      snippets: [{ page: 3, line: 3, text: '', hasHighlights: false }],
       fmtTextWithHl: '',
       index: 2,
       ordinal: 2,

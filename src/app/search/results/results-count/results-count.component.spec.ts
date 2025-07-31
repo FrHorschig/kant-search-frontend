@@ -58,8 +58,8 @@ describe('ResultsCountComponent', () => {
         hits: [
           {
             snippets: [
-              { page: 1, line: 1, text: '' },
-              { page: 2, line: 2, text: '' },
+              { page: 1, line: 1, text: '', hasHighlights: false },
+              { page: 2, line: 2, text: '', hasHighlights: false },
             ],
             fmtTextWithHl: '',
             index: 1,
@@ -72,7 +72,7 @@ describe('ResultsCountComponent', () => {
         workCode,
         hits: [
           {
-            snippets: [{ page: 3, line: 3, text: '' }],
+            snippets: [{ page: 3, line: 3, text: '', hasHighlights: false }],
             fmtTextWithHl: '',
             index: 2,
             ordinal: 2,
