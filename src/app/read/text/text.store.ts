@@ -217,13 +217,12 @@ export class TextStore extends ComponentStore<TextState> {
     text = text.replaceAll('</ks-meta-fnref>', ')</ks-meta-fnref>');
     text = text.replaceAll('<ks-fmt-table>', '<table>');
     text = text.replaceAll('</ks-fmt-table>', '</table>');
-    const name = this.translateService.instant('COMMON.IMAGE');
     return text.replace(
       /<ks-meta-imgref\s+[^>]*src=["']([^"']+)["'][^>]*desc=["']([^"']*)["'][^>]*\/>/g,
       (_match, src, _desc) => {
         const vol = volNum.toString().padStart(2, '0');
         const fullUrl = `${korporaUrl}/aa${vol}/Bilder/${src}`;
-        return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">${name} &#x29c9;</a>`;
+        return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">Fig. &#x29c9;</a>`;
       }
     );
   }
