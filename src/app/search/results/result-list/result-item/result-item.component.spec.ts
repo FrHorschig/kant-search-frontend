@@ -12,6 +12,7 @@ import { ResultItemComponent } from './result-item.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 describe('ResultItemComponent', () => {
   let component: ResultItemComponent;
@@ -36,6 +37,7 @@ describe('ResultItemComponent', () => {
             NzGridModule,
             NzSpaceModule,
             NzCardModule,
+            NzToolTipModule,
             TextBlockComponent,
           ],
         },
