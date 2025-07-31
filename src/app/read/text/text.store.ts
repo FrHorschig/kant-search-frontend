@@ -17,7 +17,6 @@ import { Work } from 'src/app/common/model/model';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { Router } from '@angular/router';
 import { ConfigStore } from 'src/app/app/config/config.store';
-import { TranslateService } from '@ngx-translate/core';
 
 interface TextState {
   work: Work | undefined;
@@ -33,7 +32,6 @@ export class TextStore extends ComponentStore<TextState> {
   constructor(
     private readonly router: Router,
     private readonly errorService: ErrorService,
-    private readonly translateService: TranslateService,
     private readonly configStore: ConfigStore,
     private readonly langStore: LanguageStore,
     private readonly readService: ReadService,
