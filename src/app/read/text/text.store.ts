@@ -222,7 +222,7 @@ export class TextStore extends ComponentStore<TextState> {
       (_match, src, _desc) => {
         const vol = volNum.toString().padStart(2, '0');
         const fullUrl = `${korporaUrl}/aa${vol}/Bilder/${src}`;
-        return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">Fig. &#x29c9;</a>`;
+        return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">Link &#x29c9;</a>`;
       }
     );
   }
