@@ -3,20 +3,12 @@ import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyWork, Work } from 'src/app/common/model/model';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'ks-notes',
   templateUrl: './notes.component.html',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    NzGridModule,
-    NzSpaceModule,
-    NzDividerModule,
-  ],
+  imports: [CommonModule, TranslateModule, NzDividerModule],
 })
 export class NotesComponent {
   @Input() work: Work = emptyWork;
