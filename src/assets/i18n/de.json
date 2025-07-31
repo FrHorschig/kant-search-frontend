@@ -26,8 +26,12 @@
       "TITLE": "Titel",
       "VOLUME": "Band",
       "SIGLUM": "Siglum",
-      "YEAR": "Jahr",
-      "KORPORA_LINK": "Link zum Band in druckähnlicher Darstellung"
+      "YEAR": "Jahr"
+    },
+    "NOTES": {
+      "HEADER": "Hinweise",
+      "KORPORA_LINK": "Link zum Band in druckähnlicher Darstellung",
+      "PAGINATION": "Die Paginierung der Akademie-Ausgabe ist in eckigen Klammern angegeben."
     },
     "SELECTION": {
       "HEADER": "Werkauswahl",

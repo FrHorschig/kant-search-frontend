@@ -26,8 +26,12 @@
       "TITLE": "Title",
       "VOLUME": "Volume",
       "SIGLUM": "Siglum",
-      "YEAR": "Year",
-      "KORPORA_LINK": "Link to volume in print-like representation"
+      "YEAR": "Year"
+    },
+    "NOTES": {
+      "HEADER": "Notes",
+      "KORPORA_LINK": "Link to volume in print-like representation",
+      "PAGINATION": "The pagination of the Akademie edition is shown in square brackets."
     },
     "SELECTION": {
       "HEADER": "Work selection",

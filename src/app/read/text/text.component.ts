@@ -13,6 +13,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { WorkInfoComponent } from './work-info/work-info.component';
 import { emptyWork } from 'src/app/common/model/model';
 import { ConfigStore } from 'src/app/app/config/config.store';
+import { NotesComponent } from './notes/notes.component';
 
 @Component({
   selector: 'ks-text',
@@ -24,9 +25,10 @@ import { ConfigStore } from 'src/app/app/config/config.store';
     NzFlexModule,
     NzTypographyModule,
     NzIconModule,
+    WorkInfoComponent,
+    NotesComponent,
     TocComponent,
     ContentComponent,
-    WorkInfoComponent,
   ],
 })
 export class TextComponent extends SubscriptionComponent implements OnInit {

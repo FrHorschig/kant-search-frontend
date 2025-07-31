@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TextComponent } from './text.component';
 import { TextStore } from './text.store';
-import { Subject, of } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ScrollService } from '../../common/service/scroll.service';
 import { createScrollServiceSpy } from 'src/app/common/test/services';
 import { MockTextStore } from './text.store.spec';
