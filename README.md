@@ -23,6 +23,8 @@ The configuration file can be found at `src/assets/config.json`, it has these en
 
 Refer to the [parent project](https://github.com/FrHorschig/kant-search) for a general overview and scripts for helping with the development setup, including a script to start the frontend locally together with the backend and the database.
 
+Note that the tests are configured to run in a headless Chrome browser (see the `scripts` section in the `package.json`). For this to work you must export a `CHROME_BIN` environment variable that points the a Chrome (or Chromium) executable.
+
 ### Coding patterns
 
 #### Container and presentational components
