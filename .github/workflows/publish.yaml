@@ -101,5 +101,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             src/assets/config.json
+            src/assets/i18n
+            src/assets/startpage
             dist/3rdpartylicenses.txt
           token: ${{ secrets.GITHUB_TOKEN }}
