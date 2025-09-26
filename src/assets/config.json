@@ -112,6 +112,18 @@
     {
       "translateString": "CRITIQUES",
       "codes": ["KRV_B", "KPV", "KU"]
+    },
+    {
+      "translateString": "PRACTICAL_PHIL",
+      "codes": ["GMS", "KPV", "KU", "MS", "FRAGE_AUFKLAERUNG", "TP", "VRML"]
+    },
+    {
+      "translateString": "THEORETICAL_PHIL",
+      "codes": ["KRV_B", "PROL", "MAN", "RGV"]
+    },
+    {
+      "translateString": "ALL_LATIN",
+      "codes": ["MSI", "Di", "PND", "MON_PH"]
     }
   ]
 }

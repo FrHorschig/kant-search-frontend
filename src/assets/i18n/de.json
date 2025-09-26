@@ -65,6 +65,9 @@
             "ALL_GERMAN": "Deutschsprachige Schriften",
             "PRECRITICAL": "Vorkritische Schriften",
             "CRITIQUES": "Kritiken",
+            "PRACTICAL_PHIL": "Schriften zur praktischen Philosophie",
+            "THEORETICAL_PHIL": "Schriften zur theoretischen Philosophie",
+            "ALL_LATIN": "Lateinische Schriften",
             "CUSTOM": "Benutzerdefinierte Auswahl..."
           }
         }
