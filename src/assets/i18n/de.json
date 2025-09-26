@@ -105,11 +105,19 @@
             "LABEL": "Durchsuche Fußnoten",
             "TOOLTIP": "Wenn der Schalter an ist, werden auch Fußnoten durchsucht."
           }
-        },
-        "SEARCH_TIPS": {
+        }
+      },
+      "HINTS": {
+        "HEADER": "Hinweise zur Suche",
+        "OPERATORS": {
           "TITLE": "Kombination von Suchbegriffen",
           "TEXT": "Es ist möglich, mehrere Suchbegriffe durch logische Operatoren zu kombinieren. Nutzen Sie & für UND, | für ODER, ! für NICHT, (...) zum Gruppieren von Begriffen und \"...\" für genaue Phrasen.",
-          "EXAMPLE": "Beispiel: (Hund | \"weiße Mäuse\") & !Katze"
+          "DETAILS": "Beispiel: (Hund | \"weiße Mäuse\") & !Katze"
+        },
+        "ORTHOGRAPHY": {
+          "TITLE": "Rechtschreibung",
+          "TEXT": "Durch die veraltete Rechtschreibung kann es sein, dass der Stemming-Algorithmus manche Wörter nicht korrekt verarbeitet, sodass eine Suche nicht alle inhaltlich angemessenen Treffer findet. Um dieses Problem zu umgehen, sollte man auch nach anderen Schreibweisen der Suchbegriffe suchen. Dabei kann man sich an folgenden Heuristiken orientieren:",
+          "DETAILS": "TODO"
         }
       }
     },
@@ -122,7 +130,7 @@
         "TOTAL": "Gesamtzahl Suchergebnisse",
         "VOLUME": "Band"
       },
-      "NO_RESULT_HINT": "Falls Sie Treffer erwarten, aber keine gefunden werden, probieren Sie, die Suche mit anderen Schreibweisen der Suchbegriffe zu wiederholen. Hinweise dazu finden Sie auf der Startseite im Abschnitt 'Hinweise zur Suche'.",
+      "NO_RESULT_HINT": "Falls Sie Treffer erwarten, aber keine gefunden werden, probieren Sie, die Suche mit anderen Schreibweisen der Suchbegriffe zu wiederholen. Hinweise dazu finden Sie auf der Such-Seite im Abschnitt 'Hinweise zur Suche'.",
       "PAGINATION_NOTE": "[Seite:Zeile] in der Akademie-Ausgabe",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",

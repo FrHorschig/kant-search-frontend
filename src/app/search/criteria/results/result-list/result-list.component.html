@@ -1,0 +1,40 @@
+<ng-container *ngIf="hits.length > 0">
+  <nz-space #spaceContainer nzDirection="vertical">
+    <div *nzSpaceItem nz-flex nzJustify="center">
+      <nz-pagination
+        nzSimple
+        [nzPageIndex]="page"
+        [nzTotal]="hits.length"
+        [nzPageSize]="pageSize"
+        [nzHideOnSinglePage]="true"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
+
+    <div *nzSpaceItem>
+      @for (hit of paginatedHits; track hit.work.code+hit.ordinal) {
+      <div [id]="`match-${hit.work.code}-${hit.ordinal}`">
+        <ks-result-item
+          [hit]="hit"
+          (onClick)="onMatchClick(hit)"
+        ></ks-result-item>
+      </div>
+      }
+    </div>
+
+    <div *nzSpaceItem nz-flex nzJustify="center">
+      <nz-pagination
+        nzSimple
+        [nzPageIndex]="page"
+        [nzTotal]="hits.length"
+        [nzPageSize]="pageSize"
+        [nzHideOnSinglePage]="true"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
+  </nz-space>
+</ng-container>
+
+<ng-container *ngIf="hits.length == 0">
+  {{ "SEARCH.RESULTS.NO_RESULT_HINT" | translate }}
+</ng-container>

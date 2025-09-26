@@ -1,0 +1,42 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzWidth="40rem"
+  [nzBodyStyle]="{ 'max-height': '80vh', overflow: 'hidden' }"
+  [nzTitle]="modalTitle"
+  [nzFooter]="null"
+  (nzOnCancel)="onHide()"
+>
+  <ng-container *nzModalContent>
+    <div nz-flex nzVertical="true" style="max-height: 75vh">
+      <div style="margin-bottom: 20px; padding-right: 0.6em; overflow: auto">
+        <ks-text-block [text]="hit.fmtTextWithHl"></ks-text-block>
+      </div>
+
+      <div nz-flex nzJustify="flex-end" style="margin-top: auto">
+        <button
+          nz-button
+          nzType="primary"
+          nz-tooltip
+          [nzTooltipTitle]="
+            'SEARCH.RESULTS.NAV_FULLTEXT_BTN.TOOLTIP' | translate
+          "
+          (click)="onNavigate()"
+        >
+          {{ "SEARCH.RESULTS.NAV_FULLTEXT_BTN.TEXT" | translate }}
+          <nz-icon nzType="arrow-right" />
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>
+
+<ng-template #modalTitle>
+  <div style="padding-right: 0.7em">
+    {{
+      "COMMON.VOL_WORK_TITLE"
+        | translate
+          : { volumeNumber: hit.work.volumeNumber, title: getWorkTitle(60) }
+    }}
+    ({{ hit.work.year }})
+  </div>
+</ng-template>

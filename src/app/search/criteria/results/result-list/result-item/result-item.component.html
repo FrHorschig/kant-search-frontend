@@ -1,0 +1,54 @@
+<div
+  id="hit-{{ hit.work.code }}-{{ hit.ordinal }}"
+  class="cursor-pointer"
+  (click)="onCardClick()"
+>
+  <nz-card>
+    <nz-space class="w-full" nzDirection="vertical">
+      <div *nzSpaceItem nz-flex nzJustify="space-between">
+        <span nz-typography nzType="secondary">
+          <i>#{{ hit.index }}</i>
+        </span>
+
+        <span
+          nz-typography
+          nzType="secondary"
+          nz-tooltip
+          [nzTooltipTitle]="hit.work.title"
+        >
+          <i>
+            {{
+              hit.work.siglum && hit.work.siglum !== ""
+                ? hit.work.siglum
+                : ("SEARCH.RESULTS.WORKS." + hit.work.code | translate)
+            }}
+          </i>
+        </span>
+      </div>
+
+      <div *nzSpaceItem>
+        @for (snippet of hit.snippets; track `${snippet.page}:${snippet.line}`)
+        {
+        <div nz-flex nz-space>
+          <div
+            class="page-line"
+            *nzSpaceItem
+            nz-tooltip
+            [nzTooltipTitle]="'SEARCH.RESULTS.PAGINATION_NOTE' | translate"
+          >
+            [{{ snippet.page }}:{{ snippet.line }}]
+          </div>
+
+          <div *nzSpaceItem>
+            <ks-text-block
+              [text]="
+                (snippet.hasHighlights ? '...' : '') + snippet.text + '...'
+              "
+            ></ks-text-block>
+          </div>
+        </div>
+        }
+      </div>
+    </nz-space>
+  </nz-card>
+</div>

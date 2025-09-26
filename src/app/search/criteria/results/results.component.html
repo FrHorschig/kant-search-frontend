@@ -1,0 +1,51 @@
+<ng-container *ngIf="!(ready$ | async)">
+  <div nz-flex nzJustify="center" nzAlign="center">
+    <nz-icon nzType="loading" nzTheme="outline" style="font-size: 48px" />
+  </div>
+</ng-container>
+
+<ng-container *ngIf="ready$ | async">
+  <nz-space class="w-full" nzDirection="vertical">
+    <ks-results-input
+      *nzSpaceItem
+      [searchTerms]="(searchTerms$ | async) ?? ''"
+      (searchTermsEmitter)="onSearchTermsChange($event)"
+      (doUpdateEmitter)="onUpdate()"
+    ></ks-results-input>
+
+    <ks-results-count
+      *nzSpaceItem
+      [results]="(results$ | async) ?? []"
+      (onClickEmitter)="onResultNavigation($event)"
+    ></ks-results-count>
+
+    <ks-result-list
+      *nzSpaceItem
+      [hits]="(hits$ | async) ?? []"
+      [page]="(page$ | async) ?? 1"
+      [pageSize]="(pageSize$ | async) ?? 5"
+      (pageChange)="onPageChange($event)"
+      (onClick)="onClick($event)"
+    ></ks-result-list>
+  </nz-space>
+</ng-container>
+
+<ks-paragraph-dialog
+  [(isVisible)]="showParagraph"
+  [hit]="hit"
+  (navigateEmitter)="onFullTextNavigation($event)"
+></ks-paragraph-dialog>
+
+<ng-container *ngIf="showUpButton">
+  <nz-float-button
+    nzType="default"
+    [nzIcon]="icon"
+    (click)="scrollTop()"
+    nz-tooltip
+    [nzTooltipTitle]="'COMMON.SCROLL_TOP_TOOLTIP' | translate"
+  ></nz-float-button>
+</ng-container>
+
+<ng-template #icon>
+  <nz-icon nzType="up" nzTheme="outline" />
+</ng-template>
