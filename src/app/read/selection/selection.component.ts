@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
 import { Router } from '@angular/router';

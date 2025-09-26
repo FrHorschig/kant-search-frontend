@@ -40,9 +40,13 @@
     "TOC": {
       "HEADER": "Table of Contents",
       "SECTION": "Section",
-      "PAGE": "Page Akadmie edition"
+      "PAGE": "Page Akademie edition"
     },
-    "CONTENT": "Text"
+    "CONTENT": {
+      "HEADER": "Text",
+      "FN": "footnote",
+      "FN_ABBREV": "fn."
+    }
   },
 
   "SEARCH": {

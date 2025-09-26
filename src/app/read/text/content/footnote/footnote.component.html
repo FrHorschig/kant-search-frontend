@@ -1,6 +1,17 @@
 <div nz-flex nzJustify="center">
   <div class="max-w-footnote-text" id="content-{{ footnote?.ordinal }}">
-    <span class="ks-meta-fnref">({{ footnote?.ref }})</span>
+    <span class="ks-meta-fnref" id="footnote-{{ footnote?.ref }}">
+      <a
+        href="#fnref-{{ footnote?.ref }}"
+        id="footnote-{{ footnote?.ref }}"
+        class="fn-link"
+        (click)="scrollToFnRef($event, footnote?.ref)"
+      >
+        ({{ "READ.CONTENT.FN" | translate }} {{ footnote?.ref }})
+      </a>
+    </span>
+
+    <hr class="fn-marker" />
 
     <ks-text-block [text]="footnote?.text || ''"></ks-text-block>
   </div>
