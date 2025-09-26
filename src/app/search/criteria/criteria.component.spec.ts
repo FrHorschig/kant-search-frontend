@@ -10,6 +10,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { CriteriaComponent } from './criteria.component';
 import { MockAdvancedInputComponent } from './advanced-input/advanced-input.component.spec';
 import { MockBasicInputComponent } from './basic-input/basic-input.component.spec';
+import { MockHintsComponent } from './hints/hints.component.spec';
 import { MockCriteriaStore } from './criteria.store.spec';
 import { CriteriaStore } from './criteria.store';
 import { AdvancedOptions, ResultSort } from '../model/search-options';
@@ -42,6 +43,7 @@ describe('CriteriaComponent', () => {
             NzSpaceModule,
             MockBasicInputComponent,
             MockAdvancedInputComponent,
+            MockHintsComponent,
           ],
         },
       })

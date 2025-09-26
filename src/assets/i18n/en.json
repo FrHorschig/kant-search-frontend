@@ -106,11 +106,19 @@
             "LABEL": "Search headings",
             "TOOLTIP": "Headings are included in the search if the switch is on."
           }
-        },
-        "SEARCH_TIPS": {
+        }
+      },
+      "HINTS": {
+        "HEADER": "Search hints",
+        "OPERATORS": {
           "TITLE": "Combination of Search Terms",
           "TEXT": "Use special characters for specialized searches: & for AND, | for OR, ! for NOT, (...) to group terms, and \"...\" for exact phrases. Example: (dog | \"white mice\") & !cat",
-          "EXAMPLE": ""
+          "DETAILS": ""
+        },
+        "ORTHOGRAPHY": {
+          "TITLE": "Orthography",
+          "TEXT": "Due to outdated spelling, the stemming algorithm may not process some words correctly, which can result in searches not returning all relevant results. To avoid this issue, you should also search for alternative spellings of your search terms. The following heuristics can be used as a guide:",
+          "DETAILS": "TODO"
         }
       }
     },
@@ -123,7 +131,7 @@
         "TOTAL": "Total search results",
         "VOLUME": "Volume"
       },
-      "NO_RESULT_HINT": "If you expect results but none are found, try repeating your search using alternative spellings of your search terms. You can find tips on this in the 'Search Tips' section on the homepage.",
+      "NO_RESULT_HINT": "If you expect results but none are found, try repeating your search using alternative spellings of your search terms. You can find tips on this in the 'Search Tips' section on search page.",
       "PAGINATION_NOTE": "[page:line] in the Akademie edition",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Full text",

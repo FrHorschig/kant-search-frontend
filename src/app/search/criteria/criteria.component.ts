@@ -6,6 +6,7 @@ import { BasicInputComponent } from './basic-input/basic-input.component';
 import { AdvancedInputComponent } from './advanced-input/advanced-input.component';
 import { CommonModule } from '@angular/common';
 import { ConfigStore } from 'src/app/app/config/config.store';
+import { HintsComponent } from './hints/hints.component';
 
 @Component({
   selector: 'ks-criteria',
@@ -17,6 +18,7 @@ import { ConfigStore } from 'src/app/app/config/config.store';
     NzSpaceModule,
     BasicInputComponent,
     AdvancedInputComponent,
+    HintsComponent,
   ],
 })
 export class CriteriaComponent {

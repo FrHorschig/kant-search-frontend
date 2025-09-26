@@ -1,0 +1,29 @@
+<nz-card>
+  <nz-space class="w-full" nzDirection="vertical" nzSize="middle">
+    <div *nzSpaceItem style="font-size: large">
+      {{ "SEARCH.INPUT.HINTS.HEADER" | translate }}
+    </div>
+
+    <div *nzSpaceItem nz-row class="option-row">
+      <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+        {{ "SEARCH.INPUT.HINTS.OPERATORS.TITLE" | translate }}
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="18">
+        <p>{{ "SEARCH.INPUT.HINTS.OPERATORS.TEXT" | translate }}</p>
+        <p>{{ "SEARCH.INPUT.HINTS.OPERATORS.DETAILS" | translate }}</p>
+      </div>
+    </div>
+
+    <div *nzSpaceItem nz-row class="option-row">
+      <div nz-col [nzXs]="24" [nzSm]="6" class="sub-label">
+        {{ "SEARCH.INPUT.HINTS.ORTHOGRAPHY.TITLE" | translate }}
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="18">
+        <p>{{ "SEARCH.INPUT.HINTS.ORTHOGRAPHY.TEXT" | translate }}</p>
+        <p>{{ "SEARCH.INPUT.HINTS.ORTHOGRAPHY.DETAILS" | translate }}</p>
+      </div>
+    </div>
+  </nz-space>
+</nz-card>

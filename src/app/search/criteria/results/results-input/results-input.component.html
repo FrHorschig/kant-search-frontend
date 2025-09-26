@@ -1,0 +1,31 @@
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+  <input
+    class="w-full"
+    nz-input
+    type="text"
+    [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
+    [ngModel]="searchTerms"
+    (ngModelChange)="onSearchTermsChange($event)"
+    (keyup.enter)="onSubmit()"
+  />
+</nz-input-group>
+
+<ng-template #suffixButton>
+  <button
+    nz-button
+    nzSearch
+    nzType="primary"
+    nzSize="large"
+    [disabled]="searchTerms === ''"
+    (click)="onSubmit()"
+    nz-tooltip
+    [nzTooltipTitle]="
+      searchTerms === ''
+        ? ('SEARCH.RESULTS.BUTTON.DISABLED' | translate)
+        : ('SEARCH.RESULTS.BUTTON.ENABLED' | translate)
+    "
+    nzTooltipPlacement="bottomRight"
+  >
+    <nz-icon nzType="reload" nzTheme="outline" />
+  </button>
+</ng-template>
