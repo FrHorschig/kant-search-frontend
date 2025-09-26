@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TextStore } from './text.store';
 import { ScrollService } from '../../common/service/scroll.service';
-import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
 import { combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';

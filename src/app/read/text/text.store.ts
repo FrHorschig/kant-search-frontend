@@ -211,8 +211,12 @@ export class TextStore extends ComponentStore<TextState> {
   ): string {
     text = text.replaceAll('<ks-meta-page>', '<ks-meta-page>[');
     text = text.replaceAll('</ks-meta-page>', ']</ks-meta-page>');
-    text = text.replaceAll('<ks-meta-fnref>', '<ks-meta-fnref>(');
-    text = text.replaceAll('</ks-meta-fnref>', ')</ks-meta-fnref>');
+    text = text.replace(
+      /<ks-meta-fnref>([0-9]+\.[0-9]+)<\/ks-meta-fnref>/g,
+      (_, fnId) => {
+        return `<ks-meta-fnref><a href="#footnote-${fnId}" id="fnref-${fnId}" onclick="event.preventDefault(); document.getElementById('footnote-${fnId}')?.scrollIntoView({ behavior: 'smooth' });" style="color: #5875a2ff; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">(READ.CONTENT.FN_ABBREV ${fnId})</a></ks-meta-fnref>`;
+      }
+    );
     text = text.replaceAll('<ks-fmt-table>', '<table>');
     text = text.replaceAll('</ks-fmt-table>', '</table>');
     return text.replace(

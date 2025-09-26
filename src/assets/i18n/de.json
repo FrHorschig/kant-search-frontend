@@ -42,7 +42,11 @@
       "SECTION": "Abschnitt",
       "PAGE": "Seite Akademie-Ausgabe"
     },
-    "CONTENT": "Text"
+    "CONTENT": {
+      "HEADER": "Text",
+      "FN": "Fußnote",
+      "FN_ABBREV": "Fn."
+    }
   },
 
   "SEARCH": {

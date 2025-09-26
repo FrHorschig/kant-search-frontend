@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
 import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { emptyHit, Hit } from '../model/search-result';

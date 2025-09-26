@@ -13,7 +13,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { RightLabeledInputComponent } from 'src/app/search/criteria/advanced-input/right-labeled-input/right-labeled-input.component';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { SubscriptionComponent } from 'src/app/common/base/container.component';
+import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzGridModule } from 'ng-zorro-antd/grid';

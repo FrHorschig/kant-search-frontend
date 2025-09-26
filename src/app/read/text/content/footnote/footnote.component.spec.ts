@@ -25,7 +25,7 @@ describe('FootnoteComponent', () => {
     })
       .overrideComponent(FootnoteComponent, {
         set: {
-          imports: [NzFlexModule, TextBlockComponent],
+          imports: [TranslateModule, NzFlexModule, TextBlockComponent],
         },
       })
       .compileComponents();
