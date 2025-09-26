@@ -122,6 +122,7 @@
         "TOTAL": "Gesamtzahl Suchergebnisse",
         "VOLUME": "Band"
       },
+      "NO_RESULT_HINT": "Falls Sie Treffer erwarten, aber keine gefunden werden, probieren Sie, die Suche mit anderen Schreibweisen der Suchbegriffe zu wiederholen. Hinweise dazu finden Sie auf der Startseite im Abschnitt 'Hinweise zur Suche'.",
       "PAGINATION_NOTE": "[Seite:Zeile] in der Akademie-Ausgabe",
       "NAV_FULLTEXT_BTN": {
         "TEXT": "Volltext",

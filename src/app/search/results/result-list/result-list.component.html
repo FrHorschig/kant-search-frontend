@@ -34,3 +34,7 @@
     </div>
   </nz-space>
 </ng-container>
+
+<ng-container *ngIf="hits.length == 0">
+  {{ "SEARCH.RESULTS.NO_RESULT_HINT" | translate }}
+</ng-container>
