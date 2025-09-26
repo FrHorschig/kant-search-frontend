@@ -90,6 +90,15 @@ export class BasicInputComponent {
         this.expandedKeys = Array.from(set);
         event.node?.setExpanded(true);
       }
+    } else {
+      const set = new Set(this.checkedKeys);
+      if (set.has(key)) {
+        set.delete(key);
+        this.checkedKeys = Array.from(set);
+      } else {
+        set.add(key);
+        this.checkedKeys = Array.from(set);
+      }
     }
   }
 
