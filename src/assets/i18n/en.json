@@ -89,7 +89,7 @@
         "STEMMING": {
           "TITLE": "Stemming",
           "LABEL": "Use stemmed texts",
-          "TOOLTIP": "If this switch is activated, the results do not only contain exact hits, but also hits where the stem of the word matches the stem of the search term. Example: Search term 'sagen' (german for 'say') also finds matches with 'sag' and 'sage' (both imperative forms of 'say'). Because the stemms are determined algorithmically and the german language is rather complex, this methods does not work perfectly; 'sagen' for example does not match 'sagte' (past tense, 'said')."
+          "TOOLTIP": "If this switch is activated, the results do not only contain exact hits, but also hits where the stem of the word matches the stem of the search term. Example: Search term 'sagen' (german for 'say') also finds matches with 'sag' and 'sage' (both imperative forms of 'say'). Because the stemms are determined algorithmically and the german language is rather complex, this methods does not work perfectly; 'sagen' for example does not match 'sagte' (past tense, 'said'). NOTE that the stemmer does not work for works in latin."
         },
         "SCOPE": {
           "TITLE": "Search scope",
@@ -127,10 +127,8 @@
         "ENABLED": "Update search",
         "DISABLED": "You must enter at least one search term to update the search"
       },
-      "COUNT": {
-        "TOTAL": "Total search results",
-        "VOLUME": "Volume"
-      },
+      "URL_TOOLTIP": "Alle Suchparameter (Suchbegriffe, Werkauswahl, erweiterte Optionen) sind in der URL codiert. Damit kann man die Parameter speichern, indem man die URL als Lesezeichen speichert. Dieser Button kopiert die URL in die Zwischenablage.",
+      "COUNT": "Total search results",
       "NO_RESULT_HINT": "If you expect results but none are found, try repeating your search using alternative spellings of your search terms. You can find tips on this in the 'Search Tips' section on search page.",
       "PAGINATION_NOTE": "[page:line] in the Akademie edition",
       "NAV_FULLTEXT_BTN": {

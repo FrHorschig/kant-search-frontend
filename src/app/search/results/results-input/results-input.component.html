@@ -1,14 +1,32 @@
-<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-  <input
-    class="w-full"
-    nz-input
-    type="text"
-    [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
-    [ngModel]="searchTerms"
-    (ngModelChange)="onSearchTermsChange($event)"
-    (keyup.enter)="onSubmit()"
-  />
-</nz-input-group>
+<nz-row [nzGutter]="8" align="middle">
+  <nz-col [nzFlex]="1">
+    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+      <input
+        class="w-full"
+        nz-input
+        type="text"
+        [placeholder]="'SEARCH.INPUT.TERMS.PLACEHOLDER' | translate"
+        [ngModel]="searchTerms"
+        (ngModelChange)="onSearchTermsChange($event)"
+        (keyup.enter)="onSubmit()"
+      />
+    </nz-input-group>
+  </nz-col>
+
+  <nz-col [nzFlex]="0">
+    <button
+      nz-button
+      nzType="default"
+      nzSize="large"
+      (click)="onCopyClick()"
+      nz-tooltip
+      [nzTooltipTitle]="'SEARCH.RESULTS.URL_TOOLTIP' | translate"
+      nzTooltipPlacement="bottomRight"
+    >
+      <nz-icon [nzType]="isCopied ? 'check' : 'copy'" nzTheme="outline" />
+    </button>
+  </nz-col>
+</nz-row>
 
 <ng-template #suffixButton>
   <button

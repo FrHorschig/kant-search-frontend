@@ -12,7 +12,12 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ResultsInputComponent } from './results-input.component';
-import { ReloadOutline } from '@ant-design/icons-angular/icons';
+import {
+  CheckOutline,
+  DownloadOutline,
+  ReloadOutline,
+} from '@ant-design/icons-angular/icons';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 describe('ResultsInputComponent', () => {
   let component: ResultsInputComponent;
@@ -27,14 +32,19 @@ describe('ResultsInputComponent', () => {
           loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
         }),
       ],
-      providers: [{ provide: NZ_ICONS, useValue: [ReloadOutline] }],
+      providers: [
+        {
+          provide: NZ_ICONS,
+          useValue: [ReloadOutline, DownloadOutline, CheckOutline],
+        },
+      ],
     })
       .overrideComponent(ResultsInputComponent, {
         set: {
           imports: [
             FormsModule,
             TranslateModule,
-            NzSpaceModule,
+            NzGridModule,
             NzButtonModule,
             NzToolTipModule,
             NzIconModule,
