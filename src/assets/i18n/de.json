@@ -88,7 +88,7 @@
         "STEMMING": {
           "TITLE": "Stemming",
           "LABEL": "Suche mit Wortstämmen",
-          "TOOLTIP": "Bei aktiviertem Schalter enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sage'. Da die Wortstämme durch einen Algorithmus ermittelt werden, und die deutsche Sprache recht komplex ist, funktioniert dieser Algorithmus nicht völlig fehlerfrei; 'sagte' beispielsweise wird beim Suchbegriff 'sagen' nicht gefunden."
+          "TOOLTIP": "Bei aktiviertem Schalter enthalten die Ergebnisse nicht nur Einträge mit exakten Treffern, sondern auch Treffer mit übereinstimmenden Wortstämmen. Beispiel: Suchbegriff 'sagen' findet auch alle Treffer mit 'sag' und 'sage'. Da die Wortstämme durch einen Algorithmus ermittelt werden, und die deutsche Sprache recht komplex ist, funktioniert dieser Algorithmus nicht völlig fehlerfrei; 'sagte' beispielsweise wird beim Suchbegriff 'sagen' nicht gefunden. BEACHTE, dass das Stemming nicht für lateinische Texte funktioniert."
         },
         "SCOPE": {
           "TITLE": "Suchbereich",
@@ -126,10 +126,8 @@
         "ENABLED": "Suche aktualisieren",
         "DISABLED": "Sie müssen mindestens einen Suchbegriff eingeben, um die Suche zu aktualisieren"
       },
-      "COUNT": {
-        "TOTAL": "Gesamtzahl Suchergebnisse",
-        "VOLUME": "Band"
-      },
+      "URL_TOOLTIP": "Alle Suchparameter (Suchbegriffe, Werkauswahl, erweiterte Optionen) sind in der URL codiert. Damit kann man die Parameter speichern, indem man die URL als Lesezeichen speichert. Dieser Button kopiert die URL in die Zwischenablage.",
+      "COUNT": "Gesamtzahl Suchergebnisse",
       "NO_RESULT_HINT": "Falls Sie Treffer erwarten, aber keine gefunden werden, probieren Sie, die Suche mit anderen Schreibweisen der Suchbegriffe zu wiederholen. Hinweise dazu finden Sie auf der Such-Seite im Abschnitt 'Hinweise zur Suche'.",
       "PAGINATION_NOTE": "[Seite:Zeile] in der Akademie-Ausgabe",
       "NAV_FULLTEXT_BTN": {
