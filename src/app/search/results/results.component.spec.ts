@@ -136,7 +136,11 @@ describe('ResultsComponent', () => {
   });
 
   it('should navigate to full text', () => {
-    const input: FullTextInfo = { workCode: 'code', fragment: 'frag' };
+    const input: FullTextInfo = {
+      workCode: 'code',
+      fragment: 'frag',
+      hlWords: ['hlWord'],
+    };
     component.onFullTextNavigation(input);
     expect(mockResultsStore.navigateToFullText).toHaveBeenCalledWith(input);
   });

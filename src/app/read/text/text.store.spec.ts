@@ -18,12 +18,13 @@ import { MockLanguageStore } from 'src/app/common/store/language.store.spec';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { Testdata } from 'src/app/common/test/testdata';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of, Subject } from 'rxjs';
 import { Work } from 'src/app/common/model/model';
-import { TextContent } from './model';
+import { HlInfo, TextContent } from './model';
 import { MockConfigStore } from 'src/app/app/config/config.store.spec';
 import { ConfigStore } from 'src/app/app/config/config.store';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 
 export class MockTextStore {
   work$: Observable<Work> = EMPTY;
@@ -31,6 +32,7 @@ export class MockTextStore {
   headingByOrdinal$: Observable<Map<number, Heading>> = EMPTY;
   footnoteByRef$: Observable<Map<string, Footnote>> = EMPTY;
   summaryByRef$: Observable<Map<string, Summary>> = EMPTY;
+  fragment$: Observable<string> = EMPTY;
   ready$: Observable<boolean> = EMPTY;
 
   loadData = jasmine.createSpy('loadData');
@@ -45,6 +47,8 @@ describe('TextStore', () => {
   let mockConfigStore: MockConfigStore;
   let mockVolumesStore: MockVolumesStore;
   let mockLanguageStore: MockLanguageStore;
+  let fragmentSubject: Subject<string>;
+  let mockRoute: any;
 
   beforeEach(() => {
     readService = createReadServiceSpy();
@@ -53,6 +57,15 @@ describe('TextStore', () => {
     mockConfigStore = new MockConfigStore();
     mockVolumesStore = new MockVolumesStore();
     mockLanguageStore = new MockLanguageStore();
+    fragmentSubject = new Subject<string>();
+    fragmentSubject.next('content-1234');
+    mockRoute = {
+      snapshot: {
+        params: { workCode: 'GMS' },
+      },
+      queryParamMap: of(convertToParamMap({ hlWords: 'w1,w2' })),
+      fragment: fragmentSubject.asObservable(),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -63,6 +76,7 @@ describe('TextStore', () => {
         { provide: ConfigStore, useValue: mockConfigStore },
         { provide: VolumesStore, useValue: mockVolumesStore },
         { provide: LanguageStore, useValue: mockLanguageStore },
+        { provide: ActivatedRoute, useValue: mockRoute },
       ],
     });
 
@@ -93,6 +107,7 @@ describe('TextStore', () => {
       { ordinal: 6, ref: 'fn2', text: 'F2' },
     ];
     const summaries: Summary[] = [{ ordinal: 4, ref: 's1', text: 'S1' }];
+    const hlInfo: HlInfo = { ordinal: 4, words: ['w1', 'w2'] };
 
     const [headByOrd, textContents, fnByRef, summByRef] = store['mapContents'](
       work,
@@ -100,7 +115,8 @@ describe('TextStore', () => {
       paragraphs,
       footnotes,
       summaries,
-      'korporaUrl'
+      'korporaUrl',
+      hlInfo
     );
 
     expect(headByOrd).toHaveSize(2);

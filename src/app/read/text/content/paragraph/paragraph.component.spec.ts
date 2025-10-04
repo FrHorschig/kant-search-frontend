@@ -74,13 +74,27 @@ describe('ParagraphComponent', () => {
 
   it('should find summary', () => {
     component.summByRef = new Map(['sm'].map((s) => [s, Testdata.summary]));
-    const result = component.getSummary('sm');
+    component.paragraph = {
+      isHeading: false,
+      ordinal: 0,
+      text: '',
+      fnRefs: [],
+      summaryRef: 'sm',
+    };
+    const result = component.getSummary();
     expect(result).toEqual(Testdata.summary);
   });
 
   it('should handle unknown summary', () => {
     component.summByRef = new Map(['sm'].map((s) => [s, Testdata.summary]));
-    const result = component.getSummary('other');
+    component.paragraph = {
+      isHeading: false,
+      ordinal: 0,
+      text: '',
+      fnRefs: [],
+      summaryRef: 'other',
+    };
+    const result = component.getSummary();
     expect(errService.logError).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });

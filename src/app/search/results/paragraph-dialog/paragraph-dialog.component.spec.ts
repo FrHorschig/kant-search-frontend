@@ -115,6 +115,7 @@ describe('ParagraphDialogComponent', () => {
     expect(component.navigateEmitter.emit).toHaveBeenCalledWith({
       workCode: Testdata.work.code,
       fragment: 'content-2',
+      hlWords: [],
     });
   });
 });
