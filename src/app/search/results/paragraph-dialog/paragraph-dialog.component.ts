@@ -57,9 +57,15 @@ export class ParagraphDialogComponent implements OnChanges {
   }
 
   onNavigate() {
+    const hlWords =
+      this.hit.fmtTextWithHl
+        .match(/<ks-meta-hit>(.*?)<\/ks-meta-hit>/g)
+        ?.map((match) => match.replace(/<ks-meta-hit>|<\/ks-meta-hit>/g, '')) ||
+      [];
     this.navigateEmitter.emit({
       workCode: this.hit.work.code,
       fragment: `content-${this.hit.ordinal}`,
+      hlWords: hlWords,
     });
   }
 }

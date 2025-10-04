@@ -5,3 +5,8 @@ export interface TextContent {
   readonly fnRefs: string[];
   readonly summaryRef: string | undefined;
 }
+
+export interface HlInfo {
+  readonly ordinal: number;
+  readonly words: string[];
+}

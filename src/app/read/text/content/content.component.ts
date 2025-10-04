@@ -1,6 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { Footnote, Summary } from '@frhorschig/kant-search-api';
-import { TextContent } from '../model';
+import { HlInfo, TextContent } from '../model';
 import { CommonModule } from '@angular/common';
 import { HeadingComponent } from './heading/heading.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -32,6 +32,7 @@ export class ContentComponent {
   @Input() contents: TextContent[] = [];
   @Input() fnByRef: Map<string, Footnote> | null = new Map();
   @Input() summByRef: Map<string, Summary> | null = new Map();
+  @Input() hlInfo: HlInfo | null | undefined = null;
 
   showUpButton = false;
 

@@ -50,14 +50,15 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'not-found',
+        loadComponent: () =>
+          import('../not-found/not-found.component').then(
+            (m) => m.NotFoundComponent
+          ),
+      },
+      { path: '**', redirectTo: 'not-found' },
     ],
   },
-  {
-    path: 'not-found',
-    loadComponent: () =>
-      import('../not-found/not-found.component').then(
-        (m) => m.NotFoundComponent
-      ),
-  },
-  { path: '**', redirectTo: '/not-found' },
+  { path: '**', redirectTo: '/en/not-found' },
 ];
