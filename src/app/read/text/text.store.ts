@@ -9,13 +9,21 @@ import {
   Section,
   Summary,
 } from '@frhorschig/kant-search-api';
-import { EMPTY, forkJoin, switchMap, take, tap, withLatestFrom } from 'rxjs';
+import {
+  EMPTY,
+  forkJoin,
+  map,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
-import { TextContent } from './model';
+import { HlInfo, TextContent } from './model';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { Work } from 'src/app/common/model/model';
 import { LanguageStore } from 'src/app/common/store/language.store';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigStore } from 'src/app/app/config/config.store';
 
 interface TextState {
@@ -24,6 +32,7 @@ interface TextState {
   textContents: TextContent[];
   footnoteByRef: Map<string, Footnote>;
   summaryByRef: Map<string, Summary>;
+  fragment: string | undefined;
   ready: boolean;
 }
 
@@ -31,6 +40,7 @@ interface TextState {
 export class TextStore extends ComponentStore<TextState> {
   constructor(
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly errorService: ErrorService,
     private readonly configStore: ConfigStore,
     private readonly langStore: LanguageStore,
@@ -43,6 +53,7 @@ export class TextStore extends ComponentStore<TextState> {
       textContents: [],
       footnoteByRef: new Map(),
       summaryByRef: new Map(),
+      fragment: undefined,
       ready: false,
     });
   }
@@ -52,10 +63,12 @@ export class TextStore extends ComponentStore<TextState> {
   readonly headingByOrdinal$ = this.select((state) => state.headingByOrdinal);
   readonly footnoteByRef$ = this.select((state) => state.footnoteByRef);
   readonly summaryByRef$ = this.select((state) => state.summaryByRef);
+  readonly fragment$ = this.select((state) => state.fragment);
   readonly ready$ = this.select((state) => state.ready);
 
-  readonly loadData = this.effect<string>((workCode$) =>
-    workCode$.pipe(
+  readonly loadData = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      map(() => this.route.snapshot.params['workCode']),
       tap(() =>
         this.patchState({
           work: undefined,
@@ -63,11 +76,16 @@ export class TextStore extends ComponentStore<TextState> {
           textContents: [],
           footnoteByRef: new Map(),
           summaryByRef: new Map(),
+          fragment: undefined,
           ready: false,
         })
       ),
-      withLatestFrom(this.volStore.workByCode$),
-      switchMap(([workCode, workByCode]) =>
+      withLatestFrom(
+        this.volStore.workByCode$,
+        this.route.queryParamMap.pipe(take(1)),
+        this.route.fragment.pipe(take(1))
+      ),
+      switchMap(([workCode, workByCode, queryParamMap, fragment]) =>
         forkJoin({
           headings: this.readService.getHeadings(workCode),
           footnotes: this.readService.getFootnotes(workCode),
@@ -78,6 +96,11 @@ export class TextStore extends ComponentStore<TextState> {
         }).pipe(
           tapResponse(
             ({ headings, footnotes, paragraphs, summaries, korporaUrl }) => {
+              // TODO extract code to separate service
+              const hlInfo: HlInfo = {
+                words: queryParamMap.get('hlWords')?.split(',') ?? [],
+                ordinal: this.extractOrdinal(fragment),
+              };
               const work = workByCode.get(workCode);
               if (!work) {
                 throw new Error('no work with code ' + workCode + ' found');
@@ -93,9 +116,11 @@ export class TextStore extends ComponentStore<TextState> {
                 paragraphs,
                 footnotes,
                 summaries,
-                korporaUrl
+                korporaUrl,
+                hlInfo
               );
               this.patchState({
+                fragment: fragment ?? undefined,
                 work,
                 headingByOrdinal,
                 textContents,
@@ -126,13 +151,30 @@ export class TextStore extends ComponentStore<TextState> {
     )
   );
 
+  private extractOrdinal(fragment: string | null): number {
+    if (fragment) {
+      const match = fragment.match(/content-(\d+)/);
+      if (match) {
+        return parseInt(match[1], 10);
+      } else {
+        this.errorService.logError(
+          new Error(
+            'Content fragment exists but does not contain a content number.'
+          )
+        );
+      }
+    }
+    return -1;
+  }
+
   private mapContents(
     work: Work,
     heads: Heading[],
     pars: Paragraph[],
     fns: Footnote[],
     summs: Summary[],
-    korporaUrl: string
+    korporaUrl: string,
+    hlInfo: HlInfo
   ): [
     Map<number, Heading>,
     TextContent[],
@@ -143,8 +185,10 @@ export class TextStore extends ComponentStore<TextState> {
       (h) =>
         (h.text = this.makeTextReplacements(
           h.text,
+          h.ordinal,
           work.volumeNumber,
-          korporaUrl
+          korporaUrl,
+          hlInfo
         ))
     );
     const headByOrd = new Map(heads.map((h) => [h.ordinal, h]));
@@ -152,8 +196,10 @@ export class TextStore extends ComponentStore<TextState> {
       (p) =>
         (p.text = this.makeTextReplacements(
           p.text,
+          p.ordinal,
           work.volumeNumber,
-          korporaUrl
+          korporaUrl,
+          hlInfo
         ))
     );
     const parsByOrd = new Map(pars.map((p) => [p.ordinal, p]));
@@ -162,8 +208,10 @@ export class TextStore extends ComponentStore<TextState> {
       (f) =>
         (f.text = this.makeTextReplacements(
           f.text,
+          f.ordinal,
           work.volumeNumber,
-          korporaUrl
+          korporaUrl,
+          hlInfo
         ))
     );
     const fnByRef = new Map(fns.map((f) => [f.ref, f]));
@@ -171,8 +219,10 @@ export class TextStore extends ComponentStore<TextState> {
       (s) =>
         (s.text = this.makeTextReplacements(
           s.text,
+          s.ordinal,
           work.volumeNumber,
-          korporaUrl
+          korporaUrl,
+          hlInfo
         ))
     );
     const summByRef = new Map(summs.map((s) => [s.ref, s]));
@@ -206,8 +256,10 @@ export class TextStore extends ComponentStore<TextState> {
 
   private makeTextReplacements(
     text: string,
+    ordinal: number,
     volNum: number,
-    korporaUrl: string
+    korporaUrl: string,
+    hlInfo: HlInfo
   ): string {
     text = text.replaceAll('<ks-meta-page>', '<ks-meta-page>[');
     text = text.replaceAll('</ks-meta-page>', ']</ks-meta-page>');
@@ -219,7 +271,7 @@ export class TextStore extends ComponentStore<TextState> {
     );
     text = text.replaceAll('<ks-fmt-table>', '<table>');
     text = text.replaceAll('</ks-fmt-table>', '</table>');
-    return text.replace(
+    text = text.replace(
       /<ks-meta-imgref\s+[^>]*src=["']([^"']+)["'][^>]*desc=["']([^"']*)["'][^>]*\/>/g,
       (_match, src, _desc) => {
         const vol = volNum.toString().padStart(2, '0');
@@ -227,6 +279,15 @@ export class TextStore extends ComponentStore<TextState> {
         return `<a href="${fullUrl}" onclick="window.open('${fullUrl}', 'popup', 'width=600,height=400,resizable=yes,scrollbars=yes'); return false;">Link &#x29c9;</a>`;
       }
     );
+    if (hlInfo?.ordinal === ordinal) {
+      hlInfo.words.forEach((word) => {
+        text = text.replace(
+          new RegExp(`\\b${word}\\b`, 'g'),
+          `<ks-fmt-highlight>${word}</ks-fmt-highlight>`
+        );
+      });
+    }
+    return text;
   }
 
   private mapSection(

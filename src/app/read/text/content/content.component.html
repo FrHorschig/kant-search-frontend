@@ -3,17 +3,22 @@
 <div nz-flex nzJustify="center">
   <div class="max-w-paragraph-text">
     @for (c of contents; track c.ordinal) {
-    <ng-container *ngIf="c.isHeading">
-      <ks-heading [heading]="c" [fnByRef]="fnByRef"></ks-heading>
-    </ng-container>
+    <div id="content-{{ c.ordinal }}">
+      @if (c.isHeading) {
+      <ng-container>
+        <ks-heading [heading]="c" [fnByRef]="fnByRef"></ks-heading>
+      </ng-container>
 
-    <ng-container *ngIf="!c.isHeading">
-      <ks-paragraph
-        [paragraph]="c"
-        [fnByRef]="fnByRef"
-        [summByRef]="summByRef"
-      ></ks-paragraph>
-    </ng-container>
+      } @else {
+      <ng-container>
+        <ks-paragraph
+          [paragraph]="c"
+          [fnByRef]="fnByRef"
+          [summByRef]="summByRef"
+        ></ks-paragraph>
+      </ng-container>
+      }
+    </div>
     }
   </div>
 </div>

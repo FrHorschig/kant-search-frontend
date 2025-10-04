@@ -142,8 +142,12 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     info$.pipe(
       withLatestFrom(this.langStore.currentLanguage$),
       tap(([info, lang]) => {
+        const hlWords = [...new Set(info.hlWords || [])].join(',');
         this.router.navigate([lang, 'read', 'text', info.workCode], {
           fragment: info.fragment,
+          queryParams: {
+            hlWords: hlWords,
+          },
         });
         return EMPTY;
       })

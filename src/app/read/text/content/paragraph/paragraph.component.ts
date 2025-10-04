@@ -49,7 +49,8 @@ export class ParagraphComponent {
     return fn;
   }
 
-  getSummary(ref: string): Summary | undefined {
+  getSummary(): Summary | undefined {
+    const ref = this.paragraph.summaryRef;
     const summary = this.summByRef?.get(ref || '');
     if (!summary) {
       this.errService.logError(

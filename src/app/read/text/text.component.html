@@ -15,8 +15,7 @@
       [work]="(work$ | async) ?? defaultWork"
       [headByOrdinal]="headingByOrdinal$ | async"
       (onClickEmitter)="onSectionNavigation($event)"
-    >
-    </ks-read-toc>
+    ></ks-read-toc>
 
     <ks-content
       [contents]="(textContents$ | async) || []"
