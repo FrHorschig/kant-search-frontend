@@ -2,6 +2,7 @@
   <li nz-menu-item nzMatchRouter>
     <a [routerLink]="['/', currentLanguage$ | async, 'start']">
       <nz-icon nzType="home" />
+      {{ "NAVBAR.START" | translate }}
     </a>
   </li>
 
@@ -34,4 +35,5 @@
 
 <ng-template #settingsIcon>
   <nz-icon nzType="setting" nzTheme="outline" />
+  {{ "NAVBAR.LANG.LABEL" | translate }}
 </ng-template>

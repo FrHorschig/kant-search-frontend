@@ -8,10 +8,12 @@
   },
 
   "NAVBAR": {
+    "START": "Startseite",
     "READ": "Lesen",
     "SEARCH": "Suchen",
     "ADMIN": "Admin",
     "LANG": {
+      "LABEL": "Sprache",
       "DE": "Deutsch",
       "EN": "English"
     }
@@ -123,6 +125,7 @@
     },
     "RESULTS": {
       "BUTTON": {
+        "LABEL": "Suche aktualisieren",
         "ENABLED": "Suche aktualisieren",
         "DISABLED": "Sie müssen mindestens einen Suchbegriff eingeben, um die Suche zu aktualisieren"
       },

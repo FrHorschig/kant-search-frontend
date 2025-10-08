@@ -8,10 +8,12 @@
   },
 
   "NAVBAR": {
+    "START": "Start",
     "READ": "Read",
     "SEARCH": "Search",
     "ADMIN": "Admin",
     "LANG": {
+      "LABEL": "Language",
       "DE": "Deutsch",
       "EN": "English"
     }
@@ -124,6 +126,7 @@
     },
     "RESULTS": {
       "BUTTON": {
+        "LABEL": "Update search",
         "ENABLED": "Update search",
         "DISABLED": "You must enter at least one search term to update the search"
       },
