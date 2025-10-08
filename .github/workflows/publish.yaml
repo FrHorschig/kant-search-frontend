@@ -95,13 +95,25 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: collect config files
+        run: |
+          mkdir frontend
+          cp src/assets/config.json frontend
+          cp -r src/assets/i18n frontend
+          cp -r src/assets/startpage frontend
+      - name: zip files
+        run: |
+          zip -r ks-frontend-config.zip frontend
+      - name: download the build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
       - name: create release
         uses: softprops/action-gh-release@v2.0.4
         with:
           tag_name: ${{ github.ref_name }}
           files: |
-            src/assets/config.json
-            src/assets/i18n
-            src/assets/startpage
+            ks-frontend-config.zip 
             dist/3rdpartylicenses.txt
           token: ${{ secrets.GITHUB_TOKEN }}
