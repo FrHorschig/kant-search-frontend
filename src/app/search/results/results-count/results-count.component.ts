@@ -9,7 +9,6 @@ import { SearchResult } from '../../model/search-result';
 @Component({
   selector: 'ks-results-count',
   templateUrl: './results-count.component.html',
-  standalone: true,
   imports: [CommonModule, TranslateModule, NzFlexModule, NzCollapseModule],
 })
 export class ResultsCountComponent {

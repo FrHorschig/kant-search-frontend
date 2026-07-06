@@ -22,7 +22,6 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
   selector: 'ks-advanced-input',
   templateUrl: './advanced-input.component.html',
   styleUrl: './advanced-input.component.less',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

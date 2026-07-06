@@ -12,7 +12,6 @@ import { emptyHit } from 'src/app/search/model/search-result';
   selector: 'ks-result-item',
   templateUrl: './result-item.component.html',
   styleUrl: './result-item.component.less',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

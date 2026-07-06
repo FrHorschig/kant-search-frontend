@@ -23,7 +23,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
   selector: 'app-results',
   templateUrl: './results.component.html',
   providers: [ResultsStore, ScrollService],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,
@@ -57,7 +56,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly volStore: VolumesStore,
     private readonly resultsStore: ResultsStore,
-    private readonly scrollService: ScrollService
+    private readonly scrollService: ScrollService,
   ) {
     super();
   }

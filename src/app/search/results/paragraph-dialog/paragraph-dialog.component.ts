@@ -21,7 +21,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 @Component({
   selector: 'ks-paragraph-dialog',
   templateUrl: './paragraph-dialog.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
     NzFlexModule,

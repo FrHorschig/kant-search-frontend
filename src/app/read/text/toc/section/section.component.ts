@@ -8,7 +8,6 @@ import { ErrorService } from 'src/app/common/service/error.service';
 @Component({
   selector: 'ks-toc-section',
   templateUrl: './section.component.html',
-  standalone: true,
   imports: [CommonModule, TranslateModule, NzFlexModule],
 })
 export class TocSectionComponent {
@@ -24,7 +23,7 @@ export class TocSectionComponent {
     const heading = this.headByOrdinal?.get(ordinal);
     if (!heading) {
       this.errService.logError(
-        new Error('heading with ordinal ' + ordinal + ' not found')
+        new Error('heading with ordinal ' + ordinal + ' not found'),
       );
       return undefined;
     }

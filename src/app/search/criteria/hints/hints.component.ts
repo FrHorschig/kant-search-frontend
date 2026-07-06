@@ -10,7 +10,6 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
   selector: 'ks-hints',
   templateUrl: './hints.component.html',
   styleUrl: './hints.component.less',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

@@ -10,7 +10,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 @Component({
   selector: 'ks-work-info',
   templateUrl: './work-info.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

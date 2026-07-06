@@ -18,7 +18,6 @@ import { NotesComponent } from './notes/notes.component';
   selector: 'ks-text',
   templateUrl: './text.component.html',
   providers: [TextStore, ScrollService],
-  standalone: true,
   imports: [
     CommonModule,
     NzFlexModule,
@@ -46,7 +45,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   constructor(
     private readonly configStore: ConfigStore,
     private readonly store: TextStore,
-    private readonly scrollService: ScrollService
+    private readonly scrollService: ScrollService,
   ) {
     super();
   }
@@ -56,7 +55,7 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
     combineLatest([this.fragment$, this.ready$])
       .pipe(
         this.takeUntilDestroy(),
-        filter(([fragment, ready]) => !!fragment && ready)
+        filter(([fragment, ready]) => !!fragment && ready),
       )
       .subscribe(([fragment, _]) => {
         this.scrollService.scrollToAnchor(fragment ?? '');

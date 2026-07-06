@@ -18,7 +18,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   selector: 'ks-basic-input',
   templateUrl: './basic-input.component.html',
   styleUrl: './basic-input.component.less',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

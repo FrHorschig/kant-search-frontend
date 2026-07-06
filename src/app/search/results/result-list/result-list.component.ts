@@ -11,7 +11,6 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 @Component({
   selector: 'ks-result-list',
   templateUrl: './result-list.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

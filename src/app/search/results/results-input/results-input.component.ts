@@ -11,7 +11,6 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 @Component({
   selector: 'ks-results-input',
   templateUrl: './results-input.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     TranslateModule,
