@@ -15,7 +15,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   selector: 'ks-content',
   templateUrl: './content.component.html',
   styleUrl: './content.component.less',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

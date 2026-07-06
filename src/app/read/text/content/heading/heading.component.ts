@@ -12,7 +12,6 @@ import { ErrorService } from 'src/app/common/service/error.service';
 @Component({
   selector: 'ks-heading',
   templateUrl: './heading.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     NzSpaceModule,
@@ -38,7 +37,7 @@ export class HeadingComponent {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
       this.errService.logError(
-        new Error('no footnote found from reference ' + ref)
+        new Error('no footnote found from reference ' + ref),
       );
       return undefined;
     }

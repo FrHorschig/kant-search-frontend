@@ -5,7 +5,6 @@ import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.
 @Component({
   selector: 'ks-summary',
   templateUrl: './summary.component.html',
-  standalone: true,
   imports: [TextBlockComponent],
 })
 export class SummaryComponent {

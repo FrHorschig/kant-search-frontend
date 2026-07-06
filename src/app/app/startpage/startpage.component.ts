@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'ks-startpage',
   templateUrl: './startpage.component.html',
-  standalone: true,
   imports: [TranslateModule, CommonModule],
 })
 export class StartpageComponent {

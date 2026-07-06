@@ -11,7 +11,6 @@ import { SelectionStore } from './selection.store';
 @Component({
   selector: 'ks-selection',
   templateUrl: './selection.component.html',
-  standalone: true,
   providers: [SelectionStore],
   imports: [CommonModule, TranslateModule, NzSpaceModule, NzTreeModule],
 })
@@ -23,7 +22,7 @@ export class SelectionComponent extends SubscriptionComponent {
   constructor(
     private readonly router: Router,
     private readonly langStore: LanguageStore,
-    private readonly store: SelectionStore
+    private readonly store: SelectionStore,
   ) {
     super();
   }

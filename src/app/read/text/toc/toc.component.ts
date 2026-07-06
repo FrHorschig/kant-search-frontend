@@ -10,7 +10,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 @Component({
   selector: 'ks-read-toc',
   templateUrl: './toc.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

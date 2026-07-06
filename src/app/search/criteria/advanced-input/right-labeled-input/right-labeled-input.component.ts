@@ -10,7 +10,6 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 @Component({
   selector: 'ks-right-labeled-input',
   templateUrl: './right-labeled-input.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

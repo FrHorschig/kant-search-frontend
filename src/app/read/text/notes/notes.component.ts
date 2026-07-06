@@ -7,7 +7,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 @Component({
   selector: 'ks-notes',
   templateUrl: './notes.component.html',
-  standalone: true,
   imports: [CommonModule, TranslateModule, NzDividerModule],
 })
 export class NotesComponent {
