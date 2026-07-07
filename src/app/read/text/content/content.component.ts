@@ -8,7 +8,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ParagraphComponent } from './paragraph/paragraph.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -20,7 +20,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzFlexModule,
     NzDividerModule,
     NzFloatButtonModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzIconModule,
     HeadingComponent,
     ParagraphComponent,

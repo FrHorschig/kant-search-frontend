@@ -14,7 +14,7 @@ import { ParagraphDialogComponent } from './paragraph-dialog.component';
 import { NzFlexDirective, NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
 import { Hit } from '../../model/search-result';
@@ -42,7 +42,7 @@ describe('ParagraphDialogComponent', () => {
             NzSpaceModule,
             NzModalModule,
             NzButtonModule,
-            NzToolTipModule,
+            NzTooltipModule,
             NzIconModule,
             TextBlockComponent,
           ],

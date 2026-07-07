@@ -7,7 +7,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { TranslateModule } from '@ngx-translate/core';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { all, custom } from '../../model/search-options';
@@ -28,8 +28,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzDividerModule,
     NzSelectModule,
     NzInputModule,
-    NzToolTipModule
-],
+    NzTooltipModule,
+  ],
 })
 export class BasicInputComponent {
   @Input() nodes: NzTreeNodeOptions[] = [];

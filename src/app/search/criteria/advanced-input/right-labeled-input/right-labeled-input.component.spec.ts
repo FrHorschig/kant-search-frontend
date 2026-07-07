@@ -8,7 +8,7 @@ import {
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { RightLabeledInputComponent } from './right-labeled-input.component';
 import { CommonModule } from '@angular/common';
@@ -30,12 +30,12 @@ describe('RightLabeledInputComponent', () => {
       .overrideComponent(RightLabeledInputComponent, {
         set: {
           imports: [
-    CommonModule,
+            CommonModule,
             TranslateModule,
             NzFlexModule,
             NzGridModule,
             NzSpaceModule,
-            NzToolTipModule,
+            NzTooltipModule,
             NzIconModule,
           ],
         },

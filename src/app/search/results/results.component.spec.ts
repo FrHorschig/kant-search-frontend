@@ -10,7 +10,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { ResultsInputComponent } from './results-input/results-input.component';
 import { ResultsCountComponent } from './results-count/results-count.component';
 import { ResultListComponent } from './result-list/result-list.component';
@@ -73,7 +73,7 @@ describe('ResultsComponent', () => {
             NzSpaceModule,
             NzFloatButtonModule,
             NzIconModule,
-            NzToolTipModule,
+            NzTooltipModule,
             ResultsInputComponent,
             ResultsCountComponent,
             ResultListComponent,
