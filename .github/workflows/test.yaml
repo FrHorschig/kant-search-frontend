@@ -19,7 +19,7 @@ jobs:
       - name: install packages
         run: npm ci
         env:
-          GITHUB_TOKEN: ${{ secrets.API_PKG_PAT }}
+          GITHUB_NPM_REGISTRY_TOKEN: ${{ secrets.API_PKG_PAT }}
       - name: build application
         run: npm run build
       - name: run tests
