@@ -6,18 +6,17 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'ks-results-input',
   templateUrl: './results-input.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     TranslateModule,
     NzGridModule,
     NzButtonModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzIconModule,
     NzInputModule,
   ],

@@ -13,7 +13,7 @@ import { ResultListComponent } from './result-list/result-list.component';
 import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.component';
 import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResultsCountComponent } from './results-count/results-count.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -23,7 +23,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
   selector: 'app-results',
   templateUrl: './results.component.html',
   providers: [ResultsStore, ScrollService],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,
@@ -31,7 +30,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzSpaceModule,
     NzFloatButtonModule,
     NzIconModule,
-    NzToolTipModule,
+    NzTooltipModule,
     ResultsInputComponent,
     ResultsCountComponent,
     ResultListComponent,
@@ -57,7 +56,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly volStore: VolumesStore,
     private readonly resultsStore: ResultsStore,
-    private readonly scrollService: ScrollService
+    private readonly scrollService: ScrollService,
   ) {
     super();
   }
@@ -98,7 +97,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.navigateToFullText(info);
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   onWindowScroll() {
     this.showUpButton = window.scrollY > 200;
   }

@@ -8,7 +8,7 @@ import {
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ResultsInputComponent } from './results-input.component';
@@ -46,7 +46,7 @@ describe('ResultsInputComponent', () => {
             TranslateModule,
             NzGridModule,
             NzButtonModule,
-            NzToolTipModule,
+            NzTooltipModule,
             NzIconModule,
             NzInputModule,
           ],

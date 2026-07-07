@@ -12,7 +12,6 @@ import { HintsComponent } from './hints/hints.component';
   selector: 'ks-criteria',
   templateUrl: './criteria.component.html',
   providers: [CriteriaStore],
-  standalone: true,
   imports: [
     CommonModule,
     NzSpaceModule,
@@ -33,7 +32,7 @@ export class CriteriaComponent {
 
   constructor(
     private readonly configStore: ConfigStore,
-    private readonly store: CriteriaStore
+    private readonly store: CriteriaStore,
   ) {}
 
   onSearchTermsChange(searchTerms: string) {

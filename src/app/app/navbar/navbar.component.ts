@@ -10,7 +10,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 @Component({
   selector: 'ks-navbar',
   templateUrl: './navbar.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     RouterLink,

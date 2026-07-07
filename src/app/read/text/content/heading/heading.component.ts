@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Footnote } from '@frhorschig/kant-search-api';
 import { TextContent } from '../../model';
-import { CommonModule } from '@angular/common';
+
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -12,15 +12,13 @@ import { ErrorService } from 'src/app/common/service/error.service';
 @Component({
   selector: 'ks-heading',
   templateUrl: './heading.component.html',
-  standalone: true,
   imports: [
-    CommonModule,
     NzSpaceModule,
     NzTreeModule,
     NzCardModule,
     TextBlockComponent,
-    FootnoteComponent,
-  ],
+    FootnoteComponent
+],
 })
 export class HeadingComponent {
   @Input() heading: TextContent = {
@@ -38,7 +36,7 @@ export class HeadingComponent {
     const fn = this.fnByRef?.get(ref || '');
     if (!fn) {
       this.errService.logError(
-        new Error('no footnote found from reference ' + ref)
+        new Error('no footnote found from reference ' + ref),
       );
       return undefined;
     }

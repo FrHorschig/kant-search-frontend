@@ -1,3 +1,5 @@
 <div nz-flex nzJustify="center">
-  <div class="max-w-base" *ngIf="ready$()" [innerHtml]="page$()"></div>
+  @if (ready$()) {
+    <div class="max-w-base" [innerHtml]="page$()"></div>
+  }
 </div>

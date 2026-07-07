@@ -15,11 +15,11 @@ jobs:
       - name: set up node
         uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 26
       - name: install packages
         run: npm ci
         env:
-          GITHUB_TOKEN: ${{ secrets.API_PKG_PAT }}
+          GITHUB_NPM_REGISTRY_TOKEN: ${{ secrets.API_PKG_PAT }}
       - name: build application
         run: npm run build
       - name: run tests

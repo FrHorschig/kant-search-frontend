@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyWork, Work } from 'src/app/common/model/model';
@@ -10,15 +10,13 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 @Component({
   selector: 'ks-work-info',
   templateUrl: './work-info.component.html',
-  standalone: true,
   imports: [
-    CommonModule,
     TranslateModule,
     NzGridModule,
     NzSpaceModule,
     NzDividerModule,
-    NzTypographyModule,
-  ],
+    NzTypographyModule
+],
 })
 export class WorkInfoComponent {
   @Input() work: Work = emptyWork;

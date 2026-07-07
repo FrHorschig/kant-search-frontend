@@ -8,7 +8,6 @@ import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.
   selector: 'ks-footnote',
   templateUrl: './footnote.component.html',
   styleUrl: './footnote.component.less',
-  standalone: true,
   imports: [TranslateModule, NzFlexModule, TextBlockComponent],
 })
 export class FootnoteComponent {

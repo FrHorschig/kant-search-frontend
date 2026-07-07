@@ -14,7 +14,7 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/core/tree';
 import { Component } from '@angular/core';
@@ -57,7 +57,7 @@ describe('BasicInputComponent', () => {
             NzCardModule,
             NzSelectModule,
             NzInputModule,
-            NzToolTipModule,
+            NzTooltipModule,
           ],
         },
       })
@@ -96,7 +96,7 @@ describe('BasicInputComponent', () => {
     expect(component.checkedKeys).toContain('KRV_A');
     expect(component.checkedKeys).toContain('KRV_B');
     expect(component.workCodesEmitter.emit).toHaveBeenCalledWith(
-      component.checkedKeys
+      component.checkedKeys,
     );
   });
 

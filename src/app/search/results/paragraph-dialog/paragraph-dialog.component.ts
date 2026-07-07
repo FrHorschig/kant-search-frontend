@@ -14,21 +14,20 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TextBlockComponent } from 'src/app/common/shared/text-block/text-block.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'ks-paragraph-dialog',
   templateUrl: './paragraph-dialog.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
     NzFlexModule,
     NzSpaceModule,
     NzModalModule,
     NzButtonModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzIconModule,
     TextBlockComponent,
   ],

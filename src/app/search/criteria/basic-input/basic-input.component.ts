@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent, NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
-import { CommonModule } from '@angular/common';
+
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { TranslateModule } from '@ngx-translate/core';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { all, custom } from '../../model/search-options';
@@ -18,9 +18,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   selector: 'ks-basic-input',
   templateUrl: './basic-input.component.html',
   styleUrl: './basic-input.component.less',
-  standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     TranslateModule,
     NzSpaceModule,
@@ -30,7 +28,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzDividerModule,
     NzSelectModule,
     NzInputModule,
-    NzToolTipModule,
+    NzTooltipModule,
   ],
 })
 export class BasicInputComponent {
