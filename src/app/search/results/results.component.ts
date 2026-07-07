@@ -13,7 +13,7 @@ import { ResultListComponent } from './result-list/result-list.component';
 import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.component';
 import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResultsCountComponent } from './results-count/results-count.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -30,7 +30,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzSpaceModule,
     NzFloatButtonModule,
     NzIconModule,
-    NzToolTipModule,
+    NzTooltipModule,
     ResultsInputComponent,
     ResultsCountComponent,
     ResultListComponent,
