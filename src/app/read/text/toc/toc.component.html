@@ -1,22 +1,19 @@
-<ng-container *ngIf="work.sections.length > 0">
+@if (work.sections.length > 0) {
   <nz-divider [nzText]="'READ.TOC.HEADER' | translate"></nz-divider>
-
   <div nz-flex nzJustify="space-between">
     <div style="margin-left: 4px">
       <b>{{ "READ.TOC.SECTION" | translate }}</b>
     </div>
-
     <div style="margin-right: 4px">
       <b>{{ "READ.TOC.PAGE" | translate }}</b>
     </div>
   </div>
-
   @for (sec of work.sections; track sec.heading) {
-  <ks-toc-section
-    [level]="0"
-    [section]="sec"
-    [headByOrdinal]="headByOrdinal"
-    (onClickEmitter)="onClick($event)"
-  ></ks-toc-section>
+    <ks-toc-section
+      [level]="0"
+      [section]="sec"
+      [headByOrdinal]="headByOrdinal"
+      (onClickEmitter)="onClick($event)"
+    ></ks-toc-section>
   }
-</ng-container>
+}

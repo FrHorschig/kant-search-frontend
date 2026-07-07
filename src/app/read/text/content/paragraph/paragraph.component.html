@@ -1,13 +1,14 @@
 <div class="paragraph-wrapper">
-  <ks-summary
-    class="floating-summary"
-    *ngIf="paragraph.summaryRef"
-    [summary]="getSummary()"
-  ></ks-summary>
+  @if (paragraph.summaryRef) {
+    <ks-summary
+      class="floating-summary"
+      [summary]="getSummary()"
+    ></ks-summary>
+  }
 
   <ks-text-block [text]="paragraph.text"></ks-text-block>
 </div>
 
 @for (fnRef of paragraph.fnRefs; track fnRef) {
-<ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
+  <ks-footnote [footnote]="getFn(fnRef)"></ks-footnote>
 }

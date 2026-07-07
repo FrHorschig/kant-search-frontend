@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -11,14 +11,13 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   selector: 'ks-right-labeled-input',
   templateUrl: './right-labeled-input.component.html',
   imports: [
-    CommonModule,
     TranslateModule,
     NzFlexModule,
     NzGridModule,
     NzSpaceModule,
     NzToolTipModule,
-    NzIconModule,
-  ],
+    NzIconModule
+],
 })
 export class RightLabeledInputComponent {
   @Input() idString = '';

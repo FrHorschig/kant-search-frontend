@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Hit } from '../../model/search-result';
-import { CommonModule } from '@angular/common';
+
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -12,14 +12,13 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   selector: 'ks-result-list',
   templateUrl: './result-list.component.html',
   imports: [
-    CommonModule,
     TranslateModule,
     NzFlexModule,
     NzSpaceModule,
     NzPaginationModule,
     NzDividerModule,
-    ResultItemComponent,
-  ],
+    ResultItemComponent
+],
 })
 export class ResultListComponent {
   private _hits: Hit[] = [];

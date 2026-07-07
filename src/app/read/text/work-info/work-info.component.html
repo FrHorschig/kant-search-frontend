@@ -16,14 +16,14 @@
     </div>
     <div nz-col nzSpan="20">
       {{
-        "COMMON.VOL_WORK_TITLE"
-          | translate
-            : { volumeNumber: work.volumeNumber, title: work.volumeTitle }
+      "COMMON.VOL_WORK_TITLE"
+      | translate
+      : { volumeNumber: work.volumeNumber, title: work.volumeTitle }
       }}
     </div>
   </div>
 
-  <ng-container *ngIf="work.siglum">
+  @if (work.siglum) {
     <div *nzSpaceItem nz-row>
       <div nz-col nzSpan="4">
         {{ "READ.INFO.SIGLUM" | translate }}
@@ -32,7 +32,7 @@
         {{ work.siglum }}
       </div>
     </div>
-  </ng-container>
+  }
 
   <div *nzSpaceItem nz-row>
     <div nz-col nzSpan="4">

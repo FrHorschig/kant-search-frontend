@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Footnote, Summary } from '@frhorschig/kant-search-api';
 import { TextContent } from '../../model';
-import { CommonModule } from '@angular/common';
+
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -15,14 +15,13 @@ import { ErrorService } from 'src/app/common/service/error.service';
   templateUrl: './paragraph.component.html',
   styleUrl: './paragraph.component.less',
   imports: [
-    CommonModule,
     NzSpaceModule,
     NzTreeModule,
     NzCardModule,
     TextBlockComponent,
     FootnoteComponent,
-    SummaryComponent,
-  ],
+    SummaryComponent
+],
 })
 export class ParagraphComponent {
   @Input() paragraph: TextContent = {
