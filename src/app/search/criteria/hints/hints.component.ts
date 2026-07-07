@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,12 +11,11 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
   templateUrl: './hints.component.html',
   styleUrl: './hints.component.less',
   imports: [
-    CommonModule,
     FormsModule,
     TranslateModule,
     NzGridModule,
     NzSpaceModule,
-    NzCardModule,
-  ],
+    NzCardModule
+],
 })
 export class HintsComponent {}

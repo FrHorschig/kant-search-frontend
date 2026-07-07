@@ -1,27 +1,26 @@
 <div nz-flex nzJustify="center">
-  <ng-container *ngIf="!(ready$ | async)">
+  @if (!(ready$ | async)) {
     <nz-icon nzType="loading" nzTheme="outline" style="font-size: 48px" />
-  </ng-container>
+  }
 
-  <div *ngIf="ready$ | async">
-    <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
-
-    <ks-notes
-      [work]="(work$ | async) ?? defaultWork"
-      [korporaUrl]="(korporaUrl$ | async) ?? ''"
-    ></ks-notes>
-
-    <ks-read-toc
-      [work]="(work$ | async) ?? defaultWork"
-      [headByOrdinal]="headingByOrdinal$ | async"
-      (onClickEmitter)="onSectionNavigation($event)"
-    ></ks-read-toc>
-
-    <ks-content
-      [contents]="(textContents$ | async) || []"
-      [fnByRef]="footnoteByRef$ | async"
-      [summByRef]="summaryByRef$ | async"
-    >
-    </ks-content>
-  </div>
+  @if (ready$ | async) {
+    <div>
+      <ks-work-info [work]="(work$ | async) ?? defaultWork"></ks-work-info>
+      <ks-notes
+        [work]="(work$ | async) ?? defaultWork"
+        [korporaUrl]="(korporaUrl$ | async) ?? ''"
+      ></ks-notes>
+      <ks-read-toc
+        [work]="(work$ | async) ?? defaultWork"
+        [headByOrdinal]="headingByOrdinal$ | async"
+        (onClickEmitter)="onSectionNavigation($event)"
+      ></ks-read-toc>
+      <ks-content
+        [contents]="(textContents$ | async) || []"
+        [fnByRef]="footnoteByRef$ | async"
+        [summByRef]="summaryByRef$ | async"
+        >
+      </ks-content>
+    </div>
+  }
 </div>

@@ -1,7 +1,7 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { Footnote, Summary } from '@frhorschig/kant-search-api';
 import { HlInfo, TextContent } from '../model';
-import { CommonModule } from '@angular/common';
+
 import { HeadingComponent } from './heading/heading.component';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -16,7 +16,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   templateUrl: './content.component.html',
   styleUrl: './content.component.less',
   imports: [
-    CommonModule,
     TranslateModule,
     NzFlexModule,
     NzDividerModule,
@@ -35,7 +34,7 @@ export class ContentComponent {
 
   showUpButton = false;
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   onWindowScroll() {
     this.showUpButton = window.scrollY > 200;
   }

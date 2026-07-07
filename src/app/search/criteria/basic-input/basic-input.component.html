@@ -4,7 +4,7 @@
     nzSearch
     nzSize="large"
     [nzAddOnAfter]="suffixButton"
-  >
+    >
     <input
       class="w-full"
       nz-input
@@ -13,7 +13,7 @@
       (ngModelChange)="onSearchTermsChange($event)"
       (keyup.enter)="onSubmit()"
       type="text"
-    />
+      />
   </nz-input-group>
 
   <nz-card *nzSpaceItem>
@@ -31,24 +31,24 @@
         [ngModel]="group"
         (ngModelChange)="onSelectChange($event)"
         [disabled]="nodes.length === 0"
-      >
+        >
         @for (wg of workGroups; track wg.translateString) {
-        <nz-option
+          <nz-option
           [nzLabel]="
             'SEARCH.INPUT.WORKS.SELECT.OPTIONS.' + wg.translateString
               | translate
           "
-          [nzValue]="wg"
-        ></nz-option>
+            [nzValue]="wg"
+          ></nz-option>
         }
       </nz-select>
     </div>
 
-    <ng-container *ngIf="nodes.length === 0">
+    @if (nodes.length === 0) {
       {{ "SEARCH.INPUT.WORKS.NO_VOLUMES" | translate }}
-    </ng-container>
+    }
 
-    <ng-container *ngIf="nodes.length > 0">
+    @if (nodes.length > 0) {
       <nz-tree
         nzCheckable
         [nzData]="nodes"
@@ -57,7 +57,7 @@
         [nzExpandedKeys]="expandedKeys"
         (nzClick)="onNodeClick($event)"
       ></nz-tree>
-    </ng-container>
+    }
   </nz-card>
 </nz-space>
 
@@ -74,7 +74,7 @@
       !canSearch ? ('SEARCH.INPUT.TERMS.BUTTON.TOOLTIP' | translate) : ''
     "
     nzTooltipPlacement="bottomRight"
-  >
+    >
     {{ "SEARCH.INPUT.TERMS.BUTTON.LABEL" | translate }}
   </button>
 </ng-template>

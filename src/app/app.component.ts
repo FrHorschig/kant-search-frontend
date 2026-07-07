@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { VolumesStore } from './common/store/volumes.store';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
@@ -10,12 +10,11 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   selector: 'ks-root',
   styleUrl: './app.component.less',
   imports: [
-    CommonModule,
     RouterModule,
     NavbarComponent,
     NzFlexModule,
-    NzSpaceModule,
-  ],
+    NzSpaceModule
+],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
@@ -9,7 +9,7 @@ import { SearchResult } from '../../model/search-result';
 @Component({
   selector: 'ks-results-count',
   templateUrl: './results-count.component.html',
-  imports: [CommonModule, TranslateModule, NzFlexModule, NzCollapseModule],
+  imports: [TranslateModule, NzFlexModule, NzCollapseModule],
 })
 export class ResultsCountComponent {
   @Input() results: SearchResult[] = [];

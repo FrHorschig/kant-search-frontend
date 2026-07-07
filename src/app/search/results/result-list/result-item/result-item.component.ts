@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -13,14 +13,13 @@ import { emptyHit } from 'src/app/search/model/search-result';
   templateUrl: './result-item.component.html',
   styleUrl: './result-item.component.less',
   imports: [
-    CommonModule,
     TranslateModule,
     NzFlexModule,
     NzSpaceModule,
     NzCardModule,
     NzToolTipModule,
-    TextBlockComponent,
-  ],
+    TextBlockComponent
+],
 })
 export class ResultItemComponent {
   @Input() hit = emptyHit;

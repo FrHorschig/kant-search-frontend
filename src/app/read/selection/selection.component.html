@@ -1,17 +1,14 @@
-<ng-container *ngIf="ready$ | async">
+@if (ready$ | async) {
   <nz-space nzDirection="vertical" class="w-full">
     <div *nzSpaceItem></div>
-
     <h2 *nzSpaceItem nz-typography>
       {{ "READ.SELECTION.HEADER" | translate }}
     </h2>
-
-    <ng-container *ngIf="((nodes$ | async) ?? []).length === 0">
+    @if (((nodes$ | async) ?? []).length === 0) {
       <div *nzSpaceItem>
         {{ "READ.SELECTION.NO_WORKS" | translate }}
       </div>
-    </ng-container>
-
+    }
     <nz-tree
       *nzSpaceItem
       [nzData]="(nodes$ | async) ?? []"
@@ -19,4 +16,4 @@
       (nzClick)="onNodeClick($event)"
     ></nz-tree>
   </nz-space>
-</ng-container>
+}

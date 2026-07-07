@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { StartpageStore } from './startpage.store';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'ks-startpage',
   templateUrl: './startpage.component.html',
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule],
 })
 export class StartpageComponent {
   page$ = this.store.page$;

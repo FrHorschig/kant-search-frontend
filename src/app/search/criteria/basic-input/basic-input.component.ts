@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent, NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
-import { CommonModule } from '@angular/common';
+
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -19,7 +19,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   templateUrl: './basic-input.component.html',
   styleUrl: './basic-input.component.less',
   imports: [
-    CommonModule,
     FormsModule,
     TranslateModule,
     NzSpaceModule,
@@ -29,8 +28,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzDividerModule,
     NzSelectModule,
     NzInputModule,
-    NzToolTipModule,
-  ],
+    NzToolTipModule
+],
 })
 export class BasicInputComponent {
   @Input() nodes: NzTreeNodeOptions[] = [];

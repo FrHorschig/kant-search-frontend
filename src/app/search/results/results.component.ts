@@ -97,7 +97,7 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
     this.resultsStore.navigateToFullText(info);
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   onWindowScroll() {
     this.showUpButton = window.scrollY > 200;
   }
