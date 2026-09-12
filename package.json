@@ -1,6 +1,6 @@
 {
   "name": "kant-search-frontend",
-  "version": "1.1.0",
+  "version": "1.1.0a",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
