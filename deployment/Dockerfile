@@ -8,4 +8,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY ./deployment/frontend.conf /etc/nginx/conf.d/default.conf
 COPY ./dist/browser/ /usr/share/nginx/html/
 
+COPY ./deployment/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
