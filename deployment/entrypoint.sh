@@ -9,7 +9,7 @@ case "$BASE_PATH" in
     *) BASE_PATH="/${BASE_PATH}/" ;;
 esac
 
-sed -i "s|__BASE_PATH_:|${BASE_PATH}|g" \
+sed -i "s|__BASE_PATH__:|${BASE_PATH}|g" \
     /usr/share/nginx/html/index.html
 
 exec nginx -g 'daemon off;'
