@@ -3,7 +3,7 @@ import { ReadService, Volume } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { EMPTY } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import { filter, mergeMap, tap } from 'rxjs/operators';
 import { Work } from 'src/app/common/model/model';
 import { ErrorService } from 'src/app/common/service/error.service';
 
@@ -17,7 +17,7 @@ interface VolumesState {
 export class VolumesStore extends ComponentStore<VolumesState> {
   constructor(
     private errorService: ErrorService,
-    private readService: ReadService
+    private readService: ReadService,
   ) {
     super({
       volumes: [],
@@ -27,13 +27,19 @@ export class VolumesStore extends ComponentStore<VolumesState> {
   }
 
   readonly volumes$ = this.select((state) => state.volumes);
-  readonly workByCode$ = this.select((state) => state.workByCode);
+  readonly workByCode$ = this.select(this.state$, (state) =>
+    state.isLoaded ? state.workByCode : undefined,
+  ).pipe(filter((workByCode): workByCode is Map<string, Work> => !!workByCode));
   readonly isLoaded$ = this.select((state) => state.isLoaded);
 
   readonly loadData = this.effect<void>((trigger) =>
     trigger.pipe(
       tap(() =>
-        this.patchState({ volumes: [], workByCode: new Map(), isLoaded: false })
+        this.patchState({
+          volumes: [],
+          workByCode: new Map(),
+          isLoaded: false,
+        }),
       ),
       mergeMap(() =>
         this.readService.getVolumes().pipe(
@@ -52,8 +58,8 @@ export class VolumesStore extends ComponentStore<VolumesState> {
                           volumeTitle: v.title,
                         },
                       ];
-                    })
-                  )
+                    }),
+                  ),
                 ),
                 isLoaded: true,
               });
@@ -62,10 +68,10 @@ export class VolumesStore extends ComponentStore<VolumesState> {
               this.errorService.logError(err);
               this.patchState({ isLoaded: true });
               return EMPTY;
-            }
-          )
-        )
-      )
-    )
+            },
+          ),
+        ),
+      ),
+    ),
   );
 }
