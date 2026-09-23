@@ -12,13 +12,20 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ApiModule } from '@frhorschig/kant-search-api';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { LanguageStore } from './common/store/language.store';
 import { routes } from './app/config/routes';
 import { ConfigStore } from './app/config/config.store';
 
 export const appProviders = [
   provideRouter(routes),
+  provideRouter(
+    routes,
+    withInMemoryScrolling({
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'enabled',
+    }),
+  ),
   provideHttpClient(withInterceptorsFromDi()),
   provideAnimations(),
   importProvidersFrom(ApiModule),
