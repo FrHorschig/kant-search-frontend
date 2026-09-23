@@ -1,8 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
 import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
-import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { emptyHit, Hit } from '../model/search-result';
 import { ResultsStore } from './results.store';
@@ -21,7 +18,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  providers: [ResultsStore, ScrollService],
+  providers: [ResultsStore],
   imports: [
     CommonModule,
     TranslateModule,
@@ -50,23 +47,12 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
   isInit = true;
   previousAnchor = '';
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly resultsStore: ResultsStore,
-    private readonly scrollService: ScrollService,
-  ) {
+  constructor(private readonly resultsStore: ResultsStore) {
     super();
   }
 
   ngOnInit() {
     this.resultsStore.search();
-    combineLatest([this.route.fragment, this.ready$])
-      .pipe(this.takeUntilDestroy())
-      .subscribe(([fragment, isLoaded]) => {
-        if (fragment && isLoaded) {
-          this.scrollService.scrollToAnchor(fragment);
-        }
-      });
   }
 
   onSearchTermsChange(searchTerms: string) {

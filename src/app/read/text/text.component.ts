@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TextStore } from './text.store';
-import { ScrollService } from '../../common/service/scroll.service';
 import { SubscriptionComponent } from 'src/app/common/base/subscription.component';
 import { combineLatest, filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,7 @@ import { NotesComponent } from './notes/notes.component';
 @Component({
   selector: 'ks-text',
   templateUrl: './text.component.html',
-  providers: [TextStore, ScrollService],
+  providers: [TextStore],
   imports: [
     CommonModule,
     NzFlexModule,
@@ -45,21 +44,16 @@ export class TextComponent extends SubscriptionComponent implements OnInit {
   constructor(
     private readonly configStore: ConfigStore,
     private readonly store: TextStore,
-    private readonly scrollService: ScrollService,
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.store.loadData();
-    combineLatest([this.fragment$, this.ready$])
-      .pipe(
-        this.takeUntilDestroy(),
-        filter(([fragment, ready]) => !!fragment && ready),
-      )
-      .subscribe(([fragment, _]) => {
-        this.scrollService.scrollToAnchor(fragment ?? '');
-      });
+    combineLatest([this.fragment$, this.ready$]).pipe(
+      this.takeUntilDestroy(),
+      filter(([fragment, ready]) => !!fragment && ready),
+    );
   }
 
   onSectionNavigation(ordinal: number) {

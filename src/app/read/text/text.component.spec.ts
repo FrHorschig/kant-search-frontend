@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TextComponent } from './text.component';
 import { TextStore } from './text.store';
-import { ScrollService } from '../../common/service/scroll.service';
-import { createScrollServiceSpy } from 'src/app/common/test/services';
 import { MockTextStore } from './text.store.spec';
 import { MockConfigStore } from 'src/app/app/config/config.store.spec';
 import { ConfigStore } from 'src/app/app/config/config.store';
@@ -12,19 +10,16 @@ describe('TextComponent', () => {
   let fixture: ComponentFixture<TextComponent>;
   let mockConfigStore: MockConfigStore;
   let mockTextStore: MockTextStore;
-  let mockScrollService: jasmine.SpyObj<ScrollService>;
 
   beforeEach(() => {
     mockConfigStore = new MockConfigStore();
     mockTextStore = new MockTextStore();
-    mockScrollService = createScrollServiceSpy();
 
     TestBed.configureTestingModule({
       imports: [TextComponent],
     })
       .overrideProvider(ConfigStore, { useValue: mockConfigStore })
-      .overrideProvider(TextStore, { useValue: mockTextStore })
-      .overrideProvider(ScrollService, { useValue: mockScrollService });
+      .overrideProvider(TextStore, { useValue: mockTextStore });
 
     fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;

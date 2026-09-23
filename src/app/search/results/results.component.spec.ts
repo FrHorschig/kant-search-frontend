@@ -17,11 +17,9 @@ import { ResultListComponent } from './result-list/result-list.component';
 import { ParagraphDialogComponent } from './paragraph-dialog/paragraph-dialog.component';
 import { ResultsComponent } from './results.component';
 import { VolumesStore } from 'src/app/common/store/volumes.store';
-import { createScrollServiceSpy } from 'src/app/common/test/services';
 import { MockVolumesStore } from 'src/app/common/store/volumes.store.spec';
 import { ResultsStore } from './results.store';
 import { MockResultsStore } from './results.store.spec';
-import { ScrollService } from 'src/app/common/service/scroll.service';
 import { Subject } from 'rxjs';
 import { emptyHit, Hit } from '../model/search-result';
 import { Testdata } from 'src/app/common/test/testdata';
@@ -34,7 +32,6 @@ describe('ResultsComponent', () => {
   let mockRoute: any;
   let mockVolumesStore: MockVolumesStore;
   let mockResultsStore: MockResultsStore;
-  let mockScrollService: jasmine.SpyObj<ScrollService>;
 
   beforeEach(async () => {
     mockResultsStore = new MockResultsStore();
@@ -47,7 +44,6 @@ describe('ResultsComponent', () => {
     };
     mockVolumesStore = new MockVolumesStore();
     mockResultsStore = new MockResultsStore();
-    mockScrollService = createScrollServiceSpy();
 
     await TestBed.configureTestingModule({
       imports: [
@@ -63,7 +59,6 @@ describe('ResultsComponent', () => {
       ],
     })
       .overrideProvider(ResultsStore, { useValue: mockResultsStore })
-      .overrideProvider(ScrollService, { useValue: mockScrollService })
       .overrideComponent(ResultsComponent, {
         set: {
           imports: [
