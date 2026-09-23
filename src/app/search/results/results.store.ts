@@ -72,9 +72,21 @@ export class ResultsStore extends ComponentStore<ResultsState> {
       ),
       switchMap(([params, criteria]) =>
         this.searchService.search(criteria).pipe(
-          withLatestFrom(this.volStore.workByCode$, this.route.fragment),
+          switchMap((results) =>
+            this.volStore.isLoaded$.pipe(
+              filter(Boolean),
+              take(1),
+              switchMap(() =>
+                this.volStore.workByCode$.pipe(
+                  take(1),
+                  map((workByCode) => ({ results, workByCode })),
+                ),
+              ),
+            ),
+          ),
+          withLatestFrom(this.route.fragment),
           tapResponse(
-            ([results, workByCode, fragment]) => {
+            ([{ results, workByCode }, fragment]) => {
               const pageMatch = fragment?.match(/^page(\d+)$/);
               const [mapped, hits] = this.mapResults(
                 params.get('sort'),
