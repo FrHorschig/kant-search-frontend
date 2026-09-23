@@ -6,7 +6,6 @@ import { ScrollService } from 'src/app/common/service/scroll.service';
 import { FullTextInfo } from '../model/full-text-info';
 import { emptyHit, Hit } from '../model/search-result';
 import { ResultsStore } from './results.store';
-import { VolumesStore } from 'src/app/common/store/volumes.store';
 import { CommonModule } from '@angular/common';
 import { ResultsInputComponent } from './results-input/results-input.component';
 import { ResultListComponent } from './result-list/result-list.component';
@@ -38,7 +37,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
   ],
 })
 export class ResultsComponent extends SubscriptionComponent implements OnInit {
-  workByCode$ = this.volStore.workByCode$;
   searchTerms$ = this.resultsStore.searchTerms$;
   results$ = this.resultsStore.results$;
   hits$ = this.resultsStore.hits$;
@@ -54,7 +52,6 @@ export class ResultsComponent extends SubscriptionComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly volStore: VolumesStore,
     private readonly resultsStore: ResultsStore,
     private readonly scrollService: ScrollService,
   ) {
