@@ -9,7 +9,7 @@ import {
 } from '@frhorschig/kant-search-api';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { EMPTY, filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, filter, map, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { ErrorService } from 'src/app/common/service/error.service';
 import { LanguageStore } from 'src/app/common/store/language.store';
 import { FullTextInfo } from '../model/full-text-info';
@@ -39,7 +39,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     private readonly errorService: ErrorService,
     private readonly langStore: LanguageStore,
     private readonly volStore: VolumesStore,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
   ) {
     super({
       searchTerms: '',
@@ -68,7 +68,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           hits: [],
           page: 1,
           ready: false,
-        })
+        }),
       ),
       switchMap(([params, criteria]) =>
         this.searchService.search(criteria).pipe(
@@ -79,7 +79,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
               const [mapped, hits] = this.mapResults(
                 params.get('sort'),
                 results ?? [],
-                workByCode
+                workByCode,
               );
               this.patchState({
                 results: mapped,
@@ -92,11 +92,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
               this.errorService.logError(err);
               this.patchState({ ready: true });
               return EMPTY;
-            }
-          )
-        )
-      )
-    )
+            },
+          ),
+        ),
+      ),
+    ),
   );
   readonly updateSearch = this.effect<void>((effect$) =>
     effect$.pipe(
@@ -106,8 +106,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         this.router.navigate([lang, 'search', 'results'], {
           queryParams: this.buildQueryParams(params),
         });
-      })
-    )
+      }),
+    ),
   );
   readonly navigateToPage = this.effect<number>((page$) =>
     page$.pipe(
@@ -118,8 +118,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           queryParams: this.buildQueryParams(params),
           fragment: `page${page}`,
         });
-      })
-    )
+      }),
+    ),
   );
   readonly navigateToSection = this.effect<string>((workCode$) =>
     workCode$.pipe(
@@ -135,8 +135,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
             hitCount += r.hits.length;
           }
         }
-      })
-    )
+      }),
+    ),
   );
   readonly navigateToFullText = this.effect<FullTextInfo>((info$) =>
     info$.pipe(
@@ -150,8 +150,8 @@ export class ResultsStore extends ComponentStore<ResultsState> {
           },
         });
         return EMPTY;
-      })
-    )
+      }),
+    ),
   );
 
   readonly putSearchTerms = this.updater((state, searchTerms: string) => ({
@@ -201,7 +201,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private mapResults(
     sortParam: string | null,
     results: SearchResult[],
-    workByCode: Map<string, Work>
+    workByCode: Map<string, Work>,
   ): [ResultInternal[], HitInternal[]] {
     const sort = sortParam === 'YEAR' ? ResultSort.Year : ResultSort.AaOrder;
     results = this.sort(sort, results ?? [], Array.from(workByCode.values()));
@@ -283,7 +283,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private insertHighlights(
     formatted: string,
     wordIndexMap: { [key: string]: number },
-    hlData: HighlightData[]
+    hlData: HighlightData[],
   ): string {
     const [hlStart, hlEnd] = ['<ks-meta-hit>', '</ks-meta-hit>'];
     for (let i = hlData.length - 1; i >= 0; i--) {
@@ -324,11 +324,11 @@ export class ResultsStore extends ComponentStore<ResultsState> {
         page: this.findPageNum(
           hit.wordIndexMap[hld.startWord.toString()],
           hit.pageByIndex,
-          hit.pages
+          hit.pages,
         ),
         line: this.findLineNum(
           hit.wordIndexMap[hld.startWord.toString()],
-          hit.lineByIndex
+          hit.lineByIndex,
         ),
         text: hlText.substring(textStart, textEnd),
         hasHighlights: true,
@@ -341,7 +341,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     i: number,
     merged: HighlightData[],
     maxCharsAround: number,
-    hlText: string
+    hlText: string,
   ): number {
     const hld = merged[i];
     let textStart = hld.hlStart - maxCharsAround;
@@ -366,7 +366,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
     i: number,
     merged: HighlightData[],
     maxCharsAround: number,
-    hlText: string
+    hlText: string,
   ): number {
     const hld = merged[i];
     let textEnd = hld.hlEnd + maxCharsAround;
@@ -390,7 +390,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private findPageNum(
     wordIndex: number,
     pageByIndex: IndexNumberPair[],
-    pages: number[]
+    pages: number[],
   ): number {
     if (pageByIndex.length == 0) {
       return pages[0];
@@ -405,7 +405,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
 
   private findLineNum(
     wordIndex: number,
-    lineByIndex: IndexNumberPair[]
+    lineByIndex: IndexNumberPair[],
   ): number {
     for (let i = lineByIndex.length - 1; i >= 0; i--) {
       if (wordIndex > lineByIndex[i].i) {
@@ -418,7 +418,7 @@ export class ResultsStore extends ComponentStore<ResultsState> {
   private sort(
     sort: ResultSort,
     results: SearchResult[],
-    allWorks: Work[]
+    allWorks: Work[],
   ): SearchResult[] {
     const resultByCode = results.reduce((map, r) => {
       map.set(r.workCode, r);
