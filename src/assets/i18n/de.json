@@ -118,8 +118,8 @@
         },
         "ORTHOGRAPHY": {
           "TITLE": "Rechtschreibung",
-          "TEXT": "Durch die veraltete Rechtschreibung kann es sein, dass der Stemming-Algorithmus manche Wörter nicht korrekt verarbeitet, sodass eine Suche nicht alle inhaltlich angemessenen Treffer findet. Um dieses Problem zu umgehen, sollte man auch nach anderen Schreibweisen der Suchbegriffe suchen. Dabei kann man sich an folgenden Heuristiken orientieren:",
-          "DETAILS": "TODO"
+          "TEXT": "Durch die veraltete Rechtschreibung kann es sein, dass der Stemming-Algorithmus manche Wörter nicht korrekt verarbeitet, sodass eine Suche nicht alle inhaltlich angemessenen Treffer findet. Um dieses Problem zu umgehen, sollte man mehrere Schreibweisen mit dem ODER-Operator | verknüpfen. Dabei kann man sich an den Heuristiken orientieren, die auf der Startseite im Abschnitt 'Heuristiken für die Rechtschreibung von Suchbegriffen' genannt sind.",
+          "DETAILS": "Beispiel: statt 'Teil & transzendent' sucht mach nach '(Teil | Theil) & (transzendent | transscendent)'"
         }
       }
     },

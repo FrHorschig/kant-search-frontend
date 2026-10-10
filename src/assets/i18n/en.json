@@ -119,8 +119,8 @@
         },
         "ORTHOGRAPHY": {
           "TITLE": "Orthography",
-          "TEXT": "Due to outdated spelling, the stemming algorithm may not process some words correctly, which can result in searches not returning all relevant results. To avoid this issue, you should also search for alternative spellings of your search terms. The following heuristics can be used as a guide:",
-          "DETAILS": "TODO"
+          "TEXT": "Due to the pre-modern spelling, the stemming algorithm cannot process all words correctly, so that searches may not returning all relevant results. To avoid this issue, you should combine multiple alternative spellings with the OR operator |. You can use the spelling heuristics listed on the startpage as guidance.",
+          "DETAILS": "Example: instead 'Teil & transzendent', search for '(Teil | Theil) & (transzendent | transscendent)'"
         }
       }
     },
